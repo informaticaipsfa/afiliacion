@@ -1,0 +1,50 @@
+<div class="box box-primary">
+    <div class="box-body box-profile">
+        <a href="images/ndisponible.jpg" data-fancybox="group1" data-caption="foto" id="minifoto">
+            <img style="width: 180px;" class="profile-user-img img-responsive file-path-wrapper-pre-view" id="_img"
+                 src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"/><span></span>
+        </a>
+        <div class="file-field input-field col file-field-input-field ">
+            <center><label class="btn btn-default btn-file text-center" id="cargarfoto">Cargar Foto
+                <input type="file" style="visibility:hidden;" id="imgfoto" accept="image/*"
+                       onchange="readURL(this,'_img');" onclick="clearURL(this)">
+            </label></center>
+        </div>
+
+
+        <p class="text-muted text-center">
+            <img width="35%" src="images/grados/cnel.png" alt="Grado del Milita" id="_imggrado">
+        </p>
+        <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+                <b>Fecha de Graduación</b> <a class="pull-right" id="_fingreso"></a>
+            </li>
+            <li class="list-group-item">
+                <b>Categoria</b> <a class="pull-right" id="_categoria"></a>
+            </li>
+            <li class="list-group-item">
+                <b>Clasificación</b> <a class="pull-right" id="_clasificacion"></a>
+            </li>
+            <li class="list-group-item">
+                <b>Situación</b> <a class="pull-right" id="_situacion"></a>
+            </li>
+
+            <li class="list-group-item">
+                <b>Ultimo Ascenso</b> <a class="pull-right" id="_fascenso"></a>
+            </li>
+            <li class="list-group-item">
+                <b>Tiempo de Servicio</b> <a class="pull-right" id="_tiemposervicio"> </a>
+            </li>
+            <li class="list-group-item">
+                <b>Historico Militar</b> <a class="pull-right" href="#" onClick="HistoricoMilitar()"> Ver Más</a>
+            </li>
+            <li class="list-group-item" >
+                <b>Código Componente</b> <a class="pull-right" href="#" onClick="CodigoComponente()" id="_codigocomponente"></a>
+            </li>
+            <li class="list-group-item">
+                <b>Historia Clinica</b> <a class="pull-right" href="#" id="_codigocomponente" onClick="HistoriaClinica()"> Ver Más</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.box-body -->
+</div>

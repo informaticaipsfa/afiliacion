@@ -1,0 +1,108 @@
+<style>
+.marco-carnetf:after {
+    /*content: "No Valido";
+    font-size: 5em;
+    color: rgba(52, 166, 214, 0.4);
+    z-index: 9999;*/
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 90;
+    bottom: 0;
+    left: 0;
+
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    -ms-pointer-events: none;
+    -o-pointer-events: none;
+    pointer-events: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+</style>
+<section>
+<div class="marco-carnetf">
+
+    <div class="css-fotof"><img id="imgfotoCarnetf" style="width:68px; height:90px;" src="images/ndisponible.jpg"
+                               onerror="this.src='images/ndisponible.jpg'"/></div>
+    <div class="fecha-vencimientof" id="divfechavencimiento">
+        VENCE 05/07/2025
+    </div>
+    <div class="firma-titularf">
+
+        <img src="images/firma_digital.png" onerror="this.src='images/ndisponible.jpg'"
+             style="height:24px;width:70px;" id="imgfirmaCarnetf"/>
+
+        <p>
+        <div class="firma-titular-iif">FIRMA DEL TITULAR</div>
+        </p>
+    </div>
+    <div class="labels-dat-personf">
+        <label>APELLIDOS</label>
+        <br>
+        <label>NOMBRES</label>
+        <br>
+        <label>F. DE. NAC.</label>
+        <br>
+        <label>CEDULA</label>
+        <br>
+        <label class="letra-8">PARENTESCO</label>
+        <br>
+        <label class="letra-8">AFILIADO</label>
+    </div>
+    <div class="labels-dat-person-reslf">
+        <label id="lblapellidof">Apellidos Familiar</label>
+        <br>
+        <label id="lblnombref">Nombres Familiar</label>
+        <br>
+        <label id="lblfechanacf">16/11/2000</label>
+        <br>
+        <label id="lblcedulaf">1564654</label>
+        <br>
+        <label id="lblparentescof" class="letra-8">MADRE</label>
+        <br>
+        <label style="font-size:8px;" id="lblafiliadof" class="letra-8">Nombre Completo Afiliado C.I 987654321</label>
+
+    </div>
+</div>
+</section>
+
+<section>
+<div class="marco-carnetf">
+
+    <div class="css-huellaf">
+        <img id="imghuellaCarnetf" src="" onerror="this.src='images/ndisponible.jpg'"
+             style="height:70px;width:50px;">
+    </div>
+    <div class="datos-medicos-if" style="width: 100px;">
+        <label style="display: none;">HISTORIA CLINICA:</label><label class="lblhistoriaf" id="lblhistoriaf">54156154</label>
+        <br>
+        <label style="display: none;">GRUPO SANGUINEO:</label><label class="lblgsanguineof"  id="lblgsanguineof">A+</label>
+        <br>
+        <label style="display: none;">OBSERVACIONES:</label><label class="lblobsf" id="lblobsf">NINGUNA</label>
+    </div>
+    <div class="firma-presidentef">
+        <img src="images/firma_digital.png" onerror="this.src='images/ndisponible.jpg'"
+             style="height:24px;width:70px; margin-left:11px;" id="imgfirmaCarnetfp"/>
+
+    </div>
+
+    <div class="datos-medicos-iif" style="width:100px;">
+
+        <label style="display: none;">DONANTE:</label><label id="lbldonantef">NO</label>
+        <br>
+        <label style="display: none;">SERIAL:</label><label id="lblserialf">848944746454</label>
+    </div>
+
+    <div class="telefono-contactof" style="top: 125px;">
+        <label id="lbltelefonof">041213525154</label>
+    </div>
+</div>
+</section>

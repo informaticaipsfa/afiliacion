@@ -1,0 +1,48 @@
+
+<div class="form-group">
+   <div class="col-md-8 col-sm-12">
+    <label>Hospital Militar:</label>
+    <select class="js-states form-control" style="width: 100%" tabindex="-1" aria-hidden="true" id="cmbHospital" >
+      <option value="S"></option>
+      <option value="0">HOSPITAL "TCNEL. FRANCISCO VALBUENA"</option>
+      <option value="1">HOSPITAL "TN.PEDRO MANUEL CHIRINOS"</option>
+      <option value="2">HOSPITAL "DR.JOSE ÁNGEL ÁLAMO"</option>
+      <option value="3">HOSPITAL "CNEL. ELBANO PAREDES VIVAS"</option>
+      <option value="4">HOSPITAL "DR.FRANCISCO ISNARDI"</option>
+      <option value="5">HOSPITAL "DR.VICENTE SALIAS"</option>
+      <option value="6">HOSPITAL "DR.CARLOS ARVELO"</option>
+      <option value="7">HOSPITAL "CNEL.NELSON SAYAGO MORA"</option>
+      <option value="8">HOSPITAL "CNEL.FRANCISCO JAVIER GUTIÉRREZ"</option>
+      <option value="9">HOSPITAL "DR.RAÚL PERDONO"</option>
+      <option value="10">HOSPITAL "DR.MANUEL SILVERIO CASTILLO"</option>
+      <option value="11">HOSPITAL "CAP.GUILLERMO HERNÁNDEZ JACOBSEN"</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm col-md-4 col-sm-12">
+      <label>Nro. de Historia:</label>
+       <div class="input-group input-group-sm">
+          <input class="form-control" placeholder="Número de Historia Clinica" id="_cedula" onkeypress="Enter(event);" type="text">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-success" onclick="Guardar()"><i class="fa fa-save"></i></button>
+          </span>
+      </div>
+  </div>
+</div>
+<br>
+<div class="form-group">
+   <div class="col-md-12 col-sm-12">
+      <table id="tblhistoriaclinica" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>HOSPITAL MILITAR</th>
+            <th>NRO. DE HISTORIA CLÍNICA</th>
+            <th>FECHA DE REGISTRO</th>
+            </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+</div>
+</div>

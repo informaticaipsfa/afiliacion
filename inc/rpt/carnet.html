@@ -1,0 +1,89 @@
+
+<style>
+    .marco-carnet:after {
+        content: "No Valido";
+        font-size: 5em;
+        color: rgba(52, 166, 214, 0.4);
+        z-index: 9999;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        right: 90;
+        bottom: 0;
+        left: 0;
+
+        -webkit-pointer-events: none;
+        -moz-pointer-events: none;
+        -ms-pointer-events: none;
+        -o-pointer-events: none;
+        pointer-events: none;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+</style>
+
+<div class="marco-carnet">
+    <div class="css-foto"><img id="imgfotoCarnet" style="width:73px; height:91px;" src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"></div>
+    <div class="css-insignia"><img id="imggradoCarnet" src="images/grados/cnel.png" style="width:112px; height:55px;"/></div>
+    <div class="fecha-vencimiento" id="divvencimiento">VENCE ******</div>
+    <div class="labels-dat-person-resl">
+        <label class="letra-8" id="lblgrado">CORONEL</label>
+        <br>
+        <label id="lblnombre">CARLOS ENRIQUE</label>
+        <br>
+        <label id="lblapellido">PEÑA ALBARRAN</label>
+        <br>
+        <label id="lblcedula">C.I 1752251</label>
+        <br>
+    </div>
+    <div class="nota-pie-i-anverso">A QUIEN SE RECOMIENDA LE SEAN GUARDADAS</div>
+    <div class="nota-pie-ii-anverso">LAS CONSIDERACIONES DEBIDAS A SU GRADO</div>
+</div>
+
+<section>
+    <div class="marco-carnet">
+        <div class="serial-numero">SERIAL</div>
+        <div class="serial" id="divserial">***********</div>
+        <div class="css-huella">
+            <img id="imghuellaCarnet" onerror="this.src='images/ndisponible.jpg'" style="height:70px;width:70px;">
+        </div>
+        <div class="categoria1" id="divcategoria"> EFECTIVO</div>
+        <div class="siglas-componente" id="divsiglas">EJ</div>
+        <div class="labels-dat-medicos">
+            <label>CODIGO</label><br>
+            <label>HISTORIA CLINICA</label><br>
+            <label>CABELLOS</label><br>
+            <label>GRUPO SANGUINEO</label><br>
+            <label>ESTATURA</label><br>
+            <label>OJOS</label><br>
+            <label>COLOR</label><br>
+        </div>
+
+        <div class="labels-dat-medicos-resl">
+            <label id="lblcodigo">23-07-198</label><br>
+            <label id="lblhistoria">35154646</label><br>
+            <label id="lblcabello">RUBIO</label><br>
+            <label id="lblgrupo">O-</label><br>
+            <label id="lblestatura">1.85 M</label><br>
+            <label id="lblojos">AZUL</label><br>
+            <label id="lblcolor">NEGRA</label><br>
+        </div>
+
+        <div class="firma-ministro">
+            <img src="" onerror="this.src='images/ndisponible.jpg'" style="height:24px;width:70px; text-align:center;" id="imgfirmaCarnet"/>
+        </div>
+        <div class="nota-pie-i-reverso">
+            MINISTERIO DEL PODER POPULAR PARA LA DEFENSA
+        </div>
+        <div class="nota-pie-ii-reverso" id="notapie">
+
+        </div>
+    </div>
+</section>

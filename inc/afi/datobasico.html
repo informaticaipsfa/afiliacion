@@ -1,0 +1,692 @@
+<form class="form-horizontal" id="_frmDatoBasico">
+<div class="box box-primary box-solid " >
+  <div class="box-header with-border">
+
+     <h3 class="box-title">Datos Basicos del Militar</h3>
+     <!--<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" onclick="ActivarBuscar()"><i class="fa fa-search"></i>
+        <button type="button" class="btn btn-box-tool" onclick="CConstanciaAfiliacion()"><i class="fa fa-print"></i>
+        <button type="button" class="btn btn-box-tool" onclick="VisualizarCarnet()"><i class="fa fa-credit-card"></i>
+        <button type="button" class="btn btn-box-tool" onclick="activarSalvar()"><i class="fa fa-pencil"></i>
+        <button type="button" class="btn btn-box-tool" onclick="ObtenerMilitar()"><i class="fa fa-save"></i>
+
+
+        </button>
+      </div>!-->
+
+  </div>
+  <div class="box-body">
+
+      <div class="box-body">
+          <div class="form-group">
+            <div class="col-md-4 col-sm-12">
+            <label>Cédula:</label>
+              <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" disabled="disabled">V
+                    </button>
+                </span>
+                <input class="form-control" id="txtcedula"  type="text" disabled="disabled" maxlength="8" required tabindex="1" onblur="BuscarInsert()">
+                <input type="hidden" id="txtnropersona">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-success btn-flat"
+                  id="btncopiacedula" onClick="seleccionarCopiaCedula()"><i class="glyphicon glyphicon-paperclip"></i></button>
+                </span>
+              </div>
+          </div> <!-- Cedula -->
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-6 col-sm-12">
+            <label>Nombres:</label>
+            <input  id="txtnombre" class="form-control"  type="text" disabled="disabled" required tabindex="2" onkeypress="return soloLetras(event)">
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <label>Apellidos:</label>
+           <input  id="txtapellido" class="form-control"  type="text" disabled="disabled" required tabindex="3" onkeypress="return soloLetras(event)">
+          </div>
+       </div> <!-- Grupo nombres-->
+
+         <div class="form-group">
+           <div class="col-md-3 col-sm-12">
+             <label>Fecha de Nacimiento:</label>
+
+
+               <div class="input-group date">
+                 <div class="input-group-addon">
+                   <i class="fa fa-calendar"></i>
+                 </div>
+                 <div class="input-group input-group">
+                   <input type="text" class="form-control"  id="txtnacimiento" disabled="disabled" tabindex="4">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-success btn-flat"
+                      id="btnnacimiento" onClick="seleccionarPartida()" ><i class="glyphicon glyphicon-paperclip"></i></button>
+                    </span>
+                </div>
+               </div>
+
+           </div>
+           <div class="col-md-3 col-sm-6">
+             <label >Sexo:</label>
+             <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbsexo" disabled="disabled" onchange="SeleccionarPorSexo()" required>
+               <option selected="selected" value="S"></option>
+               <option value="F">FEMENINO</option>
+               <option value="M">MASCULINO</option>
+             </select>
+           </div>
+           <div class="col-md-3 col-sm-6">
+              <label>Estado Civil:</label>
+              <select class="js-states form-control" style="width: 100%"
+                  aria-hidden="true" id="cmbedocivil" disabled="disabled" onchange="seleccionarActas()" required>
+                <option selected="selected" value="S"></option>
+              </select>
+           </div>
+           <div class="col-md-3 col-sm-12" id="_divfechadefuncion">
+             <label>Fecha de Defunción:</label>
+             <div class="input-group input-group">
+             <input type="text" class="form-control" id="txtdefuncion" disabled="disabled">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-success btn-flat btn-md" id="btndefuncion" onClick="seleccionarDefuncion()" disabled="disabled"><i class="fa fa-file-text"></i></button>
+                  </span>
+              </div>
+           </div>
+
+         </div> <!-- Grupo nombres-->
+
+        <div class="form-group"  id="_reconocidos" style="display:none">
+          <div class="col-md-3 col-sm-6">
+            <label>Año reconocido:</label>
+            <input  id="txtareconocido" class="form-control"  type="text" disabled="disabled">
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label>Mes reconocido:</label>
+            <input  id="txtmreconocido" class="form-control"  type="text" disabled="disabled">
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label>Día reconocido:</label>
+            <input  id="txtdreconocido" class="form-control"  type="text" disabled="disabled">
+          </div>
+       </div> <!-- Grupo nombres-->
+          <div class="form-group">
+              <div class="col-md-3 col-sm-6">
+                  <label>En proceso de baja:</label>
+                  <select id="cmbpbaja" class="form-control" disabled="disabled">
+                      <option value="0" selected>NO</option>
+                      <option value="1">SI</option>
+                  </select>
+              </div>
+          </div>
+      <br>
+
+
+     <div class="row" style="padding:10px;">
+    <div class="nav-tabs-custom box box-primary">
+       <!-- Nav tabs -->
+       <ul class="nav nav-pills nav-fill nav-justified" >
+         <li role="presentation" class="active"><a href="#mdmilitar" aria-controls="home" role="tab" data-toggle="tab">Datos Militares</a></li>
+         <li role="presentation"><a href="#mfinanciero" aria-controls="home" role="tab" data-toggle="tab">Cta. Bancaria</a></li>
+         <li role="presentation"><a href="#mdireccion" aria-controls="home" role="tab" data-toggle="tab">Dirección</a></li>
+         <li role="presentation"><a href="#mpartida" aria-controls="profile" role="tab" data-toggle="tab" style="display: none">Part. Nacimiento</a></li>
+         <li role="presentation"><a href="#mdfisico" aria-controls="messages" role="tab" data-toggle="tab">Datos Fisicos</a></li>
+         <li role="presentation"><a href="#mdcarnet" aria-controls="messages" role="tab" data-toggle="tab">TIM</a></li>
+         <li role="presentation"><a href="#mddocu" aria-controls="messages" role="tab" data-toggle="tab">Documentos</a></li>
+
+       </ul>
+
+       <!-- Tab panes -->
+       <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="mdmilitar" style="padding:15px">
+
+              <div class="form-group">
+              <div class="col-md-4 col-sm-12">
+                  <label >Fecha Ingreso FANB:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+
+                    <input type="text" class="form-control"  id="txtfechagraduacion" disabled="disabled" tabindex="4" required>
+
+                  </div>
+
+
+
+
+               </div>
+                <div class="col-md-4 col-sm-12">
+                  <label>Componente:</label>
+                  <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbcomponente" required disabled="disabled" onChange="cambiarGrado()">
+                    <option selected="selected" value="S"></option>
+                    <option value="EJ">EJERCITO BOLIVARIANO</option>
+                    <option value="AR">ARMADA BOLIVARIANA</option>
+                    <option value="AV">AVIACION MILITAR BOLIVARIANA</option>
+                    <option value="GN">GUARDIA NACIONAL BOLIVARIANA</option>
+                    <option value="MI" disabled="disabled">MILICIA BOLIVARIANA</option>
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <label>Categoria:</label>
+                  <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbcategoria" required disabled="disabled">
+                    <option selected="selected" value="S"></option>
+                    <option value="EFE">EFECTIVO</option>
+                    <option value="ASI">ASIMILADO</option>
+                    <option value="RES">RESERVA</option>
+                    <option value="HNO" disabled="disabled">HONORARIOS</option>
+                    <option value="MIL" disabled="disabled">MILICIA</option>
+
+                  </select>
+                </div>
+
+            </div><!-- Grupo Grado-->
+
+              <div class="form-group">
+
+                <div class="col-md-4 col-sm-12">
+                  <label>Clasificación:</label>
+                  <select class="js-states form-control" style="width: 100%"  aria-hidden="true" required id="cmbclase" disabled="disabled">
+                    <option selected="selected" value="S"></option>
+                    <option value="OFI">OFICIAL DE COMANDO</option>
+                    <option value="OFIT">OFICIAL TECNICO</option>
+                    <option value="OFITR">OFICIAL DE TROPA</option>
+                    <option value="TPROF">TROPA PROFESIONAL</option>
+                    <option value="TPROA">TROPA ALISTADA</option>
+                    <option value="ASI">ASIMILADO</option>
+                    <option value="ASIT">ASIMILADO TECNICO</option>
+
+                    <option value="HNO" disabled="disabled">HONORARIOS</option>
+                    <option value="MIL" disabled="disabled">MILICIA</option>
+
+
+
+                  </select>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <label >Grado:</label>
+                  <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbgrado" required disabled="disabled">
+                    <option selected="selected" value="S"></option>
+                   </select>
+               </div>
+                <div class="col-md-4 col-sm-12">
+                  <label>Situación:</label>
+                  <select class="js-states form-control" style="width: 100%"  aria-hidden="true" required id="cmbsituacion" disabled="disabled">
+                    <option selected="selected" value="S"></option>
+                    <option value="ACT">ACTIVO</option>
+                    <option value="RCP">RESERVA ACTIVA</option> <!-- RETIRADO CON PENSION-->
+                    <option value="RSP">RETIRADO</option>
+                    <option value="FCP" disabled="disabled">FALLECIDO CON PENSION</option>
+                    <option value="FSP" disabled="disabled">FALLECIDO SIN PENSION</option>
+                    <option value="I" disabled="disabled">INVALIDEZ</option>
+                    <option value="D" disabled="disabled">DISPONIBLE</option>
+                  </select>
+                </div>
+
+
+            </div> <!-- Grupo nombres-->
+
+
+            <div class="form-group">
+             <div class="col-md-3">
+               <label >Resolución Número:</label>
+               <input id="txtnresuelto" class="form-control" disabled="disabled"  type="text" maxlength="8" required>
+             </div>
+             <div class="col-md-3">
+               <label >Resolución Fecha:</label>
+
+               <div class="input-group date">
+                 <div class="input-group-addon">
+                   <i class="fa fa-calendar"></i>
+                 </div>
+                 <input id="txtmfecharesuelto" class="form-control" disabled="disabled"  type="text" required>
+               </div>
+
+             </div>
+             <div class="col-md-3">
+               <label >Último Ascenso:</label>
+
+               <div class="input-group date">
+                 <div class="input-group-addon">
+                   <i class="fa fa-calendar"></i>
+                 </div>
+                 <input id="txtmfechaultimoascenso" class="form-control" disabled="disabled"  type="text" required>
+               </div>
+
+             </div>
+             <div class="col-md-3">
+               <label>Orden de Merito:</label>
+               <input id="txtposicion" class="form-control" disabled="disabled"  type="text" maxlength="6" required>
+             </div>
+           </div> <!-- Grupo nombres-->
+
+
+
+          </div><!-- Tab panes Datos Militares-->
+
+          <!-- Tab Datos Financieros-->
+
+           <div role="tabpanel" class="tab-pane" id="mfinanciero"  style="padding:15px">
+
+             <div class="form-group">
+               <div class="col-md-12 col-sm-12" id="_cmbminstfinanciera">
+                 <label>Institución Financiera</label>
+                    <select class="js-states form-control" style="width: 100%" aria-hidden="true" disabled="disabled" required id="cmbminstfinanciera" onchange="SeleccionarCuenta()">
+                      <option selected="selected" value="S"></option>
+                      <option value="0156">100%BANCO</option>
+                      <option value="0196">ABN AMRO BANK</option>
+                      <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
+                      <option value="0171">BANCO ACTIVO BANCO COMERCIAL, C.A.</option>
+                      <option value="0166">BANCO AGRICOLA</option>
+                      <option value="0175">BANCO BICENTENARIO</option>
+                      <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
+                      <option value="0164">BANCO DE DESARROLLO DEL MICROEMPRESARIO</option>
+                      <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                      <option value="0114">BANCO DEL CARIBE C.A.</option>
+                      <option value="0149">BANCO DEL PUEBLO SOBERANO C.A.</option>
+                      <option value="0163">BANCO DEL TESORO</option>
+                      <option value="0176">BANCO ESPIRITO SANTO, S.A.</option>
+                      <option value="0115">BANCO EXTERIOR C.A.</option>
+                      <option value="0003">BANCO INDUSTRIAL DE VENEZUELA.</option>
+                      <option value="0173">BANCO INTERNACIONAL DE DESARROLLO, C.A.</option>
+                      <option value="0105">BANCO MERCANTIL C.A.</option>
+                      <option value="0191">BANCO NACIONAL DE CREDITO</option>
+                      <option value="0116">BANCO OCCIDENTAL DE DESCUENTO.</option>
+                      <option value="0138">BANCO PLAZA</option>
+                      <option value="0108">BANCO PROVINCIAL BBVA</option>
+                      <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
+                      <option value="0168">BANCRECER S.A. BANCO DE DESARROLLO</option>
+                      <option value="0134">BANESCO BANCO UNIVERSAL</option>
+                      <option value="0177">BANFANB</option>
+                      <option value="0146">BANGENTE</option>
+                      <option value="0174">BANPLUS BANCO COMERCIAL C.A</option>
+                      <option value="0190">CITIBANK.</option>
+                      <option value="0121">CORP BANCA.</option>
+                      <option value="0157">DELSUR BANCO UNIVERSAL</option>
+                      <option value="0151">FONDO COMUN</option>
+                      <option value="0601">INSTITUTO MUNICIPAL DE CR&#201;DITO POPULAR</option>
+                      <option value="0169">MIBANCO BANCO DE DESARROLLO, C.A.</option>
+                      <option value="0137">SOFITASA</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-12" id="_cmbmtipofinanciera">
+                  <label >Tipo de Cuenta:</label>
+                  <select class="js-states form-control" style="width: 100%" disabled="disabled" required aria-hidden="true" id="cmbmtipofinanciera" >
+                    <option selected="selected" value="S"></option>
+                   <option value="CA" selected="selected">AHORRO</option>
+                   <option value="CC">CORRIENTE</option>
+                  </select>
+                </div>
+                <div class="col-md-6 col-sm-12" id="_txtmnrocuenta">
+                  <label>Nro. de Cuenta:</label>
+                  <input  id="txtmnrocuenta" class="form-control" disabled="disabled"  type="text" maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask>
+                </div>
+              </div><!-- .Form-Group -->
+
+              <div class="form-group">
+                <div class="col-md-12 col-sd-12" id="_tblBancos">
+
+                </div>
+              </div>
+
+
+
+         </div><!-- Tab Datos Financieros-->
+         <div role="tabpanel" class="tab-pane" id="mdireccion" style="padding:15px">
+             <div class="form-group">
+              <div class="col-md-4">
+                <label>Estado:</label>
+                <select class="js-states form-control" style="width: 100%" disabled="disabled"  id="cmbmestado" required onchange="CiudadMunicipio()">
+                  <option value="S" selected="selected"></option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Ciudad:</label>
+                <select class="js-states form-control" style="width: 100%" disabled="disabled"  id="cmbmciudad" required>
+                  <option value="S" selected="selected"></option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Municipio:</label>
+                <select class="js-states form-control" style="width: 100%" disabled="disabled" id="cmbmmunicipio" required onchange="SeleccionarParroquia()">
+                  <option value="S" selected="selected"></option>
+                </select>
+              </div>
+            </div> <!-- Grupo nombres-->
+             <div class="form-group">
+              <div class="col-md-4">
+                <label >Parroquia:</label>
+                 <select class="js-states form-control" style="width: 100%" disabled="disabled" id="cmbmparroquia" required>
+                  <option value="S" selected="selected"></option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Avenida / Edificio / Calle:</label>
+                <input id="txtmcalle" class="form-control" disabled="disabled"  type="text" required>
+              </div>
+              <div class="col-md-2">
+                <label># Casa:</label>
+                <input id="txtmcasa" class="form-control" disabled="disabled"  type="text">
+              </div>
+              <div class="col-md-2">
+                <label># Apto:</label>
+                <input id="txtmapto" class="form-control" disabled="disabled"  type="text">
+              </div>
+            </div> <!-- Grupo nombres-->
+             <div class="form-group">
+               <div class="col-md-4">
+                 <label >Teléfono:</label>
+                 <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-phone"></i>
+                  </div>
+                 <input id="txtmtelefono" class="form-control" disabled="disabled" type="text" data-inputmask='"mask": "(9999) 999-99-99"' data-mask  required>
+               </div>
+              </div>
+               <div class="col-md-4">
+                 <label>Celular:</label>
+                  <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-phone"></i>
+                  </div>
+                 <input id="txtmcelular" class="form-control" disabled="disabled" type="text" data-inputmask='"mask": "(9999) 999-99-99"' data-mask  required>
+               </div>
+               </div>
+              <div class="col-md-4 col-sm-12">
+                  <label class="control-label">Correo Electronico:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <input type="email" class="form-control"  id="txtmcorreo" disabled="disabled" required onblur="ValidarCorreo()">
+                  </div>
+               </div>
+             </div><!-- Grupo nombres-->
+
+             <div class="form-group">
+             <div class="col-md-4">
+                  <label class="control-label">Twitter:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-twitter"></i>
+                    </div>
+                    <input type="text" class="form-control"  id="txtmtwitter" disabled="disabled">
+                  </div>
+              </div>
+             <div class="col-md-4">
+                  <label class="control-label">FaceBook:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-facebook"></i>
+                    </div>
+                    <input type="text" class="form-control"  id="txtmfacebook" disabled="disabled">
+                  </div>
+               </div>
+             <div class="col-md-4">
+                  <label class="control-label">Instagram:</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-instagram"></i>
+                    </div>
+                    <input type="text" class="form-control"  id="txtminstagran" disabled="disabled">
+                  </div>
+               </div>
+            </div>
+         </div><!-- Tab panes  Direccion-->
+
+
+         <div role="tabpanel" class="tab-pane" id="mpartida" style="padding:15px">
+           <!-- <div class="form-group">
+             <div class="col-md-3">
+                <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgpartida" >
+                  <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view" src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgpartida"/>
+                </div>
+                <div class="file-field input-field col file-field-input-field " >
+                  &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file">Seleccionar Firma
+                  <input type="file" style="visibility:hidden;" id="imghuella" accept="image/*" onchange="readURL(this,'_imgpartida');" onclick="clearURL(this)"></label>
+                </div>
+
+             </div>
+             <div class="col-md-9">
+               <div class="form-group">
+                 <div class="col-md-8">
+                   <label>Registro Civil:</label>
+                   <input id="txtpregistrocivil" class="form-control" disabled="disabled"  type="text">
+                 </div>
+                 <div class="col-md-4">
+                   <label>Año:</label>
+                   <input id="txtpano" class="form-control" disabled="disabled" type="text">
+                 </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-4">
+                  <label >Nro. Acta:</label>
+                  <input id="txtpacta" class="form-control" disabled="disabled" type="text">
+                </div>
+                <div class="col-md-4">
+                  <label>Nro. Folio:</label>
+                  <input  id="txtpfolio" class="form-control" disabled="disabled" type="text">
+                </div>
+                <div class="col-md-4">
+                  <label>Libro / Tomo:</label>
+                  <input  id="txtplibro" class="form-control" disabled="disabled" type="text">
+                </div>
+             </div>
+
+             </div>
+           </div> -->
+         </div><!-- Tab panel Partida de Nacimiento -->
+
+         <div role="tabpanel" class="tab-pane" id="mdfisico"  style="padding:15px">
+
+             <div class="form-group">
+              <div class="col-md-3 col-sm-6">
+                <label>Estatura:</label>
+                <input  id="txtmestatura" class="form-control" disabled="disabled" type="text" required maxlength="4" onkeypress="return Util.SoloNumero(event,this)">
+              </div>
+              <div class="col-md-3  col-sm-6">
+                <label>Peso:</label>
+                <input  id="txtmpeso" class="form-control" disabled="disabled" type="text" required maxlength="6" onkeypress="return Util.SoloNumero(event,this)">
+              </div>
+              <div class="col-md-3  col-sm-6">
+                <label>Talla:</label>
+                <input  id="txtmtalla" class="form-control" disabled="disabled" type="text" required maxlength="2">
+              </div>
+              <div class="col-md-3  col-sm-6">
+                <labe>Grupo Sanguineo:</label>
+
+                <select class="js-states form-control" style="width: 100%" disabled="disabled" id="cmbmgruposanguineo" required>
+                  <option value="S" selected="selected"></option>
+                  <option value="0-">0-</option>
+                  <option value="O+">0+</option>
+                  <option value="A-">A-</option>
+                  <option value="A+">A+</option>
+                  <option value="B-">B-</option>
+                  <option value="B+">B+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="AB+">AB+</option>
+                </select>
+              </div>
+            </div> <!-- Grupo nombres-->
+
+
+             <div class="form-group">
+              <div class="col-md-3">
+                <label>Color de Piel:</label>
+                <select class="js-states form-control" style="width: 100%" disabled="disabled" id="cmbmpiel" required>
+                  <option value="S" selected="selected"></option>
+                  <option value="NE">NEGRA</option>
+                  <option value="TR">TRIGUEÑA</option>
+                  <option value="BL">BLANCA</option>
+                  <option value="CA">CANELA</option>
+                  <option value="MO">MORENA</option>
+                  <option value="RO">ROSADA</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Color de Ojos:</label>
+                <select class="js-states form-control" style="width: 100%" disabled="disabled" id="cmbmojos" required>
+                  <option value="S" selected="selected"></option>
+                  <option value="CA">CASTAÑO</option>
+                  <option value="PA">PARDO</option>
+                  <option value="AM">ÁMBAR</option>
+                  <option value="AV">AVELLANA</option>
+                  <option value="VE">VERDE</option>
+                  <option value="AZ">AZUL</option>
+                  <option value="GR">GRIS</option>
+                  <option value="NE">NEGRO</option>
+                  <option value="MA">MARRÓN</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Color de Cabello:</label>
+                <select class="js-states form-control" style="width: 100%" disabled="disabled" id="cmbmcolorcabello" required>
+                  <option value="S" selected="selected"></option>
+                  <option value="NE">NEGRO</option>
+                  <option value="BA">BLANCO</option>
+                  <option value="MA">MARRON</option>
+                  <option value="CA">CASTAÑO</option>
+                  <option value="AM">AMARILLO</option>
+                  <option value="AZ">AZUL</option>
+                  <option value="VI">VIOLETA</option>
+                  <option value="CV">CALVO</option>
+                  <option value="GR">GRIS</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Seña Particular:</label>
+                <input  id="txtmsenaparticular" class="form-control" disabled="disabled" type="text">
+              </div>
+            </div> <!-- Grupo nombres-->
+
+
+
+         </div><!-- Tab panes Datos Fisicos-->
+
+           <div role="tabpanel" class="tab-pane" id="mdcarnet"  style="padding:15px">
+           <div class="row">
+              <label class="col-md-12"></label>
+           </div>
+           <div class="row">
+                 <!-- Firma -->
+             <div class="col-md-3">
+                <div><center>
+                  <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imghuellam" >
+                      <a href="images/ndisponible.jpg" data-fancybox="group1" data-caption="foto" id="minihuella">
+                          <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imghuellam"/>
+                      </a>
+
+                  </div>
+                  <div class="file-field input-field col file-field-input-field " >
+                    &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file" id="cargarfirma">Firma
+                    <input type="file" style="visibility:hidden;" id="imghuellam" accept="image/*" onchange="readURL(this,'_imghuellam');" onclick="clearURL(this)">
+                    </label>
+                  </div>
+                </center>
+                </div>
+             </div>
+             <!--Fin Firma -->
+             <div class="col-md-3">
+                <div><center>
+                  <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgfirmam" >
+                      <a href="images/ndisponible.jpg" data-fancybox="group1" data-caption="foto" id="minifirma">
+                          <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgfirmam"/>
+                      </a>
+
+                  </div>
+                  <div class="file-field input-field col file-field-input-field " >
+                    &nbsp;<label class="btn btn-default btn-file" id="cargarhuella">Huella
+                    <input type="file" style="visibility:hidden;" id="imgfirmam" accept="image/*" onchange="readURL(this,'_imgfirma');" onclick="clearURL(this)">
+                  </label>
+                  </div>
+                </center>
+                </div>
+             </div>
+
+             <div class="col-md-6">
+               <div class="form-group">
+                 <div class="col-md-12">
+                   <label>Codigo de Componente:</label>
+                   <input id="txtcodigocomponente" class="form-control" disabled="disabled" type="text" required  >
+
+                 </div>
+               </div>
+               <div class="form-group">
+                 <div class="col-md-12">
+
+                     <label>Número de Historia Clinica:</label>
+                     <div class="input-group input-group-sm">
+                       <input id="txtnumhistoriaclinica" class="form-control" disabled="disabled" type="text" required>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-success btn-flat btn-md" id="btnhistoria" onClick="HistoriaClinica()">
+                              <i class="fa fa-file-text"></i></button>
+                            </span>
+                      </div>
+
+                 </div>
+                </div> <!-- Grupo nombres-->
+
+             </div>
+           </div>
+         </div><!-- Tab panel Tarjeta de Identificación Militar-->
+         <div role="tabpanel" class="tab-pane" id="mddocu" disabled="disabled"  style="padding:15px">
+           <div class="form-group">
+             <div class="col-md-2">
+               <label>Cédulas</label>
+               <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgfirma"/>
+             </div>
+             <div class="col-md-2">
+               <label>Resoluciones</label>
+               <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgresoluciones"/>
+             </div>
+             <div class="col-md-2">
+               <label>Partidas</label>
+               <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgfirma"/>
+             </div>
+             <div class="col-md-2">
+               <label>Actas Varias</label>
+               <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgfirma"/>
+             </div>
+             <div class="col-md-2">
+               <label>Constancias</label>
+               <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+               src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgfirma"/>
+             </div>
+           </div>
+
+         </div><!-- Tab panel Documentacionr-->
+       </div>
+
+    </div> <!-- Fila para el Tabs Militar -->
+
+
+   </div>
+
+      </div>
+    </form>
+  </div><!-- /.box-body -->
+  <div class="modal-footer" id="_botonesmilitar">
+    <button type="button" class="btn btn-md btn-primary" data-dismiss="modal" onclick="CConstanciaAfiliacion()" id="_btnConstancia">
+      <i class="fa fa-print "></i>&nbsp;&nbsp;Constancia</button>
+    <button type="button" class="btn btn-md btn-primary prvcarnet hide" data-dismiss="modal" onclick="VisualizarCarnet()" id="_btnTIM">
+      <i class="fa fa-credit-card"></i>&nbsp;&nbsp;Emitir TIM</button>
+    <button type="button" class="btn btn-md btn-warning prvmodificar hide" data-dismiss="modal" onclick="activarSalvar()" id="_btnModificar">
+      <i class="fa fa-pencil"></i>&nbsp;&nbsp;Modificar</button>
+    <button type="button" class="btn btn-md btn-success prvsalvar hide"  onclick="Salvar()" id="_btnSavlvar" style="display:none">
+      <i class="fa fa-save"></i>&nbsp;&nbsp;Continuar</button>
+    <button type="button" class="btn btn-md btn-primary prvmodificar hide"  onclick="Actualizar()" id="_btnActualizar" style="display:none">
+      <i class="fa fa-refresh"></i>&nbsp;&nbsp;Actualizar</button><p id="msjVeriActualizar"></p>
+  </div>
+</div><!-- /.box -->
+
+<!--script>
+  $('form').find('input[type=email]').blur(function(){
+    ValidarCorreo(); //Llamo la funcion que valida el formato del Correo Electronico
+  });
+</script-->

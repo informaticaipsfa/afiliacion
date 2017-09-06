@@ -1,0 +1,66 @@
+{
+	"nombre" : "Root",
+	"login" : "root",
+	"correo" : "",
+	"clave" : "",
+	"sucursal" : "Principal",
+	"sistema" : "",
+	"rol" : {
+		"id" : "0xRO",
+		"descipcion" : "Super Usuario"
+	},
+	"token" : "",
+	"perfil" : {
+		"id" : "0xRO",
+		"descripcion" : "Super Usuario",
+		"privilegios" : [
+			{
+				"metodo" : "afiliacion.salvar",
+				"descripcion" : "Crear Usuario",
+				"accion" : "Insert()"
+			},
+			{
+				"metodo" : "afiliacion.modificar",
+				"descripcion" : "Modificar Usuario",
+				"accion" : "Update()"
+			},
+			{
+				"metodo" : "afiliacion.carnet",
+				"descripcion" : "Imprimir Carnet",
+				"accion" : "ImprimirAPICarnet()"
+			}
+		],
+    "menu": [
+			{
+				"url" : "starter.html",
+				"js" : "usuario",
+				"icono" : "fa fa-search",
+				"nombre" : "Datos"
+			},{
+				"url" : "",
+				"js" : "afi/pendiente",
+				"icono" : "fa fa-check-square-o",
+				"nombre" : "Aprobación TIM",
+				"accion" : "ListarCarnet(0)"
+			},{
+				"url" : "",
+				"js" : "afi/impresion",
+				"icono" : "fa fa-print",
+				"nombre" : "Impresión TIM",
+				"accion" : "ListarCarnet(1)"
+			},{
+				"url" : "",
+				"js" : "afi/instaladores",
+				"icono" : "fa fa-save",
+				"nombre" : "Instaladores"
+			}
+    ]
+
+
+	},
+	"firmadigital" : {
+		"direccionmac" : "",
+		"direccionip" : "192.168.6.45",
+		"tiempo" : "2017-07-09T19:07:05.851Z"
+	}
+}

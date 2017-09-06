@@ -1,0 +1,676 @@
+  <!-- Copia de la Cedula de identidad -->
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="modDocumentCedula">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="_titulocopiacedula">Copia de la cédula de identidad</h4>
+      </div>
+      <div class="modal-body" id="_cntcopiacedula">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12"><center>
+              <!-- <img class="profile-user-img img-responsive" style="width:90px" src="images/ndisponible.jpg"
+                                    onerror="this.src='images/ndisponible.jpg'" id="_imgpartida"></img> -->
+
+                  <div style="width: 300px;height: 200px; margin-left:20px " id="view-_imgcopiacedula" >
+                    <a href="images/ndisponible.jpg" data-fancybox="group1" data-caption="foto" id="miniced">
+                      <img style="width: 300px;height: 200px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                           src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgcopiacedula"/>
+                    </a>
+
+                  </div>
+                  <div class="file-field input-field col file-field-input-field " >
+                    &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file" id="cargarcopiacedula" style="display:none">Cargar
+                    <input type="file" style="visibility:hidden;" id="imgcopiacedula" accept="image/*" onchange="readURL(this,'_imgcopiacedula');" onclick="clearURL(this)">
+                    </label>
+                  </div>
+                </center>
+            </div>
+
+
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer" id="_btnpartida">
+      <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+    </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- Partida de Nacimiento -->
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="modDocumentPartida">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="_titulosol">Registrar Partida de Nacimiento</h4>
+      </div>
+      <div class="modal-body" id="_cntpartida">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12"><center>
+              <!-- <img class="profile-user-img img-responsive" style="width:90px" src="images/ndisponible.jpg"
+                                    onerror="this.src='images/ndisponible.jpg'" id="_imgpartida"></img> -->
+
+                  <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgpartida" >
+                    <a href="images/ndisponible.jpg" data-fancybox="group1" data-caption="foto" id="mininac">
+                      <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                           src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgpartida"/>
+                    </a>
+
+                  </div>
+                  <div class="file-field input-field col file-field-input-field " >
+                    &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file" id="cargarpartida" style="display:none">Cargar
+                    <input type="file" style="visibility:hidden;" id="imgpartida" accept="image/*" onchange="readURL(this,'_imgpartida');" onclick="clearURL(this)">
+                    </label>
+                  </div>
+                </center>
+            </div>
+           <div class="col-md-10 col-sm-12">
+              <label>Registro Civil:</label>
+              <input placeholder="" id="txtpregistrocivil" class="form-control"  type="text" required></input>
+            </div>
+            <div class="col-md-2 col-sm-12">
+              <label>Año:</label>
+              <input placeholder="" id="txtpano" class="form-control"  type="text" required></input>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <label>Nro. Acta:</label>
+              <input placeholder="" id="txtpacta" class="form-control"  type="text" required></input>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <label>Nro. Folio:</label>
+              <input placeholder="" id="txtpfolio" class="form-control"  type="text" required></input>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <label>Libro / Folio:</label>
+              <input placeholder="" id="txtplibro" class="form-control"  type="text"></input>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer" id="_btnpartida">
+      <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+    </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+<!-- Soltera -->
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="modDocumentSoltero">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="_titulosol">Cargar Carta de Solteria</h4>
+      </div>
+      <div class="modal-body" id="_cntsoltero">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+              <img class="profile-user-img img-responsive" style="width:90px" src="images/ndisponible.jpg"
+                                    onerror="this.src='images/ndisponible.jpg'" id="_imgsolteria">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+              <label>Registro Civil:</label>
+              <input placeholder="Registro Civil" id="txtRegistroCivilS" class="form-control"  type="text">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-6 col-sm-12">
+              <label>Fecha de Emision:</label>
+              <input placeholder="Fecha" id="txtFechaS" class="form-control"  type="text">
+            </div>
+         </div>
+
+     </div>
+    </div>
+    <div class="modal-footer" id="_btnsoltero">
+      <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+    </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Casada -->
+  <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="modDocumentCasado">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="_titcasado">Cargar Acta de Matrimonio</h4>
+        </div>
+        <div class="modal-body" id="_cntcasado">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-12 col-sm-12">
+                <img class="profile-user-img img-responsive" style="width:120px" src="images/ndisponible.jpg"
+                                      onerror="this.src='images/ndisponible.jpg'" id="_imgmatrimonio">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10 col-sm-12">
+                <label>Registro Civil:</label>
+                <input placeholder="Registro Civil" id="txtRegistroCivilM" class="form-control"  type="text">
+              </div>
+              <div class="col-md-2 col-sm-12">
+                <label>Año:</label>
+                <input placeholder="Año" id="txtAnoM" class="form-control"  type="text">
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <label>Nro. Acta:</label>
+                <input placeholder="Nro. Acta" id="txtNumeroActaM" class="form-control"  type="text">
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <label>Nro. Folio:</label>
+                <input placeholder="Nro. Folio" id="txtNumeroFolioM" class="form-control"  type="text">
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <label>Libro:</label>
+                <input placeholder="Libro" id="txtLibroM" class="form-control"  type="text">
+              </div>
+           </div>
+         </div>
+
+
+        </div>
+        <div class="modal-footer" id="_btncasado">
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Divorcio -->
+  <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="modDocumentDivorcio">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="_titulod">Cargar Acta de Divorcio</h4>
+        </div>
+        <div class="modal-body" id="_cntdivorcio">
+
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-12 col-sm-12">
+                <img class="profile-user-img" style="width:90px" src=""
+                                      onerror="this.src='images/ndisponible.jpg'" id="_imgdivorcio">
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <label>Tribunal:</label>
+                <input placeholder="Nombre Tribunal" id="txttribunalD" class="form-control"  type="text">
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label>Numero de Sentencia:</label>
+                <input placeholder="Numero de Sentencia" id="txtnumerosentenciaD" class="form-control"  type="text">
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label>Fecha de Sentencia:</label>
+                <input placeholder="Fecha de Sentencia" id="txtfechasentenciaD" class="form-control"  type="text">
+              </div>
+           </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer" id="_btndivorcio">
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+
+
+
+
+
+  <!-- Divorcio -->
+  <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="modDocumentViudez">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="_titulod">Cargar Constancia de Viudez</h4>
+        </div>
+        <div class="modal-body" id="_cntviudez">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-12 col-sm-12">
+                <img class="profile-user-img img-responsive" style="width:90px" src="images/ndisponible.jpg"
+                                      onerror="this.src='images/ndisponible.jpg'" id="_imgviudez">
+              </div>
+              <div class="col-md-10 col-sm-12">
+                <label>Registro Civil:</label>
+                <input placeholder="Registro Civil" id="txtRegistroCivilV" class="form-control"  type="text">
+              </div>
+              <div class="col-md-2 col-sm-12">
+                <label>Fecha:</label>
+                <input placeholder="Año" id="txtFechaV" class="form-control"  type="text">
+              </div>
+           </div>
+         </div>
+
+
+        </div>
+        <div class="modal-footer" id="_btnviudez">
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+
+
+  <!-- Hitoria Media -->
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modDocumentClinico">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="_tituloclinico">Cargar Historia Clinica</h4>
+        </div>
+        <div class="modal-body" id="_cntclinico">
+          <div class="row">
+
+
+            <div class="form-group">
+               <div class="col-md-8 col-sm-12">
+                <label>Hospital Militar:</label>
+                <select class="js-states form-control" style="width: 100%" tabindex="-1" aria-hidden="true" id="cmbHospital" >
+                  <option value="S"></option>
+                  <option value="0">HOSPITAL "TCNEL. FRANCISCO VALBUENA"</option>
+                  <option value="1">HOSPITAL "TN.PEDRO MANUEL CHIRINOS"</option>
+                  <option value="2">HOSPITAL "DR.JOSE ÁNGEL ÁLAMO"</option>
+                  <option value="3">HOSPITAL "CNEL. ELBANO PAREDES VIVAS"</option>
+                  <option value="4">HOSPITAL "DR.FRANCISCO ISNARDI"</option>
+                  <option value="5">HOSPITAL "DR.VICENTE SALIAS"</option>
+                  <option value="6">HOSPITAL "DR.CARLOS ARVELO"</option>
+                  <option value="7">HOSPITAL "CNEL.NELSON SAYAGO MORA"</option>
+                  <option value="8">HOSPITAL "CNEL.FRANCISCO JAVIER GUTIÉRREZ"</option>
+                  <option value="9">HOSPITAL "DR.RAÚL PERDONO"</option>
+                  <option value="10">HOSPITAL "DR.MANUEL SILVERIO CASTILLO"</option>
+                  <option value="11">HOSPITAL "CAP.GUILLERMO HERNÁNDEZ JACOBSEN"</option>
+                </select>
+              </div>
+
+              <div class="col-md-4 col-sm-12">
+                  <label>Nro. de Historia:</label>
+                  <input class="form-control" id="nrohistoriaclinica" onkeypress="Enter(event);" type="text">
+              </div>
+            </div>
+
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+               <div class="col-md-12 col-sm-12">
+                  <table id="tblhistoriaclinica" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                    <thead>
+                      <tr>
+                        <th>Nro.</th>
+                        <th>Hospital Militar</th>
+                        <th>Nro. De Historia Clínica</th>
+                        <th>Fecha Registro</th>
+                        </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+            </div>
+            </div>
+
+
+         </div><!-- ./Row -->
+        </div>
+        <div class="modal-footer" id="_btnclinica">
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Aceptar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="modCarnetValidar">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Motivo de emisión del carnet</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="form-group">
+               <div class="col-md-12 col-sm-12">
+                <label>Motivo de la generacion del Carnet:</label>
+                  <select class="js-states form-control" style="width: 100%" tabindex="-1" aria-hidden="true" id="cmbMotivoCarnet" onchange="ValidarGenerarCarnet()">
+                  <option value="S"></option>
+                  <option value="I">INGRESO A LA FANB / GRADUACION </option>
+                  <option value="C">CAMBIO DE GRADO ( ASCENSO )</option>
+                  <option value="CS">CAMBIO DE SITUACION </option>
+                  <option value="V">VENCIMIENTO</option>
+                  <option value="D">DETERIORO</option>
+                  <option value="E">EXTRAVIO</option>
+                </select>
+              </div>
+            </div>
+
+          </div> <!-- Motivo -->
+
+
+
+          <div class="row" id="_cingreso" style="display:none">
+            <div class="form-group" >
+              <div class="col-md-4">
+                <label >Resolución Número:</label>
+                <input id="txtnresueltoC" class="form-control" disabled="disabled"  type="text" >
+              </div>
+              <div class="col-md-4">
+                <label >Resolución Fecha:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input id="txtmfecharesueltoC" class="form-control" disabled="disabled"  type="text">
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <label>Orden de Merito:</label>
+                <input id="txtposicionC" class="form-control" disabled="disabled"  type="text">
+              </div>
+            </div>
+          </div> <!-- Por Ingreso -->
+
+
+
+
+
+          <div class="row" id="_cascenso" string="display:none">
+            <div class="form-group" >
+               <div class="col-md-12 col-sm-12">
+
+              </div>
+            </div>
+          </div> <!-- Por Ascenso -->
+
+          <div class="row" id="_cvencimiento" style="display:none">
+            <div class="form-group" >
+               <div class="col-md-12 col-sm-12">
+
+              </div>
+            </div>
+          </div> <!-- Por Vencimiento -->
+
+          <div class="row" id="_cdeterioro" style="display:none">
+            <div class="form-group" >
+
+               <div class="col-md-4" style="display:none">
+                 <label >Número Oficio:</label>
+                 <input id="txtndeterioroC" class="form-control" type="text">
+               </div>
+               <div class="col-md-4" style="display:none">
+                 <label >Fecha Oficio:</label>
+
+                 <div class="input-group date">
+                   <div class="input-group-addon">
+                     <i class="fa fa-calendar"></i>
+                   </div>
+                   <input id="txtmfechadeterioroC" class="form-control" type="text" >
+                 </div>
+
+               </div>
+               <div class="col-md-4" style="display:none">
+                 <label>Unidad o Dependencia:</label>
+                 <input id="txtunidadeterioroC" class="form-control" type="text">
+               </div>
+
+            </div>
+          </div> <!-- Por Deterioro -->
+
+          <div class="row" id="_cdextravio" style="display:none">
+            <div class="form-group" >
+
+            </div>
+          </div> <!-- Por Extravio -->
+
+
+
+          <div class="row" style="display:none" id="_reciboC">
+            <div class="form-group" >
+              <div class="col-md-12 col-sm-12">
+
+                  <hr>
+              </div>
+            </div>
+            <div class="form-group" >
+              <div class="col-md-12 col-sm-12">
+                <h4>Recibo de Pago</h4>
+                <label>Canal de Pago</label>
+                   <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="cmbminstfinancieraC">
+                     <option selected="selected" value="S"></option>
+                     <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                     <option value="0177">BANFANB</option>
+                     <option value="9999">CAJA 1</option>
+                     <option value="9998">CAJA 2</option>
+
+                   </select>
+               </div>
+              <div class="col-md-4">
+                <label >Número:</label>
+                <input id="txtnumeroC" class="form-control"  type="text" onkeypress="return Util.SoloNumero(event,this)">
+              </div>
+              <div class="col-md-4">
+                <label >Fecha:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input id="txtmfechaC" class="form-control" type="text">
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <label>Monto:</label>
+                <input id="txtmontoC" class="form-control"  type="text" onkeypress="return Util.SoloNumero(event,this)">
+              </div>
+            </div>
+          </div> <!-- Por Recibo -->
+
+
+
+        </div>
+        <div class="modal-footer" id="_botonescarnetvalidar">
+          <button type="button" class="btn btn-succcess"  onclick="ContinuarTIM()">Enviar Datos</button>
+          <button type="button" class="btn " data-dismiss="modal">Cancelar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modCarnetValidarf">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Motivo de emisión del carnet</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="form-group">
+               <div class="col-md-12 col-sm-12">
+                <label>Motivo de la generacion del Carnet:</label>
+                  <select class="js-states form-control" style="width: 100%" tabindex="-1" aria-hidden="true" id="cmbMotivoCarnetf"
+                  onchange="ValidarGenerarCarnetF()">
+                  <option value="S"></option>
+                  <option value="I">AFILIACION PRIMERA VEZ</option>
+                  <option value="V">VENCIMIENTO</option>
+                  <option value="D">DETERIORO</option>
+                  <option value="E">EXTRAVIO</option>
+                </select>
+              </div>
+            </div>
+
+          </div> <!-- Motivo -->
+
+
+
+
+
+
+
+          <div class="row"   id="_reciboCf">
+            <div class="form-group" >
+              <div class="col-md-12 col-sm-12">
+
+                  <hr>
+              </div>
+            </div>
+            <div class="form-group" >
+              <div class="col-md-12 col-sm-12">
+                <h4>Recibo de Pago</h4>
+                <label>Canal de Pago</label>
+                   <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="cmbminstfinancieraCf">
+                     <option selected="selected" value="S"></option>
+                     <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                     <option value="0177">BANFANB</option>
+                     <option value="9999">CAJA 1</option>
+                     <option value="9998">CAJA 2</option>
+
+                   </select>
+               </div>
+              <div class="col-md-4">
+                <label >Número:</label>
+                <input id="txtnumeroCf" class="form-control"  type="text" >
+              </div>
+              <div class="col-md-4">
+                <label >Fecha:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input id="txtmfechaCf" class="form-control" type="text">
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <label>Monto:</label>
+                <input id="txtmontoCf" class="form-control"  type="text" onkeypress="return Util.SoloNumero(event,this)">
+              </div>
+            </div>
+          </div> <!-- Por Recibo -->
+
+
+
+        </div>
+        <div class="modal-footer" id="_botonescarnetvalidarf">
+          <button type="button" class="btn btn-succcess"  onclick="ContinuarTIF()">Enviar Datos</button>
+          <button type="button" class="btn " data-dismiss="modal">Cancelar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modCambiarClaveUsuario">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Cambia tu contraseña</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row" id="msjcambio"></div>
+          <form id="formcusuario">
+            <div class="form-group has-feedback">
+              <label for="recipient-name"  class="control-label">Contraseña actual:</label>
+              <input type="text" required name="claveA" id="claveA" class="form-control contrasena" onkeypress="return Util.Especiales(event,this)" onblur="Util.cmbField(this,0)" onfocus="Util.cmbField(this,1)" >
+  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+              <label for="recipient-name" class="control-label">Nueva contraseña:</label>
+              <input type="text" required name="claveN" id="claveN" class="form-control" onkeypress="return Util.Especiales(event,this)" onblur="Util.cmbField(this,0)" onfocus="Util.cmbField(this,1)">
+              <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+              <label for="recipient-name" class="control-label">Repita la contraseña:</label>
+              <input type="text" required name="claveN2" id="claveN2" class="form-control" onkeypress="return Util.Especiales(event,this)" onblur="Util.cmbField(this,0)" onfocus="Util.cmbField(this,1)">
+              <span class="glyphicon glyphicon glyphicon-repeat
+ form-control-feedback"></span>
+            </div>
+          </form>
+<label id="lblalert1">Su clave debe tener al menos 8 caracteres.</label>
+<label id="lblalert2">Las contraseñas no coinciden.</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cambiarClave()" id="btnmodclave">Guardar
+            <span class="fa fa-save"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- !-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="mdlPaseretiro">
+    <div class="modal-dialog modal-danger" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">ALERTA</h4>
+        </div>
+        <div class="modal-body">
+          <h1 id="msjpaseretiro">El militar se encuentra en proceso de retiro</h1>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
