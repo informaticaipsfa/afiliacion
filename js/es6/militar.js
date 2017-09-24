@@ -1194,7 +1194,7 @@ class Clave {
 }
 $(function (){
   if (sessionStorage.getItem('ipsfaToken') == undefined ){
-		$(location).attr("href","index.html");
+		$(location).attr("href","../index.html");
 	}else{
 		$("#_body").show();
 	}
@@ -1202,7 +1202,7 @@ $(function (){
 
 function CerrarSession(){
 	sessionStorage.removeItem('ipsfaToken');
-	$(location).attr("href","index.html");
+	$(location).attr("href","../index.html");
 }
 
 
