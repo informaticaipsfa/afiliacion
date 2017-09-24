@@ -634,6 +634,8 @@ function FrmDatosBasicos(valor) {
     $("#txtmreconocido").attr('disabled', valor);
     $("#txtdreconocido").attr('disabled', valor);
     $("#cmbpbaja").attr('disabled', valor);
+    $("#cmbtipopension").attr('disabled', valor);
+    $("#txtporcentaje").attr('disabled', valor);
 
     //$("#btnnacimiento").attr('disabled', valor);
     if (valor == false) {
@@ -1335,8 +1337,8 @@ function CConstanciaAfiliacion() {
     console.log(ObjMilitar.fingreso);
 
     var tiempo = Util.CalcularTServicio(ObjMilitar.fingreso,ObjMilitar.fretiro, $("#cmbsituacion option:selected").text())
- 
-    
+
+
 
     var gradoPI = 'GENERAL DE DIVISIÓN';
     var clascat = $("#cmbcategoria option:selected").text() + ' / ' + $("#cmbclase option:selected").text();
@@ -1934,4 +1936,21 @@ function traeDireccion(){
     $("#txtcasaf").val($("#txtmcasa").val());
     $("#txtaptof").val($("#txtmapto").val());
     $("#txttelefonof").val($("#txtmtelefono").val());
+}
+
+function ActivarPension(){
+  $("#_divpension").hide();
+  $("#lblFechaResolucion").html("Fecha de Resolución");
+  if ($("#cmbsituacion").val() != "ACT"){
+    $("#lblFechaResolucion").html("F. Resolución de Retiro");
+    $("#_divpension").show();
+  }
+}
+
+function ValidarPorcentaje(){
+  $("#_contenido").html("¿Está seguro que el porcentaje es correcto?");
+  var botones = '<button type="button" class="btn btn-success" data-dismiss="modal">Si</button>\
+  <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>';
+  $("#_botonesmsj").html(botones);
+  $('#modMsj').modal('show');
 }

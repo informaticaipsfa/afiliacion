@@ -37,11 +37,20 @@ function Ingresar(){
 
   xhttp.open("POST", Conn.URLSEC + "/ipsfa/app/api/wusuario/login", true);
   xhttp.onreadystatechange = function() {
-    console.log(this.readyState);
+
     if (this.readyState === 4 && this.status === 200) {
      json = JSON.parse(xhttp.responseText);
      sessionStorage.setItem('ipsfaToken', json.token);
-     $(location).attr("href","starter.html");
+
+     var s = json.token.split(".");
+     var MenuJS = JSON.parse(atob(s[1]));
+     if(MenuJS.Usuario.modulo != undefined){
+       //console.log(MenuJS.Usuario.modulo);
+       $(location).attr("href", MenuJS.Usuario.modulo + "/starter.html");
+     }else{
+       //console.log(MenuJS);
+       $(location).attr("href","starter.html");
+     }
    }
    if(this.status === 403){
      $.notify("Verifique usuario o clave");
@@ -61,7 +70,7 @@ function Ingresar(){
          $("#clave").val("");
          $("#usuario").focus();
          $("#_cargando").hide();
-         $.notify("Intente mas tarde", "success");
+         //$.notify("Intente mas tarde", "success");
        }
    };
 

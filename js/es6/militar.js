@@ -580,6 +580,15 @@ class Recibo{
     CargarAPI(Conn.URL + "recibo/crud" , "POST", this.ObtenerF());
   }
 }
+
+class Pension{
+	constructor(){
+		this.tipopension = "";
+		this.pprestaciones = 0;
+		this.tipo = "";
+	}
+}
+
 class Militar{
 	constructor(){
 		this.id = "";
@@ -599,6 +608,7 @@ class Militar{
 		this.descripcionhistorica = "";
 		this.Componente = new Componente();
 		this.Grado = new Grado();
+		this.Pension = new Pension();
 		this.urlsimbolo = "";
 		this.urlfirmaministro = "";
 		this.urlpresidenteipsfa = "";
@@ -607,8 +617,8 @@ class Militar{
 		this.urlfirma = "";
 		this.urlcedula = "";
 		this.codigocomponente = "";
-    	this.numerohistoria = "";
-    	this.pasearetiro = false;
+  	this.numerohistoria = "";
+  	this.pasearetiro = false;
 	}
 	Crear(militar){
 
@@ -806,6 +816,16 @@ class Militar{
 				$("#txtcodigocomponente").val(militar.codigocomponente);
 				$("#_codigocomponente").html(militar.codigocomponente);
 				$("#txtnumhistoriaclinica").val(militar.numerohistoria);
+				$("#_divpension").hide();
+				$("#lblFechaResolucion").html("Fecha de Resolución");
+				if(militar.Pension.grado != ""){
+					$("#lblFechaResolucion").html("Fecha de Retiro");
+					$("#_divpension").show();
+					$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
+					$("#cmbgrado").val(militar.Pension.grado);
+					$("#txtporcentaje").val(militar.Pension.pprestaciones);
+				}
+
 
 				let j = 1, x = 1;
 				$.each(militar.Familiar, function (c, v) {

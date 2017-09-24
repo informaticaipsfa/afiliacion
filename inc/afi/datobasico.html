@@ -208,29 +208,54 @@
                </div>
                 <div class="col-md-4 col-sm-12">
                   <label>Situación:</label>
-                  <select class="js-states form-control" style="width: 100%"  aria-hidden="true" required id="cmbsituacion" disabled="disabled">
+                  <select class="js-states form-control" style="width: 100%" onChange="ActivarPension()" aria-hidden="true" required id="cmbsituacion" disabled="disabled">
                     <option selected="selected" value="S"></option>
                     <option value="ACT">ACTIVO</option>
-                    <option value="RCP">RESERVA ACTIVA</option> <!-- RETIRADO CON PENSION-->
-                    <option value="RSP">RETIRADO</option>
-                    <option value="FCP" disabled="disabled">FALLECIDO CON PENSION</option>
-                    <option value="FSP" disabled="disabled">FALLECIDO SIN PENSION</option>
-                    <option value="I" disabled="disabled">INVALIDEZ</option>
-                    <option value="D" disabled="disabled">DISPONIBLE</option>
+                    <option value="RCP">RESERVA ACTIVA CON GOCE PENSION</option> <!-- RETIRADO CON PENSION-->
+                    <option value="RSP">RESERVA ACTIVA SIN GOCE PENSION</option>
+                    <option value="FCP">FALLECIDO CON PENSION</option>
+                    <option value="FSP">FALLECIDO SIN PENSION</option>
+                    <option value="I">INVALIDEZ</option>
+                    <option value="D">DISPONIBLE</option>
                   </select>
                 </div>
 
 
             </div> <!-- Grupo nombres-->
 
+            <div class="form-group" id="_divpension">
+
+
+              <div class="col-md-8 col-sm-12" >
+                <label >Tipo de Pensión:</label>
+                <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbtipopension" required disabled="disabled">
+                  <option selected="selected" value="S"></option>
+                  <option value="1">PENSION DE RESERVA ACTIVA</option>
+                  <option value="2">PENSION DE SOBREVIVIENTE</option>
+                  <option value="3">PENSION POR INVALIDEZ</option>
+                  <option value="4">PENSION POR INVALIDEZ PARCIAL Y PERMANENTE</option>
+                  <option value="5">PENSION POR INVALIDEZ TOTAL Y PERMANENTE</option>
+                  <option value="99">OTRAS PENSIONES POR INVALIDEZ </option>
+                 </select>
+             </div>
+              <div class="col-md-4 col-sm-12">
+                <label>Porcentaje de Pensión:</label>
+                <div class="input-group">
+                  <input id="txtporcentaje" class="form-control" disabled="disabled"  type="text" maxlength="3" onblur="ValidarPorcentaje()" required>
+                  <span class="input-group-addon"><label><b>%</b></label></span>
+                </div>
+              </div>
+
+
+          </div> <!-- DIV DE PESIONES -->
 
             <div class="form-group">
              <div class="col-md-3">
-               <label >Resolución Número:</label>
+               <label >Número de Resolución:</label>
                <input id="txtnresuelto" class="form-control" disabled="disabled"  type="text" maxlength="8" required>
              </div>
              <div class="col-md-3">
-               <label >Resolución Fecha:</label>
+               <label id="lblFechaResolucion">Fecha de Resolución:</label>
 
                <div class="input-group date">
                  <div class="input-group-addon">
