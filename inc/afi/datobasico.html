@@ -1,19 +1,7 @@
 <form class="form-horizontal" id="_frmDatoBasico">
 <div class="box box-primary box-solid " >
   <div class="box-header with-border">
-
      <h3 class="box-title">Datos Basicos del Militar</h3>
-     <!--<div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" onclick="ActivarBuscar()"><i class="fa fa-search"></i>
-        <button type="button" class="btn btn-box-tool" onclick="CConstanciaAfiliacion()"><i class="fa fa-print"></i>
-        <button type="button" class="btn btn-box-tool" onclick="VisualizarCarnet()"><i class="fa fa-credit-card"></i>
-        <button type="button" class="btn btn-box-tool" onclick="activarSalvar()"><i class="fa fa-pencil"></i>
-        <button type="button" class="btn btn-box-tool" onclick="ObtenerMilitar()"><i class="fa fa-save"></i>
-
-
-        </button>
-      </div>!-->
-
   </div>
   <div class="box-body">
 
@@ -228,7 +216,7 @@
 
               <div class="col-md-8 col-sm-12" >
                 <label >Tipo de Pensión:</label>
-                <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbtipopension" required disabled="disabled">
+                <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbtipopension" disabled="disabled">
                   <option selected="selected" value="S"></option>
                   <option value="1">PENSION DE RESERVA ACTIVA</option>
                   <option value="2">PENSION DE SOBREVIVIENTE</option>
@@ -241,7 +229,7 @@
               <div class="col-md-4 col-sm-12">
                 <label>Porcentaje de Pensión:</label>
                 <div class="input-group">
-                  <input id="txtporcentaje" class="form-control" disabled="disabled"  type="text" maxlength="3" onblur="ValidarPorcentaje()" required>
+                  <input id="txtporcentaje" class="form-control" disabled="disabled"  type="text" maxlength="3" onblur="ValidarPorcentaje()">
                   <span class="input-group-addon"><label><b>%</b></label></span>
                 </div>
               </div>
