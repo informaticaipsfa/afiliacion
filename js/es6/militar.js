@@ -682,7 +682,9 @@ class Militar{
 				$("#minifoto").attr("href", url);
 				$("#_img").attr("src", url);
 
-
+				if(militar.situacion == "FCP"){
+					$("#txtdefuncion").val(Util.ConvertirFechaHumana(DB.fechadefuncion));
+				}
 
 				url = rutaimg + $("#txtcedula").val() + "/huella.bmp";
 				$("#minihuella").attr("href", url);
