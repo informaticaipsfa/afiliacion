@@ -630,9 +630,9 @@ function FrmDatosBasicos(valor) {
     $("#cmbsexo").attr('disabled', valor);
     $("#cmbedocivil").attr('disabled', valor);
     $("#txtdefuncion").attr('disabled', valor);
-    $("#txtareconocido").attr('disabled', valor);
-    $("#txtmreconocido").attr('disabled', valor);
-    $("#txtdreconocido").attr('disabled', valor);
+    $("#txtareconocido").attr('disabled', true);
+    $("#txtmreconocido").attr('disabled', true);
+    $("#txtdreconocido").attr('disabled', true);
     $("#cmbpbaja").attr('disabled', valor);
     $("#cmbtipopension").attr('disabled', valor);
     $("#txtporcentaje").attr('disabled', valor);
@@ -1045,7 +1045,8 @@ function SeleccionarCuenta() {
 
 
 function ModificarFamiliarPos(pos) {
-    if (Util.ValidarFormulario("_frmDatoBasico") == false) {
+    if($("#cmbsituacion option:selected").val() == "FCP")Estados.ObtenerEstados();
+    if (Util.ValidarFormulario("_frmDatoBasico") == false && $("#cmbsituacion option:selected").val() != "FCP") {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
         FrmFamiliar(false);
@@ -1150,7 +1151,8 @@ function ModificarFamiliarPos(pos) {
 }
 
 function ModificarFamiliar() {
-    if (Util.ValidarFormulario("_frmDatoBasico") == false) {
+    console.log($("#cmbsituacion option:selected").val());
+    if (Util.ValidarFormulario("_frmDatoBasico") == false && $("#cmbsituacion option:selected").val() != "FCP") {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
         ActivarCalendariosFamiliar();
@@ -1941,7 +1943,7 @@ function traeDireccion(){
 function ActivarPension(){
   $("#_divpension").hide();
   $("#lblFechaResolucion").html("Fecha de Resolución");
-  if ($("#cmbsituacion").val() != "ACT"){
+  if ($("#cmbsituacion").val() != "ACT" && $("#cmbsituacion").val() != "S" ){
     $("#lblFechaResolucion").html("F. Resolución de Retiro");
     $("#_divpension").show();
   }

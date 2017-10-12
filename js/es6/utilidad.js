@@ -111,8 +111,12 @@ class Utilidad {
     //Recibe  Fecha Formato: DD/MM/AAAA
     //Retorna Fecha Formato: AAAA-MM-DD
     ConvertirFechaUnix(f) {
-        f = f.split("/");
-        return f[2] + "-" + f[1] + "-" + f[0];
+        if (f == ""){
+          return "0001-01-01T00:00:00Z";
+        }else{
+          f = f.split("/");
+          return f[2] + "-" + f[1] + "-" + f[0];
+        }
     }
 
 
@@ -205,7 +209,7 @@ class Utilidad {
 
     CalcularTServicio(fecha,fecharet, sit) {
         var FechaActual = new Date(Date.now());
-        
+
         var ISODate = new Date(fecha).toISOString();
         var fe = ISODate.substr(0, 10);
 
@@ -223,7 +227,7 @@ class Utilidad {
         }
 
         var f = fe.split("-");
-        
+
         var AnoN = parseInt(f[0]);
         var MesN = parseInt(f[1]);
         var DiaM = parseInt(f[2]);

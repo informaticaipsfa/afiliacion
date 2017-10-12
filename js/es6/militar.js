@@ -625,7 +625,7 @@ class Militar{
 		var url = "";
 		var i = 0;
 		var j = 0;
-		console.log(militar);
+
 
 		if (militar.tipo != undefined) {
 				$("#_cedula").val("");
@@ -723,6 +723,17 @@ class Militar{
 				$("#cmbclase").val("S");
 				$("#_categoria").html($("#cmbcategoria option:selected").text());
 				$("#_situacion").html($("#cmbsituacion option:selected").text());
+				if($("#cmbsituacion option:selected").text().length > 20){
+					$("#_situacion").attr("style","font-size:12px");
+				}
+
+				if (militar.CIS.Investigacion.FeDeVida != undefined){
+          var ffevida = "";
+          militar.CIS.Investigacion.FeDeVida.forEach(v => { ffevida = v.fechacreacion; });
+          if(ffevida != ""){
+            $("#lblfevida").html(Util.ConvertirFechaHumana(ffevida));
+          }
+        }
 				$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
 				$("#_tiemposervicio").html(militar.tiemposervicio);
 				if ($("#txtmfecharesuelto").val() != "") {
@@ -989,6 +1000,14 @@ class Militar{
 				$("#_consultarbox").hide();
 				$("#_search").show();
 				$("#_cargando").hide();
+
+				if($("#cmbsituacion option:selected").val() == "FCP"){
+					$("#_btnTIM").hide();
+					$("#_btnModificar").hide();
+				}else if($("#cmbsituacion option:selected").val() != "ACT"){
+						// $("#_btnModificar").hide();
+
+				}
 			}
 	}
 
@@ -1038,6 +1057,10 @@ class Militar{
 		var fnacimiento = new Date(Util.ConvertirFechaUnix($("#txtnacimiento").val())).toISOString();
 		var fresuelto = new Date(Util.ConvertirFechaUnix($("#txtmfecharesuelto").val())).toISOString();
 		var fascenso = new Date(Util.ConvertirFechaUnix($("#txtmfechaultimoascenso").val())).toISOString();
+		var fdefuncion = "0001-01-01T00:00:00.000Z";
+		if($("#txtmfechaultimoascenso").val() != ""){
+			fdefuncion = new Date(Util.ConvertirFechaUnix($("#txtdefuncion").val())).toISOString();
+		}
 
 		this.id = $("#txtcedula").val();
 		this.Persona.DatoBasico.nacionalidad = "V";
@@ -1047,6 +1070,7 @@ class Militar{
 		this.Persona.DatoBasico.nombreprimero = $("#txtnombre").val().toUpperCase();
 		this.Persona.DatoBasico.apellidoprimero = $("#txtapellido").val().toUpperCase();
 		this.Persona.DatoBasico.fechanacimiento = fnacimiento;
+		this.Persona.DatoBasico.fechadefuncion = fdefuncion;
 		this.Persona.DatoBasico.sexo = $("#cmbsexo option:selected").val();
 		this.Persona.DatoBasico.estadocivil = $("#cmbedocivil").val();
 		this.fingreso = fingreso;
