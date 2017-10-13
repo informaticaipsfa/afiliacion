@@ -290,6 +290,12 @@ class Familiar{
 		return parentesco;
 	}
 	Obtener(){
+		var fdefuncion = "0001-01-01T00:00:00.000Z";
+		if($("#txtdefuncionf").val() != ""){
+			fdefuncion = new Date(Util.ConvertirFechaUnix($("#txtdefuncionf").val())).toISOString();
+		}
+		this.Persona.DatoBasico.fechadefuncion = fdefuncion;
+
 		this.id = $("#txtidf").val();
 		this.documentopadre = $("#txtcedula").val();
 		this.Persona.DatoBasico.nropersona =  parseInt($("#txtnropersonaf").val());
