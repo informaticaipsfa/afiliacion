@@ -21,6 +21,7 @@ function Buscar(id) {
 
 
 
+
 }
 
 function BuscarInsert() {
@@ -49,6 +50,15 @@ function activarActualizar() {
     var grado = $("#cmbgrado").val();
 
     cambiarGrado();
+    FrmDatosBasicosPension(true);
+    var prv = JSON.parse(atob(sessionStorage.getItem("ipsfaToken").split(".")[1]));
+    prv.Usuario.Perfil.Privilegios.forEach( v => {
+      if ( v.nombre == "pension.ingresar" ){
+        FrmDatosBasicosPension(false);
+        FrmDatosBasicosPensionCombo(true);
+      }
+    });
+
 
 }
 
@@ -328,7 +338,6 @@ function LimpiarFrmFamiliar() {
     $("#cmbparroquiaf").val("S");
     $("#cmbciudadf").val("S");
     $("#txtcallef").val("");
-    ;
     $("#txtcasaf").val("");
     $("#txtaptof").val("");
     $("#txttelefonof").val("");
@@ -1151,7 +1160,6 @@ function ModificarFamiliarPos(pos) {
 }
 
 function ModificarFamiliar() {
-    console.log($("#cmbsituacion option:selected").val());
     if (Util.ValidarFormulario("_frmDatoBasico") == false && $("#cmbsituacion option:selected").val() != "FCP") {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
@@ -1336,8 +1344,6 @@ function CConstanciaAfiliacion() {
     var urlGra = "images/grados/" + ObjMilitar.Grado.abreviatura + ".png";
     urlGra = urlGra.toLowerCase();
     var fechaActual = ConvertirFechaActual();
-    console.log(ObjMilitar.fingreso);
-
     var tiempo = Util.CalcularTServicio(ObjMilitar.fingreso,ObjMilitar.fretiro, $("#cmbsituacion option:selected").text())
 
 
@@ -1638,8 +1644,6 @@ function pendienteCarnet(serial, estatus) {
         tabla = "_tblPendienteImp";
         buzon = "tblPendientesBuzonImp";
     }
-    //alert(tabla);
-    //$("#"+tabla).html(PendienteHTML());
     var table = $('#' + buzon).DataTable();
 
     $("#"+buzon+" tbody").on( 'click', 'button.desaparece', function () {
@@ -1658,8 +1662,6 @@ function cerrarCarnet(serial) {
         tabla = "_tblPendienteImp";
         buzon = "tblPendientesBuzonImp";
     }
-    //alert(tabla);
-    //$("#"+tabla).html(PendienteHTML());
     var table = $('#' + buzon).DataTable();
 
     $("#"+buzon+" tbody").on( 'click', 'button.desaparece', function () {
@@ -1677,7 +1679,6 @@ function ImprimirCarnet2(nombre) {
     var html = $("#" + nombre).html();
     var ventana = window.open("", "_blank");
     ventana.document.write(html);
-    //ventana.document.head.innerHTML = ;
     ventana.print();
     ventana.close();
 }
@@ -1949,10 +1950,45 @@ function ActivarPension(){
   }
 }
 
+/**
+* Modulos para pensiones
+*
+*/
+
 function ValidarPorcentaje(){
   $("#_contenido").html("¿Está seguro que el porcentaje es correcto?");
   var botones = '<button type="button" class="btn btn-success" data-dismiss="modal">Si</button>\
   <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>';
   $("#_botonesmsj").html(botones);
   $('#modMsj').modal('show');
+}
+
+
+function FrmDatosBasicosPension(valor) {
+    $("#cmbprofecionalizacion").attr('disabled', valor);
+    $("#cmbprimapermacnel").attr('disabled', valor);
+    $("#txtpnoascenso").attr('disabled', valor);
+    $("#cmbpbaja").attr('disabled', valor);
+
+    $("#txtareconocido").attr('disabled', valor);
+    $("#txtmreconocido").attr('disabled', valor);
+    $("#txtdreconocido").attr('disabled', valor);
+
+
+}
+function FrmDatosBasicosPensionCombo(valor){
+  $("#cmbsituacion option").each(function( index ) {
+    if ( valor == false){ //Pension
+      this.disabled = false;
+      if (index > 1) this.disabled = true;
+    }else{
+      this.disabled = false;
+      if (index == 1) this.disabled = true;
+    }
+
+  });
+}
+
+function FrmFamiliarPension(valor) {
+
 }

@@ -27,11 +27,13 @@
         <div class="form-group">
           <div class="col-md-6 col-sm-12">
             <label>Nombres:</label>
-            <input  id="txtnombre" class="form-control"  type="text" disabled="disabled" required tabindex="2" onkeypress="return soloLetras(event)">
+            <input  id="txtnombre" class="form-control"  type="text" disabled="disabled"
+            required tabindex="2" onkeypress="return soloLetras(event)">
           </div>
           <div class="col-md-6 col-sm-12">
             <label>Apellidos:</label>
-           <input  id="txtapellido" class="form-control"  type="text" disabled="disabled" required tabindex="3" onkeypress="return soloLetras(event)">
+           <input  id="txtapellido" class="form-control"  type="text" disabled="disabled"
+           required tabindex="3" onkeypress="return soloLetras(event)">
           </div>
        </div> <!-- Grupo nombres-->
 
@@ -56,7 +58,8 @@
            </div>
            <div class="col-md-3 col-sm-6">
              <label >Sexo:</label>
-             <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbsexo" disabled="disabled" onchange="SeleccionarPorSexo()" required>
+             <select class="js-states form-control" style="width: 100%"
+             aria-hidden="true" id="cmbsexo" disabled="disabled" onchange="SeleccionarPorSexo()" required>
                <option selected="selected" value="S"></option>
                <option value="F">FEMENINO</option>
                <option value="M">MASCULINO</option>
@@ -74,7 +77,8 @@
              <div class="input-group input-group">
              <input type="text" class="form-control" id="txtdefuncion" disabled="disabled">
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-success btn-flat btn-md" id="btndefuncion" onClick="seleccionarDefuncion()" disabled="disabled"><i class="fa fa-file-text"></i></button>
+                    <button type="button" class="btn btn-success btn-flat btn-md" id="btndefuncion"
+                    onClick="seleccionarDefuncion()" disabled="disabled"><i class="fa fa-file-text"></i></button>
                   </span>
               </div>
            </div>
@@ -93,6 +97,34 @@
           <div class="col-md-3 col-sm-6">
             <label>Día reconocido:</label>
             <input  id="txtdreconocido" class="form-control"  type="text" disabled="disabled">
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label>Prima por no ascenso:</label>
+            <div class="input-group">
+              <input id="txtpnoascenso" class="form-control" value=0 disabled="disabled"
+              type="text" maxlength="3" onblur="ValidarPorcentaje()">
+              <span class="input-group-addon"><label><b>%</b></label></span>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <label>Prima de profesionalización:</label>
+            <select id="cmbprofecionalizacion" class="form-control" disabled="disabled">
+                <option value=0>NO POSEE</option>
+                <option value=12>TECNICO SUPERIOR UNIVERSITARIO ( 12% )</option>
+                <option value=14>TITULO PROFESIONAL UNIVERSITARIO O SU EQUIVALENTE ( 14% )</option>
+                <option value=16>ESPECIALISTA (16% )</option>
+                <option value=18>MAESTRIA ( 18% )</option>
+                <option value=20>DOCTOR ( 20% )</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <label>Prima especial de permanencia en el grado ( CNEL Técnico):</label>
+            <select id="cmbprimapermacnel" class="form-control" disabled="disabled">
+                <option value=0>NO POSEE</option>
+                <option value=4>SI ( 4% DEL SUELDO BASE)</option>
+            </select>
           </div>
        </div> <!-- Grupo nombres-->
           <div class="form-group">
@@ -196,7 +228,8 @@
                </div>
                 <div class="col-md-4 col-sm-12">
                   <label>Situación:</label>
-                  <select class="js-states form-control" style="width: 100%" onChange="ActivarPension()" aria-hidden="true" required id="cmbsituacion" disabled="disabled">
+                  <select class="js-states form-control" style="width: 100%" onChange="ActivarPension()"
+                  aria-hidden="true" required id="cmbsituacion" disabled="disabled">
                     <option selected="selected" value="S"></option>
                     <option value="ACT">ACTIVO</option>
                     <option value="RCP" disabled="disabled">RESERVA ACTIVA CON GOCE PENSION</option> <!-- RETIRADO CON PENSION-->
@@ -215,21 +248,67 @@
 
 
               <div class="col-md-8 col-sm-12" >
-                <label >Tipo de Pensión:</label>
-                <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbtipopension" disabled="disabled">
+                <label >Causal de la pensión:</label>
+                <select class="js-states form-control" style="width: 100%"  aria-hidden="true"
+                id="cmbtipopension" disabled="disabled">
                   <option selected="selected" value="S"></option>
-                  <option value="1">PENSION DE RESERVA ACTIVA</option>
+                  <!-- <option value="1">PENSION DE RESERVA ACTIVA</option>
                   <option value="2">PENSION DE SOBREVIVIENTE</option>
                   <option value="3">PENSION POR INVALIDEZ</option>
                   <option value="4">PENSION POR INVALIDEZ PARCIAL Y PERMANENTE</option>
                   <option value="5">PENSION POR INVALIDEZ TOTAL Y PERMANENTE</option>
-                  <option value="99">OTRAS PENSIONES POR INVALIDEZ </option>
+                  <option value="99">OTRAS PENSIONES POR INVALIDEZ </option> -->
+
+                  <option value="AIA">Aspirante Invalida antes LOSSFA</value>
+                  <option value="APM">Ascenso Post-Mortem</value>
+                  <option value="CAMBIOG">Cambio de Grado</value>
+                  <option value="CDD">Condena por Delitos de Droga</value>
+                  <option value="CGR">Cambio de Grado</value>
+                  <option value="CPD">Condena Judicial por Deserción</value>
+                  <option value="CPE">Condena Judicial por Espionaje</value>
+                  <option value="CTP">Condena por Traición a la Patria</value>
+                  <option value="DSP">Disponibilidad sin Pensión</value>
+                  <option value="EMP">Excepción Ministerial o Presidencial</value>
+                  <option value="FAS">Fallecimiento en Acto de Servicio</value>
+                  <option value="FCP">Falta Idoneidad o Capacidad Profesional</value>
+                  <option value="FDE">Falta de Empleo (Invalidez Tropa)</value>
+                  <option value="FFS">Fallecimiento Afiliado Fuera de Servicio</value>
+                  <option value="GEM">Graduación Escuela Militar</value>
+                  <option value="IAS100">Invalidez Total y Perm. Acto Servicio 100%(LOSSFA28dic89)</value>
+                  <option value="IPA">Invalidez Parc. y Perm. Actos Servicio 80%(LOSSFA28dic89)</value>
+                  <option value="IPF60">Invalidez Parc. y Perm. Fuera de Servicio 60 %(LOFAN28dic89)</value>
+                  <option value="IPT60">Invalidez Parcial y Permanente (Tropa Alistada 60%)</value>
+                  <option value="IPT80">Invalidez Total y Permanente (Tropa Alistada 80%)</value>
+                  <option value="ITA80">Invalidez Parc. y Temp. En Acto Servicio 80 % (LOFAN 21Nov58)</value>
+                  <option value="ITF60">Invalidez Total Fuera de Servicio 60 % (LOFAN 21nov58)</value>
+                  <option value="ITP100">Invalidez Total y Permanente 100 % (LSSFAN 11ago93)</value>
+                  <option value="ITP75">Invalidez Parcial y Permanente 75 % (LSSFAN 11ago93)</value>
+                  <option value="ITS80">Invalidez Total y Perm. Fuera Servicio 80%(LOSSFA28dic89)</value>
+                  <option value="ITT100">Invalidez Total y Perm. Acto Servicio 100%(LOFAN21Nov58)</value>
+                  <option value="ITT80">Invalidez Total y Temp. Fuera de Servicio 80%(LOFAN21Nov58)</value>
+                  <option value="LDR">Límite Disponibilidad Reincorporación</value>
+                  <option value="LEG">Límite de Edad</value>
+                  <option value="LSM">Licencia Superior 6 meses</value>
+                  <option value="LTD">Límite Tiempo en Disponibilidad</value>
+                  <option value="LTG">Límite Tiempo den Grado</value>
+                  <option value="MDA">Medida Disciplinaria</value>
+                  <option value="PSA">Propia Solicitud del Afiliado</value>
+                  <option value="RCR">Rescisión Contrato de Renganche</value>
+                  <option value="SCJ">Sentencia Judicial Condenatoria</value>
+                  <option value="SCS">Separación Cargo por Sentencia</value>
+                  <option value="SEP">Separación Funciones Propia Solicitud (Perm. Mil. Asim.)</value>
+                  <option value="SFD">Separación Funciones Medida Disciplinaria (Per. Mil. Asim.)</value>
+                  <option value="SFI">Separación Funciones Idoneidad Prof. (Per. Mil. Asim.)</value>
+                  <option value="TIA">Tropa Profesional Invalida antes LOSSFA</value>
+                  <option value="TSC">Tiempo Servicio Cumplido</value>
+                  <option value="X">Conversion</value>
                  </select>
              </div>
-              <div class="col-md-4 col-sm-12">
+              <div class="col-md-4 col-sm-12" style="display:none">
                 <label>Porcentaje de Pensión:</label>
                 <div class="input-group">
-                  <input id="txtporcentaje" class="form-control" disabled="disabled"  type="text" maxlength="3" onblur="ValidarPorcentaje()">
+                  <input id="txtporcentaje" class="form-control" disabled="disabled"
+                  type="text" maxlength="3" onblur="ValidarPorcentaje()">
                   <span class="input-group-addon"><label><b>%</b></label></span>
                 </div>
               </div>
@@ -281,7 +360,9 @@
              <div class="form-group">
                <div class="col-md-12 col-sm-12" id="_cmbminstfinanciera">
                  <label>Institución Financiera</label>
-                    <select class="js-states form-control" style="width: 100%" aria-hidden="true" disabled="disabled" required id="cmbminstfinanciera" onchange="SeleccionarCuenta()">
+                    <select class="js-states form-control" style="width: 100%"
+                    aria-hidden="true" disabled="disabled" required id="cmbminstfinanciera"
+                    onchange="SeleccionarCuenta()">
                       <option selected="selected" value="S"></option>
                       <option value="0156">100%BANCO</option>
                       <option value="0196">ABN AMRO BANK</option>

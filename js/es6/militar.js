@@ -608,6 +608,10 @@ class Militar{
 		this.areconocido = 0;
 		this.mreconocido = 0;
 		this.dreconocido = 0;
+		this.pxnoascenso = 0;
+		this.pprof = 0;
+		this.pespecial = 0;
+
 		this.posicion = 0;
 		this.fresuelto = "";
 		this.nresuelto = 0;
@@ -716,7 +720,10 @@ class Militar{
 				$("#cmbcomponente").val(militar.Componente.abreviatura);
 				$("#cmbgrado").html('<option value="' + militar.Grado.abreviatura + '">' + militar.Grado.descripcion + '</option>');
 				$("#txtnresuelto").val(militar.nresuelto);
-
+				$("#txtpnoascenso").val(militar.pxnoascenso);
+			 	$("#cmbprofecionalizacion").val(militar.pprof);
+				$("#cmbprimapermacnel").val(militar.pespecial);
+				
 				$("#txtmfechaultimoascenso").val(Util.ConvertirFechaHumana(militar.fascenso));
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fresuelto));
 				$("#txtposicion").val(militar.posicion);
@@ -729,6 +736,8 @@ class Militar{
 				$("#cmbclase").val("S");
 				$("#_categoria").html($("#cmbcategoria option:selected").text());
 				$("#_situacion").html($("#cmbsituacion option:selected").text());
+
+
 				if($("#cmbsituacion option:selected").text().length > 20){
 					$("#_situacion").attr("style","font-size:12px");
 				}
@@ -1082,6 +1091,11 @@ class Militar{
 		this.fingreso = fingreso;
 		this.fascenso = fascenso;
 		this.fresuelto = fresuelto;
+
+		this.pxnoascenso = parseInt($("#txtpnoascenso").val());
+		this.pprof = parseInt($("#cmbprofecionalizacion option:selected").val());
+		this.pespecial = parseInt($("#cmbprimapermacnel option:selected").val());
+
 		this.nresuelto = $("#txtnresuelto").val().toUpperCase()	;
 		this.posicion = parseInt($("#txtposicion").val());
 		this.situacion = $("#cmbsituacion option:selected").val();
