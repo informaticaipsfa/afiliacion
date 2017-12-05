@@ -1,4 +1,31 @@
- Number.prototype.zeroPadding = function(){
+let opciones = {
+    destroy: true,
+    'paging': true,
+    'lengthChange': true,
+    'searching': false,
+    'ordering': true,
+    'info': false,
+    'autoWidth': false,
+    "aLengthMenu": [[10, 25, 5, -1], [10, 25, 5, "Todo"]],
+    "bStateSave": true,
+    "order": [[3, "desc"]],
+    "language": {
+        "lengthMenu": "Mostar _MENU_ filas por pagina",
+        "zeroRecords": "Nada que mostrar",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "No se encontro nada",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Buscar",
+        "paginate": {
+            "first": "Primero",
+            "last": "Ultimo",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        },
+    },
+}
+
+Number.prototype.zeroPadding = function(){
   var ret = "" + this.valueOf();
   return ret.length == 1 ? "0" + ret : ret;
 };
@@ -25,6 +52,18 @@ function verificarPrivilegioUsuario(){
         }
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 let FrmValidar = false;
 let Usuario = {};
@@ -282,4 +321,13 @@ function ListarCarnet(estatus) {
     Estatus = estatus;
     var ruta = Conn.URL + "carnet/listar/" + estatus;
     CargarAPI(ruta, "GET", "", listaCarnet);
+}
+
+
+/**
+ * Listar Carnet's
+ *
+ **/
+function Estadisticas() {
+  CargarUrl("_cuerpo", "afi/estadistica")
 }

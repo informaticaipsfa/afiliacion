@@ -1992,3 +1992,39 @@ function FrmDatosBasicosPensionCombo(valor){
 function FrmFamiliarPension(valor) {
 
 }
+
+class Estadistica {
+  constructor() {
+    this.valor = {};
+  }
+  Crear(obj){
+    this.valor = obj;
+    console.log(this.valor);
+  }
+
+}
+
+function EstadisticasPorComponente(){
+
+  $("#tblEstadistica").html(`<table id="lstR" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>Componente</th>
+              <th>ACT</th>
+              <th>RCP</th>
+              <th>FCP</th>
+              <th>FSP</th>
+              <th>INV</th>
+              <th>TOTAL</th>
+          </tr>
+      </thead></table>`);
+  var t = $('#lstR').DataTable(opciones);
+  t.clear().draw();
+
+  ObjEsta = new Estadistica();
+  var url = Conn.URL + "militar/reportecomponente";
+
+  CargarAPI(url, "POST", "", ObjEsta);
+  console.log(ObjEsta.valor);
+
+}
