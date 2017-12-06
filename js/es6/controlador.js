@@ -3,12 +3,11 @@ let opciones = {
     'paging': true,
     'lengthChange': true,
     'searching': false,
-    'ordering': true,
+    'ordering': false,
     'info': false,
     'autoWidth': false,
     "aLengthMenu": [[10, 25, 5, -1], [10, 25, 5, "Todo"]],
     "bStateSave": true,
-    "order": [[3, "desc"]],
     "language": {
         "lengthMenu": "Mostar _MENU_ filas por pagina",
         "zeroRecords": "Nada que mostrar",
