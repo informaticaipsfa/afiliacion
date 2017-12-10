@@ -2183,6 +2183,7 @@ function EstadisticasPorGrado(codigo){
   var t = $('#lstR').DataTable(opciones);
 }
 function EstadisticasPorGradoEX(codigo){
+  EstadisticasPorGrado('');
   $("#_cargando").show();
   var ObjEsta = new EstadisticaGrado();
   var url = Conn.URL + "militar/reportegrado";
