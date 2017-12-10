@@ -2026,7 +2026,6 @@ class EstadisticaComponente {
 
       var fil = CodigoComponente(v._id.componente) - 1;
       var col = PosicionColumna(v._id.situacion) - 1;
-      // t.cell(fila, columna).data(v.cantidad).draw();
       matrix[fil][col] = parseInt(v.cantidad);
     });
 
@@ -2050,7 +2049,6 @@ function EstadisticasPorComponente(){
   var url = Conn.URL + "militar/reportecomponente";
 
   CargarAPI(url, "POST", "", ObjEsta);
-  // console.log(ObjEsta.valor);
 
 }
 
@@ -2075,6 +2073,26 @@ function CodigoComponente(codigo){
   }
 }
 
+function CodigoComponenteTexto(codigo){
+  switch (codigo) {
+    case "EJ":
+      return "EJERCITO BOLIVARIANO"
+      break;
+    case "AR":
+      return "ARMADA BOLIVARIANA"
+      break;
+    case "AV":
+      return "AVIACION MILITAR BOLIVARIANA"
+      break;
+    case "GN":
+      return "GUARDIA NACIONAL BOLIVARIANA"
+      break;
+    default:
+      return "SIN DESCRIPCION"
+      break;
+
+  }
+}
 function PosicionColumna(valor){
   switch (valor) {
     case "ACT":
@@ -2102,4 +2120,74 @@ function PosicionColumna(valor){
       return 1
       break;
   }
+}
+
+
+class EstadisticaGrado {
+  Crear(Obj){
+
+    var t = $('#lstR').DataTable(opciones);
+    t.clear().draw();
+    var grado = "";
+    var fil = 1;
+    var col = 1;
+    var fila = 0;
+    var acumular = 0;
+    Obj.forEach( v => {
+      if (v._id.grado != ""){
+        if (grado != v._id.grado){
+          grado = v._id.grado;
+          t.row.add([fil, v._id.codigo, grado,0,0,0,0,0,0,0]).draw(false);
+
+          fil++;
+        }
+        fila = fil - 2;
+        col = PosicionColumna(v._id.situacion) + 2;
+        t.cell(fila, col).data(v.cantidad).draw();
+        t.cell(fila, 9).data(parseInt(t.cell(fila, 9).data()) + parseInt(v.cantidad)).draw();
+
+      }
+    });
+
+    $("#_cargando").hide();
+  }
+}
+
+
+function EstadisticasPorGrado(codigo){
+  $("#tblEstadistica").html(`
+    <center>
+    <button type="button" class="btn btn-primary"  onclick="EstadisticasPorGradoEX('EJ')">EJERCITO</button>
+    <button type="button" class="btn btn-success"  onclick="EstadisticasPorGradoEX('AR')">ARMADA</button>
+    <button type="button" class="btn btn-info"  onclick="EstadisticasPorGradoEX('AV')">AVIACIÓN</button>
+    <button type="button" class="btn btn-warning"  onclick="EstadisticasPorGradoEX('GN')">GUARDIA NACIONAL	</button>
+    </center>
+    <br><br><h2 id="lblTituloGrado"></h2><br>
+    <table id="lstR" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>CODIGO</th>
+              <th>GRADO</th>
+              <th>ACT</th>
+              <th>RCP</th>
+              <th>RSP</th>
+              <th>FCP</th>
+              <th>FSP</th>
+              <th>INV</th>
+              <th>TOTAL</th>
+          </tr>
+      </thead>
+
+      </table>`);
+  var t = $('#lstR').DataTable(opciones);
+}
+function EstadisticasPorGradoEX(codigo){
+  $("#_cargando").show();
+  var ObjEsta = new EstadisticaGrado();
+  var url = Conn.URL + "militar/reportegrado";
+  $('#mdlGrados').modal("show");
+  $('#lblTituloGrado').html(CodigoComponenteTexto(codigo));
+  CargarAPI(url, "POST", {"grado": codigo }, ObjEsta);
+
 }
