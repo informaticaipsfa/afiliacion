@@ -1344,7 +1344,7 @@ function CConstanciaAfiliacion() {
     var urlGra = "images/grados/" + ObjMilitar.Grado.abreviatura + ".png";
     urlGra = urlGra.toLowerCase();
     var fechaActual = ConvertirFechaActual();
-    var tiempo = Util.CalcularTServicio(ObjMilitar.fingreso,ObjMilitar.fretiro, $("#cmbsituacion option:selected").text())
+    var tiempo = ObjMilitar.tiemposervicio;//Util.CalcularTServicio(ObjMilitar.fingreso,ObjMilitar.fretiro, $("#cmbsituacion option:selected").text())
 
 
 
