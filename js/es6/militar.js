@@ -723,7 +723,7 @@ class Militar{
 				$("#txtpnoascenso").val(militar.pxnoascenso);
 			 	$("#cmbprofecionalizacion").val(militar.pprof);
 				$("#cmbprimapermacnel").val(militar.pespecial);
-				
+
 				$("#txtmfechaultimoascenso").val(Util.ConvertirFechaHumana(militar.fascenso));
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fresuelto));
 				$("#txtposicion").val(militar.posicion);
@@ -843,6 +843,9 @@ class Militar{
 
 				$("#txtcodigocomponente").val(militar.codigocomponente);
 				$("#_codigocomponente").html(militar.codigocomponente);
+
+				$("#_lblfechacarnet").html(Util.ConvertirFechaHumana(militar.Tim.fechavencimiento));
+
 				$("#txtnumhistoriaclinica").val(militar.numerohistoria);
 				$("#_divpension").hide();
 				$("#lblFechaResolucion").html("Fecha de Resolución");
@@ -869,7 +872,10 @@ class Militar{
 						var nombreCompleto = apellidos + ' ' + nombres;
 						var estadocivil = familiar.Persona.DatoBasico.estadocivil;
 						var fnac = Util.ConvertirFechaHumana(DBF.fechanacimiento);
-
+						var fvence = '';
+						if (v.Tif.fechavencimiento != undefined) {
+							fvence = Util.ConvertirFechaHumana(v.Tif.fechavencimiento);
+						}
 						var modificar = '<button type="button" id="btnModFamiliar' + j + '" \
 							class="btn btn-sm btn-info prvmodificar hide" onclick="ModificarFamiliarPos(' + j + ')">\
 							<i class="fa fa-pencil"></i></button>'
@@ -928,7 +934,7 @@ class Militar{
 								fechavencimiento, //13
 								//v.beneficio,
 								modificar,
-								rutaimgfamiliar
+								fvence
 						]).draw(false);
 
 				});
@@ -954,6 +960,7 @@ class Militar{
 						$("#_imgfamiliar").attr("src", urlf);
 						$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
 						$("#_fcedula").html('C.I: V- ' + data[1]);
+						$("#_idFVCarnet").html(data[15]);
 						if (data[6] == true) {
 								$("#_fcedula").html('<a href="#" onClick="Buscar(\'' + data[1] + '\')">C.I: V- ' + data[1] + '</a>');
 								$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));

@@ -1618,6 +1618,8 @@ function ValidarMilitar(valor) {
 
     };
     xhttp.send();
+
+
 }
 
 function SalvarFamiliar() {
@@ -1938,7 +1940,9 @@ function traeDireccion(){
     $("#txtcallef").val($("#txtmcalle").val());
     $("#txtcasaf").val($("#txtmcasa").val());
     $("#txtaptof").val($("#txtmapto").val());
+    $("#txtcelularf").val($("#txtmcelular").val());
     $("#txttelefonof").val($("#txtmtelefono").val());
+    $("#txtcorreof").val($("#txtmcorreo").val());
 }
 
 function ActivarPension(){
