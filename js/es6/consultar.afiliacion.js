@@ -2044,6 +2044,7 @@ class EstadisticaComponente {
     }
     var total = parseInt(t.cell(0, 8).data()) + parseInt(t.cell(1, 8).data()) + parseInt(t.cell(2, 8).data()) + parseInt(t.cell(3, 8).data());
     t.cell(4, 8).data(total).draw(false);
+    $("#_cargando").hide();
   }
 
 }
@@ -2051,7 +2052,7 @@ class EstadisticaComponente {
 function EstadisticasPorComponente(){
   var ObjEsta = new EstadisticaComponente();
   var url = Conn.URL + "militar/reportecomponente";
-
+  $("#_cargando").show();
   CargarAPI(url, "POST", "", ObjEsta);
 
 }
@@ -2194,5 +2195,67 @@ function EstadisticasPorGradoEX(codigo){
   $('#mdlGrados').modal("show");
   $('#lblTituloGrado').html(CodigoComponenteTexto(codigo));
   CargarAPI(url, "POST", {"grado": codigo }, ObjEsta);
+
+}
+
+
+
+
+class EstadisticaFamiliar {
+    Crear(Obj){
+      $("#tblEstadistica").html(`<table id="lstF" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Componente</th>
+                  <th>ACT</th>
+                  <th>RCP</th>
+                  <th>RSP</th>
+                  <th>FCP</th>
+                  <th>FSP</th>
+                  <th>INV</th>
+                  <th>TOTAL</th>
+              </tr>
+          </thead></table>`);
+      var t = $('#lstF').DataTable(opciones);
+      t.clear().draw();
+      t.row.add([1, "EJERCITO BOLIVARIANO","","","","","","",0]).draw(false);
+      t.row.add([2, "ARMADA BOLIVARIANA","","","","","","",0]).draw(false);
+      t.row.add([3, "AVIACION MILITAR BOLIVARIANA","","","","","","",0]).draw(false);
+      t.row.add([4, "GUARDIA NACIONAL BOLIVARIANA","","","","","","",0]).draw(false);
+      t.row.add(["","TOTAL ",0,0,0,0,0,0,0]).draw(false);
+      var matrix = [];
+      for (var i=0;i<4;i++) {
+         matrix[i] = [];
+      }
+
+      Obj.forEach( v => {
+
+        var fil = CodigoComponente(v._id.codigo) - 1;
+        var col = PosicionColumna(v._id.situacion) - 1;
+        matrix[fil][col] = parseInt(v.cantidad);
+      });
+
+      for (var i=0;i<4;i++) {
+        for (var j=0;j<6;j++) {
+           var acumularcol = parseInt(t.cell(i, 8).data()) + parseInt(matrix[i][j]);
+           t.cell(i, j + 2).data(matrix[i][j]).draw();
+           var acumular = parseInt(t.cell(4, j + 2).data()) + parseInt(matrix[i][j]);
+           t.cell(i, 8).data(acumularcol).draw(false);
+           t.cell(4, j + 2).data(acumular).draw(false);
+        }
+      }
+      var total = parseInt(t.cell(0, 8).data()) + parseInt(t.cell(1, 8).data()) + parseInt(t.cell(2, 8).data()) + parseInt(t.cell(3, 8).data());
+      t.cell(4, 8).data(total).draw(false);
+      $("#_cargando").hide();
+  }
+}
+
+function EstadisticasFamiliares(){
+  var ObjEsta = new EstadisticaFamiliar();
+  var url = Conn.URL + "militar/reportefamiliar";
+  console.log("Entrando...");
+  $("#_cargando").show();
+  CargarAPI(url, "POST", "", ObjEsta);
 
 }

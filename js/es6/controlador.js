@@ -330,3 +330,50 @@ function ListarCarnet(estatus) {
 function Estadisticas() {
   CargarUrl("_cuerpo", "afi/estadistica")
 }
+
+/**
+ * CargarAPIPromesa
+ *
+ **/
+function CargarAPIPromesa(options){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open(options.metodo, options.sURL);
+    xhttp.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('ipsfaToken'));
+    var promise = new Promise(function(resolve, reject) {
+        xhttp.addEventListener('readystatechange', function() {
+
+            if ( xhttp.readyState === 4 && xhttp.status === 200) {
+                if(options.Objeto != undefined){
+                    options.Objeto = JSON.parse(xhttp.responseText);
+                }
+                resolve(xhttp);
+            }
+            if( xhttp.status === 401){
+              if ( xhttp.responseText != "" ) {
+                respuesta = JSON.parse(xhttp.responseText);
+                $.notify(respuesta.msj);
+              }
+            }
+        });
+
+        xhttp.addEventListener('error', function() {
+          if ( xhttp.responseText != "" ) {
+            respuesta = JSON.parse(xhttp.responseText);
+            if (respuesta.tipo != 0){
+              $.notify("Se ha Insertado correctamente", "success");
+            }else{
+              alert(xhttp.responseText);
+            }
+          }
+          reject(xhttp);
+        });
+    });
+
+    if(options.valores != undefined){
+        xhttp.send(JSON.stringify(options.valores));
+    }else{
+        xhttp.send();
+    }
+
+    return promise;
+}
