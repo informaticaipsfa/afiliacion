@@ -2301,9 +2301,9 @@ function GArchivoFamiliar(){
 
 class ArchivoFamiliar{
   Crear(Obj){
-    valor = Obj.msj.split(";")[0];
+    var valor = Obj.msj.split(";")[0];
 
-    $("#_contenido").html(`<a href="tmp/"` + valor + `>Descargar archivo</a>`);
+    $("#_contenido").html(`<a href="tmp/` + valor + `">Descargar archivo</a>`);
     var botones = '<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>';
     $("#_botonesmsj").html(botones);
     $('#modMsj').modal('show');
