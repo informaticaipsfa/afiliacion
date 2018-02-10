@@ -2203,7 +2203,37 @@ function EstadisticasPorGradoEX(codigo){
 
 class EstadisticaFamiliar {
     Crear(Obj){
-      $("#tblEstadistica").html(`<table id="lstF" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      $("#tblEstadistica").html(`<div class="row">
+        <div class="col-md-4 col-sm-12">
+          <label>Componente:</label>
+          <select class="js-states form-control" style="width: 100%"  aria-hidden="true" id="cmbcomponente" required >
+            <option value="EJ">EJERCITO BOLIVARIANO</option>
+            <option value="AR">ARMADA BOLIVARIANA</option>
+            <option value="AV">AVIACION MILITAR BOLIVARIANA</option>
+            <option value="GN">GUARDIA NACIONAL BOLIVARIANA</option>
+          </select>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label>Situación:</label>
+          <select class="js-states form-control" style="width: 100%"
+          aria-hidden="true" required id="cmbsituacion">
+            <option value="ACT">ACTIVO</option>
+            <option value="RCP">RESERVA ACTIVA CON GOCE PENSION</option>
+            <option value="RSP">RESERVA ACTIVA SIN GOCE PENSION</option>
+            <option value="FCP">FALLECIDO CON PENSION</option>
+            <option value="FSP">FALLECIDO SIN PENSION</option>
+            <option value="I">INVALIDEZ</option>
+          </select>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label>&nbsp;</label><br>
+          <button type="button" class="btn btn-md btn-primary" data-dismiss="modal"
+            onclick="GArchivoFamiliar()" id="_btnArchivo">
+            <i class="fa fa-print "></i>&nbsp;&nbsp;Generar Archivo</button>
+        </div>
+        </div><br><br>
+        <div class="row"><div class="col-md-12 col-sm-12">
+        <table id="lstF" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
               <tr>
                   <th>#</th>
@@ -2216,7 +2246,7 @@ class EstadisticaFamiliar {
                   <th>INV</th>
                   <th>TOTAL</th>
               </tr>
-          </thead></table>`);
+          </thead></table></div></div>`);
       var t = $('#lstF').DataTable(opciones);
       t.clear().draw();
       t.row.add([1, "EJERCITO BOLIVARIANO","","","","","","",0]).draw(false);
@@ -2254,8 +2284,29 @@ class EstadisticaFamiliar {
 function EstadisticasFamiliares(){
   var ObjEsta = new EstadisticaFamiliar();
   var url = Conn.URL + "militar/reportefamiliar";
-  console.log("Entrando...");
   $("#_cargando").show();
   CargarAPI(url, "POST", "", ObjEsta);
 
+}
+
+function GArchivoFamiliar(){
+  var ObjEsta = new ArchivoFamiliar();
+  var url = Conn.URL + "familiar/csvfamiliar";
+  $("#_cargando").show();
+  var comp = $("#cmbcomponente").val();
+  var sit = $("#cmbsituacion").val();
+  var valores = {"tipo":"F","situacion":sit, "componente":comp};
+  CargarAPI(url, "POST", valores , ObjEsta);
+}
+
+class ArchivoFamiliar{
+  Crear(Obj){
+    valor = Obj.msj.split(";")[0];
+
+    $("#_contenido").html(`<a href="tmp/"` + valor + `>Descargar archivo</a>`);
+    var botones = '<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>';
+    $("#_botonesmsj").html(botones);
+    $('#modMsj').modal('show');
+    $("#_cargando").hide();
+  }
 }
