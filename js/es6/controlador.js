@@ -73,21 +73,25 @@ class Menu {
   }
   //Crear Menu Dinamicamente
   Crear(Json) {
-
+      console.log(Json);
       var e = sessionStorage.getItem("ipsfaToken");
       var s = e.split(".");
       var MenuJS = JSON.parse(atob(s[1]));
-      var Menu = MenuJS.Usuario.Perfil.Menu;
+      var Mnu = MenuJS.Usuario.Perfil.Menu;
       var cadena = "<li class='header'>Menu</li>";
-      Menu.forEach(v => {
-        if(v.url != undefined){
-          cadena += `<li><a href="${v.url}"><i class="${v.icono}"></i><span>${v.nombre}</span></a></li>`;
-        }else{
-          cadena += `<li><a href="#" onclick="CargarUrl('_cuerpo','${v.js}');${v.accion}"><i class="${v.icono}"></i><span>${v.nombre}</span></a></li>`;
-        }
-      });
-			$('#_menu').html(cadena);
-        verificarPrivilegioUsuario();
+      if (Mnu != undefined){
+        Mnu.forEach(v => {
+          if(v.url != undefined){
+            cadena += `<li><a href="${v.url}"><i class="${v.icono}"></i><span>${v.nombre}</span></a></li>`;
+          }else{
+            cadena += `<li><a href="#" onclick="CargarUrl('_cuerpo','${v.js}');${v.accion}"><i class="${v.icono}"></i><span>${v.nombre}</span></a></li>`;
+          }
+        });
+        $('#_menu').html(cadena);
+      }else{
+        console.log("No existen menus asociados a las cuentas.");
+      }
+      verificarPrivilegioUsuario();
   }
 }
 class Estado{
@@ -104,9 +108,9 @@ class Estado{
 
     $("#cmbmestado").html('<option value="S" selected="selected"></option>');
     $("#cmbestadof").html('<option value="S" selected="selected"></option>');
-    $.each(estado, function (c, v){
-      $("#cmbmestado").append('<option value="' + v.codigo + '">' + v.nombre + '</option>');
-      $("#cmbestadof").append('<option value="' + v.codigo + '">' + v.nombre + '</option>');
+    estado.forEach(v => {
+      $("#cmbmestado").append(`<option value="${v.codigo}">${v.nombre}</option>`);
+      $("#cmbestadof").append(`<option value="${v.codigo}">${v.nombre}</option>`);
     });
 
   }
