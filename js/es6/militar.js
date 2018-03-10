@@ -1267,7 +1267,7 @@ class LstCarnet {
         if (Json == null) {
             return false
         }
-				console.log(Json);
+				
         var tabla = "_tblPendiente";
         var buzon = "tblPendientesBuzon";
         if (Estatus != 0) {
@@ -1291,7 +1291,7 @@ class LstCarnet {
 						if(v.condicion){
 							paseR = "<p style='color:red'>(En proceso de retiro)</p>"
 						}
-						console.log(v.fechacreacion);
+						
             var tipocarnet = "verCarnet";
             var idf = "";
             if(v.idf != ""){
