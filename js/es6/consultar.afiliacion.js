@@ -1348,9 +1348,9 @@ function CConstanciaAfiliacion() {
 
 
 
-    var gradoPI = 'GENERAL DE DIVISIÓN';
+    var gradoPI = 'VICEALMIRANTE';
     var clascat = $("#cmbcategoria option:selected").text() + ' / ' + $("#cmbclase option:selected").text();
-    var nombrePI = 'JESÚS RAFAEL SALAZAR VELÁSQUEZ';
+    var nombrePI = 'ERIKA COROMOTO VIRGÜEZ OVIEDO';
     $('#modRpt').modal('show');
     $("#lblgradoMil").text($("#cmbgrado option:selected").text());
     $("#lblGradoFoto").text($("#cmbgrado option:selected").text());
@@ -1381,12 +1381,11 @@ function ConstanciaPensionSobr() {
     var fechaActual = ConvertirFechaActual();
     var ts = militar.tiemposervicio.split(" ");
     var tiempo = ts[0] + "ÑOS  " + ts[1] + "ESES " + ts[2] + "ÍAS"
-    var gradoPI = 'GENERAL DE DIVISIÓN';
+    var gradoPI = 'VICEALMIRANTE';
     var clascat = 'OFICIAL / ASIMILADO'
-    var nombrePI = 'JESÚS RAFAEL SALAZAR VELÁSQUEZ';
+    var nombrePI = 'ERIKA COROMOTO VIRGÜEZ OVIEDO';
     $('#modConsSobr').modal('show');
-    $('#lblprueba').text("aquioooooioi")
-
+    $('#lblprueba').text("aquí")
 
 }
 
