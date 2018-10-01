@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="../bower_components/fancy/dist/jquery.fancybox.css">
   <link rel="stylesheet" href="../css/fonts.googleapis.css">
-  
+
+
   <style type="text/css">
     .row-centered {
         text-align:center;
@@ -74,6 +75,22 @@
       overflow: hidden;
     }
 
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
   </style>
 
   <!-- Activar Menu a traves de la API -->
@@ -103,6 +120,7 @@
   <script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script src="../bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
   <script src="../bower_components/fancy/dist/jquery.fancybox.min.js"></script>
+
 
 </head>
 <body class="hold-transition skin-yellow" style="display:none" id="_body">

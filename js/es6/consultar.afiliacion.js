@@ -80,7 +80,13 @@ function Actualizar() {
         Util.ModalValidar("Favor completar todos los campos");
         Util.MensajeFormulario("_bxDatoBasico","msjVeriActualizar");
     } else {
+        var cant = document.getElementById("archivo").files.length;
         var militar = new Militar();
+        if (cant > 0){
+          console.log("entrando...");
+          EnviarArchivos();
+          militar.Persona.foto = "foto.jpg";
+        }
         militar.Actualizar();
         $("#_btnModificar").show();
         $("#_btnActualizar").hide();
@@ -845,6 +851,7 @@ function LimpiarFrmRedSocial(valor) {
 function FrmTim(valor) {
     $("#_imghuella").attr('disabled', valor);
     $("#_imgfirma").attr('disabled', valor);
+    $("#archivo").attr('disabled', valor);
 }
 
 function LimpiarFrmTim(valor) {
@@ -2308,4 +2315,77 @@ class ArchivoFamiliar{
     $('#modMsj').modal('show');
     $("#_cargando").hide();
   }
+}
+
+
+/**
+ * Enviando Archivos
+ */
+function EnviarArchivos() {
+    if ($("#archivo").val() == "") {
+        //$.notify("Debe seleccionar un archivo", {position: "top"});
+        return false;
+    }
+
+    $("#txtFileID").val($("#txtcedula").val());
+    var formData = new FormData(document.forms.namedItem("forma"));
+
+
+    var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/subirarchivos";
+
+    $.ajax({
+        url: strUrl,
+        type: "post",
+        dataType: "html",
+        data: formData,
+        timeout: 15000,
+        cache: false,
+        contentType: false,
+        processData: false
+    })
+    .done(function (res) {
+        $("#archivo").val("");
+        $.notify("Envio de archivos exitosos...", "success");
+        document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;Seleccionar Archivos.";
+        CargarIMGFOTOS();
+
+
+    }).fail(function (jqXHR, textStatus) {
+
+        $("#archivo").val("");
+        if (textStatus === 'timeout') {
+            $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...", "error");
+        }
+
+    });
+
+}
+
+function CambioEstadoInputFile(){
+  var cant = document.getElementById("archivo").files.length;
+  document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;(" + cant + ") Archivos Selecionados.";
+
+}
+
+function CargarIMGFOTOS(){
+  var rutaimg = Conn.URLTEMP;
+  url = rutaimg + $("#txtcedula").val() + "/foto.jpg";
+
+  $("#minifoto").attr("href", url);
+  $("#_img").attr("src", url);
+
+  url = rutaimg + $("#txtcedula").val() + "/huella.bmp";
+  $("#minihuella").attr("href", url);
+  $("#_imghuellam").attr("src", url);
+  url = rutaimg + $("#txtcedula").val() + "/firma.jpg";
+  $("#minifirma").attr("href", url);
+  $("#_imgfirmam").attr("src", url);
+  $("#_imgcarnetmilitar").attr("src", url);
+
+  url = rutaimg + $("#txtcedula").val() + "/cedula.jpg";
+  $("#miniced").attr("href", url);
+  $("#_imgcopiacedula").attr("src", url);
+  url = rutaimg + $("#txtcedula").val() + "/partidanac.jpg";
+  $("#mininac").attr("href", url);
+  $("#_imgpartida").attr("src", url);
 }

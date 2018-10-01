@@ -1153,21 +1153,21 @@ class Militar{
 		this.Persona.RedSocial.facebook = $("#txtmfacebook").val().toUpperCase();
 		this.Persona.RedSocial.instagram = $("#txtminstagran").val().toUpperCase();
 
-    	this.codigocomponente = $("#txtcodigocomponente").val();
-    	this.numerohistoria =   $("#txtnumhistoriaclinica").val();
+  	this.codigocomponente = $("#txtcodigocomponente").val();
+  	this.numerohistoria =   $("#txtnumhistoriaclinica").val();
 
 
-    	var valpase = false;
-    	if($("#cmbpbaja option:selected").val() == 1){
-    		valpase = true;
+  	var valpase = false;
+  	if($("#cmbpbaja option:selected").val() == 1){
+  		valpase = true;
 		}
-    	this.pasearetiro =valpase;
+  	this.pasearetiro =valpase;
 
 		return this;
 
 	}
 
-    ObtenerCategoria(){
+  ObtenerCategoria(){
         var cad = "";
         switch (this.categoria){
             case "EFE":cad = "EFECTIVO";break;
@@ -1267,7 +1267,7 @@ class LstCarnet {
         if (Json == null) {
             return false
         }
-				
+
         var tabla = "_tblPendiente";
         var buzon = "tblPendientesBuzon";
         if (Estatus != 0) {
@@ -1291,7 +1291,7 @@ class LstCarnet {
 						if(v.condicion){
 							paseR = "<p style='color:red'>(En proceso de retiro)</p>"
 						}
-						
+
             var tipocarnet = "verCarnet";
             var idf = "";
             if(v.idf != ""){
