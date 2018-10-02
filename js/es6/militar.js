@@ -702,7 +702,9 @@ class Militar{
 				url = rutaimg + $("#txtcedula").val() + "/firma.jpg";
 				$("#minifirma").attr("href", url);
 				$("#_imgfirmam").attr("src", url);
-				$("#_imgcarnetmilitar").attr("src", url);
+				url = rutaimg + $("#txtcedula").val() + "/carnet.jpg";
+				$("#_imgcarnet").attr("src", url);
+				//$("#_imgcarnetmilitar").attr("src", url);
 
 				url = rutaimg + $("#txtcedula").val() + "/cedula.jpg";
 				$("#miniced").attr("href", url);
@@ -956,7 +958,13 @@ class Militar{
 						var data = t.row(this).data();
 						$("#_bfcedula").attr("attced",data[1]);
 						$("#_lblConstanciaPension").hide();
-						var urlf = rutaimg + data[1] + ".jpg";
+
+						var rutaimg = Conn.URLIMG;
+		        var urlf = Conn.URLIMG + DB.cedula + ".jpg";
+						if (ObjMilitar.Persona.foto  != undefined){
+							rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
+		          urlf = rutaimg + "/foto" +  data[1] + ".jpg";
+						}
 						$("#_imgfamiliar").attr("src", urlf);
 						$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
 						$("#_fcedula").html('C.I: V- ' + data[1]);

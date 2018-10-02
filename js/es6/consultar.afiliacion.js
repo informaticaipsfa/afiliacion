@@ -1150,16 +1150,23 @@ function ModificarFamiliarPos(pos) {
 
         }
 
-
         $("#cmbparentescof").val(Familiar.parentesco);
-        urlf = Conn.URLIMG + DB.cedula + ".jpg";
+        var rutaimg = Conn.URLIMG;
+        var urlf = Conn.URLIMG + DB.cedula + ".jpg";
+				if (ObjMilitar.Persona.foto  != undefined){
+					rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
+          urlf = rutaimg + "/foto" + DB.cedula + ".jpg";
+				}
         $("#_imgIngFam").attr("src", urlf);
-
-        urlf = "temp/" + ObjMilitar.id + "/partida" + DB.cedula + ".jpg";
+        urlf = rutaimg + "/firma" + DB.cedula + ".jpg";
+        $("#_imgfirmaF").attr("src", urlf);
+        urlf = rutaimg + "/huella" + DB.cedula + ".jpg";
+        $("#_imghuellaF").attr("src", urlf);
+        urlf = rutaimg + "/partida" + DB.cedula + ".jpg";
         $("#_imgpartidaF").attr("src", urlf);
-
-        urlf = "temp/" + ObjMilitar.id + "/cestudio" + DB.cedula + ".jpg";
+        urlf = rutaimg + "/cestudio" + DB.cedula + ".jpg";
         $("#_imgEstudiaf").attr("src", urlf);
+
         $("#hclinicaf").val(Familiar.historiamedica);
         $("#gsanguineof").val(Familiar.Persona.DatoFisionomico.gruposanguineo);
         $("#donantef").val(Familiar.donante);
@@ -2380,7 +2387,9 @@ function CargarIMGFOTOS(){
   url = rutaimg + $("#txtcedula").val() + "/firma.jpg";
   $("#minifirma").attr("href", url);
   $("#_imgfirmam").attr("src", url);
-  $("#_imgcarnetmilitar").attr("src", url);
+  //$("#_imgcarnetmilitar").attr("src", url);
+  url = rutaimg + $("#txtcedula").val() + "/carnet.jpg";
+  $("#_imgcarnet").attr("src", url);
 
   url = rutaimg + $("#txtcedula").val() + "/cedula.jpg";
   $("#miniced").attr("href", url);
