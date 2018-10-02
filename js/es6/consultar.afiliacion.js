@@ -87,6 +87,9 @@ function Actualizar() {
           EnviarArchivos();
           militar.Persona.foto = "foto.jpg";
         }
+        if(ObjMilitar.Persona.foto != undefined){
+          militar.Persona.foto = "foto.jpg";
+        }
         militar.Actualizar();
         $("#_btnModificar").show();
         $("#_btnActualizar").hide();
