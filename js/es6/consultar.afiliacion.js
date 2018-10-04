@@ -1989,7 +1989,7 @@ function FrmDatosBasicosPension(valor) {
     $("#cmbprofecionalizacion").attr('disabled', valor);
     $("#cmbprimapermacnel").attr('disabled', valor);
     $("#txtpnoascenso").attr('disabled', valor);
-    $("#cmbpbaja").attr('disabled', valor);
+    //$("#cmbpbaja").attr('disabled', valor);
 
     $("#txtareconocido").attr('disabled', valor);
     $("#txtmreconocido").attr('disabled', valor);
