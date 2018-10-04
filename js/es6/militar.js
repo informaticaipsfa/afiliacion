@@ -1031,7 +1031,7 @@ class Militar{
 				if(militar.condicion != undefined){
 					$("#cmbCondicion").val(militar.condicion);
 					if(militar.condicion == 1){
-						$("#bCondicion").html("DESERTOR");
+						$("#bCondicion").html("PRESUNTO DESERTOR");
 						$("#mdlCondicion").modal('show');
 					}
 				}
