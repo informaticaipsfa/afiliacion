@@ -613,6 +613,7 @@ class Militar{
 		this.pespecial = 0;
 
 		this.posicion = 0;
+		this.condicion = 0;
 		this.fresuelto = "";
 		this.nresuelto = 0;
 		this.descripcionhistorica = "";
@@ -719,6 +720,8 @@ class Militar{
 				$("#cmbsexo").val(DB.sexo);
 				SeleccionarPorSexo(DB.sexo);
 				$("#cmbedocivil").val(DB.estadocivil);
+
+
 				$("#cmbcomponente").val(militar.Componente.abreviatura);
 				$("#cmbgrado").html('<option value="' + militar.Grado.abreviatura + '">' + militar.Grado.descripcion + '</option>');
 				$("#txtnresuelto").val(militar.nresuelto);
@@ -1025,6 +1028,13 @@ class Militar{
 					$("#mdlPaseretiro").modal('show')
 				}
 
+				if(militar.condicion != undefined){
+					$("#cmbCondicion").val(militar.condicion);
+					if(militar.condicion == 1){
+						$("#bCondicion").html("DESERTOR");
+						$("#mdlCondicion").modal('show');
+					}
+				}
 				$("#_cedula").val("");
 				$("#_ficha").show();
 				$("#_consultarbox").hide();
@@ -1103,6 +1113,7 @@ class Militar{
 		this.Persona.DatoBasico.fechadefuncion = fdefuncion;
 		this.Persona.DatoBasico.sexo = $("#cmbsexo option:selected").val();
 		this.Persona.DatoBasico.estadocivil = $("#cmbedocivil").val();
+		this.condicion = parseInt($("#cmbCondicion").val());
 		this.fingreso = fingreso;
 		this.fascenso = fascenso;
 		this.fresuelto = fresuelto;

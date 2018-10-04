@@ -652,6 +652,7 @@ function FrmDatosBasicos(valor) {
     $("#txtmreconocido").attr('disabled', true);
     $("#txtdreconocido").attr('disabled', true);
     $("#cmbpbaja").attr('disabled', valor);
+    $("#cmbCondicion").attr('disabled', valor);
     $("#cmbtipopension").attr('disabled', valor);
     $("#txtporcentaje").attr('disabled', valor);
 
