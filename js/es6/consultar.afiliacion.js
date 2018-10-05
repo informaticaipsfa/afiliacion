@@ -2342,8 +2342,8 @@ function EnviarArchivos() {
     var formData = new FormData(document.forms.namedItem("forma"));
 
 
-    var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/subirarchivos";
-
+    var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivos";
+    console.log(strUrl);
     $.ajax({
         url: strUrl,
         type: "post",
@@ -2352,7 +2352,10 @@ function EnviarArchivos() {
         timeout: 15000,
         cache: false,
         contentType: false,
-        processData: false
+        processData: false,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", 'Bearer '+ sessionStorage.getItem('ipsfaToken'));
+        }
     })
     .done(function (res) {
         $("#archivo").val("");
@@ -2362,7 +2365,7 @@ function EnviarArchivos() {
 
 
     }).fail(function (jqXHR, textStatus) {
-
+        console.log(textStatus);
         $("#archivo").val("");
         if (textStatus === 'timeout') {
             $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...", "error");
