@@ -1044,6 +1044,8 @@ class Militar{
 				if($("#cmbsituacion option:selected").val() == "FCP"){
 					$("#_btnTIM").hide();
 					$("#_btnModificar").hide();
+					$("#archivo").attr('disabled', false);
+					$("#enviar").show();
 				}else if($("#cmbsituacion option:selected").val() != "ACT"){
 						// $("#_btnModificar").hide();
 
