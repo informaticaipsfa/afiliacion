@@ -153,12 +153,13 @@
        <!-- Nav tabs -->
        <ul class="nav nav-pills nav-fill nav-justified" >
          <li role="presentation" class="active"><a href="#mdmilitar" aria-controls="home" role="tab" data-toggle="tab">Datos Militares</a></li>
-         <li role="presentation"><a href="#mfinanciero" aria-controls="home" role="tab" data-toggle="tab">Cta. Bancaria</a></li>
-         <li role="presentation"><a href="#mdireccion" aria-controls="home" role="tab" data-toggle="tab">Dirección</a></li>
-         <li role="presentation"><a href="#mpartida" aria-controls="profile" role="tab" data-toggle="tab" style="display: none">Part. Nacimiento</a></li>
-         <li role="presentation"><a href="#mdfisico" aria-controls="messages" role="tab" data-toggle="tab">Datos Fisicos</a></li>
-         <li role="presentation"><a href="#mdcarnet" aria-controls="messages" role="tab" data-toggle="tab">TIM</a></li>
-         <li role="presentation"><a href="#mddocu" aria-controls="messages" role="tab" data-toggle="tab">Documentos</a></li>
+         <li role="presentation"><a href="#mfinanciero" aria-controls="home" role="tab" data-toggle="tab">Bancos</a></li>
+         <li role="presentation"><a href="#mdireccion" aria-controls="direccion" role="tab" data-toggle="tab">Dirección</a></li>
+         <li role="presentation"><a href="#mpartida" aria-controls="partida" role="tab" data-toggle="tab" style="display: none">Part. Nacimiento</a></li>
+         <li role="presentation"><a href="#mdfisico" aria-controls="fisico" role="tab" data-toggle="tab">Datos Fisicos</a></li>
+         <li role="presentation"><a href="#mdsueldo" aria-controls="sueldo" role="tab" data-toggle="tab">Sueldo</a></li>
+         <li role="presentation"><a href="#mdcarnet" aria-controls="carnet" role="tab" data-toggle="tab">TIM</a></li>
+         <li role="presentation"><a href="#mddocu" aria-controls="documento" role="tab" data-toggle="tab">Documentos</a></li>
 
        </ul>
 
@@ -666,6 +667,83 @@
 
          </div><!-- Tab panes Datos Fisicos-->
 
+         <div role="tabpanel" class="tab-pane" id="mdsueldo"  style="padding:15px">
+         <div class="row">
+             <div class="col-md-4 col-sm-6">
+               <label>Sueldo Base</label>
+               <input type="text" placeholder="Sueldo Base" id="sueldo_base" class="form-control" readonly="readonly" />
+             </div>
+             <div class="col-md-4 col-sm-6">
+               <label>Sueldo Mensual</label>
+               <input type="text" placeholder="Sueldo Mensual" id="sueldo_global" class="form-control" readonly="readonly" />
+             </div>
+             <div class="col-md-4 col-sm-6">
+               <label>Sueldo Integral</label>
+               <input type="text" placeholder="Sueldo Integral" id="sueldo_integral" class="form-control" readonly="readonly" />
+             </div>
+         </div>
+         <br>
+         <div class="row">
+           <div class="col-md-4 col-sm-6">
+             <label>Alic. Bono Fin</label>
+             <input type="text" placeholder="Ali. Bono Fin de Año" id="fano" class="form-control" readonly="readonly">
+           </div>
+           <div class="col-md-4 col-sm-6">
+             <label>Alic. Bono Vac.</label>
+             <input type="text" placeholder="Bono Vacacional" id="vacaciones" class="form-control" readonly="readonly">
+           </div>
+         </div>
+
+         <br>
+
+         <h4>Primas</h4>
+         <hr>
+         <div class="row">
+           <div class="col-md-4 col-sm-6">
+             <label>Compensación Esp. </label>
+             <input type="text" placeholder="de Protección y Movilidad (Transporte)" id ="P_TRANSPORTE" class="form-control" readonly="readonly">
+           </diV>
+           <div class="col-md-4 col-sm-6">
+             <label>Descendencia</label>
+             <input type="text" placeholder="Descendencia" id ="P_DESCENDECIA" class="form-control" readonly="readonly">
+           </diV>
+           <div class="col-md-4 col-sm-6">
+             <label>Productividad</label>
+             <input type="text" placeholder="Especial" class="form-control" id="P_ESPECIAL" readonly="readonly">
+           </diV>
+         </div>
+         <br>
+
+
+
+         <div class="row">
+           <div class="col-md-4 col-sm-6">
+             <label>Años Servicio</label>
+             <input type="text" placeholder="Años Servicio" class="form-control" id="P_TIEMPOSERVICIO" readonly="readonly">
+           </diV>
+           <div class="col-md-4 col-sm-6">
+             <label>No Ascenso</label>
+             <input type="text" placeholder="No Ascenso" class="form-control" id="P_NOASCENSO" readonly="readonly">
+           </diV>
+           <div class="col-md-4 col-sm-6">
+             <label>Profesionalización</label>
+             <input type="text" placeholder="Profesionalización" class="form-control" id="P_PROFESIONALIZACION" readonly="readonly">
+           </diV>
+
+
+
+         </div>
+         <br>
+
+         <div class="row">
+           <div class="col-md-4 col-sm-6">
+             <label>Estabilidad</label>
+             <input type="text" placeholder="Compensación Especial" class="form-control" id="P_COMPENSACION_ESPECIAL" readonly="readonly">
+           </div>
+         </div>
+       </div>
+
+
            <div role="tabpanel" class="tab-pane" id="mdcarnet"  style="padding:15px">
            <div class="row">
               <label class="col-md-12"></label>
@@ -773,13 +851,16 @@
                     multiple onchange="CambioEstadoInputFile()" disabled="disabled">
                 </div>
                  <input type="hidden" name="txtFileID" id="txtFileID" value="" readonly="readonly">
-                 <button id="enviar"  class="btn btn-success" onclick="EnviarArchivos()" style="display:none">
-                   <i class="fa fa-download"></i> Enviar Archivos</button>
+                 
 
 
 
                </form>
              </div>
+            <div class="col-md-2" style="display:none" id="btnEnviarAchivos">
+              <button id="enviar"  class="btn btn-success" onclick="EnviarArchivos()" style="display:none">
+                <i class="fa fa-download"></i> Enviar Archivos</button>
+            </div>
              <div class="col-md-2" style="display:none" id="btnEnviarAchivos">
                <button id="enviar"  class="btn btn-success" onclick="EnviarArchivos()" >
                  <i class="fa fa-download"></i> Enviar Archivos</button>
