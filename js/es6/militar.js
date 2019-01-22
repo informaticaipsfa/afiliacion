@@ -1379,3 +1379,28 @@ class LstCarnet {
         return cadena;
     }
 }
+
+
+class PACE {
+    constructor() {
+			// console.log("Cargando la clase de Aprobacion...");
+    }
+    Crear(Json) {
+			console.log(Json);
+			
+			$("#sueldo_base").val(Json.sueldo_base_aux);
+		 	$("#sueldo_global").val(Json.sueldo_global_aux);
+		 	$("#sueldo_integral").val(Json.sueldo_integral_aux);
+			$("#fano").val(Json.aguinaldos_aux);
+      $("#vacaciones").val(Json.vacaciones_aux);
+			$("#P_TRANSPORTE").val(Json.prima_transporte_aux);
+      $("#P_DESCENDECIA").val(Json.prima_descendencia_aux);
+      $("#P_ESPECIAL").val(Json.prima_especial_aux);
+      $("#P_TIEMPOSERVICIO").val(Json.prima_tiemposervicio_aux);
+      $("#P_NOASCENSO").val(Json.prima_noascenso_aux);
+      $("#P_PROFESIONALIZACION").val(Json.prima_profesionalizacion_aux);
+      $("#P_COMPENSACION_ESPECIAL").val(Json.prima_compensacion_especial_aux);
+
+			$("#sueldo_global").val(Json.cedula);
+		}
+}

@@ -1,5 +1,6 @@
 let ObjMilitar = new Militar();
 let OqMilitar = new Militar();
+let ObjPACE = new PACE();
 
 function Buscar(id) {
     if (id != undefined) {
@@ -18,6 +19,9 @@ function Buscar(id) {
     ObjMilitar = new Militar();
     var url = Conn.URL + "militar/crud/" + $("#_cedula").val();
     CargarAPI(url, "GET", "", ObjMilitar);
+
+    var url = Conn.URL + "militar/pace/" + $("#_cedula").val();
+    CargarAPI(url, "GET", "", ObjPACE);
 
 
 
@@ -1385,7 +1389,7 @@ function CConstanciaAfiliacion() {
     $("#lblaServicio").text(tiempo);
     $("#lblcomponente").text($("#cmbcomponente option:selected").text());
     $("#lblsituacionMil").text($("#cmbsituacion option:selected").text());
-    $("#_fotoConstancia").attr("src", urlMil);
+      $("#_fotoConstancia").attr("src", urlMil);
     $("#_Constgrado").attr("src", urlGra);
     $("#lblfchActual").text(fechaActual);
     $("#lblgradoPI").text(gradoPI);
