@@ -1386,8 +1386,6 @@ class PACE {
 			// console.log("Cargando la clase de Aprobacion...");
     }
     Crear(Json) {
-			console.log(Json);
-			
 			$("#sueldo_base").val(Json.sueldo_base_aux);
 		 	$("#sueldo_global").val(Json.sueldo_global_aux);
 		 	$("#sueldo_integral").val(Json.sueldo_integral_aux);
@@ -1400,7 +1398,5 @@ class PACE {
       $("#P_NOASCENSO").val(Json.prima_noascenso_aux);
       $("#P_PROFESIONALIZACION").val(Json.prima_profesionalizacion_aux);
       $("#P_COMPENSACION_ESPECIAL").val(Json.prima_compensacion_especial_aux);
-
-			$("#sueldo_global").val(Json.cedula);
 		}
 }
