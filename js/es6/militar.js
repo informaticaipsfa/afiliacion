@@ -1031,9 +1031,11 @@ class Militar{
 				if(militar.condicion != undefined){
 					$("#cmbCondicion").val(militar.condicion);
 					if(militar.condicion == 1){
-						$("#bCondicion").html("PRESUNTO DESERTOR");
-						$("#mdlCondicion").modal('show');
-					}
+						$("#bCondicion").html("DESERTOR");
+					}else if(militar.condicion == 2){
+            $("#bCondicion").html("DEGRADADO");
+          }
+          $("#mdlCondicion").modal('show');
 				}
 				$("#_cedula").val("");
 				$("#_ficha").show();
