@@ -963,7 +963,7 @@ class Militar{
 						$("#_lblConstanciaPension").hide();
 
 						var rutaimg = Conn.URLIMG;
-		        var urlf = Conn.URLIMG + DB.cedula + ".jpg";
+		        var urlf = Conn.URLIMG + data[1] + ".jpg";
 						if (ObjMilitar.Persona.foto  != undefined){
 							rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
 		          urlf = rutaimg + "/foto" +  data[1] + ".jpg";

@@ -1,0 +1,46 @@
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+        <div class="box box-primary box-solid ">
+            <div class="box-header with-border">
+                <center><h3 class="box-title">Pendientes por procesar</h3></center>
+            </div>
+            <div class="box-body" style="padding:50px">
+    
+              
+    
+            </div><!-- /.box-body -->
+    
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay" id="_cargando" style="display:none">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+            <div class="modal-footer">
+                <button type="button" id="btnPreparar" class="btn btn-md btn-primary prvsalvar" onclick="PrepararNominaView()">
+                    <i class="fa fa-plus"></i>&nbsp;&nbsp;Preparar Nómina</button>
+            </div>
+        </div><!-- /.box -->
+        
+        <center>Fuerza Armada Nacional Bolivariana</center>
+    </div>
+    
+
+<div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" id="mdlPrepararNomina"
+     aria-hidden="false">
+      <div class="modal-dialog modal-lg" role="document">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+        <div class="modal-header" style="background-color:#337ab7;color:white;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Preparando Nomina</h4>
+
+        </div>
+        <div class="modal-body" id="_stepper">
+            
+        </div>
+
+      </div>
+    </div>
+  </div>

@@ -1,7 +1,7 @@
 let ObjMilitar = new Militar();
 let OqMilitar = new Militar();
 let ObjPACE = new PACE();
-
+let myStepper;
 function Buscar(id) {
     if (id != undefined) {
         $("#_cedula").val(id);
@@ -2347,7 +2347,7 @@ function EnviarArchivos() {
 
 
     var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivos";
-    console.log(strUrl);
+
     $.ajax({
         url: strUrl,
         type: "post",
@@ -2421,3 +2421,11 @@ function ViewImprimirCarnet() {
     var ventana = window.open("", "_blank");
     ventana.document.write(html);
   }
+
+function IncluirMedidaJudicial(){
+  myStepper = new Stepper(document.querySelector('#stepper-example'));
+  $('#mdlMedidaJudicial').modal('show');
+}
+
+
+  

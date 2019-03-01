@@ -170,6 +170,10 @@ $(function () {
   CargarUrl("_bxBuscar", "afi/buscar");
   CargarUrl("_bxTarjeta", "afi/tarjeta");
   CargarUrl("_bxDatoBasico", "afi/datobasico");
+  CargarUrl("_bxMedidaJudicial", "afi/medidajudicial");
+  CargarUrl("_stepper", "afi/medidajudicialfrm");
+
+
   CargarUrl("_bxDatosFamiliar", "afi/familiar");
   CargarUrl("_bxTarjetaFamiliar", "afi/tarjetafamiliar");
   CargarUrl("_boxModFamiliares", "afi/modalfamiliares");
@@ -380,4 +384,17 @@ function CargarAPIPromesa(options){
     }
 
     return promise;
+}
+
+
+function Conceptos(){
+  $("#ModuloTitulo").html("Conceptos");
+  ActualizarConcepto();
+
+}
+
+function PrepararNomina(){
+  
+  CargarUrl("_stepper", "afi/nominafrm");
+  $("#ModuloTitulo").html("Nómina");
 }

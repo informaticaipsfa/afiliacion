@@ -1,0 +1,137 @@
+<div id="stepper-example" class="bs-stepper">
+    <div class="bs-stepper-header">
+        <div class="step" data-target="#test-l-1">
+        <a href="#">
+            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-label">Directiva</span>
+        </a>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#test-l-2">
+        <a href="#">
+            <span class="bs-stepper-circle">2</span>
+            <span class="bs-stepper-label">Conceptos</span>
+        </a>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#test-l-3">
+        <a href="#">
+            <span class="bs-stepper-circle">3</span>
+            <span class="bs-stepper-label">Varios</span>
+        </a>
+        </div>
+       
+    </div>
+    <div class="bs-stepper-content">
+        <div id="test-l-1" class="content" style="height:250px">
+            
+            <div class="row" >
+            <!-- Directivas -->
+            <div class="col-md-12 col-sm-12">
+                <label>Seleccionar Directiva:</label>
+                <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="directiva">
+                        
+                </select>
+                </div>
+                <!-- Fecha del Expediente -->
+            </div>
+            <div class="row">
+                
+                <div class="col-md-4 col-sm-12">
+                    <label>Fecha Inicio:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="input-group input-group">
+                            <input class="form-control" id="fechainicio" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label>Fecha de Vigencia:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="input-group input-group">
+                            <input class="form-control"  id="fechavigencia" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                        <label> Forma de Pago:</label>
+                        <select class="form-control" id='estado' style="width: 100%;">
+                            <option value='0'>MESUAL</option>
+                            <option value='1'>QUINCENAL</option>
+    
+                        </select>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12" style="text-align: right">
+                    <br>
+                    <button type="button" class="btn btn-primary pull-right" onclick="CargarDirectivaConceptos()">
+                    Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+        </div><!-- Fin stepper -->
+
+        <div id="test-l-2" class="content">
+
+                <div class="row" style="height:250px"> 
+                    <div class="col-md-12 col-sm-6" id="_TblConceptos">
+                            
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6" style="text-align: left">
+                        <br>
+                        <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                            <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+                        </button>
+                    </div>
+                    <div class="col-md-6 col-sm-6" style="text-align: right">
+                        <br>
+                        <button type="button" class="btn btn-primary" onclick="myStepper.next()">
+                            Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+                        </button>
+                    </div>
+                </div>
+        </div> <!-- Fin de stepper-->
+
+        <div id="test-l-3" class="content">
+            <div class="row" >
+                <div class="form-group " style="height:250px">
+                    <div class="input-group input-file" name="Fichier1">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-choose" type="button">Cargar archivos</button>
+                        </span>
+                        <input type="text" class="form-control" placeholder='Seleccionar fichero...' />
+                        <span class="input-group-btn">
+                                <button class="btn btn-warning btn-reset" type="button">Limpiar</button>
+                        </span>
+                </div>
+            </div>
+
+
+            <div class="row" >
+                <div class="col-md-6 col-sm-6" style="text-align: left">
+                    <br>
+                    <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                        <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+                    </button>
+                </div>
+                <div class="col-md-6 col-sm-6" style="text-align: right">
+                    <br>
+                    <button type="button" class="btn btn-success" onclick="GenerarNomina()">
+                        <i class="fa fa-superscript"></i>&nbsp;&nbsp;Procesar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

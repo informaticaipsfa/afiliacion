@@ -1,0 +1,325 @@
+  <div id="stepper-example" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#test-l-1">
+        <a href="#">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Dato Judicial</span>
+        </a>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-2">
+        <a href="#">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Forma de pago</span>
+        </a>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-3">
+        <a href="#">
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Autoridad</span>
+        </a>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-4">
+        <a href="#">
+          <span class="bs-stepper-circle">4</span>
+          <span class="bs-stepper-label">Beneficiario</span>
+        </a>
+      </div>
+    </div>
+    <div class="bs-stepper-content">
+      <div id="test-l-1" class="content">
+        <div class="row">
+         <!-- Numero de oficio -->
+         <div class="col-md-4 col-sm-12">
+             <label>N° Oficio:</label>
+             <input id="codigomedida" value="0" type="hidden">
+             <input class="form-control" placeholder="N° Oficio" id="numero_oficio" type="text">
+         </div>
+         <!-- Numero de Expediente -->
+         <div class="col-md-4 col-sm-12">
+             <label>N° Expediente:</label>
+             <input class="form-control" placeholder="Expediente" id="numero_expediente" type="text">
+         </div>
+         <div class="col-md-4 col-sm-12">
+           <label>Fecha:</label>
+           <div class="input-group date">
+               <div class="input-group-addon">
+                   <i class="fa fa-calendar"></i>
+               </div>
+               <div class="input-group input-group">
+                   <input class="form-control" style="width: 110%;" id="datepicker" type="text">
+               </div>
+           </div>
+         </div>
+      </div>
+      <div class="row">
+        <!-- Tipo de Medida Judicial -->
+        <div class="col-md-8 col-sm-12">
+            <label>Tipo:</label>
+            <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="tipo">
+                    <option selected="selected" value="1">PENSION ALIMENTARIA</option>
+                    <option value="2">RETRIBUCION ESPECIAL</option>
+                    <option value="3">BONO RECREACIONAL</option>
+                    <option value="4">RETENCION ESCOLAR</option>
+                    <option value="5">RETENCION AGUINALDOS</option>
+            </select>
+          </div>
+          <!-- Fecha del Expediente -->
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <label>Observaciones:</label>
+            <textarea class="form-control" placeholder="Descripción" id="observacion"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12" style="text-align: right">
+              <br>
+              <button type="button" class="btn btn-primary pull-right" onclick="myStepper.next()">
+              Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="test-l-2" class="content">
+        <div class="row">
+          <!-- Porcentaje -->
+          <div class="col-md-4 col-sm-12">
+              <label> Porcentaje:</label>
+              <input class="form-control" placeholder="Porcentaje" id="porcentaje" value="0" type="text">
+          </div>
+          <!-- Sueldo Minimo -->
+          <div class="col-md-4 col-sm-12">
+              <label> Sueldo Minimo:</label>
+              <input class="form-control" placeholder="Salarios" id="salario" value="0" onblur="convertirSalario()" type="text">
+              <input id="salarioaux" value="0" type="hidden">
+          </div>
+          <!-- Monto Fijo -->
+          <div class="col-md-4 col-sm-12">
+              <label> Monto Fijo:</label>
+              <input class="form-control" placeholder="Mensualidades" id="mensualidades" value="0" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <!-- Unidad Tributaria -->
+          <div class="col-md-4 col-sm-12">
+              <label> Unidad Tributaria:</label>
+              <input class="form-control" placeholder="Unidad Tributaria" id="ut" value="0" onblur="convertirSalario()" type="text">
+              <input id="salarioaux" value="0" type="hidden">
+          </div>
+          <div class="col-md-4 col-sm-12">
+              <label> Monto Total:</label>
+              <input class="form-control" placeholder="Monto Total" id="monto_total" value="0" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <!-- Forma Pago -->
+          <div class="col-md-4 col-sm-12">
+              <label>Forma Pago:</label>
+              <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="forma_pago">
+                  <option value="0">CHEQUE</option>
+                  <option value="1">TRANSFERENCIA</option>
+                  <option value="2">DEPOSITO</option>
+                  <option value="3">CHEQUE DE GERENCIA</option>
+              </select>
+          </div>
+          <!-- Institución -->
+          <div class="col-md-4 col-sm-12">
+              <label>Institución:</label>
+              <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="institucion">
+                      <option value="0156">100%BANCO</option>
+                      <option value="0196">ABN AMRO BANK</option>
+                      <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
+                      <option value="0171">BANCO ACTIVO BANCO COMERCIAL, C.A.</option>
+                      <option value="0166">BANCO AGRICOLA</option>
+                      <option value="0175">BANCO BICENTENARIO</option>
+                      <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
+                      <option value="0164">BANCO DE DESARROLLO DEL MICROEMPRESARIO</option>
+                      <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                      <option value="0114">BANCO DEL CARIBE C.A.</option>
+                      <option value="0149">BANCO DEL PUEBLO SOBERANO C.A.</option>
+                      <option value="0163">BANCO DEL TESORO</option>
+                      <option value="0176">BANCO ESPIRITO SANTO, S.A.</option>
+                      <option value="0115">BANCO EXTERIOR C.A.</option>
+                      <option value="0003">BANCO INDUSTRIAL DE VENEZUELA.</option>
+                      <option value="0173">BANCO INTERNACIONAL DE DESARROLLO, C.A.</option>
+                      <option value="0105">BANCO MERCANTIL C.A.</option>
+                      <option value="0191">BANCO NACIONAL DE CREDITO</option>
+                      <option value="0116">BANCO OCCIDENTAL DE DESCUENTO.</option>
+                      <option value="0138">BANCO PLAZA</option>
+                      <option value="0108">BANCO PROVINCIAL BBVA</option>
+                      <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
+                      <option value="0168">BANCRECER S.A. BANCO DE DESARROLLO</option>
+                      <option value="0134">BANESCO BANCO UNIVERSAL</option>
+                      <option value="0177">BANFANB</option>
+                      <option value="0146">BANGENTE</option>
+                      <option value="0174">BANPLUS BANCO COMERCIAL C.A</option>
+                      <option value="0190">CITIBANK.</option>
+                      <option value="0121">CORP BANCA.</option>
+                      <option value="0157">DELSUR BANCO UNIVERSAL</option>
+                      <option value="0151">FONDO COMUN</option>
+                      <option value="0601">INSTITUTO MUNICIPAL DE CRÉDITO POPULAR</option>
+                      <option value="0169">MIBANCO BANCO DE DESARROLLO, C.A.</option>
+                      <option value="0137">SOFITASA</option>
+              </select>
+              <!--input type="text" class="form-control" placeholder="Institución" id='institucion'-->
+          </div>
+          <div class="col-md-4 col-sm-12">
+              <label>Tipo de Cuenta:</label>
+              <select class="form-control" style="width: 100%" id="tipodecuenta">
+                  <option selected="selected" value="S"></option>
+                  <option value="CA" selected="selected">AHORRO</option>
+                  <option value="CC">CORRIENTE</option>
+              </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+              <label>Nro. de Cuenta:</label>
+              <input id="numerocuenta" placeholder="Nro. de Cuenta" class="form-control"
+              maxlength="20" data-inputmask="&quot;mask&quot;: &quot;9999-9999-99-9999999999&quot;" data-mask="" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6" style="text-align: left">
+              <br>
+              <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+              </button>
+          </div>
+          <div class="col-md-6 col-sm-6" style="text-align: right">
+              <br>
+              <button type="button" class="btn btn-primary" onclick="myStepper.next()">
+                Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="test-l-3" class="content">
+
+
+        <div class="row">
+          <!-- Autoridad -->
+          <div class="col-md-8 col-sm-12">
+              <label> Autoridad:</label>
+              <input type="text" class="form-control" placeholder="Autoridad" id='autoridad'>
+          </div>
+          <!-- Cargo -->
+          <div class="col-md-4 col-sm-12">
+              <label> Cargo:</label>
+              <input type="text" class="form-control" placeholder="Cargo" id='cargo' >
+          </div>
+        </div>
+        <div class="row">
+            <!-- Estado -->
+            <div class="col-md-4 col-sm-12">
+                <label> Estado:</label>
+                <select class="form-control" id='estado' style="width: 100%;" onchange="obtenerCiudades()">
+                  <option value='0'>SELECCIONE UNA OPCION</option>
+
+                </select>
+            </div>
+
+          <!-- Ciudad -->
+            <div class="col-md-4 col-sm-12">
+                <label> Ciudad:</label>
+                <select class="form-control" id='ciudad' onchange="obtenerMunicipios()" style="width: 100%;" >
+                  <option value='0'>SELECCIONE UNA OPCION</option>
+                </select>
+            </div>
+
+            <!-- Municipio -->
+            <div class="col-md-4 col-sm-12">
+                <label> Municipio:</label>
+                <select class="form-control" id='municipio' style="width: 100%;" >
+                  <option value='0'>SELECCIONE UNA OPCION</option>
+                </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Descripcion Institución -->
+            <div class="col-md-12 col-sm-12">
+                <label> Descripcion Institución:</label>
+                <textarea class="form-control" placeholder="Descripción" id='descripcion_institucion'></textarea>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-6" style="text-align: left">
+              <br>
+              <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+              </button>
+          </div>
+          <div class="col-md-6 col-sm-6" style="text-align: right">
+              <br>
+              <button type="button" class="btn btn-primary" onclick="myStepper.next()">
+                Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="test-l-4" class="content">
+        <div class="row">
+           <!-- Cedula Beneficiario -->
+           <div class="col-md-4 col-sm-12">
+               <label> Cedula:</label>
+               <input class="form-control" placeholder="Cedula Beneficiario" id="cedula_beneficiario" type="text">
+           </div>
+           <!-- Beneficiario -->
+           <div class="col-md-4 col-sm-12">
+               <label> Beneficiario:</label>
+               <input class="form-control" placeholder="Nombre Beneficiario" id="beneficiario" type="text">
+           </div>
+           <!-- Parentesco -->
+           <div class="col-md-4 col-sm-12">
+               <label> Parentesco:</label>
+               <select class="form-control" id="parentesco" style="width: 100%;">
+                 <option value="0">NO POSEE</option>
+                 <option value="1">HIJO</option>
+                 <option value="2">ESPOSA</option>
+                 <option value="3">PADRE</option>
+                 <option value="4">MADRE</option>
+                 <option value="5">HIJO</option>
+                 <option value="6">HERMANO</option>
+                 <option value="7">CONYUGE</option>
+                 <option value="8">EX CONYUGE</option>
+                 <option value="9">NO INDICA</option>   
+                 <option value="10">OTRO</option>
+              </select>
+           </div>
+         </div>
+         <div class="row">
+           <!-- Cedula Autorizado -->
+           <div class="col-md-4 col-sm-12">
+               <label> Cedula:</label>
+               <input class="form-control" placeholder="Cedula Autorizado" id="cedula_autorizado" type="text">
+           </div>
+           <!-- Nombre Autorizado -->
+           <div class="col-md-4 col-sm-12">
+               <label> Autorizado:</label>
+               <input class="form-control" placeholder="Nombre Autorizado" id="autorizado" type="text">
+           </div>
+         </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6" style="text-align: left">
+              <br>
+              <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+              </button>
+          </div>
+          <div class="col-md-6 col-sm-6" style="text-align: right">
+              <br>
+              <button type="button" class="btn btn-success" onclick="myStepper.next()">
+                <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Finalizar
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

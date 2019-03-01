@@ -20,8 +20,43 @@
   <link rel="stylesheet" href="../bower_components/fancy/dist/jquery.fancybox.css">
   <link rel="stylesheet" href="../css/fonts.googleapis.css">
 
+  <link rel="stylesheet" href="https://unpkg.com/bs-stepper/dist/css/bs-stepper.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css">
+  <script src="https://unpkg.com/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
 
   <style type="text/css">
+     .chip {
+        display: inline-block;
+        padding: 0 15px;
+        height: 26px;
+        font-size: 13px;
+        line-height: 25px;
+        border-radius: 20px;
+        background-color: #12740d;
+        color: #FFFFFF;
+      }
+
+    .chip img {
+      float: left;
+      margin: 0 10px 0 -20px;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+    }
+
+    .closebtn {
+      padding-left: 10px;
+      color: #888;
+      font-weight: bold;
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .closebtn:hover {
+      color: #000;
+    }
     .row-centered {
         text-align:center;
     }
@@ -104,12 +139,15 @@
   <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
   <script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
 
   <script src="js/es6/utilidad.js"></script>
   <script src="js/es6/controlador.js"></script>
   <script src="js/es6/militar.js"></script>
   <script src="js/es6/aprobacion.js"></script>
   <script src="js/es6/consultar.afiliacion.js"></script>
+  <script src="js/es6/nomina.js"></script>
+  <script src="js/es6/directiva.js"></script>
   <script src="../bower_components/barcode/dist/JsBarcode.all.js"></script>
   <!-- InputMask -->
   <script src="../plugins/input-mask/jquery.inputmask.js"></script>
@@ -305,7 +343,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Afiliación</h1>
+      <h1 id="ModuloTitulo">Afiliación</h1>
       <ol class="breadcrumb">
         <li><a href="#" class="prvsalvar hide" onClick="incluirAfiliado()"><i class="fa fa-dashboard"></i> <font style="font-size:15px;"><b> Nuevo Ingreso Militar</b></font></a></li>
       </ol>
@@ -340,6 +378,10 @@
       	      <div class="col-md-9" id="_bxDatosFamiliar"></div>
               <div class="col-md-3" id="_bxTarjetaFamiliar"></div>
           </div> <!-- /.row -->
+          <div class="row">
+             <div class="col-md-9" id="_bxMedidaJudicial"></div>
+             <div class="col-md-3" ></div>
+         </div> <!-- /.row -->
           <div class="row">
              <div class="col-md-12" id="_bxHMilitar"></div>
          </div> <!-- /.row -->
@@ -391,6 +433,32 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+
+
+
+
+    <div div="" class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="mdlMedidaJudicial"
+     aria-hidden="false">
+      <div class="modal-dialog modal-lg" role="document">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+        <div class="modal-header" style="background-color:#337ab7;color:white;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Medida Judicial</h4>
+
+        </div>
+        <div class="modal-body" id="_stepper">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
 
 
   <!--Modal para mostrar el carnet-->
