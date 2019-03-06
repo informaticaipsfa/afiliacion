@@ -397,4 +397,5 @@ function PrepararNomina(){
   
   CargarUrl("_stepper", "afi/nominafrm");
   $("#ModuloTitulo").html("Nómina");
+  
 }

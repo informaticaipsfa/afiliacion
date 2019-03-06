@@ -31,12 +31,13 @@ function PrepararNominaView(){
     var Dir = new Directiva();
     var ruta = Conn.URL + "nomina/directiva";
     CargarAPI(ruta, "GET", "", Dir);
-    myStepper = new Stepper(document.querySelector('#stepper-example'));
+    myStepper = new Stepper(document.querySelector('#stepper-nomina'));
     $('#mdlPrepararNomina').modal('show');
 
     var Obj = new ListaConceptos();
     var url = Conn.URL + "nomina/concepto/listar";
     CargarAPI(url, "GET", "", Obj);
     ActivarFechaNomina();
+    ViewInputFile();
   }
 

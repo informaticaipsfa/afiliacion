@@ -10,18 +10,22 @@
                             </div>
                         </div>
                         <div class="box-body" id="_TblFormulas" style="height: 100px; ">
-                                <div class="chip">
+                                <div class="chip"  onclick="fnxSueldoBase()">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
                                     Sueldo Básico
                                     
                                 </div> 
-                                <div class="chip">
+                                <div class="chip" onclick="fnxTiempoServicio()">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                              
-                                    Prima por hijos
+                                    Tiempo Servicio
                                 </div>
-                                <div class="chip">
+                                <div class="chip" onclick="fnxNumeroHijos()">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                  
-                                    Prima de Transporte
+                                    Número de Hijos
+                                </div>
+                                <div class="chip" onclick="fnxDescuento()">
+                                    <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                  
+                                    Descuento del 3%
                                 </div>
                         </div>
                         <div class="overlay" id="_cargandof" style="display:none">
@@ -47,7 +51,7 @@
                             <div class="col-md-9 col-sm-8">
                                 <label>Descripción</label>
                                 <input  id="txtDescripcion" class="form-control"  type="text"
-                                required onkeypress="return soloLetras(event)">
+                                required>
                             </div>
                         </div> <!-- Grupo nombres-->
 
@@ -126,7 +130,8 @@
                         </div>
                     </div>
                     <div class="box-body" id="_TblConceptos" style="height: 600px; ">
-                        <table id="tblConcepto" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable" cellspacing="0" width="100%" 
+                        role="grid" aria-describedby="example1_info">
                             <thead>
                                 <tr role="row">
                                     <th>PARTIDA </th>

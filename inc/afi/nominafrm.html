@@ -1,4 +1,6 @@
-<div id="stepper-example" class="bs-stepper">
+
+
+<div id="stepper-nomina" class="bs-stepper">
     <div class="bs-stepper-header">
         <div class="step" data-target="#test-l-1">
         <a href="#">
@@ -18,6 +20,13 @@
         <a href="#">
             <span class="bs-stepper-circle">3</span>
             <span class="bs-stepper-label">Varios</span>
+        </a>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#test-l-4">
+        <a href="#">
+            <span class="bs-stepper-circle">4</span>
+            <span class="bs-stepper-label">Procesar</span>
         </a>
         </div>
        
@@ -72,7 +81,7 @@
                 <div class="col-md-12 col-sm-12" style="text-align: right">
                     <br>
                     <button type="button" class="btn btn-primary pull-right" onclick="CargarDirectivaConceptos()">
-                    Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+                        Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
                     </button>
                 </div>
             </div>
@@ -103,17 +112,24 @@
         </div> <!-- Fin de stepper-->
 
         <div id="test-l-3" class="content">
-            <div class="row" >
-                <div class="form-group " style="height:250px">
-                    <div class="input-group input-file" name="Fichier1">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default btn-choose" type="button">Cargar archivos</button>
-                        </span>
-                        <input type="text" class="form-control" placeholder='Seleccionar fichero...' />
-                        <span class="input-group-btn">
-                                <button class="btn btn-warning btn-reset" type="button">Limpiar</button>
-                        </span>
+            <div class="row" style="padding-left:15px;padding-right:15px" >
+                <div class="callout callout-success" id="divDtArchivos" style="display:none">
+                    <h4>Archivos cargados!</h4>
+
+                    <p id="dtArchivos"></p>
                 </div>
+            </div>
+
+            <div class="row" style="padding-left:15px;padding-right:15px" id="divForma">
+                
+                <form method="post" enctype="multipart/form-data" id="forma" name="forma">
+                    <input type="hidden" name="txtFileID" id="txtFileID" value="" readonly="readonly">
+                    <label for="input-folder-2">Cargar archivos</label>
+                    <div class="file-loading">
+                        <input id="input-folder-2" name="input-folder-2" type="file" multiple accept="text/*">
+                    </div>
+                    <div id="errorBlock" class="help-block"></div>
+                </form>
             </div>
 
 
@@ -126,12 +142,35 @@
                 </div>
                 <div class="col-md-6 col-sm-6" style="text-align: right">
                     <br>
-                    <button type="button" class="btn btn-success" onclick="GenerarNomina()">
-                        <i class="fa fa-superscript"></i>&nbsp;&nbsp;Procesar
-                    </button>
+                    <button type="button" class="btn btn-primary" onclick="myStepper.next()">
+                            Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+                        </button>
                 </div>
             </div>
-        </div>
+        </div> <!-- Fin de Varios-->
+
+        <div id="test-l-4" class="content">
+
+                <div class="row" style="height:250px"> 
+                    <div class="col-md-12 col-sm-6" id="_TblDetalle">
+                            
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6" style="text-align: left">
+                        <br>
+                        <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                            <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+                        </button>
+                    </div>
+                    <div class="col-md-6 col-sm-6" style="text-align: right">
+                        <br>                        
+                        <button type="button" class="btn btn-success" onclick="GenerarNomina()">
+                                <i class="fa fa-superscript"></i>&nbsp;&nbsp;Calcular
+                        </button>
+                    </div>
+                </div>
+        </div> <!-- Fin de stepper-->
 
     </div>
 </div>

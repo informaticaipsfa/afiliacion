@@ -1,3 +1,7 @@
+  <div class="alert alert-danger" role="alert" id="alertMedida" style="display: none">
+    
+  </div>
+
   <div id="stepper-example" class="bs-stepper">
     <div class="bs-stepper-header">
       <div class="step" data-target="#test-l-1">
@@ -35,12 +39,12 @@
          <div class="col-md-4 col-sm-12">
              <label>N° Oficio:</label>
              <input id="codigomedida" value="0" type="hidden">
-             <input class="form-control" placeholder="N° Oficio" id="numero_oficio" type="text">
+             <input class="form-control" placeholder="N° Oficio" id="txtoficio" type="text">
          </div>
          <!-- Numero de Expediente -->
          <div class="col-md-4 col-sm-12">
              <label>N° Expediente:</label>
-             <input class="form-control" placeholder="Expediente" id="numero_expediente" type="text">
+             <input class="form-control" placeholder="Expediente" id="txtexpediente" type="text">
          </div>
          <div class="col-md-4 col-sm-12">
            <label>Fecha:</label>
@@ -58,7 +62,7 @@
         <!-- Tipo de Medida Judicial -->
         <div class="col-md-8 col-sm-12">
             <label>Tipo:</label>
-            <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="tipo">
+            <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbtipo">
                     <option selected="selected" value="1">PENSION ALIMENTARIA</option>
                     <option value="2">RETRIBUCION ESPECIAL</option>
                     <option value="3">BONO RECREACIONAL</option>
@@ -71,7 +75,7 @@
         <div class="row">
           <div class="col-md-12 col-sm-12">
             <label>Observaciones:</label>
-            <textarea class="form-control" placeholder="Descripción" id="observacion"></textarea>
+            <textarea class="form-control" placeholder="Descripción" id="txtobservacion"></textarea>
           </div>
         </div>
         <div class="row">
@@ -85,41 +89,31 @@
       </div>
 
       <div id="test-l-2" class="content">
-        <div class="row">
-          <!-- Porcentaje -->
-          <div class="col-md-4 col-sm-12">
-              <label> Porcentaje:</label>
-              <input class="form-control" placeholder="Porcentaje" id="porcentaje" value="0" type="text">
-          </div>
-          <!-- Sueldo Minimo -->
-          <div class="col-md-4 col-sm-12">
-              <label> Sueldo Minimo:</label>
-              <input class="form-control" placeholder="Salarios" id="salario" value="0" onblur="convertirSalario()" type="text">
-              <input id="salarioaux" value="0" type="hidden">
-          </div>
-          <!-- Monto Fijo -->
-          <div class="col-md-4 col-sm-12">
-              <label> Monto Fijo:</label>
-              <input class="form-control" placeholder="Mensualidades" id="mensualidades" value="0" type="text">
-          </div>
-        </div>
+     
+          
         <div class="row">
           <!-- Unidad Tributaria -->
           <div class="col-md-4 col-sm-12">
-              <label> Unidad Tributaria:</label>
-              <input class="form-control" placeholder="Unidad Tributaria" id="ut" value="0" onblur="convertirSalario()" type="text">
-              <input id="salarioaux" value="0" type="hidden">
+              <label> Motivo:</label>
+              <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="cmbtipopago">
+                  <option value=0>MONTO FIJO</option>
+                  <option value=1>PORCENTAJE</option>
+                  <option value=2>SUELDO MINIMO</option>
+                  <option value=3>UNIDAD TRIBUTARIO</option>
+                  <option value=4>OTRO</option>
+              </select>
           </div>
-          <div class="col-md-4 col-sm-12">
-              <label> Monto Total:</label>
-              <input class="form-control" placeholder="Monto Total" id="monto_total" value="0" type="text">
+          <div class="col-md-8 col-sm-12">
+              <label id="lblformula" data-toggle="popover" title="Formula" 
+              data-content="Ejemplo: ($sueldo_base * 30) /100 -> Es el 30% del sueldo">Formula (?):</label>
+              <textarea class="form-control" placeholder="Formula (fnx)" id="txtfnxm" ></textarea>
           </div>
         </div>
         <div class="row">
           <!-- Forma Pago -->
           <div class="col-md-4 col-sm-12">
               <label>Forma Pago:</label>
-              <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="forma_pago">
+              <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbformapago">
                   <option value="0">CHEQUE</option>
                   <option value="1">TRANSFERENCIA</option>
                   <option value="2">DEPOSITO</option>
@@ -129,7 +123,7 @@
           <!-- Institución -->
           <div class="col-md-4 col-sm-12">
               <label>Institución:</label>
-              <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="institucion">
+              <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="txtinstitucion">
                       <option value="0156">100%BANCO</option>
                       <option value="0196">ABN AMRO BANK</option>
                       <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
@@ -169,7 +163,7 @@
           </div>
           <div class="col-md-4 col-sm-12">
               <label>Tipo de Cuenta:</label>
-              <select class="form-control" style="width: 100%" id="tipodecuenta">
+              <select class="form-control" style="width: 100%" id="cmbtipodecuenta">
                   <option selected="selected" value="S"></option>
                   <option value="CA" selected="selected">AHORRO</option>
                   <option value="CC">CORRIENTE</option>
@@ -177,9 +171,21 @@
           </div>
         </div>
         <div class="row">
+            <!-- Cedula Autorizado -->
+            <div class="col-md-4 col-sm-12">
+                <label> Cédula:</label>
+                <input class="form-control" placeholder="Cedula Autorizado" id="txtcedulaautorizado" type="text">
+            </div>
+            <!-- Nombre Autorizado -->
+            <div class="col-md-8 col-sm-12">
+                <label> Autorizado:</label>
+                <input class="form-control" placeholder="Nombre Autorizado" id="txtautorizado" type="text">
+            </div>
+          </div>
+        <div class="row">
           <div class="col-md-12 col-sm-12">
               <label>Nro. de Cuenta:</label>
-              <input id="numerocuenta" placeholder="Nro. de Cuenta" class="form-control"
+              <input id="txtnumerocuenta" placeholder="Nro. de Cuenta" class="form-control"
               maxlength="20" data-inputmask="&quot;mask&quot;: &quot;9999-9999-99-9999999999&quot;" data-mask="" type="text">
           </div>
         </div>
@@ -206,19 +212,19 @@
           <!-- Autoridad -->
           <div class="col-md-8 col-sm-12">
               <label> Autoridad:</label>
-              <input type="text" class="form-control" placeholder="Autoridad" id='autoridad'>
+              <input type="text" class="form-control" placeholder="Autoridad" id='txtautoridad'>
           </div>
           <!-- Cargo -->
           <div class="col-md-4 col-sm-12">
               <label> Cargo:</label>
-              <input type="text" class="form-control" placeholder="Cargo" id='cargo' >
+              <input type="text" class="form-control" placeholder="Cargo" id='txtcargo' >
           </div>
         </div>
         <div class="row">
             <!-- Estado -->
             <div class="col-md-4 col-sm-12">
                 <label> Estado:</label>
-                <select class="form-control" id='estado' style="width: 100%;" onchange="obtenerCiudades()">
+                <select class="form-control" id='cmbestadom' style="width: 100%;" onchange="CiudadMunicipioMJ()" >  
                   <option value='0'>SELECCIONE UNA OPCION</option>
 
                 </select>
@@ -227,7 +233,7 @@
           <!-- Ciudad -->
             <div class="col-md-4 col-sm-12">
                 <label> Ciudad:</label>
-                <select class="form-control" id='ciudad' onchange="obtenerMunicipios()" style="width: 100%;" >
+                <select class="form-control" id='cmbciudadm' style="width: 100%;" >
                   <option value='0'>SELECCIONE UNA OPCION</option>
                 </select>
             </div>
@@ -235,7 +241,7 @@
             <!-- Municipio -->
             <div class="col-md-4 col-sm-12">
                 <label> Municipio:</label>
-                <select class="form-control" id='municipio' style="width: 100%;" >
+                <select class="form-control" id='cmbmunicipiom' style="width: 100%;" >
                   <option value='0'>SELECCIONE UNA OPCION</option>
                 </select>
             </div>
@@ -244,7 +250,7 @@
             <!-- Descripcion Institución -->
             <div class="col-md-12 col-sm-12">
                 <label> Descripcion Institución:</label>
-                <textarea class="form-control" placeholder="Descripción" id='descripcion_institucion'></textarea>
+                <textarea class="form-control" placeholder="Descripción" id='txtdesinst'></textarea>
             </div>
           </div>
 
@@ -269,17 +275,17 @@
            <!-- Cedula Beneficiario -->
            <div class="col-md-4 col-sm-12">
                <label> Cedula:</label>
-               <input class="form-control" placeholder="Cedula Beneficiario" id="cedula_beneficiario" type="text">
+               <input class="form-control" placeholder="Cedula Beneficiario" id="txtcedulabeneficiario" type="text">
            </div>
            <!-- Beneficiario -->
            <div class="col-md-4 col-sm-12">
                <label> Beneficiario:</label>
-               <input class="form-control" placeholder="Nombre Beneficiario" id="beneficiario" type="text">
+               <input class="form-control" placeholder="Nombre Beneficiario" id="txtbeneficiario" type="text">
            </div>
            <!-- Parentesco -->
            <div class="col-md-4 col-sm-12">
                <label> Parentesco:</label>
-               <select class="form-control" id="parentesco" style="width: 100%;">
+               <select class="form-control" id="cmbparentesco" style="width: 100%;">
                  <option value="0">NO POSEE</option>
                  <option value="1">HIJO</option>
                  <option value="2">ESPOSA</option>
@@ -294,18 +300,7 @@
               </select>
            </div>
          </div>
-         <div class="row">
-           <!-- Cedula Autorizado -->
-           <div class="col-md-4 col-sm-12">
-               <label> Cedula:</label>
-               <input class="form-control" placeholder="Cedula Autorizado" id="cedula_autorizado" type="text">
-           </div>
-           <!-- Nombre Autorizado -->
-           <div class="col-md-4 col-sm-12">
-               <label> Autorizado:</label>
-               <input class="form-control" placeholder="Nombre Autorizado" id="autorizado" type="text">
-           </div>
-         </div>
+         
         <div class="row">
           <div class="col-md-6 col-sm-6" style="text-align: left">
               <br>
@@ -315,8 +310,8 @@
           </div>
           <div class="col-md-6 col-sm-6" style="text-align: right">
               <br>
-              <button type="button" class="btn btn-success" onclick="myStepper.next()">
-                <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Finalizar
+              <button type="button" class="btn btn-success" onclick="GuardarMedida();">
+                <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Guardar Medida
               </button>
           </div>
         </div>

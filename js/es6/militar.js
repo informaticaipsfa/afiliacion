@@ -299,7 +299,7 @@ class Familiar{
 		this.id = $("#txtidf").val();
 		this.documentopadre = $("#txtcedula").val();
 		this.Persona.DatoBasico.nropersona =  parseInt($("#txtnropersonaf").val());
-    this.Persona.DatoBasico.nacionalidad = $("#btnnacionalidad").html();
+		this.Persona.DatoBasico.nacionalidad = $("#btnnacionalidad").html();
 		this.Persona.DatoBasico.cedula = $("#txtcedulaf").val();
 		this.Persona.DatoBasico.fechanacimiento =  new Date(Util.ConvertirFechaUnix($("#txtnacimientof").val())).toISOString();
 		this.Persona.DatoBasico.sexo = $("#cmbsexof").val();
@@ -310,8 +310,8 @@ class Familiar{
 		this.condicion = parseInt($("#cmbcondicionf").val());
 		this.beneficio = $("#cmbsituacionf").val()==0?false:true;
 		this.estudia = parseInt($("#cmbestudiaf").val());
-    this.historiamedica = $("#hclinicaf").val();
-    this.donante = $("#donantef").val();
+		this.historiamedica = $("#hclinicaf").val();
+		this.donante = $("#donantef").val();
 		this.esmilitar = $("#cmbmilitarf option:selected").val()==0?false:true;
 
 		this.Persona.PartidaNacimiento.registro = $("#txtpregistrocivilf").val();
@@ -335,25 +335,25 @@ class Familiar{
 		this.Persona.Telefono.domiciliario = $("#txttelefonof").val();
 		this.Persona.Telefono.movil = $("#txtcelularf").val();
 
-    var dir = new Direccion();
-    dir.tipo = 0;
-    dir.estado = $("#cmbestadof option:selected").val();
-    dir.municipio = $("#cmbmunicipiof option:selected").val();
-    dir.parroquia = $("#cmbparroquiaf option:selected").val();
-    dir.ciudad = $("#cmbciudadf").val();
-    dir.calleavenida = $("#txtcallef").val().toUpperCase();
-    dir.casa = $("#txtcasaf").val().toUpperCase();
-    dir.apartamento = $("#txtaptof").val().toUpperCase();
-    this.Persona.Direccion[0] = dir;
-		if($("#txtfechacondicionf").val() == ''){
-      this.Persona.CondicionEspecial.fecha == '';
-		}else{
-      this.Persona.CondicionEspecial.fecha = new Date(Util.ConvertirFechaUnix($("#txtfechacondicionf").val())).toISOString();
-		}
+		var dir = new Direccion();
+		dir.tipo = 0;
+		dir.estado = $("#cmbestadof option:selected").val();
+		dir.municipio = $("#cmbmunicipiof option:selected").val();
+		dir.parroquia = $("#cmbparroquiaf option:selected").val();
+		dir.ciudad = $("#cmbciudadf").val();
+		dir.calleavenida = $("#txtcallef").val().toUpperCase();
+		dir.casa = $("#txtcasaf").val().toUpperCase();
+		dir.apartamento = $("#txtaptof").val().toUpperCase();
+		this.Persona.Direccion[0] = dir;
+			if($("#txtfechacondicionf").val() == ''){
+		this.Persona.CondicionEspecial.fecha == '';
+			}else{
+		this.Persona.CondicionEspecial.fecha = new Date(Util.ConvertirFechaUnix($("#txtfechacondicionf").val())).toISOString();
+			}
 
-    this.Persona.CondicionEspecial.tipodiscapacidad = $("#cmbDiscapacidadf").val();
-    this.Persona.CondicionEspecial.diagnostico = $("#txtdiagnosticof").val();
-    this.Persona.CondicionEspecial.nombrehospitalmilitar = $("#cmbHospitalf").text();
+		this.Persona.CondicionEspecial.tipodiscapacidad = $("#cmbDiscapacidadf").val();
+		this.Persona.CondicionEspecial.diagnostico = $("#txtdiagnosticof").val();
+		this.Persona.CondicionEspecial.nombrehospitalmilitar = $("#cmbHospitalf").text();
 
 		return this;
 	}
@@ -644,7 +644,7 @@ class Militar{
 
 				$("#_contenido").html("La cédula no existe en el sistema. ¿Desea Realizar un nuevo ingreso?");
 				var botones = '<button type="button" class="btn btn-success prvsalvar hide" data-dismiss="modal" id="_aceptar" onClick="incluirAfiliado()">Si</button>\
-											 <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>';
+												<button type="button" class="btn btn-primary" data-dismiss="modal">No</button>';
 				$("#_botonesmsj").html(botones);
 				verificarPrivilegioUsuario();
 				$("#modMsj").modal("show");
@@ -726,7 +726,7 @@ class Militar{
 				$("#cmbgrado").html('<option value="' + militar.Grado.abreviatura + '">' + militar.Grado.descripcion + '</option>');
 				$("#txtnresuelto").val(militar.nresuelto);
 				$("#txtpnoascenso").val(militar.pxnoascenso);
-			 	$("#cmbprofecionalizacion").val(militar.pprof);
+				$("#cmbprofecionalizacion").val(militar.pprof);
 				$("#cmbprimapermacnel").val(militar.pespecial);
 
 				$("#txtmfechaultimoascenso").val(Util.ConvertirFechaHumana(militar.fascenso));
@@ -748,12 +748,12 @@ class Militar{
 				}
 
 				if (militar.CIS.Investigacion.FeDeVida != undefined){
-          var ffevida = "";
-          militar.CIS.Investigacion.FeDeVida.forEach(v => { ffevida = v.fechacreacion; });
-          if(ffevida != ""){
-            $("#lblfevida").html(Util.ConvertirFechaHumana(ffevida));
-          }
-        }
+					var ffevida = "";
+					militar.CIS.Investigacion.FeDeVida.forEach(v => { ffevida = v.fechacreacion; });
+					if(ffevida != ""){
+						$("#lblfevida").html(Util.ConvertirFechaHumana(ffevida));
+					}
+				}
 				$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
 				$("#_tiemposervicio").html(militar.tiemposervicio);
 				if ($("#txtmfecharesuelto").val() != "") {
@@ -963,10 +963,10 @@ class Militar{
 						$("#_lblConstanciaPension").hide();
 
 						var rutaimg = Conn.URLIMG;
-		        var urlf = Conn.URLIMG + data[1] + ".jpg";
+				var urlf = Conn.URLIMG + data[1] + ".jpg";
 						if (ObjMilitar.Persona.foto  != undefined){
 							rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
-		          urlf = rutaimg + "/foto" +  data[1] + ".jpg";
+					urlf = rutaimg + "/foto" +  data[1] + ".jpg";
 						}
 						$("#_imgfamiliar").attr("src", urlf);
 						$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
@@ -1030,12 +1030,12 @@ class Militar{
 
 				if(militar.condicion != undefined){
 					$("#cmbCondicion").val(militar.condicion);
-					if(militar.condicion == 1){
-						$("#bCondicion").html("DESERTOR");
-					}else if(militar.condicion == 2){
-            $("#bCondicion").html("DEGRADADO");
-          }
-          $("#mdlCondicion").modal('show');
+				if(militar.condicion == 1){
+					$("#bCondicion").html("DESERTOR");
+				}else if(militar.condicion == 2){
+					$("#bCondicion").html("DEGRADADO");
+				}
+					$("#mdlCondicion").modal('show');
 				}
 				$("#_cedula").val("");
 				$("#_ficha").show();
@@ -1052,14 +1052,40 @@ class Militar{
 						// $("#_btnModificar").hide();
 
 				}
+				console.log(militar.situacion);
+				
+				ActivarPension();
+				if(militar.Pension.pprestaciones != undefined){ $("#txtporcentaje").val(militar.Pension.pprestaciones); }
+				$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
+				var tMJ = $('#tblMedidaJudicial').DataTable({
+					'paging': false,
+					'lengthChange': false,
+					'searching': false,
+					'ordering': false,
+					'info': false,
+					'autoWidth': false
+				});
+				tMJ.clear().draw();
+				$.each(militar.Pension.MedidaJudicial, function (c, v) {
+					tMJ.row.add([
+						v.numero,
+						TipoMedidaJudicial(v.tipo),
+						v.cedautorizado,
+						v.autorizado,
+						v.numerocuenta, 
+						v.tipocuenta,
+						Util.ConvertirFechaHumana(v.fecha)
+					]).draw(false);
+				});
+
 			}
 	}
 
-  Cargar(militar){
+  	Cargar(militar){
 
         this.id = militar.id;
         this.tipodato = militar.tipodato;
-				this.Persona.DatoBasico.nropersona =  militar.Persona.DatoBasico.nropersona;
+		this.Persona.DatoBasico.nropersona =  militar.Persona.DatoBasico.nropersona;
         this.Persona.DatoBasico = militar.Persona.DatoBasico;
         var DFis = militar.Persona.DatoFisionomico;
 

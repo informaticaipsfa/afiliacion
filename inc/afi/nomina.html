@@ -1,12 +1,65 @@
-<div class="col-md-12 col-lg-12" id="_consultarbox">
-        <div class="box box-primary box-solid ">
-            <div class="box-header with-border">
-                <center><h3 class="box-title">Pendientes por procesar</h3></center>
+
+
+<div class="row"  style="padding-left:15px;padding-right:15px">
+    
+    <div class="col-lg-3 col-xs-6" >
+      <a href="#" onclick="PrepararNominaView()">
+          <div class="small-box bg-green" style="padding:10px">
+              <div class="inner">
+                  <p>Pensionados</p>
+                  <h2 id="_Crm">Reserva Activa</h2>
+              </div>
+              <div class="icon" style="padding-top:15px">
+                  <i class="fa fa-balance-scale"></i>
+              </div>
+          </div>
+      </a>
+  </div>
+
+
+  <div class="col-lg-3 col-xs-6" >
+      <a href="#" onclick="cargaPrograma('ca')">
+          <div class="small-box bg-yellow" style="padding:10px">
+              <div class="inner">
+                  <p>Pensionados</p>
+
+                  <h2 id="_Cca">Sobrevivientes</h2>
+              </div>
+              <div class="icon" style="padding-top:15px">
+                  <i class="fa fa-file-text-o"></i>
+              </div>
+          </div>
+      </a>
+  </div>
+
+  <div class="col-lg-3 col-xs-6" >
+    <a href="#" onclick="cargaPrograma('a')">
+        <div class="small-box bg-aqua" style="padding:10px">
+            <div class="inner">
+                <p>Pensionados</p>
+                <h2 id="_Cam">Gracia</h2>
             </div>
-            <div class="box-body" style="padding:50px">
-    
-              
-    
+            <div class="icon" style="padding-top:15px">
+                <i class="fa fa-heartbeat"></i>
+            </div>
+        </div>
+    </a>
+  </div>
+
+
+</div>
+
+
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+        <div class="box box-primary ">
+            <div class="box-header with-border">
+                <i class="fa fa-bullhorn"></i>
+                <h3 class="box-title">Nómina previas</h3>
+            </div>
+            <div class="box-body" >
+                            
+     
+
             </div><!-- /.box-body -->
     
             <!-- Loading (remove the following to stop the loading)-->
@@ -15,13 +68,17 @@
             </div>
             <!-- end loading -->
             <div class="modal-footer">
-                <button type="button" id="btnPreparar" class="btn btn-md btn-primary prvsalvar" onclick="PrepararNominaView()">
-                    <i class="fa fa-plus"></i>&nbsp;&nbsp;Preparar Nómina</button>
+                
             </div>
         </div><!-- /.box -->
-        
-        <center>Fuerza Armada Nacional Bolivariana</center>
     </div>
+
+
+
+  
+
+
+
     
 
 <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
@@ -34,13 +91,44 @@ aria-labelledby="myLargeModalLabel" id="mdlPrepararNomina"
         <div class="modal-header" style="background-color:#337ab7;color:white;">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title">Preparando Nomina</h4>
+          <h4 class="modal-title">Preparando la nómina</h4>
 
         </div>
-        <div class="modal-body" id="_stepper">
+        <div class="modal-body" >
+            
+            <div class="alert alert-danger" role="alert" style="display:none" id="alert">
+                
+            </div>
+            <div id="_stepper"></div>
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+
+  <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" id="mdlNominaLista"
+     aria-hidden="false">
+     <div class="modal-dialog" role="document">
+     
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+        <div class="modal-header" style="background-color:#337ab7;color:white;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Descargar nómina</h4>
+
+        </div>
+        <div class="modal-body" id="_nominalista">
             
         </div>
-
+        <div class="modal-footer">
+          <button type="button" id="btnPreparar" class="btn btn-md btn-warning" onclick="AceptarNomina()">
+              Aceptar</button>
+        </div>
+        
       </div>
+
     </div>
   </div>

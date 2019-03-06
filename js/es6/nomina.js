@@ -24,6 +24,27 @@ let opcionesf = {
     },
 }
 
+function fnxSueldoBase(){
+    var fn = $('#txtFormula').val();
+    $('#txtFormula').val(fn + ' $sueldo_base ' );
+}
+
+function fnxTiempoServicio(){
+    var fn = $('#txtFormula').val();
+    $('#txtFormula').val(fn + ' $tiempo_servicio ' );
+}
+function fnxNumeroHijos(){
+    var fn = $('#txtFormula').val();
+    $('#txtFormula').val(fn + ' $numero_hijos ' );
+}
+
+function fnxDescuento(){
+    $('#txtFormula').val('( $sueldo_base * 3 ) / 100;' );
+}
+
+
+
+
 
 class Concepto {
     constructor(){
@@ -38,8 +59,8 @@ class Concepto {
     }
 
     Obtener(){
-        this.codigo = $("#txtCodigo").val();
-        this.descripcion = $("#txtDescripcion").val();
+        this.codigo = $("#txtCodigo").val().toUpperCase();
+        this.descripcion = $("#txtDescripcion").val().toUpperCase();
         this.formula = $("#txtFormula").val();
         this.tipo = parseInt($("#cmbTipo").val());
         this.partida = $("#txtPresupuesto").val();
@@ -51,7 +72,7 @@ class Concepto {
     Crear(DATA){        
         $("#_cargandol").show();
         var tabla = `
-        <table id="tblConcepto" class="table table-hover table-striped">
+        <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable" >
             <thead>
                 <tr role="row">
                     <th>PARTIDA </th>
@@ -87,10 +108,10 @@ function AgregarConceptos(){
 function LimpiarFormulario(){
     $("#txtCodigo").val('');
     $("#txtDescripcion").val('');
-    $("#txtFormula").val();
+    $("#txtFormula").val('');
     $("#txtPresupuesto").val('');
     $("#cmbEstatus").val('')
-    $.notify("Envio de datos correctos...", "success");
+    $.notify("Envio de datos correctos...");
     $("#_cargando").hide();
     
 }
@@ -105,12 +126,12 @@ function ActualizarConcepto(){
 function ActivarFechaNomina(){
     $('#fechainicio').datepicker({
         autoclose: true,
-        format: "dd/mm/yyyy",
+        format: "yyyy-mm-dd",
         language: 'es'
     });
     $('#fechavigencia').datepicker({
         autoclose: true,
-        format: "dd/mm/yyyy",
+        format: "yyyy-mm-dd",
         language: 'es'
     });
 }
@@ -123,7 +144,7 @@ class DirCon {
 
         let fnxc = DATA.fnxC;
         var tabla = `
-        <table id="tblConcepto" class="table table-hover table-striped">
+        <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable">
             <thead>
                 <tr>
                     <th></th>
@@ -158,21 +179,27 @@ class DirCon {
             }
         });
 
+
         tblP.clear().draw();
+        tblP.row.add([
+            '',
+            'sueldo_base',
+            'DIR-SB',
+            ''
+        ]).draw(false);
         for (const prop in fnx){          
             tblP.row.add([
                 '',
-                'DIR-PRIMAS',
                 fnx[prop].rs,
+                'DIR-PR',
                 ''
             ]).draw(false);
         };
-        console.log(fnxc);
         for (const prop in fnxc){
             tblP.row.add([
                 '',
-                'DIR-CONCEPTOS',
                 fnxc[prop].rs,
+                'DIR-CON',
                 fnxc[prop].part
             ]).draw(false);
         }   
@@ -181,7 +208,7 @@ class DirCon {
 function CargarDirectivaConceptos(){
     var Obj = new DirCon();
     var url = Conn.URL + "nomina/directiva/detalle/" + $("#directiva").val();
-    console.log(url);
+    
     CargarAPI(url, "GET", "", Obj);
     myStepper.next();
 }
@@ -205,27 +232,157 @@ class WNomina {
         this.Concepto = [];
     }
 
-    Crear(resq){
-        console.log(resq);
+    Crear(req){
+        waitingDialog.hide();
+        $.notify(
+            {
+                title: '<strong>Proceso de Nómina!</strong>',
+                message: 'finalizo con <strong>éxito</strong>'
+            },
+            {
+                type: 'success'
+            } 
+        );
+        
+        $("#_nominalista").html(`
+            Codigo Hash:${req.md5}<br>
+            Total de Monto: ${req.total}<br> 
+            Registros: ${req.registros}<br>
+            Paralizados: ${req.paralizados}<br>
+            Descargar nómina .csv: <a href="${req.archivo}" target="_top" >Descargar Nómina</a>
+            <br><br>
+        `);
+        $("#mdlNominaLista").modal("show");
     }
 
 }
 function GenerarNomina(){
-    var Nom = new WNomina();    
+    var Nom = new WNomina();
     
     var Tbls = $('#tblConcepto').DataTable();
     var t = Tbls.rows('.selected').data();
     Nom.id  = $("#directiva").val();
     Nom.directiva = $("#directiva option:selected").text();
-    Nom.fecha = $("#fechainicio").text();
+    Nom.fecha = $("#fechainicio").val();
     $.each(t, function(c, v){
         var Concepto = new WConcepto();
-        Concepto.nombre = v[1];
-        Concepto.codigo = v[2];
+        Concepto.codigo = v[1];
+        Concepto.nombre = v[2];
         Concepto.partida = v[3];
         Nom.Concepto.push(Concepto);
     });
-    console.log(Nom);
     var ruta = Conn.URL + "nomina/generar";
+    $('#mdlPrepararNomina').modal('hide');
+    waitingDialog.show('Creando nómina por favor espere...');
     CargarAPI(ruta, "POST", Nom, Nom);
+}
+
+function AceptarNomina(){
+    $("#mdlNominaLista").modal("hide");
+}
+
+
+
+function ViewInputFile(){
+    $("#input-folder-2").fileinput({
+        browseLabel: 'Seleccionar Archivos',
+        previewFileIcon: '<i class="fa fa-file"></i>',
+        language: 'es',
+        theme: "fa",
+        hideThumbnailContent: true,
+        allowedPreviewTypes: null, // set to empty, null or false to disable preview for all types
+        previewFileIconSettings: {
+            'doc': '<i class="fas fa-file-word text-primary"></i>',
+            'xls': '<i class="fas fa-file-excel text-success"></i>',
+            'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
+            'jpg': '<i class="fas fa-file-image text-warning"></i>',
+            'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
+            'zip': '<i class="fas fa-file-archive text-muted"></i>',
+            'htm': '<i class="fas fa-file-code text-info"></i>',
+            'txt': '<i class="fa fa-search text-info"></i>',
+            'mov': '<i class="fas fa-file-video text-warning"></i>',
+            'mp3': '<i class="fas fa-file-audio text-warning"></i>',
+        },
+        previewFileExtSettings: {
+            'doc': function(ext) {
+                return ext.match(/(doc|docx)$/i);
+            },
+            'xls': function(ext) {
+                return ext.match(/(xls|xlsx)$/i);
+            },
+            'ppt': function(ext) {
+                return ext.match(/(ppt|pptx)$/i);
+            },
+            'jpg': function(ext) {
+                return ext.match(/(jp?g|png|gif|bmp)$/i);
+            },
+            'zip': function(ext) {
+                return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+            },
+            'htm': function(ext) {
+                return ext.match(/(php|js|css|htm|html)$/i);
+            },
+            'txt': function(ext) {
+                return ext.match(/(txt|ini|md)$/i);
+            },
+            'mov': function(ext) {
+                return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+            },
+            'mp3': function(ext) {
+                return ext.match(/(mp3|wav)$/i);
+            },
+        }
+      });
+      
+      $( "#forma" ).submit(function( event ) {
+          
+        EnviarArchivos();
+        event.preventDefault();
+      });
+}
+
+/**
+ * Enviando Archivos
+ */
+function EnviarArchivos() {
+    if ($("#input-folder-2").val() == "") {
+        $.notify("Debe seleccionar un archivo", {position: "top"});
+        return false;
+    }
+
+    $("#txtFileID").val('000-xc');
+    var formData = new FormData(document.forms.namedItem("forma"));
+
+
+    var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivostxt";
+    console.log(strUrl);
+    $.ajax({
+        url: strUrl,
+        type: "post",
+        dataType: "html",
+        data: formData,
+        timeout: 15000,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", 'Bearer '+ sessionStorage.getItem('ipsfaToken'));
+        }
+    })
+    .done(function (res) {
+        
+        $("#divForma").hide();
+        $("#divDtArchivos").show();
+        $('#forma').trigger("reset");
+        
+    }).fail(function (jqXHR, textStatus) {        
+        $("#divForma").show();
+        $("#divDtArchivos").hide();
+        $('#forma').trigger("reset");
+        if (textStatus === 'timeout') {
+            $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
+        }
+
+    });
+
 }

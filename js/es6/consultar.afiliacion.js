@@ -12,6 +12,7 @@ function Buscar(id) {
         $("#modMsj").modal("show");
         return false;
     }
+    $("#_bxMedidaJudicial").hide();
     $("#_cargando").show();
     $("#_lblConstanciaPension").hide();
     $("#_imgfamiliar").attr("src", "images/ndisponible.jpg");
@@ -23,7 +24,9 @@ function Buscar(id) {
     var url = Conn.URL + "militar/pace/" + $("#_cedula").val();
     CargarAPI(url, "GET", "", ObjPACE);
 
-
+    $('#lblformula').popover({
+        container: 'body'
+    });
 
 
 }
@@ -156,86 +159,128 @@ function SeleccionarPorSexoFamiliar(sexo) {
 }
 
 function BancariosHTML() {
-    var html = '<table class="ui celled table" cellspacing="0" width="100%" id="tblBanco" >\
-    <thead>\
-      <tr>\
-        <th>Nro.</th>\
-        <th>Institución Financiera</th>\
-        <th>Tipo de Cuenta</th>\
-        <th>Nro. de Cuenta</th>\
-      </tr>\
-    </thead>\
-    <tbody>\
-    </tbody>\
-  </table>';
+    var html = `<table class="ui celled table" cellspacing="0" width="100%" id="tblBanco" >
+    <thead>
+      <tr>
+        <th>Nro.</th>
+        <th>Institución Financiera</th>
+        <th>Tipo de Cuenta</th>
+        <th>Nro. de Cuenta</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>`;
     return html;
 }
 
 function FamiliaresHTML() {
-    var html = '<table class="ui celled table " cellspacing="0" width="100%" id="tblFamiliares" >\
-    <thead class="familiares">\
-      <tr>\
-        <th>NRO.</th>\
-        <th>CÉDULA</th>\
-        <th>APELLIDOS Y NOMBRES</th>\
-        <th>RELACIÓN</th>\
-        <th>SITUACIÓN</th>\
-        <th>FECHA</th>\
-        <th>TIPO</th>\
-        <th>MODIFICAR</th>\
-        <th>NOMBRES</th>\
-        <th>SEXO</th>\
-        <th>APELLIDOS</th>\
-        <th>CONDICION ESPECIAL</th>\
-        <th>ESTUDIA</th>\
-        <th>FECHA VCTO. CARNET</th>\
-        <th>ACTUALIZAR</th>\
-        <th>FOTO</th>\
-      </tr>\
-    </thead >\
-    <tbody>\
-    </tbody>\
-  </table>';
+    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblFamiliares" >
+    <thead class="familiares">
+      <tr>
+        <th>NRO.</th>
+        <th>CÉDULA</th>
+        <th>APELLIDOS Y NOMBRES</th>
+        <th>RELACIÓN</th>
+        <th>SITUACIÓN</th>
+        <th>FECHA</th>
+        <th>TIPO</th>
+        <th>MODIFICAR</th>
+        <th>NOMBRES</th>
+        <th>SEXO</th>
+        <th>APELLIDOS</th>
+        <th>CONDICION ESPECIAL</th>
+        <th>ESTUDIA</th>
+        <th>FECHA VCTO. CARNET</th>
+        <th>ACTUALIZAR</th>
+        <th>FOTO</th>
+      </tr>
+    </thead >
+    <tbody>
+    </tbody>
+  </table>`;
     return html;
-
 }
 
 function ConstanciaFamiliaresHTML() {
-    var html = '<table class="table-fondo " cellspacing="0" width="100%" id="tblConstFamiliares" >\
-    <thead>\
-      <tr class="titulo_tabla table-borderedtd" >\
-        <th class="alinear_td">APELLIDOS Y NOMBRES</th>\
-        <th class="alinear_tddatos">CÉDULA</th>\
-        <th class="alinear_tddatos">PARENTESCO</th>\
-        <th class="alinear_tddatos">FECHA NAC.</th>\
-        <th class="alinear_tddatos">EDO CIVIL</th>\
-        <th class="alinear_tddatos">SITUACIÓN</th>\
-      </tr>\
-    </thead >\
-    <tbody id="_contenidoFamiliares">\
-    </tbody>\
-  </table>';
+    var html = `<table class="table-fondo " cellspacing="0" width="100%" id="tblConstFamiliares" >
+    <thead>
+      <tr class="titulo_tabla table-borderedtd" >
+        <th class="alinear_td">APELLIDOS Y NOMBRES</th>
+        <th class="alinear_tddatos">CÉDULA</th>
+        <th class="alinear_tddatos">PARENTESCO</th>
+        <th class="alinear_tddatos">FECHA NAC.</th>
+        <th class="alinear_tddatos">EDO CIVIL</th>
+        <th class="alinear_tddatos">SITUACIÓN</th>
+      </tr>
+    </thead >
+    <tbody id="_contenidoFamiliares">
+    </tbody>
+  </table>`;
 
     return html;
-
 }
 
 function HistoricoMilitarHTML() {
-    var html = '<table id="tblhistoricomilitar" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">\
-    <thead>\
-      <tr>\
-        <th>#</th>\
-        <th>CATEGORIA</th>\
-        <th>CLASIFICACIÓN</th>\
-        <th>SITUACIÓN</th>\
-        <th>GRADO</th>\
-        <th>FECHA RESUELTO</th>\
-      </tr>\
-    </thead>\
-    <tbody>\
-    </tbody>\
-  </table>';
+    var html = `<table id="tblhistoricomilitar" class="table table-bordered 
+    table-striped dataTable" role="grid" aria-describedby="example1_info">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>CATEGORIA</th>
+        <th>CLASIFICACIÓN</th>
+        <th>SITUACIÓN</th>
+        <th>GRADO</th>
+        <th>FECHA RESUELTO</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>`;
     return html;
+}
+
+function MedidaJudicialHTML() {
+    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblMedidaJudicial" >
+        <thead class="familiares">
+        <tr>
+        <th>NRO.</th>
+        <th>TIPO MEDIDA</th>
+        <th>CÉDULA AUTO.</th>
+        <th>APELLIDOS Y NOMBRES</th>
+        <th>CUENTA</th>
+        <th>TIPO CUENTA</th>
+        <th>FECHA</th>
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
+function TipoMedidaJudicial(id){
+    var texto = '';
+    switch (id) {
+        case 0:
+            texto = 'PENSION ALIMENTARIA';
+            break;
+        case 1:
+            texto = 'RETRIBUCION ESPECIAL';
+            break;
+        case 2:
+            texto = 'BONO RECREACIONAL';
+            break;
+        case 3:
+            texto = 'RETENCION ESCOLAR';
+            break;
+        case 4:
+            texto = 'RETENCION AGUINALDOS';
+            break;
+        default:        
+            texto = 'PENSION ALIMENTARIA';        
+            break;
+    }
+    return texto;
 }
 
 function IrCedula() {
@@ -1967,12 +2012,15 @@ function traeDireccion(){
 }
 
 function ActivarPension(){
-  $("#_divpension").hide();
-  $("#lblFechaResolucion").html("Fecha de Resolución");
-  if ($("#cmbsituacion").val() != "ACT" && $("#cmbsituacion").val() != "S" ){
-    $("#lblFechaResolucion").html("F. Resolución de Retiro");
-    $("#_divpension").show();
-  }
+    $("#_divpension").hide();
+    $("#_bxMedidaJudicial").hide();
+    $("#lblFechaResolucion").html("Fecha de Resolución");
+    var situacion = ObjMilitar.situacion;
+    if (situacion != "ACT" && situacion != "S" ){
+        $("#lblFechaResolucion").html("F. Resolución de Retiro");
+        $("#_divpension").show();
+    }
+    if(situacion == "RCP"){$("#_bxMedidaJudicial").show();}
 }
 
 /**
@@ -2363,7 +2411,7 @@ function EnviarArchivos() {
     })
     .done(function (res) {
         $("#archivo").val("");
-        $.notify("Envio de archivos exitosos...", "success");
+        $.notify("Envio de archivos exitosos...");
         document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;Seleccionar Archivos.";
         CargarIMGFOTOS();
 
@@ -2372,7 +2420,7 @@ function EnviarArchivos() {
         console.log(textStatus);
         $("#archivo").val("");
         if (textStatus === 'timeout') {
-            $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...", "error");
+            $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
         }
 
     });
@@ -2422,10 +2470,6 @@ function ViewImprimirCarnet() {
     ventana.document.write(html);
   }
 
-function IncluirMedidaJudicial(){
-  myStepper = new Stepper(document.querySelector('#stepper-example'));
-  $('#mdlMedidaJudicial').modal('show');
-}
 
 
   
