@@ -14,23 +14,17 @@
       <div class="step" data-target="#test-l-2">
         <a href="#">
           <span class="bs-stepper-circle">2</span>
-          <span class="bs-stepper-label">Forma de pago</span>
+          <span class="bs-stepper-label">Autoridad</span>
         </a>
       </div>
       <div class="line"></div>
       <div class="step" data-target="#test-l-3">
         <a href="#">
           <span class="bs-stepper-circle">3</span>
-          <span class="bs-stepper-label">Autoridad</span>
+          <span class="bs-stepper-label">Forma de pago</span>
         </a>
       </div>
-      <div class="line"></div>
-      <div class="step" data-target="#test-l-4">
-        <a href="#">
-          <span class="bs-stepper-circle">4</span>
-          <span class="bs-stepper-label">Beneficiario</span>
-        </a>
-      </div>
+      
     </div>
     <div class="bs-stepper-content">
       <div id="test-l-1" class="content">
@@ -46,30 +40,43 @@
              <label>N° Expediente:</label>
              <input class="form-control" placeholder="Expediente" id="txtexpediente" type="text">
          </div>
-         <div class="col-md-4 col-sm-12">
-           <label>Fecha:</label>
-           <div class="input-group date">
-               <div class="input-group-addon">
-                   <i class="fa fa-calendar"></i>
-               </div>
-               <div class="input-group input-group">
-                   <input class="form-control" style="width: 110%;" id="datepicker" type="text">
-               </div>
-           </div>
-         </div>
+         <!-- Tipo de Medida Judicial -->
+        <div class="col-md-4 col-sm-12">
+          <label>Tipo:</label>
+          <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbtipo">
+                  <option value="S" selected="selected">SELECCIONE UNA OPCION</option>
+                  <option value="1">PENSION ALIMENTARIA</option>
+                  <option value="2">RETRIBUCION ESPECIAL</option>
+                  <option value="3">BONO RECREACIONAL</option>
+                  <option value="4">RETENCION ESCOLAR</option>
+                  <option value="5">RETENCION AGUINALDOS</option>
+          </select>
+        </div>
+         
       </div>
       <div class="row">
-        <!-- Tipo de Medida Judicial -->
-        <div class="col-md-8 col-sm-12">
-            <label>Tipo:</label>
-            <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbtipo">
-                    <option selected="selected" value="1">PENSION ALIMENTARIA</option>
-                    <option value="2">RETRIBUCION ESPECIAL</option>
-                    <option value="3">BONO RECREACIONAL</option>
-                    <option value="4">RETENCION ESCOLAR</option>
-                    <option value="5">RETENCION AGUINALDOS</option>
-            </select>
+        <div class="col-md-4 col-sm-12">
+          <label>Fecha Inicio:</label>
+          <div class="input-group date">
+              <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+              </div>
+              <div class="input-group input-group">
+                  <input class="form-control" style="width: 110%;" id="datepicker" type="text">
+              </div>
           </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label>Fecha Fin:</label>
+          <div class="input-group date">
+              <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+              </div>
+              <div class="input-group input-group">
+                  <input class="form-control" style="width: 110%;" id="datepickerfin" type="text">
+              </div>
+          </div>
+        </div>
           <!-- Fecha del Expediente -->
         </div>
         <div class="row">
@@ -89,13 +96,77 @@
       </div>
 
       <div id="test-l-2" class="content">
-     
-          
+
+
+        <div class="row">
+          <!-- Autoridad -->
+          <div class="col-md-8 col-sm-12">
+              <label> Autoridad:</label>
+              <input type="text" class="form-control" placeholder="Autoridad" id='txtautoridad'>
+          </div>
+          <!-- Cargo -->
+          <div class="col-md-4 col-sm-12">
+              <label> Cargo:</label>
+              <input type="text" class="form-control" placeholder="Cargo" id='txtcargo' >
+          </div>
+        </div>
+        <div class="row">
+            <!-- Estado -->
+            <div class="col-md-4 col-sm-12">
+                <label> Estado:</label>
+                <select class="form-control" id='cmbestadom' style="width: 100%;" onchange="CiudadMunicipio(2)" >  
+                  <option value="S" selected="selected">SELECCIONE UNA OPCION</option>
+
+                </select>
+            </div>
+
+          <!-- Ciudad -->
+            <div class="col-md-4 col-sm-12">
+                <label> Ciudad:</label>
+                <select class="form-control" id='cmbciudadm' style="width: 100%;" >
+                  <option value="S" selected="selected">SELECCIONE UNA OPCION</option>
+                </select>
+            </div>
+
+            <!-- Municipio -->
+            <div class="col-md-4 col-sm-12">
+                <label> Municipio:</label>
+                <select class="form-control" id='cmbmunicipiom' style="width: 100%;" >
+                  <option value="S" selected="selected">SELECCIONE UNA OPCION</option>
+                </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Descripcion Institución -->
+            <div class="col-md-12 col-sm-12">
+                <label> Descripcion Institución:</label>
+                <textarea class="form-control" placeholder="Descripción" id='txtdesinst'></textarea>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-6" style="text-align: left">
+              <br>
+              <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
+              </button>
+          </div>
+          <div class="col-md-6 col-sm-6" style="text-align: right">
+              <br>
+              <button type="button" class="btn btn-primary" onclick="myStepper.next()">
+                Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="test-l-3" class="content">
         <div class="row">
           <!-- Unidad Tributaria -->
           <div class="col-md-4 col-sm-12">
               <label> Motivo:</label>
               <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="cmbtipopago">
+                  <option value="S" selected="selected">SELECCIONE UNA OPCION</option>  
                   <option value=0>MONTO FIJO</option>
                   <option value=1>PORCENTAJE</option>
                   <option value=2>SUELDO MINIMO</option>
@@ -114,6 +185,7 @@
           <div class="col-md-4 col-sm-12">
               <label>Forma Pago:</label>
               <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbformapago">
+                  <option value="S" selected="selected">SELECCIONE UNA OPCION</option>  
                   <option value="0">CHEQUE</option>
                   <option value="1">TRANSFERENCIA</option>
                   <option value="2">DEPOSITO</option>
@@ -124,6 +196,7 @@
           <div class="col-md-4 col-sm-12">
               <label>Institución:</label>
               <select class="js-states form-control" style="width: 100%" aria-hidden="true" id="txtinstitucion">
+                      <option value="S" selected="selected">SELECCIONE UNA OPCION</option> 
                       <option value="0156">100%BANCO</option>
                       <option value="0196">ABN AMRO BANK</option>
                       <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
@@ -164,17 +237,26 @@
           <div class="col-md-4 col-sm-12">
               <label>Tipo de Cuenta:</label>
               <select class="form-control" style="width: 100%" id="cmbtipodecuenta">
-                  <option selected="selected" value="S"></option>
-                  <option value="CA" selected="selected">AHORRO</option>
+                  <option selected="selected" value="S">SELECCIONE UNA OPCION</option>
+                  <option value="CA">AHORRO</option>
                   <option value="CC">CORRIENTE</option>
               </select>
+          </div>
+        </div>
+        <div class="row">
+           
+          <div class="col-md-12 col-sm-12">
+              <label> Beneficiario:</label>
+              <select class="form-control" id="cmbbeneficiario" style="width: 100%;">
+             </select>
           </div>
         </div>
         <div class="row">
             <!-- Cedula Autorizado -->
             <div class="col-md-4 col-sm-12">
                 <label> Cédula:</label>
-                <input class="form-control" placeholder="Cedula Autorizado" id="txtcedulaautorizado" type="text">
+                <input class="form-control" placeholder="Cedula Autorizado" id="txtcedulaautorizado" type="text"
+                onkeypress="return Util.SoloNumero(event,this)">
             </div>
             <!-- Nombre Autorizado -->
             <div class="col-md-8 col-sm-12">
@@ -186,121 +268,10 @@
           <div class="col-md-12 col-sm-12">
               <label>Nro. de Cuenta:</label>
               <input id="txtnumerocuenta" placeholder="Nro. de Cuenta" class="form-control"
+              onkeypress="return Util.SoloNumero(event,this)"
               maxlength="20" data-inputmask="&quot;mask&quot;: &quot;9999-9999-99-9999999999&quot;" data-mask="" type="text">
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 col-sm-6" style="text-align: left">
-              <br>
-              <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
-                <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
-              </button>
-          </div>
-          <div class="col-md-6 col-sm-6" style="text-align: right">
-              <br>
-              <button type="button" class="btn btn-primary" onclick="myStepper.next()">
-                Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
-              </button>
-          </div>
-        </div>
-      </div>
-
-      <div id="test-l-3" class="content">
-
-
-        <div class="row">
-          <!-- Autoridad -->
-          <div class="col-md-8 col-sm-12">
-              <label> Autoridad:</label>
-              <input type="text" class="form-control" placeholder="Autoridad" id='txtautoridad'>
-          </div>
-          <!-- Cargo -->
-          <div class="col-md-4 col-sm-12">
-              <label> Cargo:</label>
-              <input type="text" class="form-control" placeholder="Cargo" id='txtcargo' >
-          </div>
-        </div>
-        <div class="row">
-            <!-- Estado -->
-            <div class="col-md-4 col-sm-12">
-                <label> Estado:</label>
-                <select class="form-control" id='cmbestadom' style="width: 100%;" onchange="CiudadMunicipioMJ()" >  
-                  <option value='0'>SELECCIONE UNA OPCION</option>
-
-                </select>
-            </div>
-
-          <!-- Ciudad -->
-            <div class="col-md-4 col-sm-12">
-                <label> Ciudad:</label>
-                <select class="form-control" id='cmbciudadm' style="width: 100%;" >
-                  <option value='0'>SELECCIONE UNA OPCION</option>
-                </select>
-            </div>
-
-            <!-- Municipio -->
-            <div class="col-md-4 col-sm-12">
-                <label> Municipio:</label>
-                <select class="form-control" id='cmbmunicipiom' style="width: 100%;" >
-                  <option value='0'>SELECCIONE UNA OPCION</option>
-                </select>
-            </div>
-          </div>
-          <div class="row">
-            <!-- Descripcion Institución -->
-            <div class="col-md-12 col-sm-12">
-                <label> Descripcion Institución:</label>
-                <textarea class="form-control" placeholder="Descripción" id='txtdesinst'></textarea>
-            </div>
-          </div>
-
-        <div class="row">
-          <div class="col-md-6 col-sm-6" style="text-align: left">
-              <br>
-              <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
-                <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
-              </button>
-          </div>
-          <div class="col-md-6 col-sm-6" style="text-align: right">
-              <br>
-              <button type="button" class="btn btn-primary" onclick="myStepper.next()">
-                Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
-              </button>
-          </div>
-        </div>
-      </div>
-
-      <div id="test-l-4" class="content">
-        <div class="row">
-           <!-- Cedula Beneficiario -->
-           <div class="col-md-4 col-sm-12">
-               <label> Cedula:</label>
-               <input class="form-control" placeholder="Cedula Beneficiario" id="txtcedulabeneficiario" type="text">
-           </div>
-           <!-- Beneficiario -->
-           <div class="col-md-4 col-sm-12">
-               <label> Beneficiario:</label>
-               <input class="form-control" placeholder="Nombre Beneficiario" id="txtbeneficiario" type="text">
-           </div>
-           <!-- Parentesco -->
-           <div class="col-md-4 col-sm-12">
-               <label> Parentesco:</label>
-               <select class="form-control" id="cmbparentesco" style="width: 100%;">
-                 <option value="0">NO POSEE</option>
-                 <option value="1">HIJO</option>
-                 <option value="2">ESPOSA</option>
-                 <option value="3">PADRE</option>
-                 <option value="4">MADRE</option>
-                 <option value="5">HIJO</option>
-                 <option value="6">HERMANO</option>
-                 <option value="7">CONYUGE</option>
-                 <option value="8">EX CONYUGE</option>
-                 <option value="9">NO INDICA</option>   
-                 <option value="10">OTRO</option>
-              </select>
-           </div>
-         </div>
-         
         <div class="row">
           <div class="col-md-6 col-sm-6" style="text-align: left">
               <br>

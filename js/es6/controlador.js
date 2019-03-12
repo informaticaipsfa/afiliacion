@@ -108,9 +108,11 @@ class Estado{
 
     $("#cmbmestado").html('<option value="S" selected="selected"></option>');
     $("#cmbestadof").html('<option value="S" selected="selected"></option>');
+    $("#cmbestadom").html('<option value="S" selected="selected"></option>');
     estado.forEach(v => {
       $("#cmbmestado").append(`<option value="${v.codigo}">${v.nombre}</option>`);
       $("#cmbestadof").append(`<option value="${v.codigo}">${v.nombre}</option>`);
+      $("#cmbestadom").append(`<option value="${v.codigo}">${v.nombre}</option>`);
     });
 
   }
@@ -118,8 +120,8 @@ class Estado{
     var sciudad = 'cmbmciudad';
     var smunicipio = 'cmbmmunicipio';
     if ( nombre != undefined){
-      sciudad = 'cmbciudadf';
-      smunicipio = 'cmbmunicipiof';
+      sciudad = 'cmbciudad' + nombre;
+      smunicipio = 'cmbmunicipio' + nombre;
     }
     var cm = JSON.parse(sessionStorage.getItem('ipsfaEstado')); //CiudadMunicipio
     $.each(cm, function(c, v){
@@ -208,8 +210,10 @@ function Enter(e){
 function CiudadMunicipio(valor){
   if (valor == undefined){
     Estados.ObtenerCiudadMunicipio($("#cmbmestado option:selected").val());
+  }else if(valor == 1){
+    Estados.ObtenerCiudadMunicipio($("#cmbestadof option:selected").val(), "f");
   }else{
-    Estados.ObtenerCiudadMunicipio($("#cmbestadof option:selected").val(), true);
+    Estados.ObtenerCiudadMunicipio($("#cmbestadom option:selected").val(), "m");
   }
 }
 function SeleccionarParroquia(valor){
