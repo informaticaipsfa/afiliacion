@@ -73,10 +73,30 @@
                         <select class="form-control" id='estado' style="width: 100%;">
                             <option value='0'>MESUAL</option>
                             <option value='1'>QUINCENAL</option>
-    
+                            <option value='2'>CATORCENAL</option>
+                            <option value='3'>SEMANAL</option>    
                         </select>
-                    </div>
                 </div>
+            </div>
+            <div class="row" >
+                <!-- <div class="col-md-6 col-sm-12">
+                    <label>Descripción Nómina:</label>
+                    <input class="form-control" id="txtDescripcionNomina" type="text">
+                </div> -->
+                <!-- Decripcion -->
+                <div class="col-md-6 col-sm-12">
+                    <label>Tipo de Nómina:</label>
+                    <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbTipoNomina">
+                        <option value='0'>NOMINA MESUAL</option>
+                        <!-- <option value='1'>PAGO ESPECIAL</option>
+                        <option value='2'>RETRIBUCION</option>
+                        <option value='3'>VACACIONES</option>
+                        <option value='4'>AGUINALDOS</option> -->
+                    </select>
+                </div>
+                    <!-- Fecha del Expediente -->
+            </div>
+
             <div class="row">
                 <div class="col-md-12 col-sm-12" style="text-align: right">
                     <br>
@@ -142,7 +162,7 @@
                 </div>
                 <div class="col-md-6 col-sm-6" style="text-align: right">
                     <br>
-                    <button type="button" class="btn btn-primary" onclick="myStepper.next()">
+                    <button type="button" class="btn btn-primary" onclick="DetalleNomina();myStepper.next()">
                             Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
                         </button>
                 </div>

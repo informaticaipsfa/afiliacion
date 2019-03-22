@@ -24,6 +24,33 @@ let opcionesf = {
     },
 }
 
+let opcionesDire = {
+    ordering: false,
+    paging: false,            
+    columnDefs: [ {
+        orderable: false,
+        className: 'select-checkbox',
+        targets:   0
+    } ],
+    select: {
+        style: 'multi'
+    },
+    scrollY:        180,
+    deferRender:    true,
+    scroller:       true,
+    language: {
+        "lengthMenu": "Mostar _MENU_ filas por pagina",
+        "zeroRecords": "Nada que mostrar",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "No se encontro nada",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Buscar"
+    }
+};
+
+
+let intFila = 0;
+
 function fnxSueldoBase(){
     var fn = $('#txtFormula').val();
     $('#txtFormula').val(fn + ' $sueldo_base ' );
@@ -138,79 +165,87 @@ function ActivarFechaNomina(){
 
 class DirCon {
 
-    Crear(DATA){
-        
+    Crear(DATA){        
         let fnx  = DATA.fnx;
-
         let fnxc = DATA.fnxC;
+        //console.log(fnxc);
         var tabla = `
         <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable">
             <thead>
                 <tr>
                     <th></th>
-                    <th>DESCRIPCION</th>                   
                     <th>CODIGO</th>                                            
+                    <th>DESCRIPCION</th>                   
                     <th>PARTIDA </th>
+                    <th>TIPO </th>
                 </tr>
             </thead>
         </table>`;
         $("#_TblConceptos").html(tabla);        
-        var tblP = $('#tblConcepto').DataTable({
-            ordering: false,
-            paging: false,
-            columnDefs: [ {
-                orderable: false,
-                className: 'select-checkbox',
-                targets:   0
-            } ],
-            select: {
-                style: 'multi'
-            },
-            scrollY:        180,
-            deferRender:    true,
-            scroller:       true,
-            language: {
-                "lengthMenu": "Mostar _MENU_ filas por pagina",
-                "zeroRecords": "Nada que mostrar",
-                "info": "Mostrando _PAGE_ de _PAGES_",
-                "infoEmpty": "No se encontro nada",
-                "infoFiltered": "(filtered from _MAX_ total records)",
-                "search": "Buscar"
-            }
-        });
-
-
+        var tblP = $('#tblConcepto').DataTable(opcionesDire);
         tblP.clear().draw();
         tblP.row.add([
             '',
             'sueldo_base',
-            'DIR-SB',
-            ''
+            'SUELDO BASE',
+            '4.01.00.00',
+            'DIR-SB'
         ]).draw(false);
-        for (const prop in fnx){          
-            tblP.row.add([
-                '',
-                fnx[prop].rs,
-                'DIR-PR',
-                ''
-            ]).draw(false);
-        };
-        for (const prop in fnxc){
-            tblP.row.add([
-                '',
-                fnxc[prop].rs,
-                'DIR-CON',
-                fnxc[prop].part
-            ]).draw(false);
-        }   
+        dibujarTabla(tblP, fnx, 'DIR-PR');
+        dibujarTabla(tblP, fnxc, 'DIR-LEY');
+        
+        selccionarConceptos(tblP);
     }
 }
+
+function dibujarTabla(tblP, fnx, concepto) {    
+    for (const prop in fnx){  
+        var partida =  fnx[prop].part == undefined? '':  fnx[prop].part;        
+        var abv =  fnx[prop].abv == undefined? 'DIRECTIVA PRIMAS':  fnx[prop].abv;        
+        tblP.row.add([
+            '',
+            fnx[prop].rs,
+            abv,
+            partida,
+            concepto
+        ]).draw(false);
+    }; 
+}
+
+function selccionarConceptos(tblP){
+    var cant = parseInt(tblP.rows()[0].length);
+    for(i=0; i<cant; i++){
+        var valor = tblP.rows(i).data()[0][4];
+        if ( valor == 'DIR-SB' || valor == 'DIR-PR' ||  valor == 'DIR-LEY' ){
+            tblP.row(i).select();
+        }
+    }
+}
+
 function CargarDirectivaConceptos(){
     var Obj = new DirCon();
     var url = Conn.URL + "nomina/directiva/detalle/" + $("#directiva").val();
-    
+    if($("#fechainicio").val() == "" || $("#fechavigencia").val() == "" ){
+        alert("Debe seleccionar una fecha para la nómina");
+        return false;
+    }
     CargarAPI(url, "GET", "", Obj);
     myStepper.next();
+}
+
+function PrepararNominaView(){
+    $("#_TblConceptos").html("");
+    var Dir = new Directiva();
+    var ruta = Conn.URL + "nomina/directiva";
+    CargarAPI(ruta, "GET", "", Dir);
+    myStepper = new Stepper(document.querySelector('#stepper-nomina'));
+    $('#mdlPrepararNomina').modal('show');
+
+    var Obj = new ListaConceptos();
+    var url = Conn.URL + "nomina/concepto/listar";
+    CargarAPI(url, "GET", "", Obj);
+    ActivarFechaNomina();
+    ViewInputFile();
 }
 
 
@@ -281,6 +316,21 @@ function AceptarNomina(){
     $("#mdlNominaLista").modal("hide");
 }
 
+function DetalleNomina(){
+    var Tbls = $('#tblConcepto').DataTable();
+    var t = Tbls.rows('.selected').data();
+    var fila = '<ul>';
+    $.each(t, function(c, v){
+        fila += `<li>${v[1]} - ${v[2]}</li>`;
+    });
+    fila += '</ul>';
+
+    $("#_TblDetalle").html(`
+        <center><BR>${$("#directiva option:selected").text()}<BR>
+        DESDE ${$("#fechainicio").val()} HASTA ${$("#fechainicio").val()}</center>
+        ${fila}
+    `);
+}
 
 
 function ViewInputFile(){
@@ -355,7 +405,7 @@ function EnviarArchivos() {
 
 
     var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivostxt";
-    console.log(strUrl);
+    //console.log(strUrl);
     $.ajax({
         url: strUrl,
         type: "post",

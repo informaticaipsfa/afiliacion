@@ -345,11 +345,11 @@ class Familiar{
 		dir.casa = $("#txtcasaf").val().toUpperCase();
 		dir.apartamento = $("#txtaptof").val().toUpperCase();
 		this.Persona.Direccion[0] = dir;
-			if($("#txtfechacondicionf").val() == ''){
-		this.Persona.CondicionEspecial.fecha == '';
-			}else{
-		this.Persona.CondicionEspecial.fecha = new Date(Util.ConvertirFechaUnix($("#txtfechacondicionf").val())).toISOString();
-			}
+		if($("#txtfechacondicionf").val() == ''){
+			this.Persona.CondicionEspecial.fecha == '';
+		}else{
+			this.Persona.CondicionEspecial.fecha = new Date(Util.ConvertirFechaUnix($("#txtfechacondicionf").val())).toISOString();
+		}
 
 		this.Persona.CondicionEspecial.tipodiscapacidad = $("#cmbDiscapacidadf").val();
 		this.Persona.CondicionEspecial.diagnostico = $("#txtdiagnosticof").val();

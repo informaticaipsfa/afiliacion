@@ -2015,7 +2015,7 @@ function ActivarPension(){
     $("#_divpension").hide();
     $("#_bxMedidaJudicial").hide();
     $("#lblFechaResolucion").html("Fecha de Resolución");
-    var situacion = ObjMilitar.situacion;
+    var situacion = $("#cmbsituacion option:selected").val();
     if (situacion != "ACT" && situacion != "S" ){
         $("#lblFechaResolucion").html("F. Resolución de Retiro");
         $("#_divpension").show();
