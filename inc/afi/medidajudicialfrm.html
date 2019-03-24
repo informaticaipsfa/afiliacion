@@ -176,7 +176,7 @@
           </div>
           <div class="col-md-8 col-sm-12">
               <label id="lblformula" data-toggle="popover" title="Formula" 
-              data-content="Ejemplo: ($sueldo_base * 30) /100 -> Es el 30% del sueldo">Formula (?):</label>
+              data-content="Ejemplo: ($sueldo_base * 30) /100; Es el 30% del sueldo">Formula (?):</label>
               <textarea class="form-control" placeholder="Formula (fnx)" id="txtfnxm" ></textarea>
           </div>
         </div>
@@ -253,10 +253,33 @@
         </div>
         <div class="row">
             <!-- Cedula Autorizado -->
-            <div class="col-md-4 col-sm-12">
-                <label> Cédula:</label>
-                <input class="form-control" placeholder="Cedula Autorizado" id="txtcedulaautorizado" type="text"
-                onkeypress="return Util.SoloNumero(event,this)">
+            
+            <div class="col-md-4">
+                <label> Cédula:</label>                
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" 
+                          class="btn btn-primary dropdown-toggle" 
+                          data-toggle="dropdown" aria-expanded="false" id="bntNacionalidad">V-
+                        </button>
+                        
+                        
+                        <ul class="dropdown-menu">
+                          <li><a onclick="seleccionarNac('V-')">Venezuela</a></li>
+                          <li><a onclick="seleccionarNac('E-')">Extranjero</a></li>
+                          <li><a onclick="seleccionarNac('J-')">Judicial</a></li>
+                          <li><a onclick="seleccionarNac('G-')">Gubernamental</a></li>
+                        </ul>
+
+                    </span>
+                    <input class="form-control" id="txtcedulaautorizado" placeholder="Cédula Autorizado" type="text" 
+                     maxlength="8" required tabindex="1" onkeypress="return Util.SoloNumero(event,this)">
+                   
+                    
+                  </div>
+                
+                <!-- <input class="form-control"  id="txtcedulaautorizado" type="text"
+                > -->
             </div>
             <!-- Nombre Autorizado -->
             <div class="col-md-8 col-sm-12">

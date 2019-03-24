@@ -97,8 +97,8 @@ function GuardarMedida(){
     MJ.tipopago = $("#cmbtipopago").val();
     MJ.formula = fn;
     MJ.formapago = $("#cmbformapago").val();
-    MJ.cedautorizado = $("#txtcedulaautorizado").val()
-    MJ.autorizado = $("#txtautorizado").val()
+    MJ.cedautorizado = $("#bntNacionalidad").html() + $("#txtcedulaautorizado").val();
+    MJ.autorizado = $("#txtautorizado").val();
     MJ.institucion = $("#txtinstitucion").val();
     MJ.tipocuenta = $("#cmbtipodecuenta").val()
     MJ.numerocuenta = $("#txtnumerocuenta").val()
@@ -152,4 +152,8 @@ function obtenerParentesco(strParentesco, sexo){
 		}
 		return parentesco;
     return par;
+}
+
+function seleccionarNac(id){
+    $("#bntNacionalidad").html(id);
 }

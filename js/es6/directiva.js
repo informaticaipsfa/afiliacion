@@ -102,9 +102,7 @@ function Clonar(){
     wDir.fechavigencia = new Date(Util.ConvertirFechaUnix($("#datepicker1").val())).toISOString();0
 	wDir.unidadtributaria = $("#unidad_tributaria").val()==""?0:parseFloat($("#unidad_tributaria").val());
 	wDir.porcentaje = $("#porcentaje").val()==""?0:parseFloat($("#porcentaje").val());
-	wDir.salariominimo = $("#salario").val()==""?0:parseFloat($("#salario").val());
-    console.info(wDir);
-    
+	wDir.salariominimo = $("#salario").val()==""?0:parseFloat($("#salario").val());    
     if(wDir.salariominimo <= 0){
         //alertErr('Directivas', 'Debe cargar un salario minimo', 'danger');
         alert('El salario minimo debe ser mayor a cero');
@@ -150,11 +148,15 @@ class WListarDirectiva{
                 v.id,
                 v.gr,
                 v.an,
-                `<div class="input-group"><input class="form-control" style="heigth:20px; xwidth:100%;padding:0px;padding-left:5px" type="text" id="row-1-${v.id}" value="${v.ft}"></input></div>`,
-                `<div class="input-group"><input class="form-control" style="heigth:20px; width:100%;padding:0px;padding-left:5px" type="text" id="row-2-${v.id}" value="${v.sb}"></input></div>`
+                `<div class="input-group"><input onkeypress="return Util.SoloNumero(event,this)" 
+                onblur="calcularMonto(this, ${v.id})" class="form-control" style="heigth:20px; 
+                width:100%;padding:0px;padding-left:5px" type="text" id="row-1-${v.id}" value="${v.ft}"></input></div>`,
+                `<div class="input-group"><input onkeypress="return Util.SoloNumero(event,this)" 
+                onblur="" class="form-control" style="heigth:20px; width:100%;padding:0px;padding-left:5px" 
+                type="text" id="row-2-${v.id}" value="${v.sb}"></input></div>`
             ]).draw(false);
         });
-        tblP.column(0).visible(false);
+        //tblP.column(0).visible(false);
         var i = 0;
         $("#primaid").html(`<option value='0'>Seleccionar Prima</option>`);
        
@@ -231,7 +233,8 @@ class WDActualizar{
         this.directivas = [];
     }
     Crear(req){
-        console.log(req);
+        $("#_cargandoo").hide();
+        alertErr('Directiva','Se ha logrado actualizar la directiva', 'success');
     }
     Obtener(){
 
@@ -241,9 +244,10 @@ function ActualizarDirectiva(){
     var wAct = new WDActualizar();
     wAct.id = $("#directiva").val();
     var cant = tblP.rows().data().length;
-    for(i = 0; i <= cant; i++){
+    $("#_cargandoo").show();
+    for(i=0; i < cant; i++){
         var wDire = new WActualizarDirectiva();
-        wDire.id = tblP.row(1).data()[0];
+        wDire.id = tblP.row(i).data()[0];
         wDire.factor = parseFloat($("#row-1-" + wDire.id).val());
         wDire.monto = parseFloat($("#row-2-" + wDire.id).val());
         wAct.directivas.push(wDire);
@@ -252,7 +256,14 @@ function ActualizarDirectiva(){
     CargarAPI(ruta, "POST", wAct.directivas, wAct );
     
 }
+function calcularMonto(elem, id){
+    
+    var factor = parseFloat(elem.value);
+    var monto = factor * parseFloat($("#salariom").val());
 
+    $(`#row-2-${id}`).val(monto.toFixed(2));
+    
+}
 function alertErr(titulo, msj, type){
     var tp = 'danger';
     if(tp != undefined){
