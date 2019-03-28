@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <label>Tipo:</label>
+        <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbtipoD">
+                <option value="S" selected="selected">ELIJA UNA OPCION</option>
+                <option value="1">PAGO A TERCEROS</option>
+                <option value="2">ASOCIACIONES</option>
+        </select>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <label>Concepto:</label>
+        <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbConceptoD">
+                <option value="S" selected="selected">ELIJA UNA OPCION</option>
+                <option value="0013">CASA COMERCIAL</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="row">
+        <div class="col-md-6 col-sm-12">
+            <label>Formula (?):</label>
+            <textarea class="form-control" placeholder="Formula fnx(n)" id="txtformulaD"></textarea>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <label>Observaciones:</label>
+            <textarea class="form-control" placeholder="Descripción" id="txtobservacionD"></textarea>
+        </div>
+    </div>
+    
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <label>Fecha Inicio:</label>
+        <div class="input-group date">
+            <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </div>
+            <div class="input-group input-group">
+                <input class="form-control" style="width: 110%;" id="datepickerD" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <label>Fecha Fin:</label>
+        <div class="input-group date">
+            <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </div>
+            <div class="input-group input-group">
+                <input class="form-control" style="width: 110%;" id="datepickerfinD" type="text">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+        <label>Estatus:</label>
+        <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbEstatusD">
+                <option value="0">INACTIVO</option>
+                <option value="1" selected="selected">ACTIVO</option>
+        </select>
+    </div>
+<!-- Fecha del Expediente -->
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-6" style="text-align: left">
+        <br>
+        <button type="button" class="btn btn-success" onclick="GuardarDescuentos()" >
+            &nbsp;&nbsp;Guardar
+        </button>
+    </div>
+    <div class="col-md-6 col-sm-6" style="text-align: right">
+        <br>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+            &nbsp;&nbsp;Cancelar
+        </button>
+    </div>
+</div>

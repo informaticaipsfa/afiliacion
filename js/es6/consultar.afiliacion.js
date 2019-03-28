@@ -3,6 +3,7 @@ let OqMilitar = new Militar();
 let ObjPACE = new PACE();
 let myStepper;
 function Buscar(id) {
+    var Util = new Utilidad();
     if (id != undefined) {
         $("#_cedula").val(id);
     }
@@ -13,6 +14,7 @@ function Buscar(id) {
         return false;
     }
     $("#_bxMedidaJudicial").hide();
+    $("#s").hide();
     $("#_cargando").show();
     $("#_lblConstanciaPension").hide();
     $("#_imgfamiliar").attr("src", "images/ndisponible.jpg");
@@ -27,6 +29,12 @@ function Buscar(id) {
     $('#lblformula').popover({
         container: 'body'
     });
+
+    Util.ValidarFecha('txtnacimiento');
+    Util.ValidarFecha('txtfechagraduacion');
+    Util.ValidarFecha('txtmfecharesuelto');
+    Util.ValidarFecha('txtmfechaultimoascenso');
+
 
 
 }
@@ -283,6 +291,23 @@ function TipoMedidaJudicial(id){
     return texto;
 }
 
+function DescuentosHTML() {
+    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblDescuentos" >
+        <thead class="familiares">
+        <tr>
+        <th>NRO.</th>
+        <th>CONCEPTO</th>
+        <th>FORMULA</th>
+        <th>FECHA INI.</th>
+        <th>FECHA FIN</th>
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
+
 function IrCedula() {
 
     $("#_cedula").focus();
@@ -385,6 +410,7 @@ function LimpiarFrmFamiliar() {
     $("#txtnombref").val("");
     $("#txtapellidof").val("");
     $("#txtnacimientof").val("");
+    $("#txtdefuncionf").val("");
     $("#cmbsexof").val("S");
     $("#cmbedocivilf").val("SS");
     $("#cmbparentescof").val("S");
@@ -624,7 +650,7 @@ function ActivarCalendariosFamiliar() {
         language: 'es'
     });
 
-    $('#txtnacimientof').datepicker({
+    $('#txtdefuncionf').datepicker({
         autoclose: true,
         format: "dd/mm/yyyy",
         language: 'es'
@@ -1139,9 +1165,7 @@ function ModificarFamiliarPos(pos) {
         $('#cmbsexof').val(DB.sexo);
         $('#cmbcondicionf').val(Familiar.condicion);
         $('#cmbestudiaf').val(Familiar.estudia);
-
-
-
+        $('#txtdefuncionf').val(Util.ConvertirFechaHumana(DB.fechadefuncion));
         $("#txtpregistrocivilf").val(Persona.PartidaNacimiento.registro);
         $("#txtpanof").val(Persona.PartidaNacimiento.ano);
         $("#txtpactaf").val(Persona.PartidaNacimiento.acta);
@@ -1419,7 +1443,10 @@ function CConstanciaAfiliacion() {
     var clascat = $("#cmbcategoria option:selected").text() + ' / ' + $("#cmbclase option:selected").text();
     var nombrePI = 'ERIKA COROMOTO VIRGÜEZ OVIEDO';
     $('#modRpt').modal('show');
-    $("#lblgradoMil").text($("#cmbgrado option:selected").text());
+    if( $("#cmbCondicion").val() != "2" ){
+        $("#lblgradoMil").text($("#cmbgrado option:selected").text());
+    }
+
     $("#lblGradoFoto").text($("#cmbgrado option:selected").text());
     $("#lblcedulaMil").text($("#txtcedula").val());
     $("#lblnombreMil").text($("#txtapellido").val() + ' ' + $("#txtnombre").val());
@@ -2014,13 +2041,17 @@ function traeDireccion(){
 function ActivarPension(){
     $("#_divpension").hide();
     $("#_bxMedidaJudicial").hide();
+    $("#s").hide();
     $("#lblFechaResolucion").html("Fecha de Resolución");
     var situacion = $("#cmbsituacion option:selected").val();
     if (situacion != "ACT" && situacion != "S" ){
         $("#lblFechaResolucion").html("F. Resolución de Retiro");
         $("#_divpension").show();
     }
-    if(situacion == "RCP"){$("#_bxMedidaJudicial").show();}
+    if(situacion == "RCP"){
+        $("#_bxMedidaJudicial").show();
+        $("#_bxDescuentos").show();
+    }
 }
 
 /**

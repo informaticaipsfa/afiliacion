@@ -34,8 +34,9 @@
   <style type="text/css">
      .chip {
         display: inline-block;
-        padding: 0 15px;
+        padding: 0px 15px 25px 15px;
         height: 26px;
+        margin-top: 10px;
         font-size: 13px;
         line-height: 25px;
         border-radius: 20px;
@@ -164,6 +165,7 @@
   <script src="js/es6/nomina.js"></script>
   <script src="js/es6/directiva.js"></script>
   <script src="js/es6/medidajudicial.js"></script>
+  <script src="js/es6/descuentos.js"></script>
   <script src="../bower_components/barcode/dist/JsBarcode.all.js"></script>
   <!-- InputMask -->
   <script src="../plugins/input-mask/jquery.inputmask.js"></script>
@@ -387,21 +389,28 @@
       <!-- /.box-header -->
       <div class="box-body">
 
-        	<div class="row">
+        <div class="row">
     			    <div class="col-md-3 col-md-push-9" id="_bxTarjeta"></div>
               <div class="col-md-9 col-md-pull-3" id="_bxDatoBasico"></div>
-    	     </div>
-        	 <div class="row">
+    	  </div>
+        <div class="row">
       	      <div class="col-md-9" id="_bxDatosFamiliar"></div>
               <div class="col-md-3" id="_bxTarjetaFamiliar"></div>
-          </div> <!-- /.row -->
-          <div class="row">
+        </div> <!-- /.row -->
+        
+        <div class="row">
              <div class="col-md-9" id="_bxMedidaJudicial"></div>
              <div class="col-md-3" ></div>
-         </div> <!-- /.row -->
-          <div class="row">
+        </div> <!-- /.row -->
+        
+        <div class="row">
+            <div class="col-md-9" id="_bxDescuentos"></div>
+            <div class="col-md-3" ></div>
+        </div> <!-- /.row -->
+
+        <div class="row">
              <div class="col-md-12" id="_bxHMilitar"></div>
-         </div> <!-- /.row -->
+        </div> <!-- /.row -->
       </div>
             <!-- /.box-body -->
       <div class="box-footer">
@@ -455,7 +464,8 @@
 
 
 
-    <div div="" class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="mdlMedidaJudicial"
+  <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+    aria-labelledby="myLargeModalLabel" id="mdlMedidaJudicial"
      aria-hidden="false">
       <div class="modal-dialog modal-lg" role="document">
 
@@ -474,7 +484,25 @@
     </div>
   </div>
 
+  <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlDescuentos"
+   aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
 
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Descuentos para terceros</h4>
+
+      </div>
+      <div class="modal-body" id="_decuentos">
+        </div>
+
+    </div>
+  </div>
+</div>
 
 
 

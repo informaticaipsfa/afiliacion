@@ -38,7 +38,7 @@ class WMedidaJudicial{
         waitingDialog.hide();
         $.notify(
             {
-                title: '<strong>Guadar Medida Judicial!</strong>',
+                title: '<strong>Medida Judicial!</strong>',
                 message: 'finalizo con <strong>éxito</strong>'
             },
             {
@@ -119,8 +119,6 @@ function GuardarMedida(){
     waitingDialog.show('Guardando Medida Judicial por favor espere...');
     CargarAPI(url, "POST", MJ, MJ);
    
-    //console.info(MJ);
-
 }
 
 function alertMJ(){

@@ -51,25 +51,38 @@ let opcionesDire = {
 
 let intFila = 0;
 
-function fnxSueldoBase(){
+
+function fnxC(fnxc){
     var fn = $('#txtFormula').val();
-    $('#txtFormula').val(fn + ' $sueldo_base ' );
+    switch (fnxc) {
+        case 'sueldo_basico':
+            $('#txtFormula').val(fn + ' $sueldo_basico ' );
+            break;
+        case 'tiempo_servicio':
+            $('#txtFormula').val(fn + ' $tiempo_servicio ' );
+            break;
+        case 'hijos':
+            $('#txtFormula').val(fn + ' $numero_hijos ' );
+            break;
+        case 'calculo':
+            $('#txtFormula').val(fn +  ' ( $sueldo_base * 3 ) / 100 ' );
+            break;
+        case 'componente':
+            $('#txtFormula').val(fn +  ' $componente ' );
+            break;
+        case 'grado':
+            $('#txtFormula').val(fn +  ' $grado ' );
+            break;
+        case 'sueldo_minimo':
+            $('#txtFormula').val(fn +  ' $sueldo_minimo ' );
+            break;
+        case 'unidad_tributaria':
+            $('#txtFormula').val(fn +  ' $unidad_triburaria ' );
+            break;
+        default:
+            break;
+    }
 }
-
-function fnxTiempoServicio(){
-    var fn = $('#txtFormula').val();
-    $('#txtFormula').val(fn + ' $tiempo_servicio ' );
-}
-function fnxNumeroHijos(){
-    var fn = $('#txtFormula').val();
-    $('#txtFormula').val(fn + ' $numero_hijos ' );
-}
-
-function fnxDescuento(){
-    $('#txtFormula').val('( $sueldo_base * 3 ) / 100;' );
-}
-
-
 
 
 
@@ -319,16 +332,24 @@ function AceptarNomina(){
 function DetalleNomina(){
     var Tbls = $('#tblConcepto').DataTable();
     var t = Tbls.rows('.selected').data();
-    var fila = '<ul>';
+    var asignacion = '<ul>';
+    var deduccion = '<ul>';
     $.each(t, function(c, v){
-        fila += `<li>${v[1]} - ${v[2]}</li>`;
+        if(v[4] == "DIR-SB" || v[4] == "DIR-PR"){
+            asignacion += `<li>${v[1]} - ${v[2]}</li>`;
+        }else{
+            deduccion += `<li>${v[1]} - ${v[2]}</li>`;
+        }
     });
-    fila += '</ul>';
+    asignacion += '</ul>';
+    deduccion += '</ul>';
 
     $("#_TblDetalle").html(`
-        <center><BR>${$("#directiva option:selected").text()}<BR>
-        DESDE ${$("#fechainicio").val()} HASTA ${$("#fechainicio").val()}</center>
-        ${fila}
+        <center>${$("#directiva option:selected").text()}<BR>
+        DESDE ${$("#fechainicio").val()} HASTA ${$("#fechainicio").val()}</center><br><br>
+        <table style="width:100%">
+        <tr><td style="width:50%" valign="top" >${asignacion}</td><td  valign="top">${deduccion}</td></tr>
+        </table>
     `);
 }
 

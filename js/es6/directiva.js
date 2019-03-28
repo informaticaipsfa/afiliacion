@@ -1,10 +1,10 @@
 let opcionesWDire = {
     ordering: false,
-    paging: true, 
-    searching: true,
-    ordering: false,
+    paging: false,
+    searching: false, 
+    scrollY:        480,
     deferRender:    true,
-    
+    scroller:       true,
     language: {
         "lengthMenu": "Mostar _MENU_ filas por pagina",
         "zeroRecords": "Nada que mostrar",
@@ -30,6 +30,7 @@ class Directiva {
 
     }
     Crear(_DATA){
+        $("#directiva").html('');
         _DATA.forEach(v => {
             $("#directiva").append(`<option value=${v.id}>${v.numero}</option>`);
         });
@@ -100,7 +101,7 @@ function Clonar(){
 	wDir.observacion = $("#observacion").val().toUpperCase();
     wDir.fechainicio = new Date(Util.ConvertirFechaUnix($("#datepicker2").val())).toISOString();  
     wDir.fechavigencia = new Date(Util.ConvertirFechaUnix($("#datepicker1").val())).toISOString();0
-	wDir.unidadtributaria = $("#unidad_tributaria").val()==""?0:parseFloat($("#unidad_tributaria").val());
+	wDir.unidadtributaria = $("#unidadtributaria").val()==""?0:parseFloat($("#unidadtributaria").val());
 	wDir.porcentaje = $("#porcentaje").val()==""?0:parseFloat($("#porcentaje").val());
 	wDir.salariominimo = $("#salario").val()==""?0:parseFloat($("#salario").val());    
     if(wDir.salariominimo <= 0){
@@ -156,7 +157,7 @@ class WListarDirectiva{
                 type="text" id="row-2-${v.id}" value="${v.sb}"></input></div>`
             ]).draw(false);
         });
-        //tblP.column(0).visible(false);
+        tblP.column(0).visible(false);
         var i = 0;
         $("#primaid").html(`<option value='0'>Seleccionar Prima</option>`);
        
@@ -207,6 +208,7 @@ function SeleccionarPrima(){
 function ListarDirectivaDetalle(){
     var tex = $("#directiva option:selected").text();
     var val = $("#directiva option:selected").val();
+    $("#frmDirectiva").hide();
     if($("#directiva").val() == "0X"){
         alertErr('Directivas', 'Debe seleccionar una directiva');
         return false;

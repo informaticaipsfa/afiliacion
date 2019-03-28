@@ -10,22 +10,38 @@
                             </div>
                         </div>
                         <div class="box-body" id="_TblFormulas" style="height: 100px; ">
-                                <div class="chip"  onclick="fnxSueldoBase()">
+                                <div class="chip"  onclick="fnxC('componente')">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
-                                    Sueldo Básico
-                                    
-                                </div> 
-                                <div class="chip" onclick="fnxTiempoServicio()">
+                                    componente                                
+                                </div>
+                                <div class="chip"  onclick="fnxC('grado')">
+                                    <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
+                                    grado
+                                </div>
+                                <div class="chip"  onclick="fnxC('sueldo_basico')">
+                                    <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
+                                    sueldo básico                                    
+                                </div>
+                                
+                                <div class="chip" onclick="fnxC('tiempo_servicio')">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                              
-                                    Tiempo Servicio
+                                    tiempo de servicio
                                 </div>
-                                <div class="chip" onclick="fnxNumeroHijos()">
+                                <div class="chip" onclick="fnxC('hijos')">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                  
-                                    Número de Hijos
+                                    hijos
                                 </div>
-                                <div class="chip" onclick="fnxDescuento()">
+                                <div class="chip" onclick="fnxC('calculo')">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                  
-                                    Descuento del 3%
+                                    calculo por monto fijo ó 3%
+                                </div>
+                                <div class="chip"  onclick="fnxC('sueldo_minimo')">
+                                    <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
+                                    sueldo minimo
+                                </div>
+                                <div class="chip"  onclick="fnxC('unidad_tributaria')">
+                                    <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
+                                    unidad tributaria
                                 </div>
                         </div>
                         <div class="overlay" id="_cargandof" style="display:none">
@@ -85,7 +101,7 @@
                             </div>
                         </div> <!-- Grupo nombres-->
 
-                        <div class="form-group">
+                        <div class="form-group" style="display:none">
                             <div class="col-md-6 col-sm-12">
                                 <label>Componente</label>
                                 <select id="cmbComponente" class="form-control" required >

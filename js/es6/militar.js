@@ -259,11 +259,10 @@ class Familiar{
 		this.documento = 0;
 		this.documentopadre = "";
 		this.historiamedica = "";
-    this.donante = "";
-    this.serial = "";
+		this.donante = "";
+		this.serial = "";
 	}
 	GenerarParentesco(edo){
-
 		var parentesco= "";
 		 switch(this.parentesco) {
 		    case "PD":
@@ -273,14 +272,14 @@ class Familiar{
 		    	parentesco = (this.Persona.DatoBasico.sexo=="F")?"HIJA":"HIJO";
 		        break;
 		    case "EA":
-						parentesco = (this.Persona.DatoBasico.sexo=="F")?"ESPOSA":"ESPOSO";
-						if (edo != undefined){
-							if (edo == "M"){
-								parentesco = (this.Persona.DatoBasico.sexo=="F")?"VIUDA":"VIUDO";
-							}
-						}
+				parentesco = (this.Persona.DatoBasico.sexo=="F")?"ESPOSA":"ESPOSO";
+				if (edo != undefined){
+					if (edo == "M"){
+						parentesco = (this.Persona.DatoBasico.sexo=="F")?"VIUDA":"VIUDO";
+					}
+				}
 		        break;
-				case "HO":
+			case "HO":
 		    	parentesco = (this.Persona.DatoBasico.sexo=="F")?"HERMANA":"HERMANO";
 		        break;
 		    default:
@@ -923,23 +922,23 @@ class Militar{
 						}
 
 						t.row.add([
-								j++, //0
-								cedula, //1
-								mil, //2
-								familiar.GenerarParentesco(), //3
-								situacion, //4
-								DBF.fechanacimiento, //5
-								v.esmilitar, //6
-								mod, //7
-								nombres.toUpperCase(), //8
-								DBF.sexo, //9
-								apellidos.toUpperCase(), //10
-								v.condicion, //11
-								v.estudia, //12
-								fechavencimiento, //13
-								//v.beneficio,
-								modificar,
-								fvence
+							j++, //0
+							cedula, //1
+							mil, //2
+							familiar.GenerarParentesco(), //3
+							situacion, //4
+							DBF.fechanacimiento, //5
+							v.esmilitar, //6
+							mod, //7
+							nombres.toUpperCase(), //8
+							DBF.sexo, //9
+							apellidos.toUpperCase(), //10
+							v.condicion, //11
+							v.estudia, //12
+							fechavencimiento, //13
+							//v.beneficio,
+							modificar,
+							fvence
 						]).draw(false);
 
 				});
@@ -958,65 +957,63 @@ class Militar{
 
 				$('#tblFamiliares tbody').on('click', 'tr', function () {
 
-						var data = t.row(this).data();
-						$("#_bfcedula").attr("attced",data[1]);
-						$("#_lblConstanciaPension").hide();
+					var data = t.row(this).data();
+					$("#_bfcedula").attr("attced",data[1]);
+					$("#_lblConstanciaPension").hide();
 
-						var rutaimg = Conn.URLIMG;
-				var urlf = Conn.URLIMG + data[1] + ".jpg";
-						if (ObjMilitar.Persona.foto  != undefined){
-							rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
-					urlf = rutaimg + "/foto" +  data[1] + ".jpg";
-						}
-						$("#_imgfamiliar").attr("src", urlf);
+					var rutaimg = Conn.URLIMG;
+					var urlf = Conn.URLIMG + data[1] + ".jpg";
+					if (ObjMilitar.Persona.foto  != undefined){
+						rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
+						urlf = rutaimg + "/foto" +  data[1] + ".jpg";
+					}
+					$("#_imgfamiliar").attr("src", urlf);
+					$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
+					$("#_fcedula").html('C.I: V- ' + data[1]);
+					$("#_idFVCarnet").html(data[15]);
+					if (data[6] == true) {
+						$("#_fcedula").html('<a href="#" onClick="Buscar(\'' + data[1] + '\')">C.I: V- ' + data[1] + '</a>');
 						$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
-						$("#_fcedula").html('C.I: V- ' + data[1]);
-						$("#_idFVCarnet").html(data[15]);
-						if (data[6] == true) {
-								$("#_fcedula").html('<a href="#" onClick="Buscar(\'' + data[1] + '\')">C.I: V- ' + data[1] + '</a>');
-								$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
-						}
-						if (data[14] == true) {
-								$("#_lblConstanciaPension").show();
-						}
+					}
+					if (data[14] == true) {
+						$("#_lblConstanciaPension").show();
+					}
 
 				});
 
 				$('#tblFamiliares tbody').on('dblclick', 'tr', function () {
-						var data = t.row(this).data();
-						if (data[6] == true) {
-								Util.ModalValidarFamiliar("Este es un afiliado titular");
-								return false;
-						} else {
-								ModificarFamiliarPos(data[0]);
-								FrmFamiliar(true);
-						}
+					var data = t.row(this).data();
+					if (data[6] == true) {
+						Util.ModalValidarFamiliar("Este es un afiliado titular");
+						return false;
+					} else {
+						ModificarFamiliarPos(data[0]);
+						FrmFamiliar(true);
+					}
 				});
 				verificarPrivilegioUsuario();
 				$("#_tblHistorialMilitar").html(HistoricoMilitarHTML());
 				var th = $('#tblhistoricomilitar').DataTable({
-						'paging': false,
-						'lengthChange': false,
-						'searching': false,
-						'ordering': false,
-						'info': false,
-						//'autoWidth'   : false
-						'autoWidth': false
+					'paging': false,
+					'lengthChange': false,
+					'searching': false,
+					'ordering': false,
+					'info': false,
+					//'autoWidth'   : false
+					'autoWidth': false
 				});
 
 				th.clear().draw();
 				i = 0;
 				$.each(militar.HistorialMilitar, function (c, v) {
-						th.row.add([
-								i++,
-								v.categoria,
-								v.clase,
-								v.situacion,
-								v.grado,
-								v.fresuelto
-						]).draw(false);
-
-
+					th.row.add([
+						i++,
+						v.categoria,
+						v.clase,
+						v.situacion,
+						v.grado,
+						v.fresuelto
+					]).draw(false);
 				});
 				var valpase = 0;
 				if(militar.pasearetiro){
@@ -1052,10 +1049,13 @@ class Militar{
 						// $("#_btnModificar").hide();
 
 				}
-				console.log(militar.situacion);
+				//console.log(militar.situacion);
 				
 				ActivarPension();
-				if(militar.Pension.pprestaciones != undefined){ $("#txtporcentaje").val(militar.Pension.pprestaciones); }
+				if(militar.Pension.pprestaciones != undefined){ 
+					$("#txtporcentaje").val(militar.Pension.pprestaciones); 
+				}
+				$("#_tblDescuentos").html(DescuentosHTML());
 				$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
 				var tMJ = $('#tblMedidaJudicial').DataTable({
 					'paging': false,
@@ -1065,6 +1065,7 @@ class Militar{
 					'info': false,
 					'autoWidth': false
 				});
+				
 				tMJ.clear().draw();
 				$.each(militar.Pension.MedidaJudicial, function (c, v) {
 					tMJ.row.add([
@@ -1077,7 +1078,24 @@ class Militar{
 						Util.ConvertirFechaHumana(v.fecha)
 					]).draw(false);
 				});
-
+				var DPen = $('#tblDescuentos').DataTable({
+					'paging': false,
+					'lengthChange': false,
+					'searching': false,
+					'ordering': false,
+					'info': false,
+					'autoWidth': false
+				});
+				DPen.clear().draw();
+				$.each(militar.Pension.Descuentos, function (c, v) {
+					DPen.row.add([
+						v.concepto,
+						v.observacion,
+						v.formula, 
+						Util.ConvertirFechaHumana(v.fechainicio),
+						Util.ConvertirFechaHumana(v.fechafin)
+					]).draw(false);
+				});
 			}
 	}
 
@@ -1122,6 +1140,7 @@ class Militar{
         this.numerohistoria = militar.numerohistoria;
         this.pasearetiro = militar.pasearetiro;
     }
+	
 	Obtener(){
 		var fingreso = new Date(Util.ConvertirFechaUnix($("#txtfechagraduacion").val())).toISOString();
 		var fnacimiento = new Date(Util.ConvertirFechaUnix($("#txtnacimiento").val())).toISOString();
@@ -1216,7 +1235,7 @@ class Militar{
 
 	}
 
-  ObtenerCategoria(){
+  	ObtenerCategoria(){
         var cad = "";
         switch (this.categoria){
             case "EFE":cad = "EFECTIVO";break;
@@ -1238,21 +1257,21 @@ class Militar{
 
 	Salvar(){
 		$("#_bxFamiliar").show();
-    $("#_bxFamiliarTarjeta").show();
-    $("#_btnConstancia").show();
-    $("#_btnTIM").show();
-    $("#_btnModificar").show();
-    $("#_btnSavlvar").hide();
+		$("#_bxFamiliarTarjeta").show();
+		$("#_btnConstancia").show();
+		$("#_btnTIM").show();
+		$("#_btnModificar").show();
+		$("#_btnSavlvar").hide();
 
-    CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener());
+    	CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener());
 	}
 	Actualizar(){
 		$("#_bxFamiliar").show();
-    $("#_bxFamiliarTarjeta").show();
-    $("#_btnConstancia").show();
-    $("#_btnTIM").show();
-    $("#_btnModificar").show();
-    $("#_btnSavlvar").hide();
+		$("#_bxFamiliarTarjeta").show();
+		$("#_btnConstancia").show();
+		$("#_btnTIM").show();
+		$("#_btnModificar").show();
+		$("#_btnSavlvar").hide();
 		CargarAPI(Conn.URL + "militar/crud" , "PUT", this.Obtener());
 	}
 }
@@ -1414,17 +1433,17 @@ class PACE {
 			// console.log("Cargando la clase de Aprobacion...");
     }
     Crear(Json) {
-			$("#sueldo_base").val(Json.sueldo_base_aux);
-		 	$("#sueldo_global").val(Json.sueldo_global_aux);
-		 	$("#sueldo_integral").val(Json.sueldo_integral_aux);
-			$("#fano").val(Json.aguinaldos_aux);
-      $("#vacaciones").val(Json.vacaciones_aux);
-			$("#P_TRANSPORTE").val(Json.prima_transporte_aux);
-      $("#P_DESCENDECIA").val(Json.prima_descendencia_aux);
-      $("#P_ESPECIAL").val(Json.prima_especial_aux);
-      $("#P_TIEMPOSERVICIO").val(Json.prima_tiemposervicio_aux);
-      $("#P_NOASCENSO").val(Json.prima_noascenso_aux);
-      $("#P_PROFESIONALIZACION").val(Json.prima_profesionalizacion_aux);
-      $("#P_COMPENSACION_ESPECIAL").val(Json.prima_compensacion_especial_aux);
-		}
+		$("#sueldo_base").val(Json.sueldo_base_aux);
+		$("#sueldo_global").val(Json.sueldo_global_aux);
+		$("#sueldo_integral").val(Json.sueldo_integral_aux);
+		$("#fano").val(Json.aguinaldos_aux);
+      	$("#vacaciones").val(Json.vacaciones_aux);
+		$("#P_TRANSPORTE").val(Json.prima_transporte_aux);
+		$("#P_DESCENDECIA").val(Json.prima_descendencia_aux);
+		$("#P_ESPECIAL").val(Json.prima_especial_aux);
+		$("#P_TIEMPOSERVICIO").val(Json.prima_tiemposervicio_aux);
+		$("#P_NOASCENSO").val(Json.prima_noascenso_aux);
+		$("#P_PROFESIONALIZACION").val(Json.prima_profesionalizacion_aux);
+		$("#P_COMPENSACION_ESPECIAL").val(Json.prima_compensacion_especial_aux);
+	}
 }

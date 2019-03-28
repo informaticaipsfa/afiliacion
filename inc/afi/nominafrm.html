@@ -44,6 +44,34 @@
                 </div>
                 <!-- Fecha del Expediente -->
             </div>
+            
+            <div class="row" >
+                <!-- <div class="col-md-6 col-sm-12">
+                    <label>Descripción Nómina:</label>
+                    <input class="form-control" id="txtDescripcionNomina" type="text">
+                </div> -->
+                <!-- Decripcion -->
+                <div class="col-md-8 col-sm-12">
+                    <label>Tipo de Nómina:</label>
+                    <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbTipoNomina">
+                        <option value='0'>NOMINA MESUAL</option>
+                        <option value='1'>PAGO ESPECIAL</option>
+                        <option value='2'>BONO RECREACIONAL</option>
+                        <option value='4'>AGUINALDOS</option>
+                    </select>
+                </div>
+                    <!-- Fecha del Expediente -->
+                
+                <div class="col-md-4 col-sm-12">
+                    <label> Forma de Pago:</label>
+                    <select class="form-control" id='estado' style="width: 100%;">
+                        <option value='0'>MESUAL</option>
+                        <option value='1'>QUINCENAL</option>
+                        <option value='2'>CATORCENAL</option>
+                        <option value='3'>SEMANAL</option>    
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 
                 <div class="col-md-4 col-sm-12">
@@ -58,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    <label>Fecha de Vigencia:</label>
+                    <label>Fecha de Fin:</label>
                     <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
@@ -68,34 +96,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
-                        <label> Forma de Pago:</label>
-                        <select class="form-control" id='estado' style="width: 100%;">
-                            <option value='0'>MESUAL</option>
-                            <option value='1'>QUINCENAL</option>
-                            <option value='2'>CATORCENAL</option>
-                            <option value='3'>SEMANAL</option>    
-                        </select>
-                </div>
+               
             </div>
-            <div class="row" >
-                <!-- <div class="col-md-6 col-sm-12">
-                    <label>Descripción Nómina:</label>
-                    <input class="form-control" id="txtDescripcionNomina" type="text">
-                </div> -->
-                <!-- Decripcion -->
-                <div class="col-md-6 col-sm-12">
-                    <label>Tipo de Nómina:</label>
-                    <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbTipoNomina">
-                        <option value='0'>NOMINA MESUAL</option>
-                        <!-- <option value='1'>PAGO ESPECIAL</option>
-                        <option value='2'>RETRIBUCION</option>
-                        <option value='3'>VACACIONES</option>
-                        <option value='4'>AGUINALDOS</option> -->
-                    </select>
-                </div>
-                    <!-- Fecha del Expediente -->
-            </div>
+            
 
             <div class="row">
                 <div class="col-md-12 col-sm-12" style="text-align: right">
@@ -144,7 +147,7 @@
                 
                 <form method="post" enctype="multipart/form-data" id="forma" name="forma">
                     <input type="hidden" name="txtFileID" id="txtFileID" value="" readonly="readonly">
-                    <label for="input-folder-2">Cargar archivos</label>
+                    <label for="input-folder-2">Cajas de ahorro y asociaciones</label>
                     <div class="file-loading">
                         <input id="input-folder-2" name="input-folder-2" type="file" multiple accept="text/*">
                     </div>

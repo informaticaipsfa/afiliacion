@@ -174,7 +174,8 @@ $(function () {
   CargarUrl("_bxDatoBasico", "afi/datobasico");
   CargarUrl("_bxMedidaJudicial", "afi/medidajudicial");
   CargarUrl("_stepper", "afi/medidajudicialfrm");
-
+  CargarUrl("_bxDescuentos", "afi/descuentos");
+  CargarUrl("_decuentos", "afi/descuentosfrm");
 
   CargarUrl("_bxDatosFamiliar", "afi/familiar");
   CargarUrl("_bxTarjetaFamiliar", "afi/tarjetafamiliar");
