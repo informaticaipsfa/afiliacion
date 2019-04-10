@@ -386,7 +386,7 @@ class Componente{
 		var grado = $("#cmbgrado").val();
 		$("#cmbgrado").html('<option selected="selected" value="S"></option>');
 		componente.Grado.forEach( v => {
-			$("#cmbgrado").append('<option selected="selected" value="' + v.codigo + '">' + v.descripcion + '</option>')
+			$("#cmbgrado").append('<option value="' + v.codigo + '">' + v.descripcion + '</option>')
 		});
 
 		$("#cmbgrado").val('S');
@@ -627,8 +627,9 @@ class Militar{
 		this.urlfirma = "";
 		this.urlcedula = "";
 		this.codigocomponente = "";
-  	this.numerohistoria = "";
-  	this.pasearetiro = false;
+		this.numerohistoria = "";
+		this.pasearetiro = false;
+		this.pprestaciones = 0.00;
 	}
 	Crear(militar){
 
@@ -691,7 +692,7 @@ class Militar{
 				}
 				$("#minifoto").attr("href", url);
 				$("#_img").attr("src", url);
-
+				$("#txtdefuncion").val("");
 				if(militar.situacion == "FCP"){
 					$("#txtdefuncion").val(Util.ConvertirFechaHumana(DB.fechadefuncion));
 				}
@@ -730,6 +731,10 @@ class Militar{
 
 				$("#txtmfechaultimoascenso").val(Util.ConvertirFechaHumana(militar.fascenso));
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fresuelto));
+				$("#pensionsobreviviente").hide();
+				if( militar.pprestaciones != undefined ) {
+					$("#pensionsobreviviente").show();
+				}
 				$("#txtposicion").val(militar.posicion);
 				$("#txtfechagraduacion").val(Util.ConvertirFechaHumana(militar.fingreso));
 				$("#_fingreso").html(Util.ConvertirFechaHumana(militar.fingreso));
@@ -760,6 +765,7 @@ class Militar{
 						$("#cmbclase").val(militar.clase);
 						$("#_categoria").html($("#cmbcategoria option:selected").text());
 						$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
+						
 				}
 				var Fideicomiso = militar.Fideicomiso;
 				if (militar.Fideicomiso.areconocido != undefined) {
@@ -853,16 +859,18 @@ class Militar{
 				$("#txtnumhistoriaclinica").val(militar.numerohistoria);
 				$("#_divpension").hide();
 				$("#lblFechaResolucion").html("Fecha de Resolución");
-				if(militar.Pension.grado != ""){
+
+				if(militar.Pension.grado != undefined && militar.Pension.grado != ""){
 					$("#lblFechaResolucion").html("Fecha de Retiro");
 					$("#_divpension").show();
 					$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
-					$("#cmbgrado").val(militar.Pension.grado);
+					//$("#cmbgrado").val(militar.Pension.grado);
 					$("#txtporcentaje").val(militar.Pension.pprestaciones);
 				}
 
 
 				let j = 1, x = 1;
+				var total_porcentaje = 0;
 				$.each(militar.Familiar, function (c, v) {
 						var familiar = new Familiar();
 						var DBF = v.Persona.DatoBasico;
@@ -901,8 +909,13 @@ class Militar{
 							rutaimgfamiliar = Conn.URLTEMP;
 						}
 						var situacion = "ACTIVO";
-						if (v.beneficio != true) {
+						if (v.beneficio != true ) {
 							situacion = "INACTIVO"
+						}
+						var anof = parseInt(v.Persona.DatoBasico.fechadefuncion.substring(0,4));
+
+						if (anof > 1){
+							situacion = "FALLECIDO"
 						}
 						if (v.beneficio == false && v.parentesco == "EA"){
 							//Evaluar a esposa inactiva
@@ -920,7 +933,9 @@ class Militar{
 							</tr>');
 							//<td class="alinear_tddatos">' + fechavencimiento + '</td>
 						}
-
+						var porcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
+						var txtporc = `${porcentaje} %<input id="prc-${cedula}" type="hidden" value="${porcentaje}"></input>`;
+						total_porcentaje += parseFloat(porcentaje);
 						t.row.add([
 							j++, //0
 							cedula, //1
@@ -938,7 +953,8 @@ class Militar{
 							fechavencimiento, //13
 							//v.beneficio,
 							modificar,
-							fvence
+							fvence,
+							parseFloat(porcentaje)
 						]).draw(false);
 
 				});
@@ -953,6 +969,28 @@ class Militar{
 				t.column(12).visible(false);
 				t.column(13).visible(false);
 				t.column(15).visible(false);
+				t.column(16).visible(false);
+				$("#tarjetaPensionSobreviviente").hide();
+				$("#btnPensionSobreviviente").attr('disabled', true);
+				$("#txtPensionSobreviviente").attr('disabled', true);
+				$("#divPensionSobreviviente").html('');
+
+				if(militar.situacion == "FCP"){
+					t.column(16).visible(true);
+					$("#tarjetaPensionSobreviviente").show();
+					$("#btnPensionSobreviviente").attr('disabled', false);
+					$("#txtPensionSobreviviente").attr('disabled', false);
+					if( total_porcentaje == 100){
+						$("#divPensionSobreviviente").html(`<div class="callout callout-success" style="padding:8.3px; margin:0px;">
+						<p style="text-align: left"><b>Pensión del grupo familiar 100%</b></p>
+						</div>`);
+					}else{
+						$("#divPensionSobreviviente").html(`<div class="callout callout-danger" style="padding:8.3px; margin:0px;">
+						<p style="text-align: left"><b>Pensión del grupo familiar ${total_porcentaje}%</b></p>
+						</div>`);
+					}
+
+				}
 
 
 				$('#tblFamiliares tbody').on('click', 'tr', function () {
@@ -971,6 +1009,7 @@ class Militar{
 					$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
 					$("#_fcedula").html('C.I: V- ' + data[1]);
 					$("#_idFVCarnet").html(data[15]);
+					$("#txtPensionSobreviviente").val(data[16]);
 					if (data[6] == true) {
 						$("#_fcedula").html('<a href="#" onClick="Buscar(\'' + data[1] + '\')">C.I: V- ' + data[1] + '</a>');
 						$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
@@ -1024,7 +1063,8 @@ class Militar{
 				if(valpase == 1){
 					$("#mdlPaseretiro").modal('show')
 				}
-
+				
+				$("#cmbCondicion").val("0");
 				if(militar.condicion != undefined){
 					$("#cmbCondicion").val(militar.condicion);
 				if(militar.condicion == 1){
@@ -1097,6 +1137,7 @@ class Militar{
 					]).draw(false);
 				});
 			}
+			
 	}
 
   	Cargar(militar){
@@ -1138,7 +1179,8 @@ class Militar{
         this.urlcedula = "";
         this.codigocomponente = militar.codigocomponente;
         this.numerohistoria = militar.numerohistoria;
-        this.pasearetiro = militar.pasearetiro;
+		this.pasearetiro = militar.pasearetiro;
+		this.pprestaciones = militar.pprestaciones;
     }
 	
 	Obtener(){
@@ -1221,8 +1263,8 @@ class Militar{
 		this.Persona.RedSocial.facebook = $("#txtmfacebook").val().toUpperCase();
 		this.Persona.RedSocial.instagram = $("#txtminstagran").val().toUpperCase();
 
-  	this.codigocomponente = $("#txtcodigocomponente").val();
-  	this.numerohistoria =   $("#txtnumhistoriaclinica").val();
+		this.codigocomponente = $("#txtcodigocomponente").val();
+		this.numerohistoria =   $("#txtnumhistoriaclinica").val();
 
 
   	var valpase = false;

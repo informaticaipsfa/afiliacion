@@ -21,6 +21,16 @@
      <li class="list-group-item" id="_lblConstanciaPension">
        <b>Constancia de Pensión</b> <a class="pull-right" ><a data-dismiss="modal"  onclick="ConstanciaPensionSobr()"  class="pull-right fa fa-print"></a></a>
      </li>
+     <li class="list-group-item" id="tarjetaPensionSobreviviente" style="display:none">
+        <label>Pensión (%):</label> 
+      <div class="input-group input-group">
+          <input type="text" class="form-control" id="txtPensionSobreviviente" value="0" maxlength="3"  disabled="disabled" onkeypress="return Util.SoloNumero(event,this)">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-success btn-flat btn-md" id="btnPensionSobreviviente"
+            onClick="AsignarPensionSobreviviente()" disabled="disabled"><i class="fa fa-refresh"></i></button>
+          </span>
+      </div>
+    </li>
    </ul>
   </div>
 </div>

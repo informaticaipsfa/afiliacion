@@ -1,3 +1,13 @@
+let MapACrecer = [
+    {"nombre": "TodosVivos", "regla" : ['EA', 'PD' , 'HJ']},
+    {"nombre":"SinEsposa", "regla" : ['PD', 'HJ']},
+    {"nombre":"SinHijos", "regla" : ['EA', 'PD']},
+    {"nombre":"SinPadre", "regla" : ["HJ", "EA"]},
+    {"nombre":"SinPadreEHjos", "regla" : ["EA"]},
+    {"nombre":"SinEsposaEHijos", "regla" : ["PD"]},
+    {"nombre":"SinPadreYEsposa", "regla" : ["HJ"]}
+];
+
 class Utilidad {
     constructor() {
 
@@ -127,8 +137,10 @@ class Utilidad {
             var valor = $(this).val();
             var dis = $(this).attr('required');
             var id = $(this).attr('id');
+            
             if (dis == "required") {
                 if (valor == "") {
+                   
                     respuesta = false;
                     return respuesta;
                 }
@@ -300,5 +312,286 @@ class Utilidad {
             endDate: "+0d"
         });
     }
+
+    AsignarPorcentajePension(ingreso, tiempo){
+        if(ingreso < 2010){
+            return CasoMenor2010(tiempo);
+        }else{
+            return ReglaPorcentajeMayor2010(tiempo);
+        }
+    }
+
+    ValidarDerechoACrecer(familiar){
+        console.log("!!!!");
+        var MAP = [];
+        var REGLA = [];
+        var FILA = 0;
+        familiar.forEach(v => {
+            if ( v.beneficio == true) {
+                var fam = [ v.parentesco, FILA ];            
+                var existe = REGLA.find(function(element) {
+                    return element === v.parentesco;
+                });
+                if (existe == undefined) REGLA.push(v.parentesco);
+                MAP.push(fam);
+           }
+           FILA++;
+        });
+        console.log(REGLA);
+        MapACrecer.forEach( x => {
+            var valor = false;
+            var repetir = 0;
+            for (var i = 0; i < x.regla.length; i++) {                
+                for(var j = 0; j < REGLA.length; j++){       
+                    if ( x.regla[i] == REGLA[j] ) {
+                        repetir++;
+                        valor = true;
+                     }else{
+                        valor = false;
+                     } 
+                }                
+            }
+
+            if (repetir == REGLA.length && repetir == x.regla.length){
+                AplicarReglaAcrecer( MAP, x.nombre);               
+            }            
+        });
+        return MAP;   
+    }
+}
+
+
+function AplicarReglaAcrecer(MAP, regla){
+    var t = $('#tblFamiliares').DataTable();
+    t.column(16).visible(true);
+    $("#divPensionSobreviviente").html(`<div class="callout callout-success" style="padding:8.3px; margin:0px;">
+        <p style="text-align: left"><b>Pensión del grupo familiar 100%</b></p>
+    </div>`);
+    switch (regla) {
+        case "TodosVivos":
+            //ESPOSA 60%            
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "EA" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(60).draw();
+                }
+            }       
+            //HIJOS 20%
+            var porcentaje = 20 / ContarParentesco(MAP, "HJ");
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "HJ" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(porcentaje).draw();
+                }
+            }         
+            //PADRE 20%
+            var porc = 20 / ContarParentesco(MAP, "PD");
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "PD" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(porc).draw();
+                }
+            }         
+            break;
+        case "SinEsposa":
+            //PADRES E HIJOS
+             //HIJOS 75%
+             var porcentaje = 75 / ContarParentesco(MAP, "HJ");
+             for(var i=0; i < MAP.length; i++){
+                 if ( MAP[i][0] == "HJ" ){
+                     var fila = MAP[i][1];
+                     t.cell(fila,16).data(porcentaje).draw();
+                 }
+             }         
+             //PADRE 25%
+             var porc = 25 / ContarParentesco(MAP, "PD");
+             console.log(porc);
+             for(var i=0; i < MAP.length; i++){
+                 if ( MAP[i][0] == "PD" ){
+                     var fila = MAP[i][1];
+                     t.cell(fila,16).data(porc).draw();
+                 }
+             }         
+            break;
+        case "SinHijos":
+            //ESPOSA Y PADRES
+            //ESPOSA 50%            
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "EA" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(50).draw();
+                }
+            }       
+             //PADRE 50%
+             var porc = 50 / ContarParentesco(MAP, "PD");
+             console.log(porc);
+             for(var i=0; i < MAP.length; i++){
+                 if ( MAP[i][0] == "PD" ){
+                     var fila = MAP[i][1];
+                     t.cell(fila,16).data(porc).draw();
+                 }
+             }         
+            break;
+        case "SinPadre":
+             //ESPOSA E HIJO
+            //ESPOSA 60%            
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "EA" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(60).draw();
+                }
+            }       
+             //HIJOS 20%
+             var porc = 20 / ContarParentesco(MAP, "HJ");
+             console.log(porc);
+             for(var i=0; i < MAP.length; i++){
+                 if ( MAP[i][0] == "HJ" ){
+                     var fila = MAP[i][1];
+                     t.cell(fila,16).data(porc).draw();
+                 }
+             }
+             $("#divPensionSobreviviente").html(`<div class="callout callout-danger" style="padding:8.3px; margin:0px;">
+                    <p style="text-align: left"><b>Pensión del grupo familiar 80%</b></p>
+                </div>`); 
+            break;
+        case "SinPadreEHjos":
+            //SOLO ESPOSA
+            t.cell( MAP[0][1],16).data(100).draw();
+            break;
+        case "SinEsposaEHijos":
+            //SOLO PADRES
+            var porcentaje = 100 / MAP.length;            
+            for(var i=0; i < MAP.length; i++){
+                var fila = MAP[i][1];
+                t.cell(fila,16).data(porcentaje).draw();
+            }            
+            break;
+        case "SinPadreYEsposa":
+            //SOLO HIJOS
+            var porcentaje = 100 / MAP.length;            
+            for(var i=0; i < MAP.length; i++){
+                var fila = MAP[i][1];
+                t.cell(fila,16).data(porcentaje).draw();
+            }  
+            break;
+        default:
+            break;
+    }
+    
+}
+
+function ContarParentesco(MAP, parentesco){
+    var contar = 0;
+    for(var i=0; i< MAP.length; i++){
+        if ( MAP[i][0] == parentesco ) {
+            contar++;
+        }
+    }
+    return contar;
+}
+
+
+function CasoMenor2010(t){
+    var v = 0;
+    switch (t) {
+        case 15:
+            v = 60;
+            break;
+        case 16:
+            v = 63;
+            break;
+        case 17:
+            v = 66;
+            break;
+        case 18:
+            v = 69;
+            break;
+        case 19:
+            v = 72;
+            break;
+        case 20:
+            v = 75;
+            break;
+        case 21:
+            v = 80;
+            break;
+        case 22:
+            v = 84;
+            break;
+        case 23:
+            v = 88;
+            break;
+        case 24:
+            v = 92;
+            break;
+        case 25:
+            v = 99;
+            break;        
+        default:
+            if (t > 25) v = 100;
+            break;
+    }
+
+    return v;
+}
+
+function ReglaPorcentajeMayor2010(tiempo){
+    var v = 0;
+    
+    switch (tiempo) {
+        case 15:
+            v = 50;
+            break;
+        case 16:
+            v = 52;
+            break;
+        case 17:
+            v = 54;
+            break;
+        case 18:
+            v = 56;
+            break;
+        case 19:
+            v = 59;
+            break;
+        case 20:
+            v = 62;
+            break;
+        case 21:
+            v = 65;
+            break;
+        case 22:
+            v = 68;
+            break;
+        case 23:
+            v = 72;
+            break;
+        case 24:
+            v = 76;
+            break;
+        case 25:
+            v = 80;
+            break;
+        case 26:
+            v = 84;
+            break;
+        case 27:
+            v = 89;
+            break;
+        case 28:
+            v = 94;
+            break;
+        case 29:
+            v = 99;
+            break;
+        case 30:
+            v = 100;
+            break;
+        default:
+            if (tiempo >30) v = 100;
+            
+            break;
+    }
+    return v;
 
 }

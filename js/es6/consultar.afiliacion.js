@@ -200,8 +200,9 @@ function FamiliaresHTML() {
         <th>CONDICION ESPECIAL</th>
         <th>ESTUDIA</th>
         <th>FECHA VCTO. CARNET</th>
-        <th>ACTUALIZAR</th>
+        <th style='width:40px'>ACTUALIZAR</th>
         <th>FOTO</th>
+        <th>% PEN.</th>
       </tr>
     </thead >
     <tbody>
@@ -454,16 +455,13 @@ function LimpiarFrmFamiliar() {
     $("#cmbDiscapacidadf").val("");
     $("#txtdiagnosticof").val("");
     $("#cmbHospitalf").val("");
-
     $("#txtedadf").val("");
-
     urlf = "imagenes/ndisponible.jpg";
     $("#_imgIngFam").attr("src", urlf);
     // $("#txttwitterf").val("");
     // $("#txtfacebookf").val("");
     // $("#txtinstagranf").val("");
     // $("#txtlinkedinf").val("");
-
 }
 
 
@@ -2041,8 +2039,15 @@ function traeDireccion(){
 function ActivarPension(){
     $("#_divpension").hide();
     $("#_bxMedidaJudicial").hide();
+    $("#_bxDescuentos").hide();
+    $("#tarjetaPensionSobreviviente").hide();
     $("#s").hide();
     $("#lblFechaResolucion").html("Fecha de Resolución");
+    $("#divPensionSobreviviente").html('');
+    var t = $('#tblFamiliares').DataTable();
+    t.column(16).visible(false);
+    
+
     var situacion = $("#cmbsituacion option:selected").val();
     if (situacion != "ACT" && situacion != "S" ){
         $("#lblFechaResolucion").html("F. Resolución de Retiro");
@@ -2051,6 +2056,19 @@ function ActivarPension(){
     if(situacion == "RCP"){
         $("#_bxMedidaJudicial").show();
         $("#_bxDescuentos").show();
+        var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
+        var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
+        $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
+    }
+    
+    if(situacion == "FCP"){
+        var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
+        var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
+        $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
+        Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
+        $("#tarjetaPensionSobreviviente").show();
+        $("#btnPensionSobreviviente").attr('disabled', false);
+        $("#txtPensionSobreviviente").attr('disabled', false);
     }
 }
 

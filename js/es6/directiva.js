@@ -63,7 +63,7 @@ class WDirectiva{
     Crear(req){
         waitingDialog.hide();
         alertErr('Directiva', 'Proceso exitoso');        
-        PrepararDirectiva();
+        //PrepararDirectiva();
     }
 }
 
@@ -158,13 +158,14 @@ class WListarDirectiva{
             ]).draw(false);
         });
         tblP.column(0).visible(false);
-        var i = 0;
         $("#primaid").html(`<option value='0'>Seleccionar Prima</option>`);
-       
+        
+        console.log(req.fnx);
+        var i = 0;
         fnx = req.fnx;
         req.fnx.forEach( v => {
-            i++;
             $("#primaid").append(`<option value='${i}'>${v.rs}</option>`);
+            i++;
         })
         $("#primaid").append(`<option value='99'>Otra...</option>`);
         $("#_cargando").hide();

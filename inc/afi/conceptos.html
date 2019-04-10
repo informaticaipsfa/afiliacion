@@ -35,13 +35,21 @@
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                  
                                     calculo por monto fijo ó 3%
                                 </div>
+                                <div class="chip"  onclick="fnxC('total_primas')">
+                                    <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
+                                    total primas
+                                </div>
                                 <div class="chip"  onclick="fnxC('sueldo_minimo')">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
                                     sueldo minimo
                                 </div>
                                 <div class="chip"  onclick="fnxC('unidad_tributaria')">
+                                        <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
+                                        unidad tributaria
+                                </div>
+                                <div class="chip"  onclick="fnxC('sueldo_mensual')">
                                     <i class="fa  fa-plus-square"></i>&nbsp;&nbsp;                                 
-                                    unidad tributaria
+                                    sueldo mensual
                                 </div>
                         </div>
                         <div class="overlay" id="_cargandof" style="display:none">
@@ -62,7 +70,7 @@
                             <div class="col-md-3 col-sm-4">
                                 <label>Código</label>
                                 <input  id="txtCodigo" class="form-control"  type="text"
-                                required  onkeypress="return soloLetras(event)">
+                                required >
                             </div>
                             <div class="col-md-9 col-sm-8">
                                 <label>Descripción</label>

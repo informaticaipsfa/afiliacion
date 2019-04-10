@@ -73,7 +73,6 @@ class Menu {
   }
   //Crear Menu Dinamicamente
   Crear(Json) {
-      console.log(Json);
       var e = sessionStorage.getItem("ipsfaToken");
       var s = e.split(".");
       var MenuJS = JSON.parse(atob(s[1]));

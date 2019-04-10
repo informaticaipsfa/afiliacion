@@ -76,9 +76,18 @@ function fnxC(fnxc){
         case 'sueldo_minimo':
             $('#txtFormula').val(fn +  ' $sueldo_minimo ' );
             break;
+        case 'sueldo_mensual':
+            $('#txtFormula').val(fn +  ' $sueldo_mensual ' );
+            break;
         case 'unidad_tributaria':
             $('#txtFormula').val(fn +  ' $unidad_triburaria ' );
             break;
+        case 'total_primas':
+            $('#txtFormula').val(fn +  ' $total_primas ' );
+            break;
+        case 'porcentaje_profesionalizacion':
+            $('#txtFormula').val(fn +  ' $porcentaje_profesionalizacion ' );
+            break;            
         default:
             break;
     }
@@ -203,8 +212,15 @@ class DirCon {
             'SUELDO BASE',
             '4.01.00.00',
             'DIR-SB'
-        ]).draw(false);
+        ]).draw(false);        
         dibujarTabla(tblP, fnx, 'DIR-PR');
+        tblP.row.add([
+            '',
+            'sueldo_mensual',
+            'SUELDO MENSUAL',
+            '4.01.00.00',
+            'DIR-SM'
+        ]).draw(false);
         dibujarTabla(tblP, fnxc, 'DIR-LEY');
         
         selccionarConceptos(tblP);
@@ -229,7 +245,7 @@ function selccionarConceptos(tblP){
     var cant = parseInt(tblP.rows()[0].length);
     for(i=0; i<cant; i++){
         var valor = tblP.rows(i).data()[0][4];
-        if ( valor == 'DIR-SB' || valor == 'DIR-PR' ||  valor == 'DIR-LEY' ){
+        if ( valor == 'DIR-SB' || valor == 'DIR-SM' || valor == 'DIR-PR'  ||  valor == 'DIR-LEY' ){
             tblP.row(i).select();
         }
     }
@@ -321,6 +337,7 @@ function GenerarNomina(){
     });
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
+    //console.log(Nom.Concepto);
     waitingDialog.show('Creando nómina por favor espere...');
     CargarAPI(ruta, "POST", Nom, Nom);
 }
@@ -335,7 +352,7 @@ function DetalleNomina(){
     var asignacion = '<ul>';
     var deduccion = '<ul>';
     $.each(t, function(c, v){
-        if(v[4] == "DIR-SB" || v[4] == "DIR-PR"){
+        if(v[4] == "DIR-SB" || v[4] == "DIR-SM" || v[4] == "DIR-PR"){
             asignacion += `<li>${v[1]} - ${v[2]}</li>`;
         }else{
             deduccion += `<li>${v[1]} - ${v[2]}</li>`;
