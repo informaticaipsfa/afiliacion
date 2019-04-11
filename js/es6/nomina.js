@@ -165,7 +165,7 @@ function LimpiarFormulario(){
     
 }
 
-function ActualizarConcepto(){ 
+function PrepararConceptos(){ 
   var Obj = new Concepto();
   var url = Conn.URL + "nomina/concepto/listar";
   CargarAPI(url, "GET", "", Obj);
