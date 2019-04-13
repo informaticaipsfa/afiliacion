@@ -142,8 +142,17 @@ class Concepto {
             ]).draw(false);
         });
         $("#_cargandol").hide();
+        $('#_TblConceptos tbody').on('dblclick', 'tr', function () {
+            var data = t.row(this).data();
+            alert(data);
+        });
     }
+    
 
+}
+function consultarConcepto(){
+
+    return false;
 }
 
 function AgregarConceptos(){    
@@ -153,7 +162,6 @@ function AgregarConceptos(){
     CargarAPI(url, "POST", Obj.Obtener());
     LimpiarFormulario();
   }
-
 function LimpiarFormulario(){
     $("#txtCodigo").val('');
     $("#txtDescripcion").val('');
@@ -262,9 +270,11 @@ function CargarDirectivaConceptos(){
     myStepper.next();
 }
 
-function PrepararNominaView(){
+function PrepararNominaView(des){
     $("#_TblConceptos").html("");
     var Dir = new Directiva();
+    $("#cmbTipoX").html(`<option value="RCP">${des}</option>`);
+
     var ruta = Conn.URL + "nomina/directiva";
     CargarAPI(ruta, "GET", "", Dir);
     myStepper = new Stepper(document.querySelector('#stepper-nomina'));
@@ -291,8 +301,12 @@ class WConcepto {
 class WNomina {
     constructor(){
         this.id = '';
+
+        this.Nombre = '';
+        this.Tipo = '';
         this.directiva = '';
-        this.fecha = '';
+        this.fechainicio = '';
+        this.fechafin = '';
         this.Concepto = [];
     }
 
@@ -309,14 +323,31 @@ class WNomina {
         );
         
         $("#_nominalista").html(`
-            Codigo Hash:${req.md5}<br>
-            Total de Monto: ${req.total}<br> 
+            Codigo Hash: ${req.md5}<br>
+            Total de Asignacion: ${req.asignacion}<br> 
+            Total de Deducciones: ${req.deduccion}<br>
+            Total Neto a pagar: ${req.neto}<br> 
             Registros: ${req.registros}<br>
             Paralizados: ${req.paralizados}<br>
             Descargar nómina .csv: <a href="${req.archivo}" target="_top" >Descargar Nómina</a>
             <br><br>
         `);
+
         $("#mdlNominaLista").modal("show");
+        var t = $('#tblNomina').DataTable();
+        t.row.add([
+            req.oid,
+            req.md5,
+            req.desde,
+            req.hasta,
+            'RCP',
+            req.registros,
+            req.asignacion,
+            req.deduccion,
+            req.neto,
+            '<a href="${req.archivo}" target="_top" >Descargar Nómina</a>'
+        ]).draw(false);
+
     }
 
 }
@@ -327,7 +358,10 @@ function GenerarNomina(){
     var t = Tbls.rows('.selected').data();
     Nom.id  = $("#directiva").val();
     Nom.directiva = $("#directiva option:selected").text();
-    Nom.fecha = $("#fechainicio").val();
+    Nom.Nombre = $("#cmbTipoNomina option:selected").text();
+    Nom.Tipo = $("#cmbTipoX option:selected").val();
+    Nom.fechainicio = $("#fechainicio").val();
+    Nom.fechafin = $("#fechavigencia").val();
     $.each(t, function(c, v){
         var Concepto = new WConcepto();
         Concepto.codigo = v[1];
@@ -337,7 +371,7 @@ function GenerarNomina(){
     });
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
-    //console.log(Nom.Concepto);
+    console.log(Nom);
     waitingDialog.show('Creando nómina por favor espere...');
     CargarAPI(ruta, "POST", Nom, Nom);
 }
@@ -474,3 +508,68 @@ function EnviarArchivos() {
     });
 
 }
+
+/**
+ * HTML TABLE
+ */
+
+ function NominaPreviewHTML(){
+     
+    var html = `<table class="ui celled table" cellspacing="0" width="100%" id="tblNomina" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>DESCRIPCION</th>
+            <th>DESDE</th>
+            <th>HASTA</th>
+            <th>TIPO</th>
+            <th>CANTIDAD</th>
+            <th>ASIGNACION</th>
+            <th>DEDUCCION</th>
+            <th>MONTO</th>
+            <th>#ACC</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>`;
+    return html;
+ }
+
+ function ListarNominasPendientes(){
+    $("#_tblNomina").html(NominaPreviewHTML());
+    var th = $('#tblNomina').DataTable({
+        'paging': false,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': false,
+        'info': false,
+        //'autoWidth'   : false
+        'autoWidth': false
+    });
+
+    th.clear().draw();
+
+
+ }
+
+class WContar{
+    constructor(){
+
+    }
+    Crear(req){
+        req.forEach(e => {
+            $("#" + e.situacion).html(e.cantidad)             
+        });
+        ListarNominasPendientes();
+    }
+    Obtener(){
+
+    }
+}
+
+ function ContarPensionados(){
+     var crear = new WContar();
+     var ruta =  Conn.URL + "nomina/ccpensionados";
+     CargarAPI(ruta, "GET", crear, crear);
+ }

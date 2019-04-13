@@ -35,14 +35,20 @@
         <div id="test-l-1" class="content" style="height:250px">
             
             <div class="row" >
-            <!-- Directivas -->
-            <div class="col-md-12 col-sm-12">
-                <label>Seleccionar Directiva:</label>
-                <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="directiva">
-                        
-                </select>
+                <!-- Directivas -->
+                <div class="col-md-4 col-sm-12">
+                    <label>Tipo de Nómina:</label>
+                    <select class="js-states form-control" style="width: 100%" required="" disabled aria-hidden="true" id="cmbTipoX">
+                            
+                    </select>
                 </div>
-                <!-- Fecha del Expediente -->
+                <!-- Directivas -->
+                <div class="col-md-8 col-sm-12">
+                    <label>Seleccionar Directiva:</label>
+                    <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="directiva">
+                            
+                    </select>
+                </div>
             </div>
             
             <div class="row" >
@@ -54,7 +60,7 @@
                 <div class="col-md-8 col-sm-12">
                     <label>Tipo de Nómina:</label>
                     <select class="js-states form-control" style="width: 100%" required="" aria-hidden="true" id="cmbTipoNomina">
-                        <option value='0'>NOMINA MESUAL</option>
+                        <option value='0'>NOMINA MENSUAL</option>
                         <option value='1'>PAGO ESPECIAL</option>
                         <option value='2'>BONO RECREACIONAL</option>
                         <option value='4'>AGUINALDOS</option>
@@ -65,7 +71,7 @@
                 <div class="col-md-4 col-sm-12">
                     <label> Forma de Pago:</label>
                     <select class="form-control" id='estado' style="width: 100%;">
-                        <option value='0'>MESUAL</option>
+                        <option value='0'>MENSUAL</option>
                         <option value='1'>QUINCENAL</option>
                         <option value='2'>CATORCENAL</option>
                         <option value='3'>SEMANAL</option>    
