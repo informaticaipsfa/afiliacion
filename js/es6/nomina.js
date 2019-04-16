@@ -65,7 +65,7 @@ function fnxC(fnxc){
             $('#txtFormula').val(fn + ' $numero_hijos ' );
             break;
         case 'calculo':
-            $('#txtFormula').val(fn +  ' ( $sueldo_base * 3 ) / 100 ' );
+            $('#txtFormula').val(fn +  ' ( $sueldo_mensual * 3 ) / 100 ' );
             break;
         case 'componente':
             $('#txtFormula').val(fn +  ' $componente ' );
@@ -118,7 +118,8 @@ class Concepto {
         this.grado = $("#cmbGrado").val();
         return this;
     }
-    Crear(DATA){        
+    Crear(req){    
+        console.log(req);    
         $("#_cargandol").show();
         var tabla = `
         <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable" >
@@ -133,7 +134,9 @@ class Concepto {
         $("#_TblConceptos").html(tabla);        
         var tblP = $('#tblConcepto').DataTable(opcionesf);
         tblP.clear().draw();
-        DATA.forEach( v => {           
+        
+        
+        req.forEach( v => {           
             
             tblP.row.add([
                 v.partida,
@@ -175,8 +178,9 @@ function LimpiarFormulario(){
 
 function PrepararConceptos(){ 
   var Obj = new Concepto();
-  var url = Conn.URL + "nomina/concepto/listar";
-  CargarAPI(url, "GET", "", Obj);
+  var url = Conn.URL + "nomina/listar/concepto/";
+  
+  CargarAPI(url, "GET", Obj, Obj);
   
 }
 
@@ -327,26 +331,14 @@ class WNomina {
             Total de Asignacion: ${req.asignacion}<br> 
             Total de Deducciones: ${req.deduccion}<br>
             Total Neto a pagar: ${req.neto}<br> 
-            Registros: ${req.registros}<br>
+            Pensionados: ${req.registros}<br>
             Paralizados: ${req.paralizados}<br>
-            Descargar nómina .csv: <a href="${req.archivo}" target="_top" >Descargar Nómina</a>
+            
             <br><br>
         `);
 
         $("#mdlNominaLista").modal("show");
-        var t = $('#tblNomina').DataTable();
-        t.row.add([
-            req.oid,
-            req.md5,
-            req.desde,
-            req.hasta,
-            'RCP',
-            req.registros,
-            req.asignacion,
-            req.deduccion,
-            req.neto,
-            '<a href="${req.archivo}" target="_top" >Descargar Nómina</a>'
-        ]).draw(false);
+        
 
     }
 
@@ -377,6 +369,7 @@ function GenerarNomina(){
 }
 
 function AceptarNomina(){
+    ListarNominasPendientes();
     $("#mdlNominaLista").modal("hide");
 }
 
@@ -536,22 +529,66 @@ function EnviarArchivos() {
     return html;
  }
 
- function ListarNominasPendientes(){
-    $("#_tblNomina").html(NominaPreviewHTML());
-    var th = $('#tblNomina').DataTable({
-        'paging': false,
-        'lengthChange': false,
-        'searching': false,
-        'ordering': false,
-        'info': false,
-        //'autoWidth'   : false
-        'autoWidth': false
-    });
 
-    th.clear().draw();
+class WListarNomina{
+    constructor(){}
+    Crear(req){
+        $("#_tblNomina").html(NominaPreviewHTML());
+        var t = $('#tblNomina').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': false,
+            //'autoWidth'   : false
+            'autoWidth': false
+        });
+    
+        t.clear().draw();
+        
+        req.forEach(e => {
+            var botones = `<div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-flat"
+                    data-toggle="tooltip" data-placement="top" title="Detalle"><i class="fa fa-book"></i></button>
+                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.csv');" class="btn btn-warning btn-flat
+                    data-toggle="tooltip" data-placement="top" title="Descargar""><i class="fa fa-download"></i></button>
+                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.log');" class="btn btn-teal btn-flat
+                    data-toggle="tooltip" data-placement="top" title="Log Err.""><i class="fa fa-file-text-o"></i></button>
+                </div>`;
+            var btnAcc = `<div class="btn-group">
+                <button type="button" onclick = "RechazarNomina(${e.oid})" class="btn btn-danger btn-flat"
+                data-toggle="tooltip" data-placement="top" title="Rechazar">
+                <i class="fa fa-times-circle"></i></button>
+                <button type="button" onclick = "AproarNomina(${e.oid})" class="btn btn-success btn-flat"
+                data-toggle="tooltip" data-placement="top" title="Aceptar"><i class="fa fa-check-square-o"></i></button>
+                `
+            t.row.add([
+                botones,
+                e.obse,
+                e.desd.substr(0, 10),
+                e.hast.substr(0, 10),
+                e.tipo,
+                e.cant,
+                parseFloat(e.asig,2),
+                parseFloat(e.dedu,2),
+                parseFloat(e.mont,2),
+                btnAcc
+            ]).draw(false);
+        });
+    }
 
+}
 
- }
+function ListarNominasPendientes(){
+    var lst = new WListarNomina();
+    var ruta =  Conn.URL + "nomina/listarpendientes";
+    CargarAPI(ruta, "GET", lst, lst);
+
+}
+
+function downloadP(url){
+    window.open(url, 'Download');
+}
 
 class WContar{
     constructor(){
@@ -563,13 +600,11 @@ class WContar{
         });
         ListarNominasPendientes();
     }
-    Obtener(){
-
-    }
 }
 
- function ContarPensionados(){
-     var crear = new WContar();
-     var ruta =  Conn.URL + "nomina/ccpensionados";
-     CargarAPI(ruta, "GET", crear, crear);
- }
+function ContarPensionados(){
+    var crear = new WContar();
+    var ruta =  Conn.URL + "nomina/ccpensionados";
+    CargarAPI(ruta, "GET", crear, crear);
+}
+

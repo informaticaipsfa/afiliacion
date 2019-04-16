@@ -6,7 +6,7 @@
       <a href="#" onclick="PrepararNominaView('RETIRADO CON PENSION')">
           <div class="small-box bg-green" style="padding:10px">
               <div class="inner">
-                  <h3 id="RCP"> </h3>
+                  <h2 id="RCP">0</h2>
                   <p>Retirado Con Pensión</p>
               </div>
               <div class="icon" style="padding-top:15px">
@@ -22,7 +22,7 @@
     <a href="#" onclick="cargaPrograma('a')">
         <div class="small-box bg-aqua" style="padding:10px">
             <div class="inner">
-                <h3 id="FCP">0</h3>
+                <h2 id="FCP">0</h2>
                 <p>Sobrevivientes</p>
             </div>
             <div class="icon" style="padding-top:15px">
@@ -36,7 +36,7 @@
       <a href="#" onclick="cargaPrograma('a')">
           <div class="small-box bg-red" style="padding:10px">
               <div class="inner">
-                  <h3 id="PG">0</h3>
+                  <h2 id="PG">0</h2>
                   <p>Gracia</p>
               </div>
               <div class="icon" style="padding-top:15px">
@@ -50,8 +50,8 @@
         <a href="#" onclick="cargaPrograma('a')">
             <div class="small-box bg-yellow" style="padding:10px">
                 <div class="inner">
-                  <h3 id="I">0</h3>
-                  <p>Invalidos</p>
+                  <h2 id="I">0</h2>
+                  <p>Discapacitados</p>
                 </div>
                 <div class="icon" style="padding-top:15px">
                     <i class="fa  fa-user-md"></i>
@@ -83,8 +83,11 @@
             <i class="fa fa-refresh fa-spin"></i>
         </div>
         <!-- end loading -->
-        <div class="modal-footer">
-            
+        <div class="modal-footer">            
+          <button type="button" id="btnPreparar" class="btn btn-md btn-success pull-left" onclick="AceptarTodaNomina()">
+              Aceptar nóminas</button>
+          <button type="button" id="btnPreparar" class="btn btn-md btn-teal" onclick="AceptarTodaNomina()">
+              Cancelar nóminas</button>      
         </div>
     </div><!-- /.box -->
 </div>
@@ -140,7 +143,7 @@ aria-labelledby="myLargeModalLabel" id="mdlNominaLista"
             
         </div>
         <div class="modal-footer">
-          <button type="button" id="btnPreparar" class="btn btn-md btn-warning" onclick="AceptarNomina()">
+          <button type="button" id="btnPreparar" class="btn btn-md btn-success" onclick="AceptarNomina()">
               Aceptar</button>
         </div>
         
@@ -148,3 +151,46 @@ aria-labelledby="myLargeModalLabel" id="mdlNominaLista"
 
     </div>
   </div>
+
+
+
+
+
+<div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" id="mdlPrepararNominaGracia"
+     aria-hidden="false">
+      <div class="modal-dialog modal-lg" role="document">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+        <div class="modal-header" style="background-color:#337ab7;color:white;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Preparando la nómina</h4>
+
+        </div>
+        <div class="modal-body" >
+            
+            <div class="alert alert-danger" role="alert" style="display:none" id="alert">
+                
+            </div>
+            <div id="_stepper"></div>
+        </div>
+        
+        
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+ 

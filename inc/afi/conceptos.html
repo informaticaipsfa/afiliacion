@@ -1,4 +1,4 @@
-<div class="col-md-8 col-lg-8" id="_conceptos">
+<div class="col-md-7 col-lg-7" id="_conceptos">
     
         <div class="row" style="padding:5px; padding-bottom:-5px">
                 <div class="form-horizontal" id="_frmFormulas">
@@ -67,13 +67,13 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-3 col-sm-4">
-                                <label>Código</label>
+                            <div class="col-md-4 col-sm-4">
+                                <label>Código / Cuenta</label>
                                 <input  id="txtCodigo" class="form-control"  type="text"
                                 required >
                             </div>
-                            <div class="col-md-9 col-sm-8">
-                                <label>Descripción</label>
+                            <div class="col-md-8 col-sm-8">
+                                <label>Descripción / Estructura</label>
                                 <input  id="txtDescripcion" class="form-control"  type="text"
                                 required>
                             </div>
@@ -91,10 +91,11 @@
                             <div class="col-md-3 col-sm-4">
                                 <label>Tipo</label>
                                 <select id="cmbTipo" class="form-control" required >
-                                    <option value="0">Deducción de Ley</option>
-                                    <option value="1" selected>Asignación</option>
-                                    <option value="2">Deducción Otros</option>
-                                    <option value="98">Operación</option>
+                                    <option value="1" selected>ASIGNACIONES</option>
+                                    <option value="0">DEDUCCION DE LEY</option>
+                                    <option value="2">OTRAS DEDUCCIONES</option>
+                                    <option value="98">AHORROS</option>
+                                    <option value="99">OPERACIONES INDIVIDUALES</option>
                                 </select>
                             </div>
                             <div class="col-md-6 col-sm-4">
@@ -104,8 +105,8 @@
                             <div class="col-md-3 col-sm-4">
                                 <label>Estatus</label>
                                 <select id="cmbEstatus" class="form-control" required >
-                                    <option value="1" selected>Activo</option>
-                                    <option value="0">Inactivo</option>
+                                    <option value="1" selected>ACTIVO</option>
+                                    <option value="0">INACTIVO</option>
                                 </select>
                             </div>
                         </div> <!-- Grupo nombres-->
@@ -144,7 +145,7 @@
         </div>
    
 </div>
-<div class="col-md-4 col-lg-4" id="_listado">
+<div class="col-md-5 col-lg-5" id="_listado">
     
         <div class="row" style="padding:5px">
             <div class="form-horizontal" id="_frmConceptos">
@@ -162,8 +163,8 @@
                         role="grid" aria-describedby="example1_info">
                             <thead>
                                 <tr role="row">
+                                    <th>CUENTA</th>                                            
                                     <th>PARTIDA </th>
-                                    <th>CODIGO</th>                                            
                                     <th>DESCRIPCION</th>
                                 </tr>
                             </thead>

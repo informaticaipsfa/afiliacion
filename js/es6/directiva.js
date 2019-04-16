@@ -160,7 +160,7 @@ class WListarDirectiva{
         tblP.column(0).visible(false);
         $("#primaid").html(`<option value='0'>Seleccionar Prima</option>`);
         
-        console.log(req.fnx);
+        //console.log(req.fnx);
         var i = 0;
         fnx = req.fnx;
         req.fnx.forEach( v => {
@@ -204,6 +204,8 @@ function SeleccionarPrima(){
     $("#prima_nombre").val(fnx[pos].rs);
     $("#txtFormula").val(fnx[pos].fn);
     $("#oidprima").val(fnx[pos].oid);
+    $("#partida").val(fnx[pos].part);
+
 }
 
 function ListarDirectivaDetalle(){
