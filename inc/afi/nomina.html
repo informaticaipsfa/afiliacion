@@ -34,7 +34,7 @@
 
   <div class="col-lg-3 col-xs-6" >
       <a href="#" onclick="cargaPrograma('a')">
-          <div class="small-box bg-red" style="padding:10px">
+          <div class="small-box bg-purple" style="padding:10px">
               <div class="inner">
                   <h2 id="PG">0</h2>
                   <p>Gracia</p>
@@ -83,11 +83,12 @@
             <i class="fa fa-refresh fa-spin"></i>
         </div>
         <!-- end loading -->
-        <div class="modal-footer">            
-          <button type="button" id="btnPreparar" class="btn btn-md btn-success pull-left" onclick="AceptarTodaNomina()">
-              Aceptar nóminas</button>
-          <button type="button" id="btnPreparar" class="btn btn-md btn-teal" onclick="AceptarTodaNomina()">
-              Cancelar nóminas</button>      
+        <div class="modal-footer">    
+          <button type="button" id="btnPreparar" class="btn btn-md btn-danger pull-left" id="btnRechazar" onclick="rechazarNomina()">
+              Rechazar nóminas</button>        
+          <button type="button" id="btnPreparar" class="btn btn-md btn-success " id="btnAprobar" onclick="aprobarNomina()">
+              Aprobar nóminas</button>
+                
         </div>
     </div><!-- /.box -->
 </div>

@@ -275,20 +275,33 @@ function CargarDirectivaConceptos(){
 }
 
 function PrepararNominaView(des){
+    
+    var Tbls = $('#tblNomina').DataTable();
+    var t = Tbls.rows().data();
+    let estatus = false;
+    $.each(t, function(c, v){
+        if ( v[4] == 'RCP' && v[9] != 'Cerrada' ){
+            estatus = true;
+        }
+    });
+
+    if (estatus == true){
+        alertNotify('Ya existe una prenomina, debe cerrarla o rechazarla para efectuar otro cálculo.', 'warning');
+        return false;
+    }
     $("#_TblConceptos").html("");
     var Dir = new Directiva();
     $("#cmbTipoX").html(`<option value="RCP">${des}</option>`);
-
     var ruta = Conn.URL + "nomina/directiva";
     CargarAPI(ruta, "GET", "", Dir);
     myStepper = new Stepper(document.querySelector('#stepper-nomina'));
     $('#mdlPrepararNomina').modal('show');
-
     var Obj = new ListaConceptos();
     var url = Conn.URL + "nomina/concepto/listar";
     CargarAPI(url, "GET", "", Obj);
     ActivarFechaNomina();
     ViewInputFile();
+
 }
 
 
@@ -316,16 +329,8 @@ class WNomina {
 
     Crear(req){
         waitingDialog.hide();
-        $.notify(
-            {
-                title: '<strong>Proceso de Nómina!</strong>',
-                message: 'finalizo con <strong>éxito</strong>'
-            },
-            {
-                type: 'success'
-            } 
-        );
-        
+        alertNotify('Proceso exitoso', 'success');
+        console.log(req);
         $("#_nominalista").html(`
             Codigo Hash: ${req.md5}<br>
             Total de Asignacion: ${req.asignacion}<br> 
@@ -363,7 +368,7 @@ function GenerarNomina(){
     });
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
-    console.log(Nom);
+    //console.log(Nom);
     waitingDialog.show('Creando nómina por favor espere...');
     CargarAPI(ruta, "POST", Nom, Nom);
 }
@@ -511,16 +516,18 @@ function EnviarArchivos() {
     var html = `<table class="ui celled table" cellspacing="0" width="100%" id="tblNomina" >
         <thead>
         <tr>
-            <th>ID</th>
-            <th>DESCRIPCION</th>
+            <th>ACCIONES GENERALES</th>
+            <th>DESCRIPCIÓN</th>
             <th>DESDE</th>
             <th>HASTA</th>
             <th>TIPO</th>
             <th>CANTIDAD</th>
-            <th>ASIGNACION</th>
-            <th>DEDUCCION</th>
+            <th>ASIGNACIÓN</th>
+            <th>DEDUCCIÓN</th>
             <th>MONTO</th>
-            <th>#ACC</th>
+            <th>EJECUCIÓN</th>
+            <th>ID</th>
+            <th>NOMBRE</th>
         </tr>
         </thead>
         <tbody>
@@ -548,20 +555,18 @@ class WListarNomina{
         
         req.forEach(e => {
             var botones = `<div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-flat"
-                    data-toggle="tooltip" data-placement="top" title="Detalle"><i class="fa fa-book"></i></button>
-                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.csv');" class="btn btn-warning btn-flat
-                    data-toggle="tooltip" data-placement="top" title="Descargar""><i class="fa fa-download"></i></button>
-                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.log');" class="btn btn-teal btn-flat
-                    data-toggle="tooltip" data-placement="top" title="Log Err.""><i class="fa fa-file-text-o"></i></button>
+                    <button type="button" onclick = "verPartida('${e.oid}');" class="btn btn-primary btn-flat"
+                    data-toggle="tooltip" data-placement="top" title="Resumén Presupuestario"><i class="fa fa-book"></i></button>
+                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.csv');" class="btn btn-success btn-flat
+                    data-toggle="tooltip" data-placement="top" title="Descargar CSV "><i class="fa fa-download"></i></button>
+                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.log');" class="btn btn-warning btn-flat
+                    data-toggle="tooltip" data-placement="top" title="Incidencias"><i class="fa fa-file-text-o"></i></button>
+                    <button type="button" onclick = "CoeficienteVariacion(${e.oid})" class="btn bg-purple btn-flat"
+                    data2-toggle="tooltip" data-placement="top" title="Coeficiente de Variación"><i class="fa fa-area-chart"></i></button>
                 </div>`;
-            var btnAcc = `<div class="btn-group">
-                <button type="button" onclick = "RechazarNomina(${e.oid})" class="btn btn-danger btn-flat"
-                data-toggle="tooltip" data-placement="top" title="Rechazar">
-                <i class="fa fa-times-circle"></i></button>
-                <button type="button" onclick = "AproarNomina(${e.oid})" class="btn btn-success btn-flat"
-                data-toggle="tooltip" data-placement="top" title="Aceptar"><i class="fa fa-check-square-o"></i></button>
-                `
+            var btnAcc = seleccionarCaso(e);
+            
+
             t.row.add([
                 botones,
                 e.obse,
@@ -569,21 +574,92 @@ class WListarNomina{
                 e.hast.substr(0, 10),
                 e.tipo,
                 e.cant,
-                parseFloat(e.asig,2),
-                parseFloat(e.dedu,2),
-                parseFloat(e.mont,2),
-                btnAcc
+                numeral(parseFloat(e.asig,2)).format('0,0.00'),
+                numeral(parseFloat(e.dedu)).format('0,0.00'),
+                numeral(parseFloat(e.mont)).format('0,0.00'),
+                btnAcc,
+                e.oid,
+                e.nomb
             ]).draw(false);
+           
         });
+        t.column(10).visible(false);
+        t.column(11).visible(false);
     }
 
 }
 
 function ListarNominasPendientes(){
     var lst = new WListarNomina();
-    var ruta =  Conn.URL + "nomina/listarpendientes";
+    var ruta =  Conn.URL + "nomina/listarpendientes/1";
     CargarAPI(ruta, "GET", lst, lst);
+}
 
+function seleccionarCaso(e){
+    var btnAcc = "";
+    switch (parseInt(e.esta)) {
+        case 1:
+            btnAcc = `<div class="btn-group">
+            <button type="button" onclick = "cerrarNomina(${e.oid}, 97)" class="btn btn-danger btn-flat"
+            data-toggle="tooltip" data-placement="top" title="Rechazar">
+            <i class="fa fa-times-circle"></i></button>
+            <button type="button" onclick = "cerrarNomina(${e.oid}, 2)" class="btn btn-success btn-flat"
+            data-toggle="tooltip" data-placement="top" title="Cerrar nómina"><i class="fa fa-check-square-o"></i></button>`;
+            break;
+        case 2:
+            btnAcc = "CERRADA";
+            
+            break;
+        case 3:
+            btnAcc = "APROBADA";
+            break;
+        case 4: 
+            btnAcc = "PAGADA";
+            break;
+        default:
+            break;
+    }
+    
+    return btnAcc;
+}
+
+class WVerPartida{
+    constructor(){}
+    Crear(req){
+        console.log(req);
+    }
+}
+function verPartida(oid){
+    var lst = new WVerPartida();
+    var ruta =  Conn.URL + "nomina/verpartida/" + oid;
+    CargarAPI(ruta, "GET", lst, lst);
+}
+//Botones para aprobar o cerrar nominas así como rechazarlas
+class WCerrarNomina{
+    constructor(){}
+    Crear(req){
+        console.log(req);
+        ListarNominasPendientes();
+    }
+}
+function cerrarNomina(oid, estatus){
+    var concepto = "rechazar los archivos y no comprometer ";
+    if( estatus < 97){
+        concepto = "cerrar para comprometer los pagos de ";
+    }
+    $("#_contenido").html(`¿Está seguro que desea ${concepto} la nómina?`);
+    var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 
+    onclick="ejecutarOperacion(${oid}, ${estatus})">Si</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
+    $("#_botonesmsj").html(botones);
+    $('#modMsj').modal('show');
+
+    
+}
+function ejecutarOperacion(oid, estatus){
+    var cerrar = new WCerrarNomina();
+    var ruta =  Conn.URL + "nomina/cerrar/" + oid + "/" + estatus;
+    CargarAPI(ruta, "GET", cerrar, cerrar);
 }
 
 function downloadP(url){
@@ -601,10 +677,93 @@ class WContar{
         ListarNominasPendientes();
     }
 }
-
 function ContarPensionados(){
     var crear = new WContar();
     var ruta =  Conn.URL + "nomina/ccpensionados";
     CargarAPI(ruta, "GET", crear, crear);
 }
+function rechazarNomina(){
+    
+    $("#_contenido").html(`¿Está seguro que desea rechazar todas las nóminas? Está opción elimna 
+    los archivos relacionados con el proceso de pago.`);
+    var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 
+    onclick="ejecutarRechazo(99)">Si</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
+    $("#_botonesmsj").html(botones);
+    $('#modMsj').modal('show');
 
+    
+}
+function ejecutarRechazo(){
+    var cerrar = new WCerrarNomina();
+    var ruta = Conn.URL + "nomina/procesar" ;
+    var lst = cargarProcesarNomina(99);
+
+    CargarAPI(ruta, "POST", lst[1], cerrar);
+}
+function aprobarNomina(){
+    var lst = cargarProcesarNomina(3);
+
+    if(lst[0] == false){
+        alertNotify("Todos los procesos de nomina deben estar en el estatus de CERRADO para continuar", "danger");
+        return false;
+    }
+    $("#_contenido").html(`¿Está seguro que desea aprobar la nómina? Recuerde tener presente que está acción 
+    genera compromisos de pago`);
+    var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 
+    onclick="ejecutarAprobacion()">Si</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
+    $("#_botonesmsj").html(botones);
+    $('#modMsj').modal('show');
+    
+    
+}
+
+class WProcesarNomina{
+    constructor(){}
+    Crear(req){
+        $("#_cargando").hide();
+        alertNotify("Se han registrado los pagos", "success");
+        ListarNominasPendientes();
+    }
+}
+function ejecutarAprobacion(){
+    var lst = cargarProcesarNomina(3);
+
+    if(lst[0] == false){
+        alertNotify("Todos los procesos de nomina deben estar en el estatus de CERRADO para continuar", "danger");
+        return false;
+    }
+    var wprocesar = new WProcesarNomina();
+    $("#_cargando").show();
+    var ruta =  Conn.URL + "nomina/procesar";
+    CargarAPI(ruta, "POST", lst[1], wprocesar);
+}
+
+function cargarProcesarNomina(esta){
+    var Tbls = $('#tblNomina').DataTable();
+    var t = Tbls.rows().data();
+    let estatus = true;
+    var lst = [];
+    $.each(t, function(c, v){
+        if(v[9] != "CERRADA"){
+            estatus = false;
+        }
+        var pos = { id: parseInt(v[10]), estatus: parseInt(esta), nombre: v[11]};
+        lst.push(pos);
+    });
+    return [estatus, lst];
+}
+
+
+function alertNotify (msj, color){
+    $.notify(
+        {
+            title: '<strong>Proceso de Nómina!</strong>',
+            message: msj
+        },
+        {
+            type: color
+        } 
+    );
+}

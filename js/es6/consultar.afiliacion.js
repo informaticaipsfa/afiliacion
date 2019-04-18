@@ -270,19 +270,19 @@ function MedidaJudicialHTML() {
 function TipoMedidaJudicial(id){
     var texto = '';
     switch (id) {
-        case 0:
+        case 1:
             texto = 'PENSION ALIMENTARIA';
             break;
-        case 1:
+        case 2:
             texto = 'RETRIBUCION ESPECIAL';
             break;
-        case 2:
+        case 3:
             texto = 'BONO RECREACIONAL';
             break;
-        case 3:
+        case 4:
             texto = 'RETENCION ESCOLAR';
             break;
-        case 4:
+        case 5:
             texto = 'RETENCION AGUINALDOS';
             break;
         default:        

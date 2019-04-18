@@ -1108,13 +1108,17 @@ class Militar{
 				
 				tMJ.clear().draw();
 				$.each(militar.Pension.MedidaJudicial, function (c, v) {
+					var num = v.numerocuenta!=undefined?v.numerocuenta:''; 
+					var ced = v.cedautorizado!=undefined?v.cedautorizado:'';
+					var tip = v.tipocuenta!='S'?v.tipocuenta:'';
+					var cod = v.numero!=undefined?v.numero:'';
 					tMJ.row.add([
-						v.numero,
+						cod,
 						TipoMedidaJudicial(v.tipo),
-						v.cedautorizado,
-						v.autorizado,
-						v.numerocuenta, 
-						v.tipocuenta,
+						ced,
+						v.autorizado.toUpperCase(),
+						num, 
+						tip,
 						Util.ConvertirFechaHumana(v.fecha)
 					]).draw(false);
 				});
