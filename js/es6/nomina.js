@@ -274,15 +274,16 @@ function CargarDirectivaConceptos(){
     myStepper.next();
 }
 
-function PrepararNominaView(des){
+function PrepararNominaView( tipo, des ){
     
     var Tbls = $('#tblNomina').DataTable();
     var t = Tbls.rows().data();
     let estatus = false;
     $.each(t, function(c, v){
-        if ( v[4] == 'RCP' && v[9] != 'Cerrada' ){
+        if ( v[4] == tipo && v[9] != 'Cerrada' ){
             estatus = true;
         }
+
     });
 
     if (estatus == true){
@@ -291,7 +292,10 @@ function PrepararNominaView(des){
     }
     $("#_TblConceptos").html("");
     var Dir = new Directiva();
-    $("#cmbTipoX").html(`<option value="RCP">${des}</option>`);
+
+    $("#cmbTipoX").html(`<option value="${tipo}">${des}</option>`);
+
+    
     var ruta = Conn.URL + "nomina/directiva";
     CargarAPI(ruta, "GET", "", Dir);
     myStepper = new Stepper(document.querySelector('#stepper-nomina'));

@@ -476,7 +476,6 @@ function VisualizarCarnet() {
     if (Util.ValidarFormulario("_frmDatoBasico") == false) {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
-        //alert(ObjMilitar.estatuscarnet);
         if (ObjMilitar.estatuscarnet == undefined || ObjMilitar.estatuscarnet == 3 || ObjMilitar.estatuscarnet == 0) {
             $("#modCarnetValidar").modal("show");
         } else {
@@ -2017,7 +2016,7 @@ function ImprimirCarnetFamiliar(nombre) {
 
 
 function Validar(){
-  alert("Test");
+  
 }
 
 function traeDireccion(){

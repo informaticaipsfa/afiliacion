@@ -159,8 +159,8 @@ class Utilidad {
 
             if (dis == "required") {
                 if (valor == "") {
-                    $(this).notify("*");
-                    $("#"+ele).notify("Recuerde de ingresar todos los campos requeridos");
+                    //$(this).notify();
+                    $.notify("Recuerde de ingresar todos los campos requeridos");
                 }
             }
         });

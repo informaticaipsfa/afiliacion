@@ -157,17 +157,55 @@ function CuadreBancoHTML(){
  }
 
 
+function GenerarTxt(){
+    $("#mdlPrepararMetodo").modal("show");
+    $("#divResult").html(`<div class="alert bg-info disabled" role="alert " id="alert" >
+        Los metodos a banco se generan el grupo mediante las diferentes firmas
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="divResult">
+            <label>Cantidad de persona en txt</label>                        
+            
+            <input type="text" class="form-control" onkeypress="return Util.SoloNumero(event,this)"
+            placeholder="Cantidad Personas" id='cantidadtxt' /> 
+                                        
+        </div>
+    </div>`);
+    $("#divResultFooter").html(`<button type="button" id="btnPreparar" class="btn btn-md btn-success pull-rigth" onclick="pagarMetodo()">
+        Aceptar</button>
+    <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" aria-label="Close">
+        Cancelar
+    </button>`);
+}
 class WMetodoBanco{
     constructor(){}
     Crear(req){
-        console.log(req);
+        $("#_cargandog").hide();
+        $("#divResult").html(`<div class="alert bg-success disabled" role="alert " id="alert" >
+            Los archivos para los bancos se han generado correctamente
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="divResult">
+                 Los archivos generados por lote se han adjuntado a una carpeta y luego comprimdos 
+                 a fines de garantizar su seguridad y la rápidez de transferencia.                                           
+            </div>
+        </div>`);
+        $("#divResultFooter").html(`<button type="button" id="btnPreparar" 
+        class="btn btn-md btn-success pull-rigth" onclick="downloadP('temp/banco/${$("#cmbSolicitud").val()}.zip')">
+        Descargar archivo</button>`);
     }
 }
  
 function pagarMetodo(){
-     //$("#mdlPrepararMetodo").modal("show");
+     
     var lst = new WMetodoBanco();
-    
-    var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/500";
+    $("#_cargandog").show();
+    if ($("#cmbSolicitud").val() == "0"){
+        $("#_cargandog").hide();
+        alertNotify("Actualmente no hay pagos pendientes", "danger");
+        return false;
+    }
+   
+    var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/300";
     CargarAPI(ruta, "GET", lst, lst);
  }

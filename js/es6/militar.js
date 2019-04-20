@@ -357,11 +357,19 @@ class Familiar{
 		return this;
 	}
 	Salvar(){
-		CargarAPI(Conn.URL + "familiar/crud" , "POST", this.Obtener());
+		var milfamiliar = new WMilitar();
+		CargarAPI(Conn.URL + "familiar/crud" , "POST", this.Obtener(), milfamiliar);
 	}
 	Actualizar(){
-		CargarAPI(Conn.URL + "familiar/crud" , "PUT", this.Obtener());
+		var milfamiliar = new WMilitar();
+		CargarAPI(Conn.URL + "familiar/crud" , "PUT", this.Obtener(), milfamiliar);
+	}
+}
 
+class WMilitar{
+	constructor(){}
+	Crear(req){
+		Buscar($("#txtcedula").val());
 	}
 }
 
@@ -557,7 +565,7 @@ class Recibo{
 
     Obtener(){
     	this.id = $("#txtcedula").val();
-      this.idf = $("#txtcedula").val();
+      	this.idf = $("#txtcedula").val();
     	this.motivo = $("#cmbMotivoCarnet").val();
     	this.numero = $("#txtnumeroC").val();
     	this.canal = $("#cmbminstfinancieraC").val();
@@ -578,7 +586,7 @@ class Recibo{
     }
 
 	Salvar(){
-    CargarAPI(Conn.URL + "recibo/crud" , "POST", this.Obtener());
+    	CargarAPI(Conn.URL + "recibo/crud" , "POST", this.Obtener());
 	}
 
   SalvarF(){
@@ -1202,8 +1210,8 @@ class Militar{
 
 		this.Persona.DatoBasico.cedula = $("#txtcedula").val();
 		this.Persona.DatoBasico.nropersona =  parseInt($("#txtnropersona").val());
-		this.Persona.DatoBasico.nombreprimero = $("#txtnombre").val().toUpperCase();
-		this.Persona.DatoBasico.apellidoprimero = $("#txtapellido").val().toUpperCase();
+		this.Persona.DatoBasico.nombreprimero = $("#txtnombre").val().toUpperCase().trim();
+		this.Persona.DatoBasico.apellidoprimero = $("#txtapellido").val().toUpperCase().trim();
 		this.Persona.DatoBasico.fechanacimiento = fnacimiento;
 		this.Persona.DatoBasico.fechadefuncion = fdefuncion;
 		this.Persona.DatoBasico.sexo = $("#cmbsexo option:selected").val();
@@ -1269,14 +1277,15 @@ class Militar{
 
 		this.codigocomponente = $("#txtcodigocomponente").val();
 		this.numerohistoria =   $("#txtnumhistoriaclinica").val();
+		this.Pension.pprestaciones =  parseFloat($("#txtporcentaje").val());
+		
 
-
-  	var valpase = false;
-  	if($("#cmbpbaja option:selected").val() == 1){
-  		valpase = true;
-		}
-  	this.pasearetiro =valpase;
-
+		var valpase = false;
+		if($("#cmbpbaja option:selected").val() == 1){
+			valpase = true;
+			}
+		this.pasearetiro =valpase;
+		//console.log(this.pprestaciones)
 		return this;
 
 	}
@@ -1309,7 +1318,7 @@ class Militar{
 		$("#_btnModificar").show();
 		$("#_btnSavlvar").hide();
 
-    	CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener());
+    	CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener(), this);
 	}
 	Actualizar(){
 		$("#_bxFamiliar").show();
@@ -1492,4 +1501,24 @@ class PACE {
 		$("#P_PROFESIONALIZACION").val(Json.prima_profesionalizacion_aux);
 		$("#P_COMPENSACION_ESPECIAL").val(Json.prima_compensacion_especial_aux);
 	}
+}
+
+
+class WPensiones{
+	constructor(){
+
+	}
+	
+	Crear(req){
+		console.log(req);
+		req.forEach(neto => {
+			console.log(JSON.parse(neto.calculos));
+			
+		});
+	}
+}
+function PensionesAsignadas(){
+	var wpensiones = new WPensiones();
+	var ruta =  Conn.URL + "pensionado/consultarneto/" + $("#txtcedula").val() ;
+    CargarAPI(ruta, "GET", wpensiones, wpensiones);
 }
