@@ -229,7 +229,7 @@ class DirCon {
         tblP.row.add([
             '',
             'sueldo_mensual',
-            'SUELDO MENSUAL',
+            'PENSION',
             '4.01.00.00',
             'DIR-SM'
         ]).draw(false);
@@ -255,12 +255,22 @@ function dibujarTabla(tblP, fnx, concepto) {
 
 function selccionarConceptos(tblP){
     var cant = parseInt(tblP.rows()[0].length);
-    for(i=0; i<cant; i++){
-        var valor = tblP.rows(i).data()[0][4];
-        if ( valor == 'DIR-SB' || valor == 'DIR-SM' || valor == 'DIR-PR'  ||  valor == 'DIR-LEY' ){
-            tblP.row(i).select();
+    if($("#cmbTipoX").val() == "PG"){
+        for(i=0; i<cant; i++){
+            var valor = tblP.rows(i).data()[0][2];
+            if ( valor == 'PENSION' ){
+                tblP.row(i).select();
+            }
+        }
+    }else{
+        for(i=0; i<cant; i++){
+            var valor = tblP.rows(i).data()[0][4];
+            if ( valor == 'DIR-SB' || valor == 'DIR-SM' || valor == 'DIR-PR'  ||  valor == 'DIR-LEY' ){
+                tblP.row(i).select();
+            }
         }
     }
+    
 }
 
 function CargarDirectivaConceptos(){
@@ -545,18 +555,8 @@ class WListarNomina{
     constructor(){}
     Crear(req){
         $("#_tblNomina").html(NominaPreviewHTML());
-        var t = $('#tblNomina').DataTable({
-            'paging': false,
-            'lengthChange': false,
-            'searching': false,
-            'ordering': false,
-            'info': false,
-            //'autoWidth'   : false
-            'autoWidth': false
-        });
-    
-        t.clear().draw();
-        
+        var t = $('#tblNomina').DataTable(tablaBasica);
+        t.clear().draw();        
         req.forEach(e => {
             var botones = `<div class="btn-group">
                     <button type="button" onclick = "verPartida('${e.oid}');" class="btn btn-primary btn-flat"
@@ -565,8 +565,9 @@ class WListarNomina{
                     data-toggle="tooltip" data-placement="top" title="Descargar CSV "><i class="fa fa-download"></i></button>
                     <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.log');" class="btn btn-warning btn-flat
                     data-toggle="tooltip" data-placement="top" title="Incidencias"><i class="fa fa-file-text-o"></i></button>
-                    <button type="button" onclick = "CoeficienteVariacion(${e.oid})" class="btn bg-purple btn-flat"
-                    data2-toggle="tooltip" data-placement="top" title="Coeficiente de Variación"><i class="fa fa-area-chart"></i></button>
+                    <button style="display:none" type="button" onclick = "CoeficienteVariacion(${e.oid})" class="btn bg-purple btn-flat"
+                    data2-toggle="tooltip" data-placement="top" title="Coeficiente de Variación">
+                    <i class="fa fa-area-chart"></i></button>
                 </div>`;
             var btnAcc = seleccionarCaso(e);
             
@@ -630,7 +631,15 @@ function seleccionarCaso(e){
 class WVerPartida{
     constructor(){}
     Crear(req){
-        console.log(req);
+        $("#_mdlresumen").html(VerPartidaHTML());
+		var tblC = $('#tblResumen').DataTable(tablaBasica);
+        $("#mdlResumenPresupuestario").modal("show");
+        
+		for(var i=0; i < req.length; i++){
+            var obj = req[i];
+			tblC.row.add([obj.part, obj.conc, obj.mont]).draw(false);
+		}
+       
     }
 }
 function verPartida(oid){
@@ -638,6 +647,23 @@ function verPartida(oid){
     var ruta =  Conn.URL + "nomina/verpartida/" + oid;
     CargarAPI(ruta, "GET", lst, lst);
 }
+
+function VerPartidaHTML(){
+    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblResumen" >
+        <thead>
+        <tr>
+        <th>PARTIDA</th>
+        <th>CONCEPTOS</th>
+        <th>MONTO</th>    
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+ 
+}
+
 //Botones para aprobar o cerrar nominas así como rechazarlas
 class WCerrarNomina{
     constructor(){}
@@ -646,6 +672,7 @@ class WCerrarNomina{
         ListarNominasPendientes();
     }
 }
+
 function cerrarNomina(oid, estatus){
     var concepto = "rechazar los archivos y no comprometer ";
     if( estatus < 97){
@@ -657,9 +684,8 @@ function cerrarNomina(oid, estatus){
     <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
     $("#_botonesmsj").html(botones);
     $('#modMsj').modal('show');
-
-    
 }
+
 function ejecutarOperacion(oid, estatus){
     var cerrar = new WCerrarNomina();
     var ruta =  Conn.URL + "nomina/cerrar/" + oid + "/" + estatus;
@@ -681,23 +707,23 @@ class WContar{
         ListarNominasPendientes();
     }
 }
+
 function ContarPensionados(){
     var crear = new WContar();
     var ruta =  Conn.URL + "nomina/ccpensionados";
     CargarAPI(ruta, "GET", crear, crear);
 }
-function rechazarNomina(){
-    
+
+function rechazarNomina(){    
     $("#_contenido").html(`¿Está seguro que desea rechazar todas las nóminas? Está opción elimna 
     los archivos relacionados con el proceso de pago.`);
     var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 
     onclick="ejecutarRechazo(99)">Si</button>
     <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
     $("#_botonesmsj").html(botones);
-    $('#modMsj').modal('show');
-
-    
+    $('#modMsj').modal('show');    
 }
+
 function ejecutarRechazo(){
     var cerrar = new WCerrarNomina();
     var ruta = Conn.URL + "nomina/procesar" ;
@@ -705,6 +731,7 @@ function ejecutarRechazo(){
 
     CargarAPI(ruta, "POST", lst[1], cerrar);
 }
+
 function aprobarNomina(){
     var lst = cargarProcesarNomina(3);
 
@@ -731,6 +758,7 @@ class WProcesarNomina{
         ListarNominasPendientes();
     }
 }
+
 function ejecutarAprobacion(){
     var lst = cargarProcesarNomina(3);
 
@@ -759,7 +787,6 @@ function cargarProcesarNomina(esta){
     return [estatus, lst];
 }
 
-
 function alertNotify (msj, color){
     $.notify(
         {
@@ -771,3 +798,5 @@ function alertNotify (msj, color){
         } 
     );
 }
+
+

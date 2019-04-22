@@ -41,6 +41,29 @@
             <li class="list-group-item" >
                 <b>Código Componente</b> <a class="pull-right" href="#" onClick="CodigoComponente()" id="_codigocomponente"></a>
             </li>
+            <li class="list-group-item" id="liEstatusPension" style="display:none">           
+                    <label>Estatus de la pensión:</label>
+                    <div class="input-group">
+                        <select class="js-states form-control"                                 
+                            style="width: 100%" required="" aria-hidden="true" id="cmbSituacionPago" disabled="disabled">
+                            <option value="" selected></option>
+                            <option value="201">ACTIVO COBRANDO</option>
+                            <option value="202">COBRO PARALIZADO</option>
+                            <option value="203">CUENTA BANCARIA ERRADA</option>
+                            <option value="204">CEDULA ERRADA BANCO</option>
+                            <option value="205">PARALIZADO POR DOCUMENTOS</option>
+                            <option value="206">PARALIZADO POR CARNÉ</option>
+                            <option value="207">PARALIZADO POR FE DE VIDA</option>
+                            <option value="208">PARALIZADO POR CARTA DE SOLTERIA</option>
+                        </select>
+                        <span class="input-group-btn">
+                            <button id="btnSituacionPago" disabled="disabled" type="button" 
+                            class="btn btn-flat bg-purple" onclick="actualizarSituacionPago()">
+                                <i class="fa fa-check"></i></button>
+                        </span>
+                    </div>
+                    
+                </li>
             <li class="list-group-item">
                 <b>Historia Clinica</b> <a class="pull-right" href="#" id="_codigocomponente" onClick="HistoriaClinica()"> Ver Más</a>
             </li>
@@ -50,6 +73,8 @@
             <li class="list-group-item">
                 <label><b>Vencimiento Carnet</b></label> <a><label id="_lblfechacarnet" class="pull-right"></label></a>
             </li>
+            
+
         </ul>
     </div>
     <!-- /.box-body -->

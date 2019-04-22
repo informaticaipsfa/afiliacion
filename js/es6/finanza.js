@@ -32,14 +32,7 @@ class WCuadreBanco{
     constructor(){}
     Crear(req){
         $("#_tblMetodo").html(CuadreBancoHTML());
-        var tM = $('#tblMetodo').DataTable({
-            'paging': false,
-            'lengthChange': false,
-            'searching': false,
-            'ordering': false,
-            'info': false,
-            'autoWidth': false
-        });
+        var tM = $('#tblMetodo').DataTable(tablaBasica);
         tM.clear().draw(); 
         var i = 0;       
         req.forEach(e => {

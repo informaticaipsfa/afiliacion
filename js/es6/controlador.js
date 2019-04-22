@@ -24,6 +24,16 @@ let opciones = {
     },
 }
 
+
+let tablaBasica = {
+	'paging': false,
+	'lengthChange': false,
+	'searching': false,
+	'ordering': false,
+	'info': false,
+	'autoWidth': false
+};
+
 Number.prototype.zeroPadding = function(){
   var ret = "" + this.valueOf();
   return ret.length == 1 ? "0" + ret : ret;
@@ -46,6 +56,14 @@ function verificarPrivilegioUsuario(){
             case "afiliacion.constancia":
                 $(".prvcontancia").attr("disabled",false);
                 $(".prvcontancia").removeClass('hide');
+                break;
+            case "pension.ingresar":
+                $(".pensioningresar").attr("disabled",false);
+                $(".pensioningresar").removeClass('hide');
+                break;
+            case "pension.derechoacrecer":
+                $(".derechoacrecer").attr("disabled",false);
+                $(".derechoacrecer").removeClass('hide');
                 break;
 
         }

@@ -598,6 +598,7 @@ class Pension{
 	constructor(){
 		this.tipopension = "";
 		this.pprestaciones = 0;
+		this.causal = "";
 		this.tipo = "";
 	}
 }
@@ -612,6 +613,7 @@ class Militar{
 		this.clase = "";
 		this.fingreso = "";
 		this.fascenso = "";
+		this.situacionpago = "";
 		this.areconocido = 0;
 		this.mreconocido = 0;
 		this.dreconocido = 0;
@@ -670,17 +672,9 @@ class Militar{
 
 				$("#_tblConstFamiliares").html(ConstanciaFamiliaresHTML());
 
-
 				$("#_bxFamiliar").show();
 				$("#_tblFamiliares").html(FamiliaresHTML());
-				var t = $('#tblFamiliares').DataTable({
-						'paging': false,
-						'lengthChange': false,
-						'searching': false,
-						'ordering': false,
-						'info': false,
-						'autoWidth': false
-				});
+				var t = $('#tblFamiliares').DataTable(tablaBasica);
 				t.clear().draw();
 				var DB = militar.Persona.DatoBasico;
 
@@ -747,13 +741,14 @@ class Militar{
 				$("#txtfechagraduacion").val(Util.ConvertirFechaHumana(militar.fingreso));
 				$("#_fingreso").html(Util.ConvertirFechaHumana(militar.fingreso));
 				$("#_fascenso").html(Util.ConvertirFechaHumana(militar.fascenso));
+				
 
 				$("#cmbcategoria").val("S");
 				$("#cmbsituacion").val(militar.situacion);
 				$("#cmbclase").val("S");
 				$("#_categoria").html($("#cmbcategoria option:selected").text());
 				$("#_situacion").html($("#cmbsituacion option:selected").text());
-
+				$("#cmbSituacionPago").val(militar.situacionpago);
 
 				if($("#cmbsituacion option:selected").text().length > 20){
 					$("#_situacion").attr("style","font-size:12px");
@@ -872,8 +867,8 @@ class Militar{
 					$("#lblFechaResolucion").html("Fecha de Retiro");
 					$("#_divpension").show();
 					$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
-					//$("#cmbgrado").val(militar.Pension.grado);
 					$("#txtporcentaje").val(militar.Pension.pprestaciones);
+					$("#cmbtipopension").val(militar.Pension.causal);
 				}
 
 
@@ -982,8 +977,10 @@ class Militar{
 				$("#btnPensionSobreviviente").attr('disabled', true);
 				$("#txtPensionSobreviviente").attr('disabled', true);
 				$("#divPensionSobreviviente").html('');
-
-				if(militar.situacion == "FCP"){
+				var strSituacion = militar.situacion;
+				$("#liEstatusPension").hide();
+				$("#_btnPensionesAsignadas").hide();
+				if(strSituacion== "FCP"){
 					t.column(16).visible(true);
 					$("#tarjetaPensionSobreviviente").show();
 					$("#btnPensionSobreviviente").attr('disabled', false);
@@ -997,7 +994,11 @@ class Militar{
 						<p style="text-align: left"><b>Pensión del grupo familiar ${total_porcentaje}%</b></p>
 						</div>`);
 					}
-
+					$("#liEstatusPension").show();
+					$("#_btnPensionesAsignadas").show();
+				} else if( strSituacion == "RCP" || strSituacion == "I"){
+					$("#liEstatusPension").show();
+					$("#_btnPensionesAsignadas").show();
 				}
 
 
@@ -1088,66 +1089,30 @@ class Militar{
 				$("#_search").show();
 				$("#_cargando").hide();
 
-				if($("#cmbsituacion option:selected").val() == "FCP"){
-					$("#_btnTIM").hide();
-					$("#_btnModificar").hide();
-					$("#archivo").attr('disabled', false);
-					$("#enviar").show();
-				}else if($("#cmbsituacion option:selected").val() != "ACT"){
-						// $("#_btnModificar").hide();
+				// if($("#cmbsituacion option:selected").val() == "FCP"){
+				// 	$("#_btnTIM").hide();
+				// 	$("#_btnModificar").hide();
+				// 	$("#archivo").attr('disabled', false);
+				// 	$("#enviar").show();
+				// }else if($("#cmbsituacion option:selected").val() != "ACT"){
 
-				}
-				//console.log(militar.situacion);
+				// }
 				
 				ActivarPension();
 				if(militar.Pension.pprestaciones != undefined){ 
-					$("#txtporcentaje").val(militar.Pension.pprestaciones); 
+					$("#txtporcentaje").val(militar.Pension.pprestaciones);
+					$("#cmbtipopension").val(militar.Pension.causal);
 				}
 				$("#_tblDescuentos").html(DescuentosHTML());
 				$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
-				var tMJ = $('#tblMedidaJudicial').DataTable({
-					'paging': false,
-					'lengthChange': false,
-					'searching': false,
-					'ordering': false,
-					'info': false,
-					'autoWidth': false
-				});
+				var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);
 				
 				tMJ.clear().draw();
-				$.each(militar.Pension.MedidaJudicial, function (c, v) {
-					var num = v.numerocuenta!=undefined?v.numerocuenta:''; 
-					var ced = v.cedautorizado!=undefined?v.cedautorizado:'';
-					var tip = v.tipocuenta!='S'?v.tipocuenta:'';
-					var cod = v.numero!=undefined?v.numero:'';
-					tMJ.row.add([
-						cod,
-						TipoMedidaJudicial(v.tipo),
-						ced,
-						v.autorizado.toUpperCase(),
-						num, 
-						tip,
-						Util.ConvertirFechaHumana(v.fecha)
-					]).draw(false);
-				});
-				var DPen = $('#tblDescuentos').DataTable({
-					'paging': false,
-					'lengthChange': false,
-					'searching': false,
-					'ordering': false,
-					'info': false,
-					'autoWidth': false
-				});
+				MostrarMedidaJudicial(militar.Pension.MedidaJudicial, tMJ);
+				
+				var DPen = $('#tblDescuentos').DataTable(tablaBasica);
 				DPen.clear().draw();
-				$.each(militar.Pension.Descuentos, function (c, v) {
-					DPen.row.add([
-						v.concepto,
-						v.observacion,
-						v.formula, 
-						Util.ConvertirFechaHumana(v.fechainicio),
-						Util.ConvertirFechaHumana(v.fechafin)
-					]).draw(false);
-				});
+				MostrarDescuentos(militar.Pension.Descuentos, DPen);
 			}
 			
 	}
@@ -1173,7 +1138,9 @@ class Militar{
         this.fascenso = militar.fascenso;
         this.areconocido = militar.areconocido;
         this.mreconocido = militar.mreconocido;
-        this.dreconocido = militar.dreconocido;
+		this.dreconocido = militar.dreconocido;
+		this.situacionpago = militar.situacionpago;
+
         this.posicion = militar.posicion ;
         this.fresuelto = militar.fresuelto;
         this.nresuelto = militar.nresuelto;
@@ -1220,7 +1187,8 @@ class Militar{
 		this.fingreso = fingreso;
 		this.fascenso = fascenso;
 		this.fresuelto = fresuelto;
-
+		this.situacionpago = $("#cmbSituacionPago").val();
+		
 		this.pxnoascenso = parseInt($("#txtpnoascenso").val());
 		this.pprof = parseInt($("#cmbprofecionalizacion option:selected").val());
 		this.pespecial = parseInt($("#cmbprimapermacnel option:selected").val());
@@ -1278,12 +1246,13 @@ class Militar{
 		this.codigocomponente = $("#txtcodigocomponente").val();
 		this.numerohistoria =   $("#txtnumhistoriaclinica").val();
 		this.Pension.pprestaciones =  parseFloat($("#txtporcentaje").val());
+		this.Pension.causal = $("#cmbtipopension").val();
 		
 
 		var valpase = false;
 		if($("#cmbpbaja option:selected").val() == 1){
 			valpase = true;
-			}
+		}
 		this.pasearetiro =valpase;
 		//console.log(this.pprestaciones)
 		return this;
@@ -1510,9 +1479,25 @@ class WPensiones{
 	}
 	
 	Crear(req){
-		console.log(req);
+		$("#_netosConceptos").html(ConceptosNetosHTML());
+		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
 		req.forEach(neto => {
-			console.log(JSON.parse(neto.calculos));
+			$("#mdlNetos").modal("show");
+			var obj = JSON.parse(neto.calculos).conceptos;
+			for(var i=0; i< obj.length; i++){
+				var monto = obj[i].mont;
+				var tipo = obj[i].tipo;
+				var des = obj[i].desc.replace("_", " ").toUpperCase();
+				if(tipo == 97){
+					$("#_netosPrimas").append(`<div class="col-md-3">${des}<br>${monto}</div>`);	
+				}else{
+					if(tipo == 1){ //Asignacion
+						tblC.row.add([des, monto,'']).draw(false);
+					}else{ //Deduccion
+						tblC.row.add([des,'', monto]).draw(false);
+					}
+				}
+			}		
 			
 		});
 	}
@@ -1521,4 +1506,47 @@ function PensionesAsignadas(){
 	var wpensiones = new WPensiones();
 	var ruta =  Conn.URL + "pensionado/consultarneto/" + $("#txtcedula").val() ;
     CargarAPI(ruta, "GET", wpensiones, wpensiones);
+}
+
+
+class WDerechaACrecer{
+	constructor(){
+		this.pos = "";
+		this.cedula = "";
+		this.porcentaje = 0.00;
+	}
+	Crear(req){
+		console.log(req);
+	}
+}
+
+function AplicarDerechoACrecer(){
+	var wderecho = new WDerechaACrecer();
+	var lst = [];
+	var ruta =  Conn.URL + "pensionado/derechoacrecer";
+
+	var tblF = $('#tblFamiliares').DataTable();
+	var cant = parseInt(tblF.rows()[0].length);
+    if($("#cmbsituacion option:selected").val() == "FCP"){
+        for(var i = 0; i < cant; i++){
+			var der = new WDerechaACrecer();
+			var pos = tblF.rows(i).data()[0][0];
+			var cedula = tblF.rows(i).data()[0][1];
+			var porcentaje = tblF.rows(i).data()[0][16];
+			der.pos = parseInt(pos);
+			der.cedula = cedula;
+			der.porcentaje = parseFloat( porcentaje );
+			lst.push(der);
+		}
+
+		var Derecho = {
+			cedula : $("#txtcedula").val(),
+			acrecer: lst
+		};
+		//console.log(Derecho);
+		CargarAPI(ruta, "POST", Derecho, wderecho);
+	}
+
+
+	
 }

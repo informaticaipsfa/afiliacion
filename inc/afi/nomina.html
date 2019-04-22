@@ -33,7 +33,7 @@
   </div>
 
   <div class="col-lg-3 col-xs-6" >
-      <a href="#" onclick="cargaPrograma('a')">
+      <a href="#" onclick="PrepararNominaView( 'PG', 'PENSIONADO DE GRACIA' )">
           <div class="small-box bg-purple" style="padding:10px">
               <div class="inner">
                   <h2 id="PG">0</h2>
@@ -125,40 +125,36 @@ aria-labelledby="myLargeModalLabel" id="mdlPrepararNomina"
       </div>
 
     </div>
-  </div>
-
-  <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
-aria-labelledby="myLargeModalLabel" id="mdlNominaLista"
-     aria-hidden="false">
-     <div class="modal-dialog" role="document">
-     
-      <!-- Modal content-->
-      <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
-        <div class="modal-header" style="background-color:#337ab7;color:white;">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-          </button>
-          <h4 class="modal-title">Descargar nómina</h4>
-
-        </div>
-        <div class="modal-body" id="_nominalista">
-            
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="btnPreparar" class="btn btn-md btn-success" onclick="AceptarNomina()">
-              Aceptar</button>
-        </div>
-        
-      </div>
-
-    </div>
-  </div>
-
-
-
-
+</div>
 
 <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
-aria-labelledby="myLargeModalLabel" id="mdlPrepararNominaGracia"
+  aria-labelledby="myLargeModalLabel" id="mdlNominaLista"
+    aria-hidden="false">
+    <div class="modal-dialog" role="document">
+    
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Descargar nómina</h4>
+
+      </div>
+      <div class="modal-body" id="_nominalista">
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnPreparar" class="btn btn-md btn-success" onclick="AceptarNomina()">
+            Aceptar</button>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlPrepararNominaGracia"
      aria-hidden="false">
       <div class="modal-dialog modal-lg" role="document">
 
@@ -182,11 +178,67 @@ aria-labelledby="myLargeModalLabel" id="mdlPrepararNominaGracia"
       </div>
 
     </div>
+</div>
+
+
+<!-- Modal para la elaboración de resumen presupuestario-->
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlResumenPresupuestario"
+  aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+
+  <!-- Modal content-->
+  <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+    <div class="modal-header" style="background-color:#337ab7;color:white;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <h4 class="modal-title">Resumen Presupuestario</h4>
+
+    </div>
+    <div class="modal-body" >
+      <!-- Modal resumen -->
+      <div class="alert bg-info disabled" role="alert " id="alert" >
+          Detalles generales de la nómina por partidas presupuestaria
+      </div>
+      <div id="_mdlresumen">
+
+      </div>
+      
+    </div>
+    <div class="modal-footer">    
+
+        
+        <button type="button" id="btnPreparar" class="btn btn-md bg-olive" id="btnAceptar" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-check"></i>
+            &nbsp;&nbsp;Aceptar</button>
+            
+    </div>
   </div>
+</div>
+</div>
 
+<!-- Modal para la elaboración de resumen coeficiente de variacion -->
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlcoeficiente"
+  aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
 
+  <!-- Modal content-->
+  <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+    <div class="modal-header" style="background-color:#337ab7;color:white;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <h4 class="modal-title">Coeficiente de Variación</h4>
 
+    </div>
+    <div class="modal-body" id="_mdlcoeficiente">
+      <!-- Modal resumen -->
+      
+    </div>
 
+  </div>
+</div>
+</div>
 
 
 

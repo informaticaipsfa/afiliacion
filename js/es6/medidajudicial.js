@@ -1,3 +1,96 @@
+let mdModify = 99;
+function MostrarMedidaJudicial(MedidaJudicial,tMJ){
+    var i = 0;
+    $.each( MedidaJudicial, function (c, v) {
+        var num = v.numerocuenta!=undefined?v.numerocuenta:''; 
+        var ced = v.cedautorizado!=undefined?v.cedautorizado:'';
+        var tip = v.tipocuenta!='S'?v.tipocuenta:'';
+        var cod = v.numero!=undefined?v.numero:'';
+        
+        tMJ.row.add([
+            cod,
+            TipoMedidaJudicial(v.tipo),
+            ced,
+            v.autorizado.toUpperCase(),
+            num, 
+            tip,
+            Util.ConvertirFechaHumana(v.fecha),
+            i,
+            ''
+        ]).draw(false);
+        i++;
+    });
+    tMJ.column(7).visible(false);
+    tMJ.column(8).visible(false);
+    $('#tblMedidaJudicial tbody').on('dblclick', 'tr', function () {
+        
+        var data = tMJ.row(this).data();
+        mdModify = data[7];
+        var md = ObjMilitar.Pension.MedidaJudicial[mdModify];
+        $("#txtfnxm").val(md.formula);        
+        $("#txtoficio").val(md.numero);
+        $("#txtexpediente").val(md.expediente);
+        $("#cmbtipo").val(md.tipo);
+        $("#txtobservacion").val(md.observacion);
+        $("#datepicker").val(Util.ConvertirFechaHumana(md.fecha));
+        $("#datepickerfin").val(Util.ConvertirFechaHumana(md.fechafin));
+        //-----------------------------------------
+        $("#cmbtipopago").val(md.tipopago);
+        
+        $("#cmbformapago").val(md.formapago);    
+        var data = md.cedautorizado.split("-");
+        $("#bntNacionalidad").html(data[0] + "-")
+        $("#txtcedulaautorizado").val(data[1]);
+        $("#txtautorizado").val(md.autorizado);
+        $("#txtinstitucion").val(md.institucion);
+        $("#cmbtipodecuenta").val(md.tipocuenta);
+        $("#txtnumerocuenta").val(md.numerocuenta);
+        //-----------------------------------------    
+        $("#txtautoridad").val(md.autoridad);
+        $("#txtcargo").val(md.cargo);
+        $("#cmbestadom").val(md.estado);
+        CiudadMunicipio(2);
+        $("#cmbciudadm").val(md.ciudad);
+        $("#cmbmunicipiom").val(md.municipio);
+        $("#txtdesinst").val(md.descripcion);
+
+        var benef = md.cedbeneficiario + "|" + md.beneficiario + "|" + md.parentesco;
+        $("#cmbbeneficiario").val(benef);
+        IncluirMedidaJudicial(true);
+
+    });
+}
+
+function limipiarMedidaJudicial(){
+    $("#txtfnxm").val(''); 
+    $("#txtoficio").val('');
+    $("#txtexpediente").val('');
+    $("#cmbtipo").val('');
+    $("#txtobservacion").val('');
+    $("#datepicker").val('');
+    $("#datepickerfin").val('');
+    //-----------------------------------------
+    $("#cmbtipopago").val('');
+
+    $("#cmbformapago").val('');
+
+    $("#txtcedulaautorizado").val('');
+    $("#txtautorizado").val('');
+    $("#txtinstitucion").val('');
+    $("#cmbtipodecuenta").val('');
+    $("#txtnumerocuenta").val('');
+    //-----------------------------------------    
+    $("#txtautoridad").val('');
+    $("#txtcargo").val('');
+    $("#cmbestadom").val('');
+    $("#cmbciudadm").val('');
+    $("#cmbmunicipiom").val('');
+    $("#txtdesinst").val('');
+}
+
+
+
+
 class WMedidaJudicial{
     constructor(){
         this.id = '';
@@ -49,7 +142,7 @@ class WMedidaJudicial{
     }
 }
 
-function IncluirMedidaJudicial(){
+function IncluirMedidaJudicial(estatus){
     myStepper = new Stepper(document.querySelector('#stepper-example'));
     $('#datepicker').datepicker({
         autoclose: true,
@@ -61,7 +154,27 @@ function IncluirMedidaJudicial(){
         format: "yyyy-mm-dd",
         language: 'es'
     });
-    $('#cmbbeneficiario').html('<option value="S" selected="selected">SELECCIONE UNA OPCION</option>');
+    
+    $("#txtexpediente").attr('disabled', true);
+    FrmMedidaJudicial(true);
+    $('#btnInsMedida').hide();
+    $('#btnModMedida').hide();
+    if(estatus != true){
+        $('#cmbbeneficiario').html('<option value="S" selected="selected">SELECCIONE UNA OPCION</option>');
+        $('#btnInsMedida').show();
+        $('#btnModMedida').hide();
+        limipiarMedidaJudicial();
+        $("#txtexpediente").attr('disabled', false);
+        FrmMedidaJudicial(false);
+    }else{
+        var visible = $( "#btnMedidaJudicial" ).is(":visible");
+        if(visible == true){
+            $('#btnInsMedida').hide();
+            $('#btnModMedida').show();
+            FrmMedidaJudicial(false);
+            $("#txtexpediente").attr('disabled', true);
+        }
+    }
     ObjMilitar.Familiar.forEach(x => { 
         var P = x.Persona.DatoBasico;
         var parentesco = obtenerParentesco(x.parentesco, P.sexo);
@@ -69,11 +182,12 @@ function IncluirMedidaJudicial(){
         var value = "(" + P.cedula + ") " +  P.apellidoprimero + " " + P.nombreprimero + " - " + parentesco;
         $('#cmbbeneficiario').append(`<option value="${data}">${value}</option>`);
     })
-
+    
     $('#mdlMedidaJudicial').modal('show');
+   
 }
 
-function GuardarMedida(){
+function GuardarMedida(valor){
     var MJ = new WMedidaJudicial();
     var fn = $("#txtfnxm").val();
     if(fn == ""){
@@ -82,48 +196,56 @@ function GuardarMedida(){
     }else if(fn.substr(-1) != ";"){
         fn += ";";
     }
+
+    if($('#cmbbeneficiario').val() == "S"){
+        alertMJ();
+        return false;
+    }
+
     var data = $("#cmbbeneficiario").val().split("|");
     var fecha = new Date(Util.ConvertirFechaUnix($("#datepicker").val())).toISOString();
     var fechafin = new Date(Util.ConvertirFechaUnix($("#datepickerfin").val())).toISOString();
 
-    MJ.id = $("#txtcedula").val();
-    MJ.numero = $("#txtoficio").val();
-    MJ.expediente = $("#txtexpediente").val();
+    MJ.id = $("#txtcedula").val().toUpperCase().trim();
+    MJ.numero = $("#txtoficio").val().toUpperCase().trim();
+    MJ.expediente = $("#txtexpediente").val().toUpperCase().trim();
     MJ.fecha = fecha;
     MJ.fechafin = fechafin;
     MJ.tipo = parseInt($("#cmbtipo").val());
-    MJ.observacion = $("#txtobservacion").val();
+    MJ.observacion = $("#txtobservacion").val().toUpperCase().trim();
     //-----------------------------------------
-    MJ.tipopago = $("#cmbtipopago").val();
+    MJ.tipopago = $("#cmbtipopago").val().toUpperCase().trim();
     MJ.formula = fn;
     MJ.formapago = $("#cmbformapago").val();
-    MJ.cedautorizado = $("#bntNacionalidad").html() + $("#txtcedulaautorizado").val();
-    MJ.autorizado = $("#txtautorizado").val();
-    MJ.institucion = $("#txtinstitucion").val();
-    MJ.tipocuenta = $("#cmbtipodecuenta").val()
-    MJ.numerocuenta = $("#txtnumerocuenta").val()
+    MJ.cedautorizado = $("#bntNacionalidad").html().toUpperCase().trim() + $("#txtcedulaautorizado").val().toUpperCase().trim();
+    MJ.autorizado = $("#txtautorizado").val().toUpperCase().trim();
+    MJ.institucion = $("#txtinstitucion").val().toUpperCase().trim();
+    MJ.tipocuenta = $("#cmbtipodecuenta").val().toUpperCase().trim();
+    MJ.numerocuenta = $("#txtnumerocuenta").val().toUpperCase().trim();
     //-----------------------------------------    
-    MJ.autoridad = $("#txtautoridad").val();
-    MJ.cargo = $("#txtcargo").val();
-    MJ.estado = $("#cmbestadom").val();
-    MJ.ciudad = $("#cmbciudadm").val();
-    MJ.municipio = $("#cmbmunicipiom").val();
-    MJ.descripcion = $("#txtdesinst").val();
+    MJ.autoridad = $("#txtautoridad").val().toUpperCase().trim();
+    MJ.cargo = $("#txtcargo").val().toUpperCase().trim();
+    MJ.estado = $("#cmbestadom").val().toUpperCase().trim();
+    MJ.ciudad = $("#cmbciudadm").val().toUpperCase().trim();
+    MJ.municipio = $("#cmbmunicipiom").val().toUpperCase().trim();
+    MJ.descripcion = $("#txtdesinst").val().toUpperCase().trim();
     //-----------------------------------------
     MJ.cedbeneficiario = data[0];
     MJ.beneficiario = data[1];
     MJ.parentesco = data[2]; 
     
     var url = Conn.URL + "medidajudicial";
+    if(valor == "PUT") url += "/" + mdModify;
     $('#mdlMedidaJudicial').modal('hide');
-    waitingDialog.show('Guardando Medida Judicial por favor espere...');
-    CargarAPI(url, "POST", MJ, MJ);
+    waitingDialog.show('Guardando Medida Judicial por favor espere...'); 
+    console.log(url);
+    CargarAPI(url, valor, MJ, MJ);
    
 }
 
 function alertMJ(){
     $("#alertMedida").html(`Verifique el campo formula en forma de pago
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <button type="button" class="close bg-info disabled" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>`);
     $("#alertMedida").show();
@@ -151,6 +273,9 @@ function obtenerParentesco(strParentesco, sexo){
 		return parentesco;
     return par;
 }
+
+
+
 
 function seleccionarNac(id){
     $("#bntNacionalidad").html(id);

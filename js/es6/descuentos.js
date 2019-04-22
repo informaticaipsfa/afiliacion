@@ -1,3 +1,21 @@
+
+function MostrarDescuentos(Descuentos, DPen){
+    $.each(Descuentos, function (c, v) {
+        var concepto = v.concepto!=undefined?v.concepto:''; 
+        var observacion = v.observacion!=undefined?v.observacion:'';
+        var formula = v.formula!=undefined?v.formula:'';
+        var fechainicio = v.fechainicio!=undefined?v.fechainicio:'';
+        var fechafin = v.fechafin!=undefined?v.fechafin:'';
+        DPen.row.add([
+            concepto,
+            observacion,
+            formula, 
+            Util.ConvertirFechaHumana(fechainicio),
+            Util.ConvertirFechaHumana(fechafin)
+        ]).draw(false);
+    });
+}
+
 class WDescuentos{
     constructor(){
         this.id = '';

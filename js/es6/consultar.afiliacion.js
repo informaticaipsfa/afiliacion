@@ -14,7 +14,7 @@ function Buscar(id) {
         return false;
     }
     $("#_bxMedidaJudicial").hide();
-    $("#s").hide();
+    $("#liEstatusPension").hide();
     $("#_cargando").show();
     $("#_lblConstanciaPension").hide();
     $("#_imgfamiliar").attr("src", "images/ndisponible.jpg");
@@ -260,6 +260,8 @@ function MedidaJudicialHTML() {
         <th>CUENTA</th>
         <th>TIPO CUENTA</th>
         <th>FECHA</th>
+        <th>#</th>
+        <th>ACCION</th>
         </tr>
         </thead >
         <tbody>
@@ -308,6 +310,22 @@ function DescuentosHTML() {
     </table>`;
     return html;
 }
+
+function ConceptosNetosHTML() {
+    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblNetosConceptos" >
+        <thead>
+        <tr>
+        <th>CONCEPTO</th>
+        <th>ASIGNACIONES</th>
+        <th>DEDUCCIONES</th>    
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
+
 
 function IrCedula() {
 
@@ -467,9 +485,6 @@ function LimpiarFrmFamiliar() {
 
 function ActivarBuscar() {
     $(location).attr("href","starter.html");
-    // $("#_ficha").hide();
-    // $("#_consultarbox").show();
-    // $("#_search").hide();
 }
 
 function VisualizarCarnet() {
@@ -664,7 +679,6 @@ function incluirAfiliado(ced) {
     if ( ObjMilitar.id != "" ){
        $('#txtcedula').val("");
     }
-    //ObjMilitar = new Militar();
     $('#txtcedula').keyup(function () {
         this.value = (this.value + '').replace(/[^0-9]/g, '');
     });
@@ -710,6 +724,7 @@ function ActivarFormulario(valor) {
     FrmRedSocial(valor);
     FrmTim(valor);
     ModDocumentoCivil(valor);
+    FrmMedidaJudicial(valor);
 }
 
 function FrmDatosBasicos(valor) {
@@ -775,8 +790,9 @@ function FrmDatosMilitar(valor) {
     $("#txtcodigocomponente").attr('disabled', valor);
     $("#txtnumhistoriaclinica").attr('disabled', valor);
     $("#txtmfechaultimoascenso").attr('disabled', valor);
-
-
+    $("#cmbSituacionPago").attr('disabled', valor);
+    $("#btnSituacionPago").attr('disabled', valor);
+    
 }
 
 function LimpiarFrmDatosMilitar(valor) {
@@ -923,6 +939,33 @@ function LimpiarFrmRedSocial(valor) {
     $("#txtmlinkedin").val("");
 }
 
+function FrmMedidaJudicial(valor){
+    $("#txtfnxm").attr('disabled', valor);
+    $("#txtoficio").attr('disabled', valor);
+    $("#txtexpediente").attr('disabled', valor);
+    $("#cmbtipo").attr('disabled', valor);
+    $("#txtobservacion").attr('disabled', valor);
+    $("#datepicker").attr('disabled', valor);
+    $("#datepickerfin").attr('disabled', valor);
+    //-----------------------------------------
+    $("#cmbtipopago").attr('disabled', valor);
+
+    $("#cmbformapago").attr('disabled', valor);
+
+    $("#txtcedulaautorizado").attr('disabled', valor);
+    $("#txtautorizado").attr('disabled', valor);
+    $("#txtinstitucion").attr('disabled', valor);
+    $("#cmbtipodecuenta").attr('disabled', valor);
+    $("#txtnumerocuenta").attr('disabled', valor);
+    //-----------------------------------------    
+    $("#txtautoridad").attr('disabled', valor);
+    $("#txtcargo").attr('disabled', valor);
+    $("#cmbestadom").attr('disabled', valor);
+    $("#cmbciudadm").attr('disabled', valor);
+    $("#cmbmunicipiom").attr('disabled', valor);
+    $("#txtdesinst").attr('disabled', valor);
+    $("#cmbbeneficiario").attr('disabled', valor);
+}
 
 function FrmTim(valor) {
     $("#_imghuella").attr('disabled', valor);
@@ -1432,7 +1475,7 @@ function CConstanciaAfiliacion() {
     var urlGra = "images/grados/" + ObjMilitar.Grado.abreviatura + ".png";
     urlGra = urlGra.toLowerCase();
     var fechaActual = ConvertirFechaActual();
-    var tiempo = ObjMilitar.tiemposervicio;//Util.CalcularTServicio(ObjMilitar.fingreso,ObjMilitar.fretiro, $("#cmbsituacion option:selected").text())
+    var tiempo = ObjMilitar.tiemposervicio;
 
 
 
@@ -2040,7 +2083,7 @@ function ActivarPension(){
     $("#_bxMedidaJudicial").hide();
     $("#_bxDescuentos").hide();
     $("#tarjetaPensionSobreviviente").hide();
-    $("#s").hide();
+    $("#liEstatusPension").hide();
     $("#lblFechaResolucion").html("Fecha de Resolución");
     $("#divPensionSobreviviente").html('');
     var t = $('#tblFamiliares').DataTable();
@@ -2058,6 +2101,8 @@ function ActivarPension(){
         var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
         var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
         $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
+        $("#liEstatusPension").show();
+
     }
     
     if(situacion == "FCP"){
@@ -2068,6 +2113,7 @@ function ActivarPension(){
         $("#tarjetaPensionSobreviviente").show();
         $("#btnPensionSobreviviente").attr('disabled', false);
         $("#txtPensionSobreviviente").attr('disabled', false);
+        $("#liEstatusPension").show();
     }
 }
 
@@ -2097,16 +2143,16 @@ function FrmDatosBasicosPension(valor) {
 
 
 }
+//Habilitar los estatus dependiendo del usarui
 function FrmDatosBasicosPensionCombo(valor){
   $("#cmbsituacion option").each(function( index ) {
     if ( valor == false){ //Pension
       this.disabled = false;
-      if (index > 1) this.disabled = true;
+      if (index > 1) this.disabled = true;      
     }else{
       this.disabled = false;
-      if (index == 1) this.disabled = true;
+      //if (index == 1) this.disabled = true;
     }
-
   });
 }
 
@@ -2339,6 +2385,7 @@ class EstadisticaFamiliar {
             <option value="RSP">RESERVA ACTIVA SIN GOCE PENSION</option>
             <option value="FCP">FALLECIDO CON PENSION</option>
             <option value="FSP">FALLECIDO SIN PENSION</option>
+            <option value="PG">PENSION DE GRACIA</option>
             <option value="I">INVALIDEZ</option>
           </select>
         </div>
@@ -2516,8 +2563,4 @@ function ViewImprimirCarnet() {
     `;
     var ventana = window.open("", "_blank");
     ventana.document.write(html);
-  }
-
-
-
-  
+}

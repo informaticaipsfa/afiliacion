@@ -258,19 +258,14 @@
                 <label> Cédula / Rif:</label>                
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <button type="button" 
-                          class="btn btn-primary dropdown-toggle" 
-                          data-toggle="dropdown" aria-expanded="false" id="bntNacionalidad">V-
-                        </button>
-                        
-                        
+                        <button type="button" class="btn btn-primary dropdown-toggle" 
+                        data-toggle="dropdown" aria-expanded="false" id="bntNacionalidad">V-</button>
                         <ul class="dropdown-menu">
                           <li><a onclick="seleccionarNac('V-')">Venezuela</a></li>
                           <li><a onclick="seleccionarNac('E-')">Extranjero</a></li>
                           <li><a onclick="seleccionarNac('J-')">Judicial</a></li>
                           <li><a onclick="seleccionarNac('G-')">Gubernamental</a></li>
                         </ul>
-
                     </span>
                     <input class="form-control" id="txtcedulaautorizado" placeholder="Cédula Autorizado" type="text" 
                      maxlength="8" required tabindex="1" onkeypress="return Util.SoloNumero(event,this)">
@@ -304,9 +299,12 @@
           </div>
           <div class="col-md-6 col-sm-6" style="text-align: right">
               <br>
-              <button type="button" class="btn btn-success" onclick="GuardarMedida();">
+              <button type="button" class="btn btn-success prvsalvar hide" onclick="GuardarMedida('POST');" id="btnInsMedida" style="display:none">
                 <i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Guardar Medida
               </button>
+              <button type="button" class="btn bg-olive prvsalvar hide" onclick="GuardarMedida('PUT');" id="btnModMedida" style="display:none">
+                  <i class="fa fa-edit"></i>&nbsp;&nbsp;Modificar Medida
+                </button>
           </div>
         </div>
       </div>
