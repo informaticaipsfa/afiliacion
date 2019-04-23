@@ -321,8 +321,22 @@ class Utilidad {
         }
     }
 
-    ValidarDerechoACrecer(familiar){
-        console.log("!!!!");
+    VerificarDerechoACrecer(familiar){
+        var t = $('#tblFamiliares').DataTable();
+        t.column(16).visible(true);
+        var valor = false;
+        var fila = 0;
+        familiar.forEach(v => {
+            if ( v.pprestaciones > 0) {
+                valor =  true;
+                t.cell(fila,16).data(v.pprestaciones).draw();
+            }
+            fila++;
+        });
+        return valor;
+    }
+
+    ValidarDerechoACrecer(familiar){        
         var MAP = [];
         var REGLA = [];
         var FILA = 0;
@@ -337,7 +351,6 @@ class Utilidad {
            }
            FILA++;
         });
-        console.log(REGLA);
         MapACrecer.forEach( x => {
             var valor = false;
             var repetir = 0;

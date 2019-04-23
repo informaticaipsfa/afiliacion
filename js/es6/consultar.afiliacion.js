@@ -412,7 +412,7 @@ function FrmFamiliar(valor) {
     $("#cmbHospitalf").attr('disabled', valor);
     $("#btnnacionalidad").attr('disabled', valor);
 
-
+    FrmCuentaBancariaF(valor);
     if (valor == false) {
         $("#imgIngFam").show();
         $("#_btnActeptarFamiliar").show();
@@ -783,7 +783,6 @@ function FrmDatosMilitar(valor) {
     $("#cmbsituacion").attr('disabled', valor);
     $("#cmbclase").attr('disabled', valor);
     $("#cmbcategoria").attr('disabled', valor);
-
     $("#txtnresuelto").attr('disabled', valor);
     $("#txtmfecharesuelto").attr('disabled', valor);
     $("#txtposicion").attr('disabled', valor);
@@ -792,7 +791,6 @@ function FrmDatosMilitar(valor) {
     $("#txtmfechaultimoascenso").attr('disabled', valor);
     $("#cmbSituacionPago").attr('disabled', valor);
     $("#btnSituacionPago").attr('disabled', valor);
-    
 }
 
 function LimpiarFrmDatosMilitar(valor) {
@@ -839,6 +837,14 @@ function FrmCuentaBancaria(valor) {
         $("#_cmbmtipofinanciera").hide();
         $("#_txtmnrocuenta").hide();
     }
+}
+
+function FrmCuentaBancariaF(valor) {
+    $("#cmbminstfinancieraf").attr('disabled', valor);
+    $("#cmbmtipofinancieraf").attr('disabled', valor);
+    $("#txtmnrocuentaf").attr('disabled', valor);
+    $("#txtautorizadof").attr('disabled', valor);
+    
 }
 
 function LimpiarFrmCuentaBancaria(valor) {
@@ -1178,6 +1184,10 @@ function SeleccionarCuenta() {
     $("#txtmnrocuenta").val($("#cmbminstfinanciera option:selected").val());
 }
 
+function SeleccionarCuentaf() {
+    $("#txtmnrocuentaf").val($("#cmbminstfinancieraf option:selected").val());
+}
+
 
 function ModificarFamiliarPos(pos) {
     if($("#cmbsituacion option:selected").val() == "FCP")Estados.ObtenerEstados();
@@ -1254,6 +1264,13 @@ function ModificarFamiliarPos(pos) {
             $("#txtcasaf").val(DIR.casa);
             $("#txtaptof").val(DIR.apartamento);
 
+        }
+        var df = Familiar.Persona.DatoFinanciero;
+        if(df[0] != undefined){
+            $("#cmbmtipofinancieraf").val(df[0].tipo);
+            $("#cmbminstfinancieraf").val(df[0].institucion);
+            $("#txtmnrocuentaf").val(df[0].cuenta);
+            $("#txtautorizadof").val(df[0].autorizado);
         }
 
         if (Familiar.parentesco == "EA") {
@@ -2102,14 +2119,15 @@ function ActivarPension(){
         var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
         $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
         $("#liEstatusPension").show();
-
     }
     
     if(situacion == "FCP"){
         var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
         var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
         $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
-        Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
+        if ( Util.VerificarDerechoACrecer(ObjMilitar.Familiar) != true ){
+            Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
+        }
         $("#tarjetaPensionSobreviviente").show();
         $("#btnPensionSobreviviente").attr('disabled', false);
         $("#txtPensionSobreviviente").attr('disabled', false);
@@ -2563,4 +2581,17 @@ function ViewImprimirCarnet() {
     `;
     var ventana = window.open("", "_blank");
     ventana.document.write(html);
+}
+
+
+function alertNotifyAfiliacion(msj, color){
+    $.notify(
+        {
+            title: '<strong>Datos Básicos!</strong>',
+            message: msj
+        },
+        {
+            type: color
+        } 
+    );
 }

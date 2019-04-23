@@ -21,15 +21,40 @@
      <li class="list-group-item" id="_lblConstanciaPension">
        <b>Constancia de Pensión</b> <a class="pull-right" ><a data-dismiss="modal"  onclick="ConstanciaPensionSobr()"  class="pull-right fa fa-print"></a></a>
      </li>
+     <li class="list-group-item" id="_lblConstanciaPension">
+        <b>Fe de Vida</b> <a class="pull-right" ></a>
+      </li>
      <li class="list-group-item" id="tarjetaPensionSobreviviente" style="display:none">
         <label>Pensión (%):</label> 
       <div class="input-group input-group">
-          <input type="text" class="form-control" id="txtPensionSobreviviente" value="0" maxlength="3"  disabled="disabled" onkeypress="return Util.SoloNumero(event,this)">
+          <input type="text" class="form-control" id="txtPensionSobreviviente" value="0" maxlength="3" disabled="disabled" onkeypress="return Util.SoloNumero(event,this)">
           <span class="input-group-btn">
             <button type="button" class="btn btn-success btn-flat btn-md" id="btnPensionSobreviviente"
             onClick="AsignarPensionSobreviviente()" disabled="disabled"><i class="fa fa-refresh"></i></button>
           </span>
       </div>
+    </li>
+    <li class="list-group-item" id="liEstatusPensionf" style="display:none">           
+        <label>Estatus de la pensión:</label>
+        <div class="input-group">
+            <select class="js-states form-control"                                 
+                style="width: 100%" required="" aria-hidden="true" id="cmbSituacionPagof" disabled="disabled">
+                <option value="" selected></option>
+                <option value="201">ACTIVO</option>
+                <option value="202">COBRO PARALIZADO</option>
+                <option value="203">CUENTA BANCARIA ERRADA</option>
+                <option value="204">CEDULA ERRADA BANCO</option>
+                <option value="205">PARALIZADO POR DOCUMENTOS</option>
+                <option value="206">PARALIZADO POR CARNÉ</option>
+                <option value="207">PARALIZADO POR FE DE VIDA</option>
+                <option value="208">PARALIZADO POR CARTA DE SOLTERIA</option>
+            </select>
+            <span class="input-group-btn">
+                <button id="btnSituacionPago" disabled="disabled" type="button" 
+                class="btn btn-flat bg-purple" onclick="actualizarSituacionPagof()">
+                    <i class="fa fa-check"></i></button>
+            </span>
+        </div>        
     </li>
    </ul>
   </div>
