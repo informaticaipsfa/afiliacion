@@ -289,6 +289,7 @@ function PrepararNominaView( tipo, des ){
     var Tbls = $('#tblNomina').DataTable();
     var t = Tbls.rows().data();
     let estatus = false;
+    
     $.each(t, function(c, v){
         if ( v[4] == tipo && v[9] != 'Cerrada' ){
             estatus = true;
@@ -296,15 +297,18 @@ function PrepararNominaView( tipo, des ){
 
     });
 
+    if( parseInt($("#"+ tipo).html()) == 0){
+        alertNotify('No existen registros para efectuar cálculos', 'danger');
+        return false;
+    }
+
     if (estatus == true){
         alertNotify('Ya existe una prenomina, debe cerrarla o rechazarla para efectuar otro cálculo.', 'warning');
         return false;
     }
     $("#_TblConceptos").html("");
     var Dir = new Directiva();
-
     $("#cmbTipoX").html(`<option value="${tipo}">${des}</option>`);
-
     
     var ruta = Conn.URL + "nomina/directiva";
     CargarAPI(ruta, "GET", "", Dir);
@@ -525,7 +529,7 @@ function EnviarArchivos() {
  * HTML TABLE
  */
 
- function NominaPreviewHTML(){
+function NominaPreviewHTML(){
      
     var html = `<table class="ui celled table" cellspacing="0" width="100%" id="tblNomina" >
         <thead>
@@ -668,7 +672,6 @@ function VerPartidaHTML(){
 class WCerrarNomina{
     constructor(){}
     Crear(req){
-        console.log(req);
         ListarNominasPendientes();
     }
 }
@@ -701,6 +704,7 @@ class WContar{
 
     }
     Crear(req){
+        
         req.forEach(e => {
             $("#" + e.situacion).html(e.cantidad)             
         });

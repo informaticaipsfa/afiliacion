@@ -844,6 +844,8 @@ function FrmCuentaBancariaF(valor) {
     $("#cmbmtipofinancieraf").attr('disabled', valor);
     $("#txtmnrocuentaf").attr('disabled', valor);
     $("#txtautorizadof").attr('disabled', valor);
+    $("#txttitularf").attr('disabled', valor);
+    
     
 }
 
@@ -1185,7 +1187,12 @@ function SeleccionarCuenta() {
 }
 
 function SeleccionarCuentaf() {
-    $("#txtmnrocuentaf").val($("#cmbminstfinancieraf option:selected").val());
+    var inst = $("#cmbminstfinancieraf option:selected").val();
+    if(inst == "0000"){
+        $("#txtmnrocuentaf").val("N/A");
+    }else{
+        $("#txtmnrocuentaf").val(inst);
+    }
 }
 
 
@@ -1271,6 +1278,7 @@ function ModificarFamiliarPos(pos) {
             $("#cmbminstfinancieraf").val(df[0].institucion);
             $("#txtmnrocuentaf").val(df[0].cuenta);
             $("#txtautorizadof").val(df[0].autorizado);
+            $("#txttitularf").val(df[0].titular);
         }
 
         if (Familiar.parentesco == "EA") {

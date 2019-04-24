@@ -336,12 +336,12 @@ class Utilidad {
         return valor;
     }
 
-    ValidarDerechoACrecer(familiar){        
+    ValidarDerechoACrecer(familiar){              
         var MAP = [];
         var REGLA = [];
         var FILA = 0;
-        familiar.forEach(v => {
-            if ( v.beneficio == true) {
+        familiar.forEach(v => {            
+            if ( v.beneficio == true ) {
                 var fam = [ v.parentesco, FILA ];            
                 var existe = REGLA.find(function(element) {
                     return element === v.parentesco;
@@ -351,6 +351,7 @@ class Utilidad {
            }
            FILA++;
         });
+        
         MapACrecer.forEach( x => {
             var valor = false;
             var repetir = 0;

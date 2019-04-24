@@ -359,6 +359,7 @@ class Familiar{
 		bnc.institucion = $("#cmbminstfinancieraf option:selected").val();
 		bnc.cuenta = $("#txtmnrocuentaf").val();
 		bnc.autorizado = $("#txtautorizadof").val();
+		bnc.titular = $("#txttitularf").val();		
 		bnc.prioridad = "PRINCIPAL";
 		this.Persona.DatoFinanciero[0] = bnc;
 
@@ -460,6 +461,7 @@ class DatoFinanciero{
 		this.cuenta = "";
 		this.autorizado = "";
 		this.prioridad = "";
+		this.titular = "";
 	}
 }
 
@@ -1524,13 +1526,22 @@ class WDerechaACrecer{
 		this.cedula = "";
 		this.porcentaje = 0.00;
 	}
-	Crear(req){
-		
+	Crear(req){		
 		$("#_cargandofam").hide();
 		alertNotifyAfiliacion("Se ha aplicado con exito el derecho acrecer", "success");
 
 	}
 }
+function RecalcularDerechoACrecer(){
+	var t = $('#tblFamiliares').DataTable();
+	var i = 0;
+	ObjMilitar.Familiar.forEach(v => {
+		t.cell(i,16).data(0).draw();
+		i++;
+	});
+	Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
+}
+
 function AplicarDerechoACrecer(){
 	$("#_contenido").html("¿Está seguro que desea actualizar el derecho acrecer?");
 	var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 

@@ -287,7 +287,7 @@
                                 <select class="js-states form-control" style="width: 100%"
                                 aria-hidden="true" disabled="disabled" required id="cmbminstfinancieraf"
                                 onchange="SeleccionarCuentaf()">
-                                <option selected="selected" value="0000">NO DISPONIBLE</option>
+                                <option selected="selected" value="0000">PAGO POR CHEQUE</option>
                                 <option value="0156">100%BANCO</option>
                                 <option value="0196">ABN AMRO BANK</option>
                                 <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
@@ -329,8 +329,9 @@
                                 <select class="js-states form-control" style="width: 100%" disabled="disabled" 
                                     required aria-hidden="true" id="cmbmtipofinancieraf" >
                                     <option selected="selected" value="S"></option>
-                                <option value="CA" selected="selected">AHORRO</option>
-                                <option value="CC">CORRIENTE</option>
+                                    <option value="CQ" selected="selected">CHEQUE</option>
+                                    <option value="CA">AHORRO</option>
+                                    <option value="CC">CORRIENTE</option>
                                 </select>
                             </div>
                         </div>
@@ -341,15 +342,19 @@
                                 <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <label>Nro. de Cuenta:</label>
-                                <input id="txtmnrocuentaf" class="form-control" disabled="disabled" type="text" maxlength="20">
+                                <label>Nombre del titular:</label>
+                                <input id="txttitularf" class="form-control" disabled="disabled" type="text">
                                 <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
                             </div>
-                        </div><!-- .Form-Group -->            
+                        </div><!-- .Form-Group -->        
                         <div class="form-group">
-                            <div class="col-md-12 col-sd-12" id="_tblBancos">
-            
-                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6 col-sm-12">
+                                    <label>Nro. de Cuenta:</label>
+                                    <input id="txtmnrocuentaf" class="form-control" disabled="disabled" type="text" maxlength="20">
+                                    <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
+                                </div>
+                            </div><!-- .Form-Group -->  
                         </div>
                 </div>
 
