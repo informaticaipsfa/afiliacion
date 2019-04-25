@@ -348,7 +348,7 @@ class WNomina {
     Crear(req){
         waitingDialog.hide();
         alertNotify('Proceso exitoso', 'success');
-        console.log(req);
+        
         $("#_nominalista").html(`
             Codigo Hash: ${req.md5}<br>
             Total de Asignacion: ${req.asignacion}<br> 

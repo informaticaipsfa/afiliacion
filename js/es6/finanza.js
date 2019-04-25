@@ -173,7 +173,8 @@ function GenerarTxt(){
 class WMetodoBanco{
     constructor(){}
     Crear(req){
-        $("#_cargandog").hide();
+        waitingDialog.hide();
+        $("#mdlPrepararMetodo").modal("show");
         $("#divResult").html(`<div class="alert bg-success disabled" role="alert " id="alert" >
             Los archivos para los bancos se han generado correctamente
         </div>
@@ -192,13 +193,14 @@ class WMetodoBanco{
 function pagarMetodo(){
      
     var lst = new WMetodoBanco();
-    $("#_cargandog").show();
-    if ($("#cmbSolicitud").val() == "0"){
-        $("#_cargandog").hide();
+    
+    if ($("#cmbSolicitud").val() == "0" ){        
         alertNotify("Actualmente no hay pagos pendientes", "danger");
         return false;
     }
-   
+    $("#mdlPrepararMetodo").modal("hide");
+    waitingDialog.show('Generando archivos bancarios, por favor espere...');
+
     var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/300";
     CargarAPI(ruta, "GET", lst, lst);
  }
