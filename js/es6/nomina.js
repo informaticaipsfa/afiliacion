@@ -350,14 +350,20 @@ class WNomina {
         alertNotify('Proceso exitoso', 'success');
         
         $("#_nominalista").html(`
-            Codigo Hash: ${req.md5}<br>
+            
             Total de Asignacion: ${req.asignacion}<br> 
             Total de Deducciones: ${req.deduccion}<br>
-            Total Neto a pagar: ${req.neto}<br> 
-            Pensionados: ${req.registros}<br>
-            Paralizados: ${req.paralizados}<br>
+            Total Neto a pagar: ${req.neto}<br> <br>
+            <h4>
+            Total de activos: ${req.total}<br>
             
-            <br><br>
+            Pensionados a cobrar: ${req.operados}<br>
+            Pensionados sin pago: ${req.sinpagos}<br>
+            Incidencias: ${req.incidencias}<br>
+            Paralizados: ${req.paralizados}<br>
+            Total de registros procesados: ${req.registros}<br>
+            </h4><br><br>
+            Codigo Hash de seguridad: ${req.md5}<br>
         `);
 
         $("#mdlNominaLista").modal("show");
@@ -565,9 +571,9 @@ class WListarNomina{
             var botones = `<div class="btn-group">
                     <button type="button" onclick = "verPartida('${e.oid}');" class="btn btn-primary btn-flat"
                     data-toggle="tooltip" data-placement="top" title="Resumén Presupuestario"><i class="fa fa-book"></i></button>
-                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.csv');" class="btn btn-success btn-flat
+                    <button type="button" onclick = "downloadP('${e.url}tmp/${e.nomb}.csv');" class="btn btn-success btn-flat
                     data-toggle="tooltip" data-placement="top" title="Descargar CSV "><i class="fa fa-download"></i></button>
-                    <button type="button" onclick = "downloadP('${e.url}/tmp/${e.nomb}.log');" class="btn btn-warning btn-flat
+                    <button type="button" onclick = "downloadP('${e.url}tmp/${e.nomb}-ERR.csv');" class="btn btn-warning btn-flat
                     data-toggle="tooltip" data-placement="top" title="Incidencias"><i class="fa fa-file-text-o"></i></button>
                     <button style="display:none" type="button" onclick = "CoeficienteVariacion(${e.oid})" class="btn bg-purple btn-flat"
                     data2-toggle="tooltip" data-placement="top" title="Coeficiente de Variación">

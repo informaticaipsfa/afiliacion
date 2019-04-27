@@ -548,48 +548,7 @@
          </div><!-- Tab panes  Direccion-->
 
 
-         <div role="tabpanel" class="tab-pane" id="mpartida" style="padding:15px">
-           <!-- <div class="form-group">
-             <div class="col-md-3">
-                <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgpartida" >
-                  <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive file-path-wrapper-pre-view" src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgpartida"/>
-                </div>
-                <div class="file-field input-field col file-field-input-field " >
-                  &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file">Seleccionar Firma
-                  <input type="file" style="visibility:hidden;" id="imghuella" accept="image/*" onchange="readURL(this,'_imgpartida');" onclick="clearURL(this)"></label>
-                </div>
-
-             </div>
-             <div class="col-md-9">
-               <div class="form-group">
-                 <div class="col-md-8">
-                   <label>Registro Civil:</label>
-                   <input id="txtpregistrocivil" class="form-control" disabled="disabled"  type="text">
-                 </div>
-                 <div class="col-md-4">
-                   <label>Año:</label>
-                   <input id="txtpano" class="form-control" disabled="disabled" type="text">
-                 </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-md-4">
-                  <label >Nro. Acta:</label>
-                  <input id="txtpacta" class="form-control" disabled="disabled" type="text">
-                </div>
-                <div class="col-md-4">
-                  <label>Nro. Folio:</label>
-                  <input  id="txtpfolio" class="form-control" disabled="disabled" type="text">
-                </div>
-                <div class="col-md-4">
-                  <label>Libro / Tomo:</label>
-                  <input  id="txtplibro" class="form-control" disabled="disabled" type="text">
-                </div>
-             </div>
-
-             </div>
-           </div> -->
-         </div><!-- Tab panel Partida de Nacimiento -->
+         
 
          <div role="tabpanel" class="tab-pane" id="mdfisico"  style="padding:15px">
 
@@ -678,7 +637,7 @@
          </div><!-- Tab panes Datos Fisicos-->
 
          <div role="tabpanel" class="tab-pane" id="mdsueldo"  style="padding:15px">
-         <div class="row">
+         <div class="row" id="divSueldo">
              <div class="col-md-4 col-sm-6">
                <label>Sueldo Base</label>
                <input type="text" placeholder="Sueldo Base" id="sueldo_base" class="form-control" readonly="readonly" />
@@ -886,6 +845,10 @@
     </div>
   </div><!-- /.box-body -->
   <div class="modal-footer" id="_botonesmilitar">
+      
+    <button type="button" id="btnCalculos" class="btn btn-md bg-maroon derechoacrecer hide" 
+      onclick="mostarCalculosConceptos()"><i class="fa fa-calculator"></i>&nbsp;&nbsp;Ver Cálculos</button>
+
     <button type="button" class="btn btn-md btn-success" data-dismiss="modal" onclick="PensionesAsignadas()" id="_btnPensionesAsignadas">
         <i class="fa fa-print "></i>&nbsp;&nbsp;Pensiones Asignadas</button>
     <button type="button" class="btn btn-md btn-primary" data-dismiss="modal" onclick="CConstanciaAfiliacion()" id="_btnConstancia">

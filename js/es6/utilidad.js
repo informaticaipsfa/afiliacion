@@ -387,7 +387,7 @@ function AplicarReglaAcrecer(MAP, regla){
             for(var i=0; i < MAP.length; i++){
                 if ( MAP[i][0] == "EA" ){
                     var fila = MAP[i][1];
-                    t.cell(fila,16).data(60).draw();
+                    t.cell(fila,16).data(60.00).draw();
                 }
             }       
             //HIJOS 20%
@@ -395,7 +395,7 @@ function AplicarReglaAcrecer(MAP, regla){
             for(var i=0; i < MAP.length; i++){
                 if ( MAP[i][0] == "HJ" ){
                     var fila = MAP[i][1];
-                    t.cell(fila,16).data(porcentaje).draw();
+                    t.cell(fila,16).data(porcentaje.toFixed(2)).draw();
                 }
             }         
             //PADRE 20%
@@ -403,7 +403,7 @@ function AplicarReglaAcrecer(MAP, regla){
             for(var i=0; i < MAP.length; i++){
                 if ( MAP[i][0] == "PD" ){
                     var fila = MAP[i][1];
-                    t.cell(fila,16).data(porc).draw();
+                    t.cell(fila,16).data(porc.toFixed(2)).draw();
                 }
             }         
             break;
@@ -414,16 +414,16 @@ function AplicarReglaAcrecer(MAP, regla){
              for(var i=0; i < MAP.length; i++){
                  if ( MAP[i][0] == "HJ" ){
                      var fila = MAP[i][1];
-                     t.cell(fila,16).data(porcentaje).draw();
+                     t.cell(fila,16).data(porcentaje.toFixed(2)).draw();
                  }
              }         
              //PADRE 25%
              var porc = 25 / ContarParentesco(MAP, "PD");
-             console.log(porc);
+             
              for(var i=0; i < MAP.length; i++){
                  if ( MAP[i][0] == "PD" ){
                      var fila = MAP[i][1];
-                     t.cell(fila,16).data(porc).draw();
+                     t.cell(fila,16).data(porc.toFixed(2)).draw();
                  }
              }         
             break;
@@ -433,7 +433,7 @@ function AplicarReglaAcrecer(MAP, regla){
             for(var i=0; i < MAP.length; i++){
                 if ( MAP[i][0] == "EA" ){
                     var fila = MAP[i][1];
-                    t.cell(fila,16).data(50).draw();
+                    t.cell(fila,16).data(50.00).draw();
                 }
             }       
              //PADRE 50%
@@ -442,7 +442,7 @@ function AplicarReglaAcrecer(MAP, regla){
              for(var i=0; i < MAP.length; i++){
                  if ( MAP[i][0] == "PD" ){
                      var fila = MAP[i][1];
-                     t.cell(fila,16).data(porc).draw();
+                     t.cell(fila,16).data(porc.toFixed(2)).draw();
                  }
              }         
             break;
@@ -452,16 +452,15 @@ function AplicarReglaAcrecer(MAP, regla){
             for(var i=0; i < MAP.length; i++){
                 if ( MAP[i][0] == "EA" ){
                     var fila = MAP[i][1];
-                    t.cell(fila,16).data(60).draw();
+                    t.cell(fila,16).data(60.00).draw();
                 }
             }       
              //HIJOS 20%
              var porc = 20 / ContarParentesco(MAP, "HJ");
-             console.log(porc);
              for(var i=0; i < MAP.length; i++){
                  if ( MAP[i][0] == "HJ" ){
                      var fila = MAP[i][1];
-                     t.cell(fila,16).data(porc).draw();
+                     t.cell(fila,16).data(porc.toFixed(2)).draw();
                  }
              }
              $("#divPensionSobreviviente").html(`<div class="callout callout-danger" style="padding:8.3px; margin:0px;">
@@ -470,14 +469,14 @@ function AplicarReglaAcrecer(MAP, regla){
             break;
         case "SinPadreEHjos":
             //SOLO ESPOSA
-            t.cell( MAP[0][1],16).data(100).draw();
+            t.cell( MAP[0][1],16).data(100.00).draw();
             break;
         case "SinEsposaEHijos":
             //SOLO PADRES
             var porcentaje = 100 / MAP.length;            
             for(var i=0; i < MAP.length; i++){
                 var fila = MAP[i][1];
-                t.cell(fila,16).data(porcentaje).draw();
+                t.cell(fila,16).data(porcentaje.toFixed(2)).draw();
             }            
             break;
         case "SinPadreYEsposa":
@@ -485,7 +484,7 @@ function AplicarReglaAcrecer(MAP, regla){
             var porcentaje = 100 / MAP.length;            
             for(var i=0; i < MAP.length; i++){
                 var fila = MAP[i][1];
-                t.cell(fila,16).data(porcentaje).draw();
+                t.cell(fila,16).data(porcentaje.toFixed(2)).draw();
             }  
             break;
         default:

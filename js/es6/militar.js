@@ -760,7 +760,6 @@ class Militar{
 			$("#_categoria").html($("#cmbcategoria option:selected").text());
 			$("#_situacion").html($("#cmbsituacion option:selected").text());
 			$("#cmbSituacionPago").val(militar.situacionpago);
-
 			if($("#cmbsituacion option:selected").text().length > 20){
 				$("#_situacion").attr("style","font-size:12px");
 			}
@@ -806,9 +805,12 @@ class Militar{
 			if (militar.Persona.DatoFinanciero != undefined) {
 
 					var DF = militar.Persona.DatoFinanciero[0];
-					$("#txtmnrocuenta").val(DF.cuenta);
-					$("#cmbminstfinanciera").val(DF.institucion);
-					$("#cmbmtipofinanciera").val(DF.tipo);
+					if(DF != undefined ){
+						$("#txtmnrocuenta").val(DF.cuenta);
+						$("#cmbminstfinanciera").val(DF.institucion);
+						$("#cmbmtipofinanciera").val(DF.tipo);
+					} 
+
 					thbanco.clear().draw();
 					i = 0;
 					militar.Persona.DatoFinanciero.forEach ( v => {
@@ -882,186 +884,12 @@ class Militar{
 			}
 
 
-			let j = 1, x = 1;
-			var total_porcentaje = 0;
-			$.each(militar.Familiar, function (c, v) {
-					var familiar = new Familiar();
-					var DBF = v.Persona.DatoBasico;
-					var cedula = DBF.cedula;
-					var nombre = DBF.apellidoprimero + ' ' + DBF.apellidosegundo + ' ' + DBF.nombreprimero + ' ' + DBF.nombresegundo;
-					var parentesco = v.parentesco;
-					familiar.Persona.DatoBasico.sexo = v.Persona.DatoBasico.sexo;
-					familiar.parentesco = parentesco;
-					var nombres = DBF.nombreprimero + ' ' + DBF.nombresegundo;
-					var apellidos = DBF.apellidoprimero + ' ' + DBF.apellidosegundo;
-					var nombreCompleto = apellidos + ' ' + nombres;
-					var estadocivil = familiar.Persona.DatoBasico.estadocivil;
-					var fnac = Util.ConvertirFechaHumana(DBF.fechanacimiento);
-					var fvence = '';
-					if (v.Tif.fechavencimiento != undefined) {
-						fvence = Util.ConvertirFechaHumana(v.Tif.fechavencimiento);
-					}
-					var modificar = '<button type="button" id="btnModFamiliar' + j + '" \
-						class="btn btn-sm btn-info prvmodificar hide" onclick="ModificarFamiliarPos(' + j + ')">\
-						<i class="fa fa-pencil"></i></button>'
-					var mil = nombre.toUpperCase();
-					if (v.esmilitar == true) {
-							mil = nombre.toUpperCase() + '<font color="#0E6626"><i class="fa fa-fw fa-male"></i></font>&nbsp;';
-					}
-
-
-					var fechavencimiento = "";
-
-					var mod = '<font color="#red"><i class="fa fa-fw fa-pencil"></i></font>';
-					var edocivil = "";
-					if (DBF.estadocivil != undefined) {
-							edocivil = DBF.estadocivil;
-					}
-					var rutaimgfamiliar = Conn.URLIMG;
-					if (v.Persona.foto  != undefined){
-						rutaimgfamiliar = Conn.URLTEMP;
-					}
-					var situacion = "ACTIVO";
-					if (v.beneficio != true ) {
-						situacion = "INACTIVO"
-					}
-					var anof = parseInt(v.Persona.DatoBasico.fechadefuncion.substring(0,4));
-
-					if (anof > 1){
-						situacion = "FALLECIDO"
-					}
-					if (v.beneficio == false && v.parentesco == "EA"){
-						//Evaluar a esposa inactiva
-					}else{
-						var strEdo = "F";
-						if(militar.situacion == "FCP"){
-							strEdo = "M";
-						}
-						$("#_contenidoFamiliares").append('<tr><td>' + nombreCompleto + '</td>\
-						<td class="alinear_tddatos">' + cedula + '</td>\
-						<td class="alinear_tddatos">' + familiar.GenerarParentesco(strEdo) + '</td>\
-						<td class="alinear_tddatos">' + fnac + '</td>\
-						<td class="alinear_tddatos">' + edocivil + '</td>\
-						<td class="alinear_tddatos">' + situacion + '</td>\
-						</tr>');
-						//<td class="alinear_tddatos">' + fechavencimiento + '</td>
-					}
-					var porcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
-					var txtporc = `${porcentaje} %<input id="prc-${cedula}" type="hidden" value="${porcentaje}"></input>`;
-					total_porcentaje += parseFloat(porcentaje);
-					t.row.add([
-						j++, //0
-						cedula, //1
-						mil, //2
-						familiar.GenerarParentesco(), //3
-						situacion, //4
-						DBF.fechanacimiento, //5
-						v.esmilitar, //6
-						mod, //7
-						nombres.toUpperCase(), //8
-						DBF.sexo, //9
-						apellidos.toUpperCase(), //10
-						v.condicion, //11
-						v.estudia, //12
-						fechavencimiento, //13
-						//v.beneficio,
-						modificar,
-						fvence,
-						parseFloat(porcentaje)
-					]).draw(false);
-
-			});
-
-			t.column(5).visible(false);
-			t.column(6).visible(false);
-			t.column(7).visible(false);
-			t.column(8).visible(false);
-			t.column(9).visible(false);
-			t.column(10).visible(false);
-			t.column(11).visible(false);
-			t.column(12).visible(false);
-			t.column(13).visible(false);
-			t.column(15).visible(false);
-			t.column(16).visible(false);
-			$("#tarjetaPensionSobreviviente").hide();
-			$("#btnPensionSobreviviente").attr('disabled', true);
-			$("#txtPensionSobreviviente").attr('disabled', true);
-			$("#divPensionSobreviviente").html('');
-			var strSituacion = militar.situacion;
-			$("#liEstatusPension").hide();
-			$("#_btnPensionesAsignadas").hide();
-			if(strSituacion== "FCP"){
-				t.column(16).visible(true);
-				$("#tarjetaPensionSobreviviente").show();
-				$("#btnPensionSobreviviente").attr('disabled', false);
-				$("#txtPensionSobreviviente").attr('disabled', false);
-				if( total_porcentaje == 100){
-					$("#divPensionSobreviviente").html(`<div class="callout callout-success" style="padding:8.3px; margin:0px;">
-					<p style="text-align: left"><b>Pensión del grupo familiar 100%</b></p>
-					</div>`);
-				}else{
-					$("#divPensionSobreviviente").html(`<div class="callout callout-danger" style="padding:8.3px; margin:0px;">
-					<p style="text-align: left"><b>Pensión del grupo familiar ${total_porcentaje}%</b></p>
-					</div>`);
-				}
-				$("#liEstatusPension").show();
-				$("#_btnPensionesAsignadas").show();
-			} else if( strSituacion == "RCP" || strSituacion == "I"){
-				$("#liEstatusPension").show();
-				$("#_btnPensionesAsignadas").show();
-			}
-
-
-			$('#tblFamiliares tbody').on('click', 'tr', function () {
-
-				var data = t.row(this).data();
-				$("#_bfcedula").attr("attced",data[1]);
-				$("#_lblConstanciaPension").hide();
-
-				var rutaimg = Conn.URLIMG;
-				var urlf = Conn.URLIMG + data[1] + ".jpg";
-				if (ObjMilitar.Persona.foto  != undefined){
-					rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
-					urlf = rutaimg + "/foto" +  data[1] + ".jpg";
-				}
-				$("#_imgfamiliar").attr("src", urlf);
-				$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
-				$("#_fcedula").html('C.I: V- ' + data[1]);
-				$("#_idFVCarnet").html(data[15]);
-				$("#txtPensionSobreviviente").val(data[16]);
-				if (data[6] == true) {
-					$("#_fcedula").html('<a href="#" onClick="Buscar(\'' + data[1] + '\')">C.I: V- ' + data[1] + '</a>');
-					$("#_ffnacimiento").html(Util.ConvertirFechaHumana(data[5]));
-				}
-				if (data[14] == true) {
-					$("#_lblConstanciaPension").show();
-				}
-
-			});
-
-			$('#tblFamiliares tbody').on('dblclick', 'tr', function () {
-				var data = t.row(this).data();
-				if (data[6] == true) {
-					Util.ModalValidarFamiliar("Este es un afiliado titular");
-					return false;
-				} else {
-					ModificarFamiliarPos(data[0]);
-					FrmFamiliar(true);
-				}
-			});
+			
+			CargarFamiliaresModal(militar, t);
 
 			verificarPrivilegioUsuario();
 			$("#_tblHistorialMilitar").html(HistoricoMilitarHTML());
-			var th = $('#tblhistoricomilitar').DataTable({
-				'paging': false,
-				'lengthChange': false,
-				'searching': false,
-				'ordering': false,
-				'info': false,
-				//'autoWidth'   : false
-				'autoWidth': false
-			});
-
+			var th = $('#tblhistoricomilitar').DataTable(tablaBasica);
 				th.clear().draw();
 				i = 0;
 				$.each(militar.HistorialMilitar, function (c, v) {
@@ -1100,15 +928,6 @@ class Militar{
 				$("#_search").show();
 				$("#_cargando").hide();
 
-				// if($("#cmbsituacion option:selected").val() == "FCP"){
-				// 	$("#_btnTIM").hide();
-				// 	$("#_btnModificar").hide();
-				// 	$("#archivo").attr('disabled', false);
-				// 	$("#enviar").show();
-				// }else if($("#cmbsituacion option:selected").val() != "ACT"){
-
-				// }
-				
 				ActivarPension();
 				if(militar.Pension.pprestaciones != undefined){ 
 					$("#txtporcentaje").val(militar.Pension.pprestaciones);
@@ -1520,64 +1339,53 @@ function PensionesAsignadas(){
 }
 
 
-class WDerechaACrecer{
-	constructor(){
-		this.pos = "";
-		this.cedula = "";
-		this.porcentaje = 0.00;
-	}
-	Crear(req){		
-		$("#_cargandofam").hide();
-		alertNotifyAfiliacion("Se ha aplicado con exito el derecho acrecer", "success");
-
-	}
-}
-function RecalcularDerechoACrecer(){
-	var t = $('#tblFamiliares').DataTable();
-	var i = 0;
-	ObjMilitar.Familiar.forEach(v => {
-		t.cell(i,16).data(0).draw();
-		i++;
-	});
-	Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
-}
-
-function AplicarDerechoACrecer(){
-	$("#_contenido").html("¿Está seguro que desea actualizar el derecho acrecer?");
-	var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 
-	id="_aceptar" onClick="AplicarDerecho()">Si</button>
-    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
-    $("#_botonesmsj").html(botones);
-    $('#modMsj').modal('show');
-}
-
-function AplicarDerecho(){
-	var wderecho = new WDerechaACrecer();
-	var lst = [];
-	var ruta =  Conn.URL + "pensionado/derechoacrecer";
-	$("#_cargandofam").show();
-	var tblF = $('#tblFamiliares').DataTable();
-	var cant = parseInt(tblF.rows()[0].length);
-    if($("#cmbsituacion option:selected").val() == "FCP"){
-        for(var i = 0; i < cant; i++){
-			var der = new WDerechaACrecer();
-			var pos = tblF.rows(i).data()[0][0];
-			var cedula = tblF.rows(i).data()[0][1];
-			var porcentaje = tblF.rows(i).data()[0][16];
-			der.pos = parseInt(pos);
-			der.cedula = cedula;
-			der.porcentaje = parseFloat( porcentaje );
-			lst.push(der);
-		}
-
-		var Derecho = {
-			cedula : $("#txtcedula").val(),
-			acrecer: lst
-		};
-		//console.log(Derecho);
-		CargarAPI(ruta, "POST", Derecho, wderecho);
-	}
 
 
+class WCalculos{
+	constructor(){}
+	Crear(req){
+		
+		var botones = `<button type="button" class="btn btn-primary" data-dismiss="modal">ACEPTAR</button>`;
+		$("#_botonesmsjcal").html(botones);
+		
+		var html = `<ul class="list-group list-group-unbordered">`;
+		
+		var asig = 0;
+		var dedu = 0;
+		$.each(req, function(c, v){ 
+			if ( v.TIPO < 90 && v.mt > 0 ){
+				var mt = parseFloat(v.mt);
+				if(v.TIPO == 0){
+					html += `<li class="list-group-item">
+					<b>${v.ABV}</b> <a class="pull-right">- ${mt.toFixed(2)}</a>
+					</li>`;
+					dedu += mt;
+				}else{
+
+					html += `<li class="list-group-item">
+						<b>${v.ABV}</b><a class="pull-right">${mt.toFixed(2)}</a>
+					</li>`;
+					asig += mt;
+				}
+				
+				
+			}
+			
+		});
+		var monto = asig - dedu; 
 	
+		html += `<li class="list-group-item">
+			<b>NETO TOTAL A COBRAR</b><a class="pull-right">${parseFloat(monto).toFixed(2)}</a>
+		</li></ul>`
+		$("#_contenidocal").html(html);
+		$('#modMsjCal').modal('show');
+	}
+}
+
+function mostarCalculosConceptos(){
+	
+	
+	var wCalculos = new WCalculos();
+	var ruta =  Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
+	CargarAPI(ruta, "GET", "", wCalculos);
 }
