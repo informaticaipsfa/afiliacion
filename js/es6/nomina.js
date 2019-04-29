@@ -1,3 +1,5 @@
+let MD5codigo = "";
+
 let opcionesf = {
     destroy: true,
     'paging': false,
@@ -119,7 +121,7 @@ class Concepto {
         return this;
     }
     Crear(req){    
-        console.log(req);    
+          
         $("#_cargandol").show();
         var tabla = `
         <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable" >
@@ -135,15 +137,19 @@ class Concepto {
         var tblP = $('#tblConcepto').DataTable(opcionesf);
         tblP.clear().draw();
         
-        
-        req.forEach( v => {           
-            
-            tblP.row.add([
-                v.partida,
-                v.codigo,
-                v.descripcion
-            ]).draw(false);
-        });
+        if(req == null) {
+
+        }else{
+            req.forEach( v => {           
+                
+                tblP.row.add([
+                    v.partida,
+                    v.codigo,
+                    v.descripcion
+                ]).draw(false);
+            });
+        }
+
         $("#_cargandol").hide();
         $('#_TblConceptos tbody').on('dblclick', 'tr', function () {
             var data = t.row(this).data();
@@ -255,7 +261,7 @@ function dibujarTabla(tblP, fnx, concepto) {
 
 function selccionarConceptos(tblP){
     var cant = parseInt(tblP.rows()[0].length);
-    if($("#cmbTipoX").val() == "PG"){
+    if($("#cmbTipoX").val() == "PG" || $("#cmbTipoNomina").val() == 5){
         for(i=0; i<cant; i++){
             var valor = tblP.rows(i).data()[0][2];
             if ( valor == 'PENSION' ){
@@ -280,6 +286,16 @@ function CargarDirectivaConceptos(){
         alert("Debe seleccionar una fecha para la nómina");
         return false;
     }
+    var id  = $("#directiva").val();
+    var directiva = $("#directiva option:selected").text();
+    var nombre = $("#cmbTipoNomina option:selected").text();
+    var tipo = $("#cmbTipoX option:selected").val();
+    var fechainicio = $("#fechainicio").val();
+    var fechafin = $("#fechavigencia").val();
+    var fecha = new Date();
+    var codigo = id + directiva + nombre + tipo + fechainicio + fechafin + fecha;
+    MD5codigo = MD5(codigo);
+
     CargarAPI(url, "GET", "", Obj);
     myStepper.next();
 }
@@ -383,6 +399,7 @@ function GenerarNomina(){
     Nom.Tipo = $("#cmbTipoX option:selected").val();
     Nom.fechainicio = $("#fechainicio").val();
     Nom.fechafin = $("#fechavigencia").val();
+    Nom.codigo = MD5codigo;
     $.each(t, function(c, v){
         var Concepto = new WConcepto();
         Concepto.codigo = v[1];
@@ -494,12 +511,16 @@ function EnviarArchivos() {
         return false;
     }
 
-    $("#txtFileID").val('000-xc');
+    
+
+
+    $("#txtFileID").val(MD5codigo);
+
     var formData = new FormData(document.forms.namedItem("forma"));
 
 
     var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivostxt";
-    //console.log(strUrl);
+   
     $.ajax({
         url: strUrl,
         type: "post",
