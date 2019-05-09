@@ -2503,7 +2503,7 @@ function EnviarArchivos() {
 
 
     var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivos";
-
+    console.log(strUrl);
     $.ajax({
         url: strUrl,
         type: "post",
