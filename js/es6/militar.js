@@ -868,7 +868,7 @@ class Militar{
 			$("#_divpension").hide();
 			$("#lblFechaResolucion").html("Fecha de Resolución");
 
-			if(militar.Pension.grado != undefined && militar.Pension.grado != ""){
+			if(militar.Pension.grado != undefined && militar.Pension.grado != "" && militar.situacion != "ACT"){
 				$("#lblFechaResolucion").html("Fecha de Retiro");
 				$("#_divpension").show();
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
