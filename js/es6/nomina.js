@@ -261,7 +261,7 @@ function dibujarTabla(tblP, fnx, concepto) {
 
 function selccionarConceptos(tblP){
     var cant = parseInt(tblP.rows()[0].length);
-    if($("#cmbTipoX").val() == "PG" || $("#cmbTipoNomina").val() == 5){
+    if($("#cmbTipoX").val() == "PG" || $("#cmbTipoNomina").val() == 7  || $("#cmbTipoNomina").val() == 8 ){
         for(i=0; i<cant; i++){
             var valor = tblP.rows(i).data()[0][2];
             if ( valor == 'PENSION' ){
@@ -353,11 +353,12 @@ class WNomina {
     constructor(){
         this.id = '';
 
-        this.Nombre = '';
-        this.Tipo = '';
+        this.nombre = '';
+        this.tipo = '';
         this.directiva = '';
         this.fechainicio = '';
         this.fechafin = '';
+        this.mes = '';
         this.Concepto = [];
     }
 
@@ -395,10 +396,11 @@ function GenerarNomina(){
     var t = Tbls.rows('.selected').data();
     Nom.id  = $("#directiva").val();
     Nom.directiva = $("#directiva option:selected").text();
-    Nom.Nombre = $("#cmbTipoNomina option:selected").text();
-    Nom.Tipo = $("#cmbTipoX option:selected").val();
+    Nom.nombre = $("#cmbTipoNomina option:selected").text();
+    Nom.tipo = $("#cmbTipoX option:selected").val();
     Nom.fechainicio = $("#fechainicio").val();
     Nom.fechafin = $("#fechavigencia").val();
+    Nom.mes = $("#cmbMes option:selected").text();
     Nom.codigo = MD5codigo;
     $.each(t, function(c, v){
         var Concepto = new WConcepto();
@@ -409,7 +411,6 @@ function GenerarNomina(){
     });
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
-    //console.log(Nom);
     waitingDialog.show('Creando nómina por favor espere...');
     CargarAPI(ruta, "POST", Nom, Nom);
 }

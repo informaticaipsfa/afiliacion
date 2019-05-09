@@ -25,13 +25,14 @@ class WDescuentos{
         this.observacion = '';
         this.fechainicio = '';
         this.fechafin = '';
+        this.familiar = '';
         this.estatus = 0;
     }
     Crear(req){
         waitingDialog.hide();
         $.notify(
             {
-                title: '<strong>Pago a terceros!</strong>',
+                title: '<strong>Procesando conceptos!</strong>',
                 message: 'finalizo con <strong>éxito</strong>'
             },
             {
@@ -53,8 +54,21 @@ function IncluirDescuentos(){
         format: "yyyy-mm-dd",
         language: 'es'
     });
+    $('#cmbAsigDedu').html(`<option value="X">AFILIADO TITULAR</option>`);
+    if ( ObjMilitar.situacion == "FCP" ){
+        $("#divAsigDedu").show();
+        ObjMilitar.Familiar.forEach(x => {
+            var P = x.Persona.DatoBasico;
+            if(x.beneficio == true) {
+                var parentesco = obtenerParentesco(x.parentesco, P.sexo);            
+                var value = "(" + P.cedula + ") " +  P.apellidoprimero + " " + P.nombreprimero + " - " + parentesco;
+                $('#cmbAsigDedu').append(`<option value="${ P.cedula }">${value}</option>`);
+            }
+        });
+    }else {
+        $("#divAsigDedu").hide();
+    }
     
-
     $('#mdlDescuentos').modal('show');
 }
 
@@ -78,9 +92,12 @@ function GuardarDescuentos(){
     DC.fechainicio = fecha;
     DC.fechafin = fechafin;
     DC.estatus = parseInt($("#cmbEstatusD").val());
+    if ( $("#cmbAsigDedu").val() != "X" ){
+        DC.familiar = $("#cmbAsigDedu").val();
+    }
     console.log(DC);
     var url = Conn.URL + "descuentos";
     $('#mdlDescuentos').modal('hide');
-    waitingDialog.show('Guardando pago a terceros, por favor espere...');
+    waitingDialog.show('Guardando, por favor espere...');
     CargarAPI(url, "POST", DC, DC);
 }

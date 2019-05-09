@@ -3,6 +3,7 @@ let MD5 = function(d){result = M(V(Y(X(d),8*d.length)));return result.toLowerCas
 let MapACrecer = [
     {"nombre": "TodosVivos", "regla" : ['EA', 'PD' , 'HJ']},
     {"nombre":"SinEsposa", "regla" : ['PD', 'HJ']},
+    {"nombre":"SinPadres", "regla" : ['EA', 'HJ']},
     {"nombre":"SinHijos", "regla" : ['EA', 'PD']},
     {"nombre":"SinPadre", "regla" : ["HJ", "EA"]},
     {"nombre":"SinPadreEHjos", "regla" : ["EA"]},
@@ -69,10 +70,8 @@ class Utilidad {
 
     }
 
-    SoloNumero(event,elemento) {
+    SoloNumero(event,elemento) {        
         var contenidocaja = $("#"+elemento.id).val();
-
-
         var key = event.keyCode || event.which;
         var tecla = String.fromCharCode(key).toLowerCase();
         var numeros = "0123456789";
@@ -448,6 +447,24 @@ function AplicarReglaAcrecer(MAP, regla){
                  }
              }         
             break;
+        case "SinPadres":
+             //ESPOSA Y PADRES
+            //ESPOSA 60%            
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "EA" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(60.00).draw();
+                }
+            }
+            //HIJOS 40%
+            var porcentaje = 40 / ContarParentesco(MAP, "HJ");
+            for(var i=0; i < MAP.length; i++){
+                if ( MAP[i][0] == "HJ" ){
+                    var fila = MAP[i][1];
+                    t.cell(fila,16).data(porcentaje.toFixed(2)).draw();
+                }
+            }
+             
         case "SinPadre":
              //ESPOSA E HIJO
             //ESPOSA 60%            

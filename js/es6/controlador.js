@@ -1,8 +1,9 @@
 let opciones = {
-    destroy: true,
+    'destroy': true,
     'paging': true,
     'lengthChange': true,
     'searching': false,
+    'autoPrint': false,
     'ordering': false,
     'info': false,
     'autoWidth': false,
@@ -219,10 +220,11 @@ function Principal(){
     $(location).attr("href","starter.html");
 }
 
-function Enter(e){
+function Enter(e, obj){
   if(e.keyCode == 13) {
       Buscar();
   }
+  return Util.SoloNumero(e, obj.id);
 }
 
 function CiudadMunicipio(valor){

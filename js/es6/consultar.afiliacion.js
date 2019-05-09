@@ -182,34 +182,6 @@ function BancariosHTML() {
     return html;
 }
 
-function FamiliaresHTML() {
-    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblFamiliares" >
-    <thead class="familiares">
-      <tr>
-        <th>NRO.</th>
-        <th>CÉDULA</th>
-        <th>APELLIDOS Y NOMBRES</th>
-        <th>RELACIÓN</th>
-        <th>SITUACIÓN</th>
-        <th>FECHA</th>
-        <th>TIPO</th>
-        <th>MODIFICAR</th>
-        <th>NOMBRES</th>
-        <th>SEXO</th>
-        <th>APELLIDOS</th>
-        <th>CONDICION ESPECIAL</th>
-        <th>ESTUDIA</th>
-        <th>FECHA VCTO. CARNET</th>
-        <th style='width:40px'>ACTUALIZAR</th>
-        <th>FOTO</th>
-        <th>% PEN.</th>
-      </tr>
-    </thead >
-    <tbody>
-    </tbody>
-  </table>`;
-    return html;
-}
 
 function ConstanciaFamiliaresHTML() {
     var html = `<table class="table-fondo " cellspacing="0" width="100%" id="tblConstFamiliares" >
@@ -2111,8 +2083,7 @@ function ActivarPension(){
     $("#liEstatusPension").hide();
     $("#lblFechaResolucion").html("Fecha de Resolución");
     $("#divPensionSobreviviente").html('');
-    var t = $('#tblFamiliares').DataTable();
-    t.column(16).visible(false);
+    
     
 
     var situacion = $("#cmbsituacion option:selected").val();
@@ -2120,27 +2091,43 @@ function ActivarPension(){
         $("#lblFechaResolucion").html("F. Resolución de Retiro");
         $("#_divpension").show();
     }
-    if(situacion == "RCP"){
-        $("#_bxMedidaJudicial").show();
-        $("#_bxDescuentos").show();
-        var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
-        var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
-        $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
-        $("#liEstatusPension").show();
+    var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
+    var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
+    $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
+    switch (situacion) {
+        case "ACT":
+            $("#liEstatusPension").show();
+            break;
+        case "RCP":
+            $("#_bxMedidaJudicial").show();
+            $("#_bxDescuentos").show();
+            $("#liEstatusPension").show();
+            
+            break;
+        case "FCP":
+            var t = $('#tblFamiliares').DataTable();
+            t.column(16).visible(false);
+            if ( Util.VerificarDerechoACrecer(ObjMilitar.Familiar) != true ){
+                Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
+            }
+            $("#_bxDescuentos").show();
+            $("#tarjetaPensionSobreviviente").show();
+            $("#btnPensionSobreviviente").attr('disabled', false);
+            $("#txtPensionSobreviviente").attr('disabled', false);
+            $("#liEstatusPension").show();
+            $("#_btnPensionesAsignadas").hide();
+            break;
+        case "PG":
+            $("#liEstatusPension").show();
+            break;
+        case "I":
+            $("#liEstatusPension").show();
+            break;    
+        default:
+            $("#liEstatusPension").hide();
+            break;
     }
-    
-    if(situacion == "FCP"){
-        var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
-        var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
-        $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
-        if ( Util.VerificarDerechoACrecer(ObjMilitar.Familiar) != true ){
-            Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
-        }
-        $("#tarjetaPensionSobreviviente").show();
-        $("#btnPensionSobreviviente").attr('disabled', false);
-        $("#txtPensionSobreviviente").attr('disabled', false);
-        $("#liEstatusPension").show();
-    }
+
 }
 
 /**

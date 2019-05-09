@@ -15,6 +15,7 @@ function CargarFamiliaresModal(militar, t){
         var estadocivil = familiar.Persona.DatoBasico.estadocivil;
         var fnac = Util.ConvertirFechaHumana(DBF.fechanacimiento);
         var fvence = '';
+        var porcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
         if (v.Tif.fechavencimiento != undefined) {
             fvence = Util.ConvertirFechaHumana(v.Tif.fechavencimiento);
         }
@@ -30,11 +31,15 @@ function CargarFamiliaresModal(militar, t){
         if(v.situacionpago != "201" && v.situacionpago != "" ){
             mil += '<font color="#FF0000"><i class="fa fa-hand-stop-o"></i></font>&nbsp;'
         }else{
-            if ( militar.situacion == "FCP"){
-
-                modificar += '<button type="button" id="btnModCal' + j + '" \
-                class="btn btn-sm bg-maroon prvmodificar hide" onclick="ModificarCalPos(' + j + ')">\
-                <i class="fa fa-calculator"></i></button>';
+            if ( militar.situacion == "FCP" && porcentaje > 0 ){
+                
+                modificar += `<button type="button" id="btnModCal${j}"
+                class="btn btn-sm bg-maroon prvmodificar hide" onclick="ModificarCalPos('${j}')">
+                <i class="fa fa-calculator"></i></button>
+                <button type="button" id="btnModPension${j}"
+                class="btn btn-sm bg-olive prvmodificar hide" onclick="PensionAsignadaSobre('${j}')">
+                <i class="fa fa-print"></i></button>`;
+                
             }
         }
         modificar += "</div>";
@@ -66,17 +71,16 @@ function CargarFamiliaresModal(militar, t){
             if(militar.situacion == "FCP"){
                 strEdo = "M";
             }
-            $("#_contenidoFamiliares").append('<tr><td>' + nombreCompleto + '</td>\
-            <td class="alinear_tddatos">' + cedula + '</td>\
-            <td class="alinear_tddatos">' + familiar.GenerarParentesco(strEdo) + '</td>\
-            <td class="alinear_tddatos">' + fnac + '</td>\
-            <td class="alinear_tddatos">' + edocivil + '</td>\
-            <td class="alinear_tddatos">' + situacion + '</td>\
-            </tr>');
-            //<td class="alinear_tddatos">' + fechavencimiento + '</td>
+            $("#_contenidoFamiliares").append(`<tr><td>${nombreCompleto}</td>
+                <td class="alinear_tddatos">${cedula}</td>
+                <td class="alinear_tddatos">${familiar.GenerarParentesco(strEdo)}</td>
+                <td class="alinear_tddatos">${fnac}</td>
+                <td class="alinear_tddatos">${edocivil}</td>
+                <td class="alinear_tddatos">${situacion}</td>
+            </tr>`);
         }
-        var porcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
-        var txtporc = `${porcentaje} %<input id="prc-${cedula}" type="hidden" value="${porcentaje}"></input>`;
+        
+        //var txtporc = `${porcentaje} %<input id="prc-${cedula}" type="hidden" value="${porcentaje}"></input>`;
         total_porcentaje += parseFloat(porcentaje);
         t.row.add([
             j++, //0
@@ -287,4 +291,50 @@ function AplicarDerecho(){
 
 
 	
+}
+
+
+class WPensionadoSobrevive{
+    constructor(){}
+    Crear(req){
+        console.log(req);
+    }
+}
+
+function PensionAsignadaSobre(pos){
+    var id = ObjMilitar.Familiar[pos].Persona.DatoBasico.cedula;
+    
+    var wpensiones = new WPensionadoSobrevive();
+	var ruta =  Conn.URL + "pensionado/consultarsobreviviente/" + id;
+    CargarAPI(ruta, "GET", wpensiones, wpensiones);
+}
+
+
+function FamiliaresHTML() {
+    var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblFamiliares" >
+    <thead class="familiares">
+      <tr>
+        <th>#.</th>
+        <th>CÉDULA</th>
+        <th>APELLIDOS Y NOMBRES</th>
+        <th>RELACIÓN</th>
+        <th>SITUACIÓN</th>
+        <th>FECHA</th>
+        <th>TIPO</th>
+        <th>MODIFICAR</th>
+        <th>NOMBRES</th>
+        <th>SEXO</th>
+        <th>APELLIDOS</th>
+        <th>CONDICION ESPECIAL</th>
+        <th>ESTUDIA</th>
+        <th>FECHA VCTO. CARNET</th>
+        <th style='width:100px'>ACTUALIZAR</th>
+        <th>FOTO</th>
+        <th>% PEN.</th>
+      </tr>
+    </thead >
+    <tbody>
+    </tbody>
+  </table>`;
+    return html;
 }

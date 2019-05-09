@@ -26,6 +26,7 @@
 
   <link rel="stylesheet" href="../bower_components/bs-stepper/bs-stepper.min.css">
   <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/select.dataTables.min.css">
+  <link rel="stylesheet" href="../bower_components/datatables.net/buttons.dataTables.min.css">
 
   <script src="../bower_components/bs-stepper/bs-stepper.min.js"></script>
 
@@ -154,6 +155,9 @@
   <script src="../dist/js/adminlte.min.js"></script>
   <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
   <script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="../bower_components/datatables.net/js/dataTables.buttons.min.js"></script>
+  <script src="../bower_components/datatables.net/js/buttons.print.min.js"></script>
+
   <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <script src="../bower_components/datatables.net-bs/js/dataTables.select.min.js"></script>
 
@@ -168,6 +172,7 @@
   <script src="js/es6/medidajudicial.js"></script>
   <script src="js/es6/descuentos.js"></script>
   <script src="js/es6/finanza.js"></script>
+  <script src="js/es6/voucher.js"></script>
   <script src="../bower_components/barcode/dist/JsBarcode.all.js"></script>
   <!-- InputMask -->
   <script src="../plugins/input-mask/jquery.inputmask.js"></script>
@@ -510,36 +515,91 @@
 
 <!-- Modal para la elaboración de netos-->
 <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
-aria-labelledby="myLargeModalLabel" id="mdlNetos"
+  aria-labelledby="myLargeModalLabel" id="mdlNetos" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Pensiones asignadas</h4>
+      </div>
+      <div class="modal-body" id="_mdlnetos">
+        <!-- Modal netos -->
+        <div class="row" style="padding:20px">          
+          <div class="col-lg-12" id="_cmbNetos">
+              <center>CONSTANCIA DE PAGO</center>
+            <label>Seleccionar fecha de pago:</label>
+              <div class="input-group">
+                  <select class="js-states form-control"                                 
+                      style="width: 100%" required="" aria-hidden="true" id="cmbNetoPago" >
+                  </select>
+                  <span class="input-group-btn">
+                      <button id="btnSituacionPago" type="button" 
+                      class="btn btn-flat bg-purple" onclick="consultarNetoPago()">
+                          <i class="fa fa-search"></i>&nbsp;&nbsp;Consultar netos</button>
+                  </span>
+              </div>
+              
+          </div>
+          <div class="col-md-12" style="padding:20px"><br>
+            
+            <div class="row" id="_netosPrimas">
+              
+            </div><br>
+            <div class="row" id="_netosConceptos">
+              
+            </div>
+          </div>  
+        
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success" onclick="ImprimirNeto()">Imprimir</button>
+          <button type="button" class="btn" data-dismiss="modal" aria-label="Close">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  
+<!-- Modal para la elaboración deL Detalle de pago a finanzas-->
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" id="mdlDetallesDePago"
  aria-hidden="false">
   <div class="modal-dialog modal-lg" role="document">
 
-  <!-- Modal content-->
-  <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
-    <div class="modal-header" style="background-color:#337ab7;color:white;">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-      </button>
-      <h4 class="modal-title">Pensiones asignadas</h4>
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Detalles del pago</h4>
 
-    </div>
-    <div class="modal-body" id="_mdlnetos">
-      <!-- Modal netos -->
-      <div class="row" style="padding:20px">
-         
-        <div class="col-md-12 col-sm-12">
-          <div class="row" id="_netosPrimas">
-
-          </div>
-          <div class="row" id="_netosConceptos">
-                      
-          </div>
-        </div>  
       </div>
-    </div>
+      <div class="modal-body" >
+        <!-- Modal netos -->
+        <div class="row" style="padding:20px">
+          
+          <div class="col-md-12 col-sm-12">
+            <div class="row" id="_tbldtpagos">
 
+            </div>                     
+            </div>
+          </div>  
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
-</div>
+  </div>
 
 
 

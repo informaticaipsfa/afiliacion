@@ -168,7 +168,7 @@
          <li role="presentation"><a href="#mdireccion" aria-controls="direccion" role="tab" data-toggle="tab">Dirección</a></li>
          <li role="presentation"><a href="#mpartida" aria-controls="partida" role="tab" data-toggle="tab" style="display: none">Part. Nacimiento</a></li>
          <li role="presentation"><a href="#mdfisico" aria-controls="fisico" role="tab" data-toggle="tab">Datos Fisicos</a></li>
-         <li role="presentation"><a href="#mdsueldo" aria-controls="sueldo" role="tab" data-toggle="tab">Sueldo</a></li>
+         <li role="presentation" style="display:none"><a href="#mdsueldo" aria-controls="sueldo" role="tab" data-toggle="tab">Sueldo</a></li>
          <li role="presentation"><a href="#mdcarnet" aria-controls="carnet" role="tab" data-toggle="tab">TIM</a></li>
          <li role="presentation"><a href="#mddocu" aria-controls="documento" role="tab" data-toggle="tab">Documentos</a></li>
 
@@ -272,18 +272,10 @@
                 <select class="js-states form-control" style="width: 100%"  aria-hidden="true"
                 id="cmbtipopension" disabled="disabled">
                   <option selected="selected" value="S"></option>
-                  <!-- <option value="1">PENSION DE RESERVA ACTIVA</option>
-                  <option value="2">PENSION DE SOBREVIVIENTE</option>
-                  <option value="3">PENSION POR INVALIDEZ</option>
-                  <option value="4">PENSION POR INVALIDEZ PARCIAL Y PERMANENTE</option>
-                  <option value="5">PENSION POR INVALIDEZ TOTAL Y PERMANENTE</option>
-                  <option value="99">OTRAS PENSIONES POR INVALIDEZ </option> -->
-
                   <option value="AIA">Aspirante Invalida antes LOSSFA</option>
                   <option value="APM">Ascenso Post-Mortem</option>
                   <option value="CAMBIOG">Cambio de Grado</option>
                   <option value="CDD">Condena por Delitos de Droga</option>
-                  <option value="CGR">Cambio de Grado</option>
                   <option value="CPD">Condena Judicial por Deserción</option>
                   <option value="CPE">Condena Judicial por Espionaje</option>
                   <option value="CTP">Condena por Traición a la Patria</option>
@@ -294,18 +286,18 @@
                   <option value="FDE">Falta de Empleo (Invalidez Tropa)</option>
                   <option value="FFS">Fallecimiento Afiliado Fuera de Servicio</option>
                   <option value="GEM">Graduación Escuela Militar</option>
-                  <option value="IAS100">Invalidez Total y Perm. Acto Servicio 100%(LOSSFA28dic89)</option>
-                  <option value="IPA">Invalidez Parc. y Perm. Actos Servicio 80%(LOSSFA28dic89)</option>
-                  <option value="IPF60">Invalidez Parc. y Perm. Fuera de Servicio 60 %(LOFAN28dic89)</option>
+                  <option value="IAS100">Invalidez Total y Perm. Acto Servicio 100%(LOSSFA28DIC89)</option>
+                  <option value="IPA">Invalidez Parc. y Perm. Actos Servicio 80%(LOSSFA28DIC89)</option>
+                  <option value="IPF60">Invalidez Parc. y Perm. Fuera de Servicio 60 %(LOFAN28DIC89)</option>
                   <option value="IPT60">Invalidez Parcial y Permanente (Tropa Alistada 60%)</option>
                   <option value="IPT80">Invalidez Total y Permanente (Tropa Alistada 80%)</option>
-                  <option value="ITA80">Invalidez Parc. y Temp. En Acto Servicio 80 % (LOFAN 21Nov58)</option>
-                  <option value="ITF60">Invalidez Total Fuera de Servicio 60 % (LOFAN 21nov58)</option>
-                  <option value="ITP100">Invalidez Total y Permanente 100 % (LSSFAN 11ago93)</option>
-                  <option value="ITP75">Invalidez Parcial y Permanente 75 % (LSSFAN 11ago93)</option>
-                  <option value="ITS80">Invalidez Total y Perm. Fuera Servicio 80%(LOSSFA28dic89)</option>
-                  <option value="ITT100">Invalidez Total y Perm. Acto Servicio 100%(LOFAN21Nov58)</option>
-                  <option value="ITT80">Invalidez Total y Temp. Fuera de Servicio 80%(LOFAN21Nov58)</option>
+                  <option value="ITA80">Invalidez Parc. y Temp. En Acto Servicio 80 % (LOFAN 21NOV58)</option>
+                  <option value="ITF60">Invalidez Total Fuera de Servicio 60 % (LOFAN 21NOV58)</option>
+                  <option value="ITP100">Invalidez Total y Permanente 100 % (LSSFAN 11AGO93)</option>
+                  <option value="ITP75">Invalidez Parcial y Permanente 75 % (LSSFAN 11AGO93)</option>
+                  <option value="ITS80">Invalidez Total y Perm. Fuera Servicio 80%(LOSSFA28DIC89)</option>
+                  <option value="ITT100">Invalidez Total y Perm. Acto Servicio 100%(LOFAN21NOV58)</option>
+                  <option value="ITT80">Invalidez Total y Temp. Fuera de Servicio 80%(LOFAN21NOV58)</option>
                   <option value="LDR">Límite Disponibilidad Reincorporación</option>
                   <option value="LEG">Límite de Edad</option>
                   <option value="LSM">Licencia Superior 6 meses</option>
@@ -384,6 +376,7 @@
                     aria-hidden="true" disabled="disabled" required id="cmbminstfinanciera"
                     onchange="SeleccionarCuenta()">
                       <option selected="selected" value="S"></option>
+                      <option value="0000">BANCO VENEZUELA - CHEQUES</option>
                       <option value="0156">100%BANCO</option>
                       <option value="0196">ABN AMRO BANK</option>
                       <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
@@ -426,8 +419,9 @@
                   <label >Tipo de Cuenta:</label>
                   <select class="js-states form-control" style="width: 100%" disabled="disabled" required aria-hidden="true" id="cmbmtipofinanciera" >
                     <option selected="selected" value="S"></option>
-                   <option value="CA" selected="selected">AHORRO</option>
-                   <option value="CC">CORRIENTE</option>
+                    <option value="CH" selected="selected">CHEQUE</option>
+                    <option value="CA" selected="selected">AHORRO</option>
+                    <option value="CC">CORRIENTE</option>
                   </select>
                 </div>
                 <div class="col-md-6 col-sm-12" id="_txtmnrocuenta">
@@ -636,7 +630,7 @@
 
          </div><!-- Tab panes Datos Fisicos-->
 
-         <div role="tabpanel" class="tab-pane" id="mdsueldo"  style="padding:15px">
+         <div role="tabpanel" class="tab-pane" id="mdsueldo"  style="padding:15px;" >
          <div class="row" id="divSueldo">
              <div class="col-md-4 col-sm-6">
                <label>Sueldo Base</label>

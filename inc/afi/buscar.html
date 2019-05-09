@@ -9,7 +9,9 @@
           <div class="col-lg-5 col-centered col-md-5 col-xs-8">
 
           <div class="input-group input-group-lg">
-            <input class="form-control" type="text" placeholder="" id="_cedula" onkeypress="Enter(event);" maxlength="10">
+            <input class="form-control" type="text" placeholder="" id="_cedula" 
+                   onkeypress="return Enter(event, this);" 
+                   maxlength="10">
             <div class="input-group-btn">
               <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" onclick="Buscar()">
                 <span class="fa fa-search"></span></button>

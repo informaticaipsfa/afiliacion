@@ -37,11 +37,19 @@
             </div>
             <!-- end loading -->
             <div class="modal-footer">    
-                <button type="button" id="btnPreparar" class="btn btn-md btn-danger pull-left" id="btnRechazar" onclick="reMetodo()">
+                <button type="button" id="btnRechazar" class="btn btn-md btn-danger pull-left"  onclick="reMetodo()">
                     <i class="fa fa-random"></i>
                     &nbsp;&nbsp;Rechazar nóminas</button>        
-                
-                <button type="button" id="btnPreparar" class="btn btn-md btn-success" id="btnAprobar" onclick="GenerarTxt()">
+                <button type="button" id="btnImprimir" 
+                    class="btn btn-md btn-primary" 
+                    style="display:none"
+                     onclick="ImprimirCuadreDosP()">
+                    <i class="fa fa-print"></i>
+                    &nbsp;&nbsp;Imprimir Metodo Banco</button>
+                <button type="button" id="btnPreparar" 
+                class="btn btn-md btn-success"  
+                style="display:none"
+                onclick="GenerarTxt()">
                     <i class="fa fa-credit-card"></i>
                     &nbsp;&nbsp;Generar Metodo Banco</button>
                     

@@ -794,14 +794,7 @@ class Militar{
 			}
 
 			$("#_tblBancos").html(BancariosHTML());
-			var thbanco = $('#tblBanco').DataTable({
-					'paging': false,
-					'lengthChange': false,
-					'searching': false,
-					'ordering': false,
-					'info': false,
-					'autoWidth': false
-			});
+			var thbanco = $('#tblBanco').DataTable(tablaBasica);
 			if (militar.Persona.DatoFinanciero != undefined) {
 
 					var DF = militar.Persona.DatoFinanciero[0];
@@ -1287,6 +1280,7 @@ class PACE {
 			// console.log("Cargando la clase de Aprobacion...");
     }
     Crear(Json) {
+		
 		$("#sueldo_base").val(Json.sueldo_base_aux);
 		$("#sueldo_global").val(Json.sueldo_global_aux);
 		$("#sueldo_integral").val(Json.sueldo_integral_aux);
@@ -1303,33 +1297,27 @@ class PACE {
 }
 
 
+let lstNeto = [];
+
 class WPensiones{
 	constructor(){
 
 	}
 	
 	Crear(req){
+		var i = 0;
+		$("#cmbNetoPago").html('<option value="X">SELECCIONAR UN PAGO</option>');
 		$("#_netosConceptos").html(ConceptosNetosHTML());
 		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
-		req.forEach(neto => {
-			$("#mdlNetos").modal("show");
-			var obj = JSON.parse(neto.calculos).conceptos;
-			for(var i=0; i< obj.length; i++){
-				var monto = obj[i].mont;
-				var tipo = obj[i].tipo;
-				var des = obj[i].desc.replace("_", " ").toUpperCase();
-				if(tipo == 97){
-					$("#_netosPrimas").append(`<div class="col-md-3">${des}<br>${monto}</div>`);	
-				}else{
-					if(tipo == 1){ //Asignacion
-						tblC.row.add([des, monto,'']).draw(false);
-					}else{ //Deduccion
-						tblC.row.add([des,'', monto]).draw(false);
-					}
-				}
-			}		
-			
-		});
+		req.forEach(pago => {
+			$("#mdlNetos").modal("show");			
+			var obj = JSON.parse(pago.calculos).conceptos;
+			lstNeto.push(obj);
+			var neto = Intl.NumberFormat("de-DE").format(Number(parseFloat(pago.neto).toFixed(2)))
+			$("#cmbNetoPago").append(`<option value="${i}">${pago.nomina} - ${pago.mes} DEL ${pago.hasta.substr(0,4) } | ( ${pago.hasta} | ${neto} )</option> `)
+			i++;
+		});		
+
 	}
 }
 function PensionesAsignadas(){
@@ -1338,6 +1326,27 @@ function PensionesAsignadas(){
     CargarAPI(ruta, "GET", wpensiones, wpensiones);
 }
 
+function consultarNetoPago(){
+	var pos = $("#cmbNetoPago option:selected").val();
+	$("#_netosConceptos").html(ConceptosNetosHTML());
+	var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
+	$("#_netosPrimas").html('');
+	var obj = lstNeto[pos];
+	for(var i=0; i< obj.length; i++){
+		var monto = obj[i].mont;
+		var tipo = obj[i].tipo;
+		var des = obj[i].desc.replace("_", " ").toUpperCase();
+		if(tipo == 97){
+			$("#_netosPrimas").append(`<div class="col-md-4">${des}<br>${monto}</div>`);	
+		}else{
+			if(tipo == 1){ //Asignacion
+				tblC.row.add([des, monto,'']).draw(false);
+			}else{ //Deduccion
+				tblC.row.add([des,'', monto]).draw(false);
+			}
+		}
+	}
+}
 
 
 

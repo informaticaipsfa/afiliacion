@@ -28,26 +28,138 @@ function ListarMetodoBanco(){
     CargarAPI(ruta, "GET", lst, lst);
 }
 
+const formatter = new Intl.NumberFormat('en-NZ', {
+    style: 'currency',
+    currency: 'NZD',
+    minimumFractionDigits: 2,
+  });
+
 class WCuadreBanco{
     constructor(){}
     Crear(req){
         $("#_tblMetodo").html(CuadreBancoHTML());
-        var tM = $('#tblMetodo').DataTable(tablaBasica);
+        var tM = $('#tblMetodo').DataTable({
+            'destroy': false,
+            'paging': false,
+            'lengthChange': false,
+            'searching': false,
+            'autoPrint': true,
+            'ordering': false,
+            'info': false,
+            'autoWidth': false,
+            'buttons': [
+                'copy', 'excel', 'pdf'
+            ]
+        });
         tM.clear().draw(); 
-        var i = 0;       
-        req.forEach(e => {
+
+       
+        var i = 0;
+        var chtotal = 0;
+        var chcanti = 0;
+        var ahtotal = 0;
+        var ahcanti = 0;
+        var cototal = 0;
+        var cocanti = 0;
+        var totalneto = 0;  
+        var totalcant = 0;  
+        var llave = $("#cmbSolicitud").val();
+        $.each(req, function(c, v){
             i++;
+            var chequecant = 0;
+            var chequeneto = 0;
+            var ahorroneto = 0;
+            var ahorrocant = 0;
+            var corrienteneto = 0;
+            var corrientecant = 0;
+            var cantidad  = 0;
+            var neto = 0;
+            var nombre = v[0].nomb!=undefined?v[0].nomb:'CHEQUE';
+            var obj = obtenerPosicion(v,c);
+            if(c == "0000"){
+                chequeneto = obj.cheque.neto!=undefined?obj.cheque.neto:0;
+                chequecant = obj.cheque.cant!=undefined?obj.cheque.cant:0;
+                neto = parseFloat(chequeneto);
+            }else{
+                ahorroneto = obj.ahorro.neto!=undefined?obj.ahorro.neto:0;
+                ahorrocant = obj.ahorro.cant!=undefined?obj.ahorro.cant:0;
+                corrienteneto = obj.corriente.neto!=undefined?obj.corriente.neto:0;
+                corrientecant = obj.corriente.cant!=undefined?obj.corriente.cant:0;
+                cantidad  = ahorrocant + corrientecant;
+                neto = parseFloat(ahorroneto) + parseFloat(corrienteneto);
+            }
+            cantidad = parseInt(chequecant) + parseInt(ahorrocant) + parseInt(corrientecant);
+            chtotal += parseFloat(chequeneto);
+            chcanti += parseInt(chequecant); //
+            ahtotal += parseFloat(ahorroneto); //
+            ahcanti += parseInt(ahorrocant);
+            cototal += parseFloat(corrienteneto);
+            cocanti += parseInt(corrientecant); //
+            totalcant += cantidad;
+            totalneto += neto; //
+
             tM.row.add([
                 i,
-                e.banc,
-                e.nomb,
-                e.cant,
-                numeral(parseFloat(e.neto)).format('0,0.00')
-            ]).draw(false);           
+                c,
+                nombre,
+                `<a href="#!" onClick="listarDetallesPago('${llave}','${c}','CH')">${chequecant}</a>`,
+                Intl.NumberFormat("de-DE").format(Number(chequeneto.toFixed(2))),
+                `<a href="#!" onClick="listarDetallesPago('${llave}','${c}','CA')">${ahorrocant}</a>`,
+                Intl.NumberFormat("de-DE").format(Number(parseFloat(ahorroneto).toFixed(2))),
+                `<a href="#!" onClick="listarDetallesPago('${llave}','${c}','CC')">${corrientecant}</a>`,
+                Intl.NumberFormat("de-DE").format(Number(parseFloat(corrienteneto).toFixed(2))),
+                cantidad,
+                Intl.NumberFormat("de-DE").format(Number(parseFloat(neto).toFixed(2)))        //numeral(parseFloat(e.neto)).format('0,0.00')
+            ]).draw(false);
         });
+        tM.row.add([
+            '',
+            '',
+            '',
+            chcanti,
+            Intl.NumberFormat("de-DE").format(Number(parseFloat(chtotal).toFixed(2))),
+            ahcanti,
+            Intl.NumberFormat("de-DE").format(Number(parseFloat(ahtotal).toFixed(2))),
+            cocanti,
+            Intl.NumberFormat("de-DE").format(Number(parseFloat(cototal).toFixed(2))),
+            totalcant,
+            Intl.NumberFormat("de-DE").format(Number(parseFloat(totalneto).toFixed(2)))         //numeral(parseFloat(e.neto)).format('0,0.00')
+        ]).draw(false);
+        $("#btnImprimir").show();
+        $("#btnPreparar").show();
     }
     
 }
+
+function obtenerPosicion(v, codigo){
+    var cant = v.length;    
+    var CA = {};
+    var CC = {}; 
+    var CH = {}; 
+    var neto = 0.00;
+    var cantidad = 0;
+    for(var i=0; i < cant; i++){        
+        if(codigo == "0000") {
+            neto += parseFloat(v[i].neto);
+            cantidad += parseInt(v[i].cant);
+            CH =  { neto : neto, cant : cantidad };
+        }else{
+            if(v[i].tipo == "CA"){
+                CA = { neto : v[i].neto, cant : v[i].cant};
+            }else if(v[i].tipo == "CC"){
+                CC = { neto : v[i].neto, cant : v[i].cant};
+            }else{
+    
+            }
+        }
+    }
+    return { 
+        ahorro: CA, 
+        corriente: CC, 
+        cheque : CH 
+    };
+}
+
 function cuadreBanco(){
     var lst = new WCuadreBanco();
     if($("#cmbSolicitud").val() == "0"){
@@ -67,7 +179,6 @@ class WListarPendientes{
             'searching': false,
             'ordering': false,
             'info': false,
-            //'autoWidth'   : false
             'autoWidth': false
         });
         tM.clear().draw();
@@ -123,6 +234,9 @@ function ResumenHTML(){
         </thead>
         <tbody>
         </tbody>
+        <tfoot>
+        
+        </tfoot>
         </table>`;
     return html;
  }
@@ -136,15 +250,31 @@ function CuadreBancoHTML(){
     var html = `<table class="ui celled table" cellspacing="0" width="100%" id="tblMetodo" >
         <thead>
         <tr>
+            <th colspan=3>DATOS DEL BANCO</th>
+            <th colspan=2>CHEQUES</th>
+            <th colspan=2>CUENTAS DE AHORRO</th>
+            <th colspan=2>CUENTAS CORRIENTES</th>
+            <th colspan=2>TOTAL POR BANCO</th>
+        </tr>
+        <tr>
             <th>#</th>
             <th>CODIGO</th>
             <th>DESCRIPCIÓN DEL BANCO</th>
-            <th>CANTIDAD</th>
+            <th>NUM</th>
+            <th>MONTO </th>
+            <th>NUM</th>
+            <th>MONTO </th>
+            <th>NUM</th>
+            <th>MONTO </th>
+            <th>NUM</th>
             <th>MONTO </th>
         </tr>
         </thead>
         <tbody>
         </tbody>
+        <tfoot>
+            
+        </tfoot>
         </table>`;
     return html;
  }
@@ -185,7 +315,7 @@ class WMetodoBanco{
             </div>
         </div>`);
         $("#divResultFooter").html(`<button type="button" id="btnPreparar" 
-        class="btn btn-md btn-success pull-rigth" onclick="downloadP('temp/banco/${$("#cmbSolicitud").val()}.zip')">
+        class="btn btn-md btn-success pull-rigth" onclick="downloadP('/sssifanb/pensiones/temp/banco/${$("#cmbSolicitud").val()}.zip')">
         Descargar archivo</button>`);
     }
 }
@@ -201,6 +331,103 @@ function pagarMetodo(){
     $("#mdlPrepararMetodo").modal("hide");
     waitingDialog.show('Generando archivos bancarios, por favor espere...');
 
-    var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/300";
+    var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/" + $("#cantidadtxt").val() ;
     CargarAPI(ruta, "GET", lst, lst);
  }
+
+class WLstPago{
+    constructor(){
+        this.llave = '';
+        this.codigo = '';
+        this.tipo = '';
+    }
+    Crear(req){
+        $("#_cargandop").show()
+        $("#_tbldtpagos").html(DetallePagoHTML());
+        var tM = $('#tbldtPago').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': false,
+            'info': false,
+            'autoWidth': false
+        });
+        tM.clear().draw();
+        
+
+        req.forEach(e => {
+            tM.row.add([
+                e.cedu,
+                e.nombre,
+                e.nume,
+                Intl.NumberFormat("de-DE").format(e.neto)
+            ]).draw(false);           
+        });
+        $("#_cargandop").hide();
+        $("#mdlDetallesDePago").modal("show");
+    }
+}
+function listarDetallesPago(llave, codigo, tipo){
+    var lst = new WLstPago();
+    lst.llave = llave;
+    lst.codigo = codigo;
+    lst.tipo = tipo;
+    var ruta =  Conn.URL + "nomina/listarpagosdetalles";
+    CargarAPI(ruta, "POST", lst, lst);
+}
+
+function DetallePagoHTML(){
+    var html = `<table class="ui celled table" cellspacing="0" width="100%" id="tbldtPago" >
+        <thead>
+        <tr>
+            <th>CEDULA</th>
+            <th>NOMBRE</th>
+            <th>CUENTA</th>            
+            <th>NETO A PAGAR</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>        
+        </tfoot>
+        </table>`;
+    return html;
+}
+
+// @page {
+//         margin: 0cm;
+//         size: 8.5cm 5.4cm;
+//     }
+//     section {
+//         page-break-before: always;
+//     }
+function ImprimirCuadreDosP() {
+    var html = $("#_tblMetodo").html();
+    var ventana = window.open("", "_blank");
+
+    var contenido = `<BR><CENTER>
+        RELACION DE PAGOS Y DEPOSITOS POR ENTIDADES BANCARIAS<BR>
+    </CENTER><BR>`;
+    var doc = contenido + html;
+    ventana.document.write(doc);
+    ventana.document.head.innerHTML = `
+    <style>
+    @charset "utf-8";    
+      body {
+        margin: 0px;
+        font-family: Calibri;
+        font-weight: bold;
+      }
+      table th, tr, td{
+        font-family: Calibri;
+        font-size: 11px;
+        border: 1px solid #CCC9C8;
+      }
+      thead {
+          background-color: #F2EEED;
+      }
+      
+    </style>`;
+    ventana.print();
+    ventana.close();
+}
