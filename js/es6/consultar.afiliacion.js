@@ -2094,15 +2094,22 @@ function ActivarPension(){
     var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
     var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
     $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
+    
+
+    
     switch (situacion) {
         case "ACT":
-            $("#liEstatusPension").show();
+            $("#_btnPensionesAsignadas").hide();
+            $("#btnCalculos").hide();
+            $("#btnActualizarSobreviviente").hide();
+            $("#btnDerechoACrecer").hide();
+            $("#liEstatusPension").hide();
             break;
         case "RCP":
             $("#_bxMedidaJudicial").show();
             $("#_bxDescuentos").show();
-            $("#liEstatusPension").show();
-            
+            $("#_btnPensionesAsignadas").show();
+            $("#liEstatusPension").show();                     
             break;
         case "FCP":
             var t = $('#tblFamiliares').DataTable();
@@ -2115,7 +2122,7 @@ function ActivarPension(){
             $("#btnPensionSobreviviente").attr('disabled', false);
             $("#txtPensionSobreviviente").attr('disabled', false);
             $("#liEstatusPension").show();
-            $("#_btnPensionesAsignadas").hide();
+            
             break;
         case "PG":
             $("#liEstatusPension").show();
@@ -2124,7 +2131,7 @@ function ActivarPension(){
             $("#liEstatusPension").show();
             break;    
         default:
-            $("#liEstatusPension").hide();
+            
             break;
     }
 
