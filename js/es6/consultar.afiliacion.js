@@ -98,8 +98,8 @@ function Actualizar() {
         var cant = document.getElementById("archivo").files.length;
         var militar = new Militar();
         if (cant > 0){
-          console.log("entrando...");
-          EnviarArchivos();
+          
+          EnviarArchivosIMG();
           militar.Persona.foto = "foto.jpg";
         }
         if(ObjMilitar.Persona.foto != undefined){
@@ -2492,7 +2492,7 @@ class ArchivoFamiliar{
 /**
  * Enviando Archivos
  */
-function EnviarArchivos() {
+function EnviarArchivosIMG() {
     if ($("#archivo").val() == "") {
         //$.notify("Debe seleccionar un archivo", {position: "top"});
         return false;
@@ -2503,7 +2503,7 @@ function EnviarArchivos() {
 
 
     var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivos";
-    console.log(strUrl);
+
     $.ajax({
         url: strUrl,
         type: "post",
