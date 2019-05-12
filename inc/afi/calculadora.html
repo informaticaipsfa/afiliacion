@@ -43,8 +43,8 @@
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <label>Tiempo de Servicio:</label>
-                        <input  id="txtServicio" class="form-control"  type="text" disabled="disabled"
-                        required onkeypress="return Util.SoloNumero(event,this)">
+                        <input  id="txtServicioT" class="form-control"  type="text" disabled="disabled">
+                        <input  id="txtServicio" class="form-control"  type="hidden" >
                     </div>
                 </div> <!-- Grupo nombres-->
                 
@@ -57,10 +57,17 @@
                         <input  id="txtFUAscenso" class="form-control"  type="text" disabled="disabled"
                         required tabindex="2" onkeypress="return Util.SoloNumero(event,this)">
                     </div>
-                    <div class="col-md-4 col-sm-12">
-                        <label>Antiguedad en el Grado:</label>
-                        <input  id="txtAntiguedad" class="form-control"  type="text" disabled="disabled"
-                        required tabindex="3" onkeypress="return Util.SoloNumero(event,this)">
+                    <div class="col-md-2 col-sm-12">
+                            <label>Grado:</label>
+                            <input  id="txtGradoT" class="form-control"  type="text" disabled="disabled">
+                            <input  id="txtGrado" class="form-control"  type="hidden" >
+                            <input  id="txtComponente" class="form-control"  type="hidden" >
+                            
+                        </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label>Antiguedad:</label>
+                        <input  id="txtAntiguedad" class="form-control"  type="text" disabled="disabled">
+                        
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <label>% Pension:</label>
