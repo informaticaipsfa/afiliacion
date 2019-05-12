@@ -249,13 +249,17 @@ function dibujarTabla(tblP, fnx, concepto) {
     for (const prop in fnx){  
         var partida =  fnx[prop].part == undefined? '':  fnx[prop].part;        
         var abv =  fnx[prop].abv == undefined? 'DIRECTIVA PRIMAS':  fnx[prop].abv;        
-        tblP.row.add([
-            '',
-            fnx[prop].rs,
-            abv,
-            partida,
-            concepto
-        ]).draw(false);
+        if( concepto == 'DIR-LEY'  ){            
+            if( fnx[prop].tipo != 0 ){
+                tblP.row.add( [ '', fnx[prop].rs, abv, partida, 'DIR-CONC'] ).draw(false);
+            }else{
+                tblP.row.add( [ '', fnx[prop].rs, abv, partida, concepto] ).draw(false);
+            }
+
+        }else {
+            tblP.row.add( [ '', fnx[prop].rs, abv, partida, concepto ] ).draw(false);
+        }
+    
     }; 
 }
 

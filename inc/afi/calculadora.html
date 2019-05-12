@@ -1,0 +1,155 @@
+<div class="col-md-12 col-lg-12" id="_calculadora">
+    <div class="box box-primary ">
+        <div class="box-header with-border">
+            <i class="fa fa-bullhorn"></i>
+            <h3 class="box-title">Base de la Calculadora</h3>
+        </div>
+        <div class="box-body" >
+
+          <div id="_tblCalculadora" class="col-md-9">
+            <div class="row" >
+               
+                <div class="form-group">
+                    <div class="col-md-4">
+                    <label>Cédula:</label>
+                        <div class="input-group">                
+                        <input class="form-control" id="txtcedula"  type="text" maxlength="8" >
+                        
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-success btn-flat"
+                            onClick="BuscarCalculos()"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                        </div>
+                    </div> <!-- Cedula -->
+                    <div class="col-md-8 col-sm-12">
+                        <label>Nombre Completo:</label>
+                        <input  id="txtNombre" class="form-control"  type="text" disabled="disabled" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+
+                <div class="form-group">
+                    <div class="col-md-4 col-sm-12">
+                        <label>F. Ingreso a la Fanb:</label>
+                        <input  id="txtFIngreso" class="form-control"  type="text" disabled="disabled"
+                        required tabindex="2" onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>F. Retiro:</label>
+                        <input  id="txtFRetiro" class="form-control"  type="text" disabled="disabled"
+                        required tabindex="3" onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>Tiempo de Servicio:</label>
+                        <input  id="txtServicio" class="form-control"  type="text" disabled="disabled"
+                        required onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                </div> <!-- Grupo nombres-->
+                
+            </div> <!-- Fechas de la base -->
+
+            <div class="row" >
+                <div class="form-group">
+                    <div class="col-md-4 col-sm-12">
+                        <label>F. Ult. Ascenso:</label>
+                        <input  id="txtFUAscenso" class="form-control"  type="text" disabled="disabled"
+                        required tabindex="2" onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>Antiguedad en el Grado:</label>
+                        <input  id="txtAntiguedad" class="form-control"  type="text" disabled="disabled"
+                        required tabindex="3" onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>% Pension:</label>
+                        <input  id="txtPension" class="form-control"  type="text" disabled="disabled"
+                        required onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                </div> <!-- Grupo nombres -->                
+            </div>
+
+            <div class="row" >
+                <div class="form-group">
+                    <div class="col-md-4 col-sm-12">
+                        <label>Núm. Hijos:</label>
+                        <input  id="txtNumHijos" class="form-control"  type="text" disabled="disabled"
+                        required tabindex="2" onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>F. Inicio Calc.:</label>
+                        <input  id="txtInicioCalc" class="form-control"  type="text" disabled="disabled"
+                        required tabindex="3" onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label>F. Fin Calc.:</label>
+                        <input  id="txtFinCalc" class="form-control"  type="text" disabled="disabled"
+                        required onkeypress="return Util.SoloNumero(event,this)">
+                    </div>
+                </div> <!-- Grupo nombres -->                
+            </div>
+
+
+          </div><!-- Fin de Cuento -->    
+          <div > <!-- Inicio de la Foto -->
+            <a href="images/ndisponible.jpg" data-fancybox="group1" data-caption="foto" id="minifoto">
+                <img style="width: 180px;" class="profile-user-img img-responsive file-path-wrapper-pre-view" id="_img"
+                     src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"/><span></span>
+            </a>
+          </div>
+        </div><!-- /.box-body -->
+
+        <!-- Loading (remove the following to stop the loading)-->
+        <div class="overlay" id="_cargando" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <!-- end loading -->
+        <div class="modal-footer">                      
+          <button type="button" id="btnPreparar" class="btn btn-md bg-maroon pull-left " onclick="ejecutarCalculadora()">
+                <i class="fa fa-calculator"></i>&nbsp;&nbsp;Realizar Cálculos
+            
+            </button>                              
+        </div>
+    </div><!-- /.box -->
+</div>
+
+
+<div class="col-md-12 col-lg-12" id="_dtcalculadora">
+        <div class="box box-primary ">
+            <div class="box-header with-border">
+                <i class="fa fa-bullhorn"></i>
+                <h3 class="box-title">Detalle de la Calculadora</h3>
+            </div>
+            <div class="box-body" >
+                    <table class="ui celled table" cellspacing="0" width="100%" id="tblCalculadora" >
+                        <thead>
+                            <tr >
+                                <th class="alinear_td">DESCRIPCION DE MES </th>
+                                <th class="alinear_tddatos">ASIGNACION</th>
+                                <th class="alinear_tddatos">FCIS. 6.5%</th>
+                                <th class="alinear_tddatos">PENSION</th>
+                                <th class="alinear_tddatos">TOTAL BONOS</th>
+                                <th class="alinear_tddatos">RETRIBUCION</th>
+                                <th class="alinear_tddatos">NETO</th>
+                            </tr>
+                        </thead >
+                        <tbody>
+                        </tbody>
+                    </table>
+  
+            </div><!-- /.box-body -->
+
+        <!-- Loading (remove the following to stop the loading)-->
+        <div class="overlay" id="_cargando" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <!-- end loading -->
+        <div class="modal-footer">                      
+            <button type="button" id="btnPreparar" class="btn btn-md btn-success pull-right " onclick="imprimirCalculos()">
+                <i class="fa fa-calculator"></i>&nbsp;&nbsp;Imprimir Cálculos
+            
+            </button>                              
+        </div>
+    </div><!-- /.box -->
+</div>

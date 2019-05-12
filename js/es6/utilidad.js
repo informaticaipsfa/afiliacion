@@ -315,7 +315,7 @@ class Utilidad {
     }
 
     AsignarPorcentajePension(ingreso, tiempo){
-        if(ingreso < 2010){
+        if(ingreso < 2010){            
             return CasoMenor2010(tiempo);
         }else{
             return ReglaPorcentajeMayor2010(tiempo);
@@ -563,7 +563,6 @@ function CasoMenor2010(t){
             if (t > 25) v = 100;
             break;
     }
-
     return v;
 }
 

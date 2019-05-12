@@ -193,6 +193,7 @@ $(function () {
   CargarUrl("_bxMedidaJudicial", "afi/medidajudicial");
   CargarUrl("_stepper", "afi/medidajudicialfrm");
   CargarUrl("_bxDescuentos", "afi/descuentos");
+  
   CargarUrl("_decuentos", "afi/descuentosfrm");
 
   CargarUrl("_bxDatosFamiliar", "afi/familiar");
@@ -422,5 +423,12 @@ function PrepararNomina(){
   CargarUrl("_stepper", "afi/nominafrm");
   $("#ModuloTitulo").html("Nómina");
   ContarPensionados();
+  
+}
+
+function PrepararCalculadora(){
+  CargarUrl("_cuerpo", "afi/calculadora"); 
+  $("#ModuloTitulo").html("Calculadora");
+  
   
 }
