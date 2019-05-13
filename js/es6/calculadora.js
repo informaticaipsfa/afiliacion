@@ -178,7 +178,7 @@ class WCalc{
            tneto += parseFloat(parseFloat(neto).toFixed(2));
                         
             tblP.row.add([
-                detalle,
+                detalle.toUpperCase(),
                 parseFloat(parseFloat(asignacion).toFixed(2)),
                 parseFloat(parseFloat(fcis).toFixed(2)),
                 parseFloat(parseFloat(total).toFixed(2)),
@@ -274,5 +274,89 @@ function antiguedadGrado(fecha, fecha_retiro){
 
     //console.log(arr);
     return arr;
+
+}
+
+
+function imprimirCalculos(){
+    var tabla = $("#_tblCalculadoraHMTL").html();
+    var ventana = window.open("", "_blank");
+    // style="background: url('../images/fondo.png') no-repeat center;"
+    var grado = $("#txtGradoT").val();
+    var nombre = $("#txtNombre").val();
+    var cedula = $("#txtcedula").val();
+    ventana.document.write(`<center>
+    <div>
+        <table style="width:800px" class="membrete">
+            <tr>
+                <td width="200px" valign="top"><center><img  style="width: 100px;height: 100px; margin-left: 0px" 
+                class="img-responsive file-path-wrapper-pre-view" src="images/logo_ipsfa.png" id="_imgescudo"/></center>
+                </td>
+                <td width="400px">
+                    <center>
+                    REPÚBLICA BOLIVARIANA DE VENEZUELA <BR>
+                    MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
+                    VICEMINISTERIO DE SERVICIOS, PERSONAL Y LOGÍSTICA<BR>
+                    DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
+                    INSTITUTO DE PREVISIÓN SOCIAL DE LA FUERZA ARMADA<BR>
+                    RIF: G20003692-3
+                    </center>
+                </td>
+            <td width="200px" valign="top"></td>
+            </tr>
+        </table >
+        <h3>MILITAR TITULAR<BR>
+            CALCULOS CORRESPONDIENTE PARA EL PAGO
+        </h3>
+        <br>
+        <table style="width:800px" class="tablaneto">
+        <tr>
+            <td align="center"><b>GRADO</b><BR>${grado}</td>
+            <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
+            <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${cedula}</cedula></td>
+        </tr>
+        </table>
+        <br>
+        ${tabla}
+    </div>
+    
+    `);
+
+
+    ventana.document.head.innerHTML = ` <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SSSIFANB</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+        body{
+            font-family: Arial, Calibre;
+            font-size: 12px;
+        }
+        table{
+            border-collapse: collapse;
+            font-family: Arial, Calibre;
+            font-size: 12px;
+        }
+        .tablaneto {
+            border-collapse: collapse;
+        } 
+        .tablaneto tr{
+            border: 1px solid #CCCCCC;
+        } 
+        .tablaneto td {
+            border: 1px solid #CCCCCC;
+        } 
+        .tablaneto th {
+            border: 1px solid #CCCCCC;
+        } 
+        @media print {
+            div {
+                background-position: 180px;
+                background: url('../images/fondo.png') no-repeat center;
+            }
+        }
+    </style>
+     `;
 
 }
