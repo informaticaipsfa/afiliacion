@@ -114,23 +114,92 @@ class WCalc{
         this.porcentaje = 0.00;
     }
     Crear(req){
-        console.log(req.Retroactivo);
+        var tasignacion = 0;
+        var tfcis = 0;
+        var ttotal = 0;
+        var tbonr = 0;
+        var tvaca = 0;
+
+        var tbonos = 0;
+        var taguin = 0;
+        var tneto = 0;
+        //console.log(req.Retroactivo);
         var tblP = $('#tblCalculadora').DataTable(opcionesf);
         tblP.clear().draw();
         $.each(req.Retroactivo, function (clave, valor) { 
+            
+            var asignacion = 0;
+            var fcis = 0;
+            var bonr = 0;
+            var vaca = 0;
+            var bonos = 0;
+            var aguin = 0;
+            var detalle = 0;
             $.each(valor, function (cl, vl) {
-                console.log(vl.mt);
+                //console.log(vl);
+                switch (cl) {
+                    case 'sueldo_mensual':
+                        asignacion = vl.mt;        
+                        break;
+                    case 'FCIS-00001':
+                        fcis =  vl.mt;
+                        break;
+                    case 'retribucion_especial':
+                        bonr =  vl.mt;
+                        break;
+                    case 'vacaciones':
+                        vaca =  vl.mt;
+                        break;
+                    case 'aguinaldos':
+                        aguin =  vl.mt;
+                        console.log(aguin);
+                        break;
+                    case 'detalle':
+                        detalle =  vl.ABV;
+                        break;
+                    default:
+                        break;
+                }
+                
             });
            
                 
-           
-            //var fcis = v.             
-            // tblP.row.add([
-            //     v.partida,
-            //     v.codigo,
-            //     v.descripcion
-            // ]).draw(false);
+           var total = asignacion-fcis;
+           var neto = total + bonr + vaca + aguin;
+
+           tasignacion += parseFloat(parseFloat(asignacion).toFixed(2));
+           tfcis += parseFloat(parseFloat(fcis).toFixed(2));
+           ttotal += parseFloat(parseFloat(total).toFixed(2));
+           tbonr += parseFloat(parseFloat(bonr).toFixed(2));
+
+           tvaca += parseFloat(parseFloat(vaca).toFixed(2));
+           taguin += parseFloat(parseFloat(aguin).toFixed(2));
+
+           tneto += parseFloat(parseFloat(neto).toFixed(2));
+                        
+            tblP.row.add([
+                detalle,
+                parseFloat(parseFloat(asignacion).toFixed(2)),
+                parseFloat(parseFloat(fcis).toFixed(2)),
+                parseFloat(parseFloat(total).toFixed(2)),
+                parseFloat(parseFloat(bonr).toFixed(2)),
+                parseFloat(parseFloat(vaca).toFixed(2)),
+                parseFloat(parseFloat(aguin).toFixed(2)),
+                parseFloat(parseFloat(neto).toFixed(2))
+            ]).draw(false);
         });
+
+        tblP.row.add([
+            'TOTALES',
+            parseFloat(parseFloat(tasignacion).toFixed(2)),
+            parseFloat(parseFloat(tfcis).toFixed(2)),
+            parseFloat(parseFloat(ttotal).toFixed(2)),
+            parseFloat(parseFloat(tbonr).toFixed(2)),
+            parseFloat(parseFloat(tvaca).toFixed(2)),
+            parseFloat(parseFloat(taguin).toFixed(2)),
+            parseFloat(parseFloat(tneto).toFixed(2))
+        ]).draw(false);
+
     }
 }
 function ejecutarCalculadora(){
@@ -151,7 +220,7 @@ function ejecutarCalculadora(){
     Calc.fin = $("#txtFinCalc").val();
     Calc.hijos = $("#txtNumHijos").val();
     Calc.porcentaje = $("#txtPension").val();
-    console.log(Calc);
+    //console.log(Calc);
     var ruta = Conn.URL + "pensionado/calcularretroactivo";
     CargarAPI(ruta, "POST", Calc, Calc);
 }
@@ -203,7 +272,7 @@ function antiguedadGrado(fecha, fecha_retiro){
       arr['n'] = ano_dif;
     }
 
-    console.log(arr);
+    //console.log(arr);
     return arr;
 
 }

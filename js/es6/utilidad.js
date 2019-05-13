@@ -626,3 +626,6 @@ function ReglaPorcentajeMayor2010(tiempo){
     return v;
 
 }
+
+
+
