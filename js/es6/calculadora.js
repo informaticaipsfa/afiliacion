@@ -144,7 +144,7 @@ class WCalc{
         });
         tblP.clear().draw();
         $.each(req.Retroactivo, function (clave, valor) { 
-            //console.log(valor);
+            console.log(valor);
             var asignacion = 0;
             var fcis = 0;
             var bonr = 0;
