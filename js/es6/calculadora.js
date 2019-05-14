@@ -186,7 +186,7 @@ class WCalc{
                 
            var total = asignacion-fcis;
            var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
-           var neto = total + bonos + vaca + aguin;
+           var neto = total + totalretribuciones + vaca + aguin;
 
            tasignacion += parseFloat(asignacion);
            tfcis += parseFloat(fcis);
