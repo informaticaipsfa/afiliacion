@@ -144,7 +144,7 @@ class WCalc{
         });
         tblP.clear().draw();
         $.each(req.Retroactivo, function (clave, valor) { 
-            
+            //console.log(valor);
             var asignacion = 0;
             var fcis = 0;
             var bonr = 0;
@@ -185,13 +185,15 @@ class WCalc{
            
                 
            var total = asignacion-fcis;
-           var neto = total + bonr + vaca + aguin;
+           var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
+           var neto = total + bonos + vaca + aguin;
 
            tasignacion += parseFloat(asignacion);
            tfcis += parseFloat(fcis);
            ttotal += parseFloat(total);
-           tbonr += parseFloat(bonr) + bonos;
-           tvaca += parseFloat(vaca);
+           
+           tbonr += totalretribuciones; // BONOS 50% RETRIBUCIONES
+           tvaca += parseFloat(vaca); // Vacaciones
            taguin += parseFloat(aguin);
            tneto += parseFloat(neto);
 
@@ -201,7 +203,7 @@ class WCalc{
                 parseFloat(parseFloat(asignacion).toFixed(2)),
                 parseFloat(parseFloat(fcis).toFixed(2)),
                 parseFloat(parseFloat(total).toFixed(2)),
-                parseFloat(parseFloat(bonr).toFixed(2)),
+                parseFloat(parseFloat(totalretribuciones).toFixed(2)),
                 parseFloat(parseFloat(vaca).toFixed(2)),
                 parseFloat(parseFloat(aguin).toFixed(2)),
                 parseFloat(parseFloat(neto).toFixed(2))
