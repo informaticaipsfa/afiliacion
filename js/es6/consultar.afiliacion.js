@@ -272,9 +272,11 @@ function DescuentosHTML() {
         <tr>
         <th>NRO.</th>
         <th>CONCEPTO</th>
+        <th>DESCRIPCION</th>
         <th>FORMULA</th>
         <th>FECHA INI.</th>
         <th>FECHA FIN</th>
+        <th>ESTATUS</th>
         </tr>
         </thead >
         <tbody>

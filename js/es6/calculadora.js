@@ -87,10 +87,10 @@ function ActivarFechaCalculadora(){
 }
 
 function FrmCalculadora(valor) {
-    $("#txtFIngreso").attr('disabled', valor);
-    $("#txtFRetiro").attr('disabled', valor);
+    //$("#txtFIngreso").attr('disabled', valor);
+    //$("#txtFRetiro").attr('disabled', valor);
     //$("#txtServicio").attr('disabled', valor);
-    $("#txtFUAscenso").attr('disabled', valor);
+    //$("#txtFUAscenso").attr('disabled', valor);
     //$("#txtAntiguedad").attr('disabled', valor);
     $("#txtPension").attr('disabled', valor);
     //$("#txtNumHijos").attr('disabled', valor);
@@ -99,6 +99,7 @@ function FrmCalculadora(valor) {
    
 }
 let wCalculos = {};
+
 class WCalc{
     constructor(){
         this.fingreso = '';
@@ -128,6 +129,7 @@ class WCalc{
         var taguin = 0;
         var tneto = 0;
         //console.log(req.Retroactivo);
+        $("#_tblCalculadoraHMTL").html(obtenerTablaCalculosHTML());
         var tblP = $('#tblCalculadora').DataTable({
             'paging': false,
             'lengthChange': false,
@@ -219,9 +221,41 @@ class WCalc{
 
     }
 }
+
+function obtenerTablaCalculosHTML(){
+    return `
+    <table class="ui celled table tablanetos" cellspacing="0" width="800px" id="tblCalculadora" >
+        <thead>
+            <tr >
+                <th>DESCRIPCION DEL MES </th>
+                <th>ASIGNACION</th>
+                <th>FCIS. 6.5%</th>
+                <th>PENSION</th>
+                <th>TOTAL BONOS</th>
+                <th>BONO RECRE.</th>
+                <th>AGUINALDOS</th>
+                <th>NETO</th>
+            </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+
+}
 function ejecutarCalculadora(){
     var Calc = new WCalc();
-
+    Calc.inicio = $("#txtInicioCalc").val();
+    Calc.fin = $("#txtFinCalc").val();
+    if(Calc.inicio == "" || Calc.fin == "" ){
+        $.notify({
+                title: '<strong>Proceso de Cálculos!</strong>',
+                message: 'Las fechas deben estar completas'
+            }, {
+                type: 'danger'
+            } 
+        );
+        return
+    }
     $("#_dtcalculadora").show();
 
     Calc.fingreso = $("#txtFIngreso").val();
@@ -233,8 +267,7 @@ function ejecutarCalculadora(){
     Calc.componente = $("#txtComponente").val();
     Calc.antiguedad = $("#txtAntiguedad").val();
     Calc.tiempo = $("#txtServicio").val();
-    Calc.inicio = $("#txtInicioCalc").val();
-    Calc.fin = $("#txtFinCalc").val();
+    
     Calc.hijos = $("#txtNumHijos").val();
     Calc.porcentaje = $("#txtPension").val();
     //console.log(Calc);
