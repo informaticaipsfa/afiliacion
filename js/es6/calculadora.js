@@ -98,6 +98,7 @@ function FrmCalculadora(valor) {
     $("#txtFinCalc").attr('disabled', valor);
    
 }
+let wCalculos = {};
 class WCalc{
     constructor(){
         this.fingreso = '';
@@ -114,6 +115,9 @@ class WCalc{
         this.porcentaje = 0.00;
     }
     Crear(req){
+        
+        wCalculos = req;
+
         var tasignacion = 0;
         var tfcis = 0;
         var ttotal = 0;
@@ -124,7 +128,18 @@ class WCalc{
         var taguin = 0;
         var tneto = 0;
         //console.log(req.Retroactivo);
-        var tblP = $('#tblCalculadora').DataTable(opcionesf);
+        var tblP = $('#tblCalculadora').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': false,
+            'autoWidth': false,
+            "language": {
+                "decimal": ",",
+                "thousands": "."
+            }
+        });
         tblP.clear().draw();
         $.each(req.Retroactivo, function (clave, valor) { 
             
@@ -135,8 +150,9 @@ class WCalc{
             var bonos = 0;
             var aguin = 0;
             var detalle = 0;
+            
             $.each(valor, function (cl, vl) {
-                //console.log(vl);
+                
                 switch (cl) {
                     case 'sueldo_mensual':
                         asignacion = vl.mt;        
@@ -152,12 +168,14 @@ class WCalc{
                         break;
                     case 'aguinaldos':
                         aguin =  vl.mt;
-                        console.log(aguin);
                         break;
                     case 'detalle':
                         detalle =  vl.ABV;
                         break;
                     default:
+                        if ( cl.substring(0, 4) == 'bono' ){
+                            bonos +=  vl.mt;
+                        }
                         break;
                 }
                 
@@ -167,15 +185,14 @@ class WCalc{
            var total = asignacion-fcis;
            var neto = total + bonr + vaca + aguin;
 
-           tasignacion += parseFloat(parseFloat(asignacion).toFixed(2));
-           tfcis += parseFloat(parseFloat(fcis).toFixed(2));
-           ttotal += parseFloat(parseFloat(total).toFixed(2));
-           tbonr += parseFloat(parseFloat(bonr).toFixed(2));
+           tasignacion += parseFloat(asignacion);
+           tfcis += parseFloat(fcis);
+           ttotal += parseFloat(total);
+           tbonr += parseFloat(bonr) + bonos;
+           tvaca += parseFloat(vaca);
+           taguin += parseFloat(aguin);
+           tneto += parseFloat(neto);
 
-           tvaca += parseFloat(parseFloat(vaca).toFixed(2));
-           taguin += parseFloat(parseFloat(aguin).toFixed(2));
-
-           tneto += parseFloat(parseFloat(neto).toFixed(2));
                         
             tblP.row.add([
                 detalle.toUpperCase(),
@@ -279,12 +296,26 @@ function antiguedadGrado(fecha, fecha_retiro){
 
 
 function imprimirCalculos(){
+    var e = sessionStorage.getItem("ipsfaToken");
+    var s = e.split(".");
+    var json = JSON.parse(atob(s[1]));
+    Usuario = json.Usuario;
+
     var tabla = $("#_tblCalculadoraHMTL").html();
     var ventana = window.open("", "_blank");
     // style="background: url('../images/fondo.png') no-repeat center;"
     var grado = $("#txtGradoT").val();
     var nombre = $("#txtNombre").val();
     var cedula = $("#txtcedula").val();
+    var fingreso = $('#txtFIngreso').val();
+    var fretiro = $('#txtFRetiro').val();
+    var fultimo = $('#txtFUAscenso').val();
+    var servicio = $('#txtServicioT').val();
+    var hijos = $('#txtNumHijos').val();
+    var antiguedad = $('#txtAntiguedad').val();
+    var fecha = $('#txtInicioCalc').val() + " - " + $('#txtFinCalc').val() ; 
+    var porcentaje = $('#txtPension').val();
+    var localtime = new Date().toLocaleString();
     ventana.document.write(`<center>
     <div>
         <table style="width:800px" class="membrete">
@@ -313,13 +344,28 @@ function imprimirCalculos(){
         <tr>
             <td align="center"><b>GRADO</b><BR>${grado}</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
-            <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${cedula}</cedula></td>
+            <td align="center"><b>N° DE CEDULA</b><BR><label>${cedula}</cedula></td>
+        </tr>
+        <tr>
+            <td align="center"><b>FECHA INGRESO</b><BR>${fingreso}</td>
+            <td align="center"><b>FECHA RETIRO</b><BR><label id="nombre">${fretiro}</label></td>
+            <td align="center"><b>F. ULT. ASCENSO</b><BR><label>${fultimo}</cedula></td>
+            <td align="center"><b>TIEMPO SERVICIO</b><BR><label>${servicio}</cedula></td>
+        </tr>
+        <tr>
+            <td align="center"><b>ANTIGUEDAD</b><BR>${antiguedad}</td>
+            <td align="center"><b>PORCENTAJE</b><BR><label>${porcentaje}</label></td>
+            <td align="center"><b>NUMERO HIJOS</b><BR><label>${hijos}</cedula></td>
+            <td align="center"><b>FECHA DESDE / HASTA</b><BR><label>${fecha}</cedula></td>
         </tr>
         </table>
         <br>
         ${tabla}
-    </div>
-    
+    </div><br><br><br>
+    <h3><BR>
+    APROBADO POR<BR></h3>
+    ${Usuario.nombre} / ${localtime}<br>
+    <button id="btnPrint" onClick="javascript:window.print();">Imprimir Reporte</buttton>
     `);
 
 
@@ -327,6 +373,7 @@ function imprimirCalculos(){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SSSIFANB</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../css/dataTables.semanticui.min.css">
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
     <style type="text/css">
         body{
@@ -349,6 +396,25 @@ function imprimirCalculos(){
         } 
         .tablaneto th {
             border: 1px solid #CCCCCC;
+        }
+
+        .tablanetos {
+            border-collapse: collapse;
+            font-family: Arial, Calibre;
+            font-size: 13px;
+        } 
+        .tablanetos tr{
+            text-align: right;
+            border: 1px solid #CCCCCC;
+        } 
+        .tablanetos td {
+            text-align: right;
+            border: 1px solid #CCCCCC;
+            font-size: 13px;
+        } 
+        .tablanetos th {
+            border: 1px solid #CCCCCC;
+            background-color: #CCCCCC;
         } 
         @media print {
             div {

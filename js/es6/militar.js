@@ -1060,8 +1060,8 @@ class Militar{
 		this.Persona.DatoFisionomico.colorojos = $("#cmbmojos option:selected").val();
 		this.Persona.DatoFisionomico.colorcabello = $("#cmbmcolorcabello option:selected").val();
 		this.Persona.DatoFisionomico.estatura = parseFloat($("#txtmestatura").val());
-		this.Persona.DatoFisionomico.senaParticular = $("#txtmsenaparticular").val().toUpperCase();
-		this.Persona.DatoFisionomico.gruposanguineo = $("#cmbmgruposanguineo").val().toUpperCase();
+		this.Persona.DatoFisionomico.senaParticular = $("#txtmsenaparticular").val();
+		this.Persona.DatoFisionomico.gruposanguineo = $("#cmbmgruposanguineo").val();
 		this.Persona.RedSocial.twitter = $("#txtmtwitter").val().toUpperCase();
 		this.Persona.RedSocial.facebook = $("#txtmfacebook").val().toUpperCase();
 		this.Persona.RedSocial.instagram = $("#txtminstagran").val().toUpperCase();

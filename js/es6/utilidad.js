@@ -142,7 +142,7 @@ class Utilidad {
             if (dis == "required") {
                 if (valor == "") {
                    
-                    respuesta = false;
+                    respuesta = true;
                     return respuesta;
                 }
             }

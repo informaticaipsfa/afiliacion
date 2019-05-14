@@ -60,6 +60,9 @@ function fnxC(fnxc){
         case 'sueldo_basico':
             $('#txtFormula').val(fn + ' $sueldo_basico ' );
             break;
+        case 'porcentaje_pension':
+            $('#txtFormula').val(fn + ' $porcentaje_pension ' );
+            break;            
         case 'tiempo_servicio':
             $('#txtFormula').val(fn + ' $tiempo_servicio ' );
             break;
@@ -89,7 +92,7 @@ function fnxC(fnxc){
             break;
         case 'porcentaje_profesionalizacion':
             $('#txtFormula').val(fn +  ' $porcentaje_profesionalizacion ' );
-            break;            
+            break;        
         default:
             break;
     }
