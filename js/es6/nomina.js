@@ -51,6 +51,22 @@ let opcionesDire = {
 };
 
 
+let opcionesConceptos = {
+    ordering: false,
+    paging: false,            
+    scrollY:        320,
+    deferRender:    true,
+    scroller:       true,
+    language: {
+        "lengthMenu": "Mostar _MENU_ filas por pagina",
+        "zeroRecords": "Nada que mostrar",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "No se encontro nada",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Buscar"
+    }
+};
+
 let intFila = 0;
 
 
@@ -137,15 +153,15 @@ class Concepto {
             </thead>
         </table>`;
         $("#_TblConceptos").html(tabla);        
-        var tblP = $('#tblConcepto').DataTable(opcionesf);
-        tblP.clear().draw();
+        var t = $('#tblConcepto').DataTable(opcionesConceptos);
+        t.clear().draw();
         
         if(req == null) {
 
         }else{
             req.forEach( v => {           
                 
-                tblP.row.add([
+                t.row.add([
                     v.partida,
                     v.codigo,
                     v.descripcion
@@ -154,9 +170,10 @@ class Concepto {
         }
 
         $("#_cargandol").hide();
-        $('#_TblConceptos tbody').on('dblclick', 'tr', function () {
+        $('#tblConcepto tbody').on('dblclick', 'tr', function () {
             var data = t.row(this).data();
-            alert(data);
+            console.log(data);
+            alert(1);
         });
     }
     
