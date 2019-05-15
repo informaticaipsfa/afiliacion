@@ -19,6 +19,14 @@ class Calculadora{
             fretiro = new Date().toISOString().slice(0, 10);    
         }
 
+        var rutaimg = Conn.URLIMG;
+        var url = rutaimg + $("#txtcedula").val() + ".jpg";
+        if (req.Persona.foto  != undefined){
+            rutaimg = Conn.URLTEMP;
+            url = rutaimg + $("#txtcedula").val() + "/foto.jpg";
+        }
+        $("#minifoto").attr("href", url);
+        $("#_img").attr("src", url);
 
         $('#txtFRetiro').val(fretiro.substring(0, 10));        
         $('#txtFUAscenso').val(fascenso);
