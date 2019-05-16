@@ -28,7 +28,7 @@ let opcionesf = {
 
 let opcionesDire = {
     ordering: false,
-    paging: false,            
+    paging: false,          
     columnDefs: [ {
         orderable: false,
         className: 'select-checkbox',
@@ -37,7 +37,7 @@ let opcionesDire = {
     select: {
         style: 'multi'
     },
-    scrollY:        180,
+    scrollY:        300,
     deferRender:    true,
     scroller:       true,
     language: {
@@ -233,7 +233,9 @@ class DirCon {
         <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable">
             <thead>
                 <tr>
-                    <th></th>
+                    <th style="text-align:center;"><button style="border: none; background: transparent; font-size: 14px;" id="MytblConcepto">
+                    <i class="fa fa-check-square"></i>  
+                    </button></th>
                     <th>CODIGO</th>                                            
                     <th>DESCRIPCION</th>                   
                     <th>PARTIDA </th>
@@ -248,7 +250,7 @@ class DirCon {
             '',
             'sueldo_base',
             'SUELDO BASE',
-            '4.01.00.00',
+            '40701010101',
             'DIR-SB'
         ]).draw(false);        
         dibujarTabla(tblP, fnx, 'DIR-PR');
@@ -256,12 +258,48 @@ class DirCon {
             '',
             'sueldo_mensual',
             'PENSION',
-            '4.01.00.00',
+            '40701010101',
             'DIR-SM'
         ]).draw(false);
         dibujarTabla(tblP, fnxc, 'DIR-LEY');
         
         selccionarConceptos(tblP);
+
+
+        $('#MytblConcepto').click(function() {
+            if (tblP.rows({
+                    selected: true
+                }).count() > 0) {
+                tblP.rows().deselect();
+                return;
+            }
+    
+            tblP.rows().select();
+        });
+    
+        tblP.on('select deselect', function(e, dt, type, indexes) {
+            if (type === 'row') {
+                // We may use dt instead of tblP to have the freshest data.
+                if (dt.rows().count() === dt.rows({
+                        selected: true
+                    }).count()) {
+                    // Deselect all items button.
+                    $('#MytblConcepto i').attr('class', 'fa fa-check-square');
+                    return;
+                }
+    
+                if (dt.rows({
+                        selected: true
+                    }).count() === 0) {
+                    // Select all items button.
+                    $('#MytblConcepto i').attr('class', 'fa fa-square');
+                    return;
+                }
+    
+                // Deselect some items button.
+                $('#MytblConcepto i').attr('class', 'fa fa-minus-square');
+            }
+        });
     }
 }
 
@@ -688,7 +726,14 @@ class WVerPartida{
     constructor(){}
     Crear(req){
         $("#_mdlresumen").html(VerPartidaHTML());
-		var tblC = $('#tblResumen').DataTable(tablaBasica);
+		var tblC = $('#tblResumen').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': false,
+            'info': false,
+            'autoWidth': false
+        });
         $("#mdlResumenPresupuestario").modal("show");
         
 		for(var i=0; i < req.length; i++){
@@ -756,9 +801,16 @@ class WContar{
 
     }
     Crear(req){
-        
-        req.forEach(e => {
-            $("#" + e.situacion).html(e.cantidad)             
+        console.log(req);
+        req.act.forEach(e => {
+            var contenido = 'Activos: <b>' + e.cantidad;
+            $("#" + e.situacion).html(contenido);
+                        
+        });
+        req.par.forEach(e => {
+            var contenido = 'Paralizado: <b>' + e.cantidad;
+            $("#" + e.situacion + "I").html(contenido);
+                      
         });
         ListarNominasPendientes();
     }

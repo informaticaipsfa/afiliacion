@@ -330,8 +330,8 @@ function pagarMetodo(){
     }
     $("#mdlPrepararMetodo").modal("hide");
     waitingDialog.show('Generando archivos bancarios, por favor espere...');
-
-    var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/" + $("#cantidadtxt").val() ;
+    var cantidad = $("#cantidadtxt").val()!=""?$("#cantidadtxt").val():0;
+    var ruta =  Conn.URL + "nomina/metodobanco/" + $("#cmbSolicitud").val() + "/" + cantidad ;
     CargarAPI(ruta, "GET", lst, lst);
  }
 
