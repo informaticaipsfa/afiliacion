@@ -7,12 +7,13 @@ function PrepararPago(){
 class WListarMetodoBanco{
     constructor(){}
     Crear(req){
+        console.log(req);
         $("#btnCuadre").hide();
         $("#cmbSolicitud").html(`<option value="0">NO HAY PAGOS PENDIENTES POR PROCESAR</option>`);
         var i = 0;
         var combo = '';
         req.forEach(e => {
-            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.firma}</option>`;            
+            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.obse} </option>`;            
             i++;
             $("#btnCuadre").show();
         });
