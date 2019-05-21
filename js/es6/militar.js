@@ -368,6 +368,7 @@ class Familiar{
 	}
 	Salvar(){
 		var milfamiliar = new WMilitar();
+		
 		CargarAPI(Conn.URL + "familiar/crud" , "POST", this.Obtener(), milfamiliar);
 	}
 	Actualizar(){

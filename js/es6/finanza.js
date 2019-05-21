@@ -405,9 +405,31 @@ function ImprimirCuadreDosP() {
     var html = $("#_tblMetodo").html();
     var ventana = window.open("", "_blank");
 
-    var contenido = `<BR><CENTER>
+    var contenido = `<center>
+    <div style="background: url('../images/fondo.png') no-repeat center;">
+    <table style="width:800px"  class="membrete" style="border: 0px solid #CCC9C8;">
+    <tr style="border: 0px solid #CCC9C8;">
+        <td width="200px" valign="top" style="border: 0px solid #CCC9C8;"><center><img  style="width: 100px;height: 100px; margin-left: 0px" 
+        class="img-responsive file-path-wrapper-pre-view" src="images/logo_ipsfa.png" id="_imgescudo"/></center>
+        </td>
+        <td width="400px" style="border: 0px solid #CCC9C8;">
+            <center>
+            REPÚBLICA BOLIVARIANA DE VENEZUELA <BR>
+            MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
+            VICEMINISTERIO DE SERVICIOS, PERSONAL Y LOGÍSTICA<BR>
+            DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
+            INSTITUTO DE PREVISIÓN SOCIAL DE LA FUERZA ARMADA<BR>
+            RIF: G20003692-3
+            </center>
+        </td>
+        <td width="200px" valign="top" style="border: 0px solid #CCC9C8;"></td>
+        </tr>
+    </table >
+        <h3>
         RELACION DE PAGOS Y DEPOSITOS POR ENTIDADES BANCARIAS<BR>
-    </CENTER><BR>`;
+        NOMINA MENSUAL, RETRIBUCIÓN ESPECIAL, BONO TERRITORIAL<BR>
+        DESDE EL 01 DE JUNIO AL 30 DE JUNIO DEL AÑO 2019
+    </h3><BR></div>`;
     var doc = contenido + html;
     ventana.document.write(doc);
     ventana.document.head.innerHTML = `
@@ -425,6 +447,9 @@ function ImprimirCuadreDosP() {
       }
       thead {
           background-color: #F2EEED;
+      }
+      a {
+
       }
       
     </style>`;
