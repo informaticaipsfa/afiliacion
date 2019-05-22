@@ -183,11 +183,29 @@ class WListarPendientes{
             'autoWidth': false
         });
         tM.clear().draw();
-        
+        /**<button type="button" onclick = "verPartida('${e.oid}');" class="btn btn-primary btn-flat"
+                    data-toggle="tooltip" data-placement="top" title="Resumén Presupuestario"><i class="fa fa-book"></i></button> */
+                    
         req.forEach(e => {           
+            var firma = ` <div class="btn-group">
+                    
+                    <button type="button" onclick = "downloadP('${e.url}tmp/${e.nomb}.csv');" class="btn btn-success btn-flat
+                    data-toggle="tooltip" data-placement="top" title="Descargar CSV "><i class="fa fa-download"></i></button>
+                    <button type="button" onclick = "downloadP('${e.url}tmp/${e.nomb}-ERR.csv');" class="btn btn-warning btn-flat
+                    data-toggle="tooltip" data-placement="top" title="Incidencias"><i class="fa fa-file-text-o"></i></button>
+                    <button style="display:none" type="button" onclick = "CoeficienteVariacion(${e.oid})" class="btn bg-purple btn-flat"
+                    data2-toggle="tooltip" data-placement="top" title="Coeficiente de Variación">
+                    <i class="fa fa-area-chart"></i></button>
+                </div>
+                
+                `;
 
+                //<button style="border: none; background: transparent; font-size: 14px;" 
+                // id="MytblBtn" onclick="javascript:window.open('/sssifanb/pensiones/tmp/${e.nomb}.csv')">
+                // <i class="fa fa-check-square"></i>  
+                // </button>
             tM.row.add([
-                e.nomb,
+                firma,
                 e.obse,
                 e.desd.substr(0, 10),
                 e.hast.substr(0, 10),
