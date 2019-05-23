@@ -432,3 +432,8 @@ function PrepararCalculadora(){
   
   
 }
+
+
+function PrepararCuadreBanco(){
+  
+}

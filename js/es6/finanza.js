@@ -185,7 +185,7 @@ class WListarPendientes{
         tM.clear().draw();
         /**<button type="button" onclick = "verPartida('${e.oid}');" class="btn btn-primary btn-flat"
                     data-toggle="tooltip" data-placement="top" title="Resumén Presupuestario"><i class="fa fa-book"></i></button> */
-                    
+
         req.forEach(e => {           
             var firma = ` <div class="btn-group">
                     
@@ -422,6 +422,7 @@ function DetallePagoHTML(){
 //     }
 function ImprimirCuadreDosP() {
     var html = $("#_tblMetodo").html();
+    var nominastr = $("#cmbSolicitud option:selected").text();
     var ventana = window.open("", "_blank");
 
     var contenido = `<center>
@@ -446,7 +447,7 @@ function ImprimirCuadreDosP() {
     </table >
         <h3>
         RELACION DE PAGOS Y DEPOSITOS POR ENTIDADES BANCARIAS<BR>
-        NOMINA MENSUAL, RETRIBUCIÓN ESPECIAL, BONO TERRITORIAL<BR>
+        ${nominastr}<BR>
         DESDE EL 01 DE JUNIO AL 30 DE JUNIO DEL AÑO 2019
     </h3><BR></div>`;
     var doc = contenido + html;
