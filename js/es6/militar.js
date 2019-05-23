@@ -673,6 +673,7 @@ class Militar{
 			$("#_aceptar").focus();
 			$("#_cargando").hide();
 		} else {
+			ObtenerConceptosW();
 			OqMilitar.Cargar(militar);
 			ObjMilitar = militar;
 			ActivarFormulario(true);
@@ -1310,6 +1311,8 @@ class WPensiones{
 		$("#cmbNetoPago").html('<option value="X">SELECCIONAR UN PAGO</option>');
 		$("#_netosConceptos").html(ConceptosNetosHTML());
 		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
+		console.log(req);
+		
 		req.forEach(pago => {
 			$("#mdlNetos").modal("show");			
 			var obj = JSON.parse(pago.calculos).conceptos;

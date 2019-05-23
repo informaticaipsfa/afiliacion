@@ -2097,7 +2097,7 @@ function ActivarPension(){
     var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
     $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
     
-
+    $("#_btnPensionesAsignadas").show();
     
     switch (situacion) {
         case "ACT":
@@ -2110,7 +2110,6 @@ function ActivarPension(){
         case "RCP":
             $("#_bxMedidaJudicial").show();
             $("#_bxDescuentos").show();
-            $("#_btnPensionesAsignadas").show();
             $("#liEstatusPension").show();                     
             break;
         case "FCP":
@@ -2124,6 +2123,8 @@ function ActivarPension(){
             $("#btnPensionSobreviviente").attr('disabled', false);
             $("#txtPensionSobreviviente").attr('disabled', false);
             $("#liEstatusPension").show();
+            $("#_btnPensionesAsignadas").hide();
+
             
             break;
         case "PG":
