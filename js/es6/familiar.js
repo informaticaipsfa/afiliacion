@@ -293,19 +293,39 @@ function AplicarDerecho(){
 	
 }
 
+let lstFamiliarNetos = [];
 
 class WPensionadoSobrevive{
     constructor(){}
     Crear(req){
-        console.log(req);
+        var i = 0;
+		$("#cmbNetoPagoSobre").html('<option value="X">SELECCIONAR UN PAGO</option>');
+		$("#_netosConceptosSobre").html(ConceptosNetosHTML());
+		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
+        //
+        
+        //console.log(req);
+
+		req.forEach(pago => {
+            $("#mdlNetosSobre").modal("show");		
+            console.log(JSON.parse(pago.calculos));
+			var obj = JSON.parse(pago.calculos);
+            lstFamiliarNetos.push(obj);
+            
+			var neto = Intl.NumberFormat("de-DE").format(Number(parseFloat(pago.neto).toFixed(2)))
+			$("#cmbNetoPagoSobre").append(`<option value="${i}">${pago.nomina} - ${pago.mes} DEL ${pago.hasta.substr(0,4) } | ( ${pago.hasta} | ${neto} )</option> `)
+			i++;
+		});		
     }
 }
 
 function PensionAsignadaSobre(pos){
-    var id = ObjMilitar.Familiar[pos].Persona.DatoBasico.cedula;
+    var id = $("#txtcedula").val();
+    var familiar = ObjMilitar.Familiar[pos -1].Persona.DatoBasico.cedula;
     
     var wpensiones = new WPensionadoSobrevive();
-	var ruta =  Conn.URL + "pensionado/consultarsobreviviente/" + id;
+    var ruta =  Conn.URL + "pensionado/consultarsobreviviente/" + id + "/" + familiar;
+    console.log(ruta);
     CargarAPI(ruta, "GET", wpensiones, wpensiones);
 }
 

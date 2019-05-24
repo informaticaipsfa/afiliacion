@@ -61,7 +61,16 @@ function ImprimirNeto(){
                         <td align="right" style="width:200px"></td>
                     </tr>`;
                 asignacion += monto;
-			}else{ //Deduccion
+            }else if(tipo == 2){ //Asignacion   
+                fila += `
+                    <tr>
+                        <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
+                        <td align="right"></td>
+                        <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
+                        <td align="right" style="width:200px"></td>
+                    </tr>`;
+                asignacion += monto;
+            }else{ //Deduccion
                 fila += `
                     <tr>
                         <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
@@ -215,8 +224,7 @@ function ObtenerConceptosW(){
        
 function ImprimirNetoSobreviviente(){
     
-    
-    
+
     if ( $("#cmbNetoPago option:selected").val() == "X" ) {        
         return false;
     }
@@ -224,16 +232,17 @@ function ImprimirNetoSobreviviente(){
     var cedula = $("#txtcedula").val();
     var porcentaje = $("#txtporcentaje").val();
     var pension = 0.00;
-    var nomina =  $("#cmbNetoPago option:selected").text().split('|');
+    var nomina =  $("#cmbNetoPagoSobre option:selected").text().split('|');
     var fila = '';
     var asignacion = 0.00;
     var deduccion = 0.00;
     var total = 0;
-    var pos = $("#cmbNetoPago option:selected").val();
+    var pos = $("#cmbNetoPagoSobre option:selected").val();
     var objNeto = [];
     var totalAsignacion = 0;
+    var obj = lstFamiliarNetos[pos].primas;
 
-	var obj = lstNeto[pos];
+    
 	for(var i=0; i< obj.length; i++){
 		var monto = obj[i].mont;
         var tipo = obj[i].tipo;
@@ -241,9 +250,7 @@ function ImprimirNetoSobreviviente(){
         var lbl =  obj[i].desc;        
         var montostr = numeral(parseFloat(monto,2)).format('0,0.00');
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
-		if(tipo == 97){
-           
-           
+		if(tipo == 97){           
             totalAsignacion += monto;
             fila += `
                 <tr>
@@ -251,19 +258,44 @@ function ImprimirNetoSobreviviente(){
                     <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
                     <td align="right"></td>
                     <td align="right" style="width:200px"></td>
-                </tr>`;
-            
+                </tr>`;            
 		}else{
             if( des == "SUELDO MENSUAL" ){
-                fila += `
-                <tr>
-                    <td align="left">&nbsp;&nbsp;TOTAL DE ASIGNACIONES</td>
-                    <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
-                    <td align="right"></td>
-                    <td align="right" style="width:200px"></td>
-                </tr>`;    
+          
             }
             if(tipo == 1){ //Asignacion   
+           
+			}else{ //Deduccion
+          
+			}
+        }
+        
+    } // fin del repetir de las primas
+    var sueldotitular = ( totalAsignacion * porcentaje) / 100;
+    var sueldomensual = `SUELDO MENSUAL A DISTRIBUIR ( ${porcentaje} % )`; 
+    fila += `
+            <tr>
+                <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
+                <td align="right" style="width:200px">${sueldotitular}&nbsp;&nbsp;</td>
+                <td align="right"></td>
+                <td align="right" style="width:200px"></td>
+            </tr>`;
+
+    obj = lstFamiliarNetos[pos].conceptos;
+    var imprimir = false;
+    for(var i=0; i< obj.length; i++){
+        console.log(obj[i]);
+		var monto = obj[i].mont;
+        var tipo = obj[i].tipo;
+        var des = obj[i].desc.replace("_", " ").toUpperCase();
+        var lbl =  obj[i].desc;        
+        var montostr = numeral(parseFloat(monto,2)).format('0,0.00');
+        objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
+        console.log( lstFamiliarNetos[pos].asignaciones );
+		if( lstFamiliarNetos[pos].asignaciones == monto || imprimir == true ){
+            imprimir = true;
+           
+            if(tipo == 1 || tipo == 97 ){ //Asignacion   
                 var sueldomensual = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
                 if( des == "SUELDO MENSUAL" ){
                     sueldomensual = `SUELDO MENSUAL ( ${porcentaje} % )`;                    
@@ -271,6 +303,15 @@ function ImprimirNetoSobreviviente(){
                 fila += `
                     <tr>
                         <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
+                        <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
+                        <td align="right"></td>
+                        <td align="right" style="width:200px"></td>
+                    </tr>`;
+                asignacion += monto;
+			}else if(tipo == 2) { //Asignacion Retroactivos
+                fila += `
+                    <tr>
+                        <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
                         <td align="right"></td>
                         <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
                         <td align="right" style="width:200px"></td>
@@ -278,17 +319,19 @@ function ImprimirNetoSobreviviente(){
                 asignacion += monto;
 			}else{ //Deduccion
                 fila += `
-                    <tr>
-                        <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
-                        <td align="right"></td>
-                        <td align="right"></td>
-                        <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
-                    </tr>`;
-                deduccion += monto;
-			}
+                <tr>
+                    <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
+                    <td align="right"></td>
+                    <td align="right"></td>
+                    <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
+                </tr>`;
+            deduccion += monto;
+            }
         }
         
     }
+
+
     fila += `<tr>
                 <td align="right" colspan='2'>SUBTOTAL&nbsp;&nbsp;</td>
                 <td align="right" style="width:200px">${numeral(parseFloat(asignacion,2)).format('0,0.00')}&nbsp;&nbsp;</td>
@@ -405,6 +448,7 @@ function ImprimirNetoSobreviviente(){
     </style>
      `;
 
+    
 
 }
 
@@ -414,7 +458,7 @@ function obtenerDescripcionConceptos(id){
     
     for (let i = 0; i < wLtsConceptos.length; i++) {
         var e = wLtsConceptos[i];
-        console.log(e);
+        //console.log(e);
 
         if( e.codigo == id ){
             concepto = e.descripcion;

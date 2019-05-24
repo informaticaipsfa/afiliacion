@@ -567,6 +567,51 @@
 
 
 
+
+  <!-- Modal para la elaboración de netos sobrevivientes -->
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" id="mdlNetosSobre" aria-hidden="false">
+<div class="modal-dialog modal-lg" role="document">
+  <!-- Modal content-->
+  <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+    <div class="modal-header" style="background-color:#337ab7;color:white;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <h4 class="modal-title">Pensiones asignadas de sobrevivencia</h4>
+    </div>
+    <div class="modal-body" id="_mdlnetosSobre">
+      <!-- Modal netos -->
+      <div class="row" style="padding:20px">          
+        <div class="col-lg-12" id="_cmbNetosSobr">
+            <center>CONSTANCIA DE PAGO DE SOBREVIVENCIA</center>
+          <label>Seleccionar fecha de pago:</label>
+            <div class="input-group">
+                <select class="js-states form-control"                                 
+                    style="width: 100%" required="" aria-hidden="true" id="cmbNetoPagoSobre" >
+                </select>
+                <span class="input-group-btn">
+                    <button id="btnSituacionPagoSobr" type="button" 
+                    class="btn btn-flat bg-purple" onclick="ImprimirNetoSobreviviente()">
+                        <i class="fa fa-search"></i>&nbsp;&nbsp;Ver recibo de pago</button>
+                </span>
+            </div>
+            
+        </div>
+        <div class="col-md-12" style="padding:20px; display: none"><br>
+          
+          
+        </div>  
+      
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+
   
 <!-- Modal para la elaboración deL Detalle de pago a finanzas-->
 <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
