@@ -24,8 +24,9 @@ function ImprimirNeto(){
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
-        var montostr = numeral(parseFloat(monto,2)).format('0,0.00');
+        var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
+        console.log(obj[i]);
 		if(tipo == 97){
            
            
@@ -61,7 +62,7 @@ function ImprimirNeto(){
                         <td align="right" style="width:200px"></td>
                     </tr>`;
                 asignacion += monto;
-            }else if(tipo == 2){ //Asignacion   
+            }else if(tipo == 33){ //Asignacion   
                 fila += `
                     <tr>
                         <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
@@ -85,10 +86,10 @@ function ImprimirNeto(){
     }
     fila += `<tr>
                 <td align="right" colspan='2'>SUBTOTAL&nbsp;&nbsp;</td>
-                <td align="right" style="width:200px">${numeral(parseFloat(asignacion,2)).format('0,0.00')}&nbsp;&nbsp;</td>
-                <td align="right" style="width:200px">${numeral(parseFloat(deduccion,2)).format('0,0.00')}&nbsp;&nbsp;</td>
+                <td align="right" style="width:200px">${accounting.formatMoney(asignacion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
+                <td align="right" style="width:200px">${accounting.formatMoney(deduccion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
             </tr>`;
-
+    var neto = asignacion - deduccion;
     var ventana = window.open("", "_blank");
     ventana.document.write(`<center>
     <div style="background: url('../images/fondo.png') no-repeat center;">
@@ -139,8 +140,8 @@ function ImprimirNeto(){
         <tfoot>
             <tr>
                 <th align="center" colspan="4" 
-                style="font-size:18px">
-                <br>NETO A COBRAR : &nbsp;&nbsp; ${(asignacion - deduccion).toFixed(2)}&nbsp;&nbsp;</th>
+                style="font-size:19px">
+                <br>NETO A COBRAR <br><b> &nbsp;&nbsp; ${accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</b></th>
             </tr>
         </tfoot>
     </table>
@@ -248,7 +249,7 @@ function ImprimirNetoSobreviviente(){
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
-        var montostr = numeral(parseFloat(monto,2)).format('0,0.00');
+        var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
 		if(tipo == 97){           
             totalAsignacion += monto;
@@ -276,20 +277,26 @@ function ImprimirNetoSobreviviente(){
     fila += `
             <tr>
                 <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
-                <td align="right" style="width:200px">${sueldotitular}&nbsp;&nbsp;</td>
+                <td align="right" style="width:200px">${accounting.formatMoney(sueldotitular, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
                 <td align="right"></td>
                 <td align="right" style="width:200px"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
             </tr>`;
 
     obj = lstFamiliarNetos[pos].conceptos;
     var imprimir = false;
     for(var i=0; i< obj.length; i++){
-        console.log(obj[i]);
+        
 		var monto = obj[i].mont;
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
-        var montostr = numeral(parseFloat(monto,2)).format('0,0.00');
+        var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
         console.log( lstFamiliarNetos[pos].asignaciones );
 		if( lstFamiliarNetos[pos].asignaciones == monto || imprimir == true ){
@@ -297,18 +304,19 @@ function ImprimirNetoSobreviviente(){
            
             if(tipo == 1 || tipo == 97 ){ //Asignacion   
                 var sueldomensual = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
-                if( des == "SUELDO MENSUAL" ){
-                    sueldomensual = `SUELDO MENSUAL ( ${porcentaje} % )`;                    
+                if( des == "PENSION SOBREVIVIENTE" ){
+                    sueldomensual = `PENSION SOBREVIVIENTE ( ${ lstFamiliarNetos[pos].porcentaje } % )`;                    
                 } 
                 fila += `
                     <tr>
                         <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
-                        <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
                         <td align="right"></td>
+                        <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
                         <td align="right" style="width:200px"></td>
                     </tr>`;
                 asignacion += monto;
-			}else if(tipo == 2) { //Asignacion Retroactivos
+            }else if(tipo == 2) { //Asignacion Retroactivos
+                
                 fila += `
                     <tr>
                         <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
@@ -317,10 +325,11 @@ function ImprimirNetoSobreviviente(){
                         <td align="right" style="width:200px"></td>
                     </tr>`;
                 asignacion += monto;
-			}else{ //Deduccion
+            }else{ //Deduccion
+                var strconc = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
                 fila += `
                 <tr>
-                    <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
+                    <td align="left">&nbsp;&nbsp;${strconc}</td>
                     <td align="right"></td>
                     <td align="right"></td>
                     <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
@@ -334,9 +343,12 @@ function ImprimirNetoSobreviviente(){
 
     fila += `<tr>
                 <td align="right" colspan='2'>SUBTOTAL&nbsp;&nbsp;</td>
-                <td align="right" style="width:200px">${numeral(parseFloat(asignacion,2)).format('0,0.00')}&nbsp;&nbsp;</td>
-                <td align="right" style="width:200px">${numeral(parseFloat(deduccion,2)).format('0,0.00')}&nbsp;&nbsp;</td>
+                <td align="right" style="width:200px">${accounting.formatMoney(asignacion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
+                <td align="right" style="width:200px">${accounting.formatMoney(deduccion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
             </tr>`;
+    
+    var neto = asignacion - deduccion;
+    var strneto = accounting.formatMoney(neto, "Bs. ", 2, ".", ",");
 
     var ventana = window.open("", "_blank");
     ventana.document.write(`<center>
@@ -359,12 +371,20 @@ function ImprimirNetoSobreviviente(){
         <td width="200px" valign="top"></td>
         </tr>
     </table >
-        <h3>MILITAR TITULAR<BR>
+        <h3>SOBREVIVIENTE<BR>
             RECIBO DE PAGO CORRESPONDIENTE A:<br>
             ${nomina[0]}
         </h3>
         <br>
     <table style="width:800px" class="tablaneto">
+        <tr>
+            <td align="center"><b>PARENTESCO</b><BR>${seleccionFamiliar.parentesco}</td>
+            <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${seleccionFamiliar.nombre}</label></td>
+            <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${seleccionFamiliar.cedula}</cedula></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="4" style="font-size:16px; padding:5px">CAUSANTE DE LA PENSION</td>
+        </tr>
         <tr>
             <td align="center"><b>GRADO</b><BR>MAYOR</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
@@ -387,9 +407,8 @@ function ImprimirNetoSobreviviente(){
         </tbody>
         <tfoot>
             <tr>
-                <th align="center" colspan="4" 
-                style="font-size:18px">
-                <br>NETO A COBRAR : &nbsp;&nbsp; ${(asignacion - deduccion).toFixed(2)}&nbsp;&nbsp;</th>
+                <th align="center" colspan="4" style="font-size:18px;padding:5px">
+                NETO A COBRAR <br><b>${strneto}<br></th>
             </tr>
         </tfoot>
     </table>

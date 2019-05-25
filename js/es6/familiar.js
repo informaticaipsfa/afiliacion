@@ -294,6 +294,7 @@ function AplicarDerecho(){
 }
 
 let lstFamiliarNetos = [];
+let seleccionFamiliar = {};
 
 class WPensionadoSobrevive{
     constructor(){}
@@ -304,12 +305,13 @@ class WPensionadoSobrevive{
 		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
         //
         
-        //console.log(req);
+        console.log(req);
 
 		req.forEach(pago => {
             $("#mdlNetosSobre").modal("show");		
             console.log(JSON.parse(pago.calculos));
-			var obj = JSON.parse(pago.calculos);
+            var obj = JSON.parse(pago.calculos);
+            obj.porcentaje = pago.porcentaje;
             lstFamiliarNetos.push(obj);
             
 			var neto = Intl.NumberFormat("de-DE").format(Number(parseFloat(pago.neto).toFixed(2)))
@@ -320,12 +322,21 @@ class WPensionadoSobrevive{
 }
 
 function PensionAsignadaSobre(pos){
-    var id = $("#txtcedula").val();
-    var familiar = ObjMilitar.Familiar[pos -1].Persona.DatoBasico.cedula;
-    
     var wpensiones = new WPensionadoSobrevive();
-    var ruta =  Conn.URL + "pensionado/consultarsobreviviente/" + id + "/" + familiar;
-    console.log(ruta);
+    var familiar = new Familiar();
+    var fcedula = ObjMilitar.Familiar[pos -1].Persona.DatoBasico.cedula;
+    var nombre = ObjMilitar.Familiar[pos -1].Persona.DatoBasico.apellidoprimero  + ' ' + ObjMilitar.Familiar[pos -1].Persona.DatoBasico.nombreprimero;
+    var id = $("#txtcedula").val();
+    
+    
+    familiar.parentesco = ObjMilitar.Familiar[pos -1].parentesco;
+    seleccionFamiliar = {
+        parentesco : familiar.GenerarParentesco(),
+        nombre: nombre,
+        cedula: fcedula
+    };
+    
+    var ruta =  Conn.URL + "pensionado/consultarsobreviviente/" + id + "/" + fcedula;
     CargarAPI(ruta, "GET", wpensiones, wpensiones);
 }
 
