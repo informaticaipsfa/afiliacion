@@ -1,0 +1,110 @@
+
+    <div class="col-md-12 col-lg-12" id="_consultarbox">
+        <div class="box box-primary ">
+            <div class="box-header with-border">
+                <i class="fa fa-bullhorn"></i>
+                <h3 class="box-title">Nómina pendientes por pagar</h3>
+            </div>
+            <div class="box-body" >
+                <div class="row" >
+                    <!-- Directivas -->
+                    <div class="col-md-8 col-sm-12">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;Solicitud de pago:</label>
+                        <div class="input-group margin">
+                            <select class="js-states form-control"                                 
+                                style="width: 100%" required="" aria-hidden="true" id="cmbSolicitud">                                    
+                            </select>
+                            <span id="btnCuadre" class="input-group-btn" style="display:none">
+                                <button type="button" class="btn btn-flat bg-purple" onclick="cuadreBanco()">
+                                    <i class="fa fa-puzzle-piece"></i>
+                                    &nbsp;&nbsp;Cuadre a banco</button>
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row"  style="padding:25px">
+                    <div id="_tblMetodo">
+        
+                    </div>
+                </div>
+    
+            </div><!-- /.box-body -->
+    
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay" id="_cargandop" style="display:none">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+            <div class="modal-footer">    
+                <button type="button" id="btnRechazar" class="btn btn-md btn-danger pull-left"  onclick="reMetodo()">
+                    <i class="fa fa-random"></i>
+                    &nbsp;&nbsp;Rechazar nóminas</button>        
+                <button type="button" id="btnImprimir" 
+                    class="btn btn-md btn-primary" 
+                    style="display:none"
+                     onclick="ImprimirCuadreDosP()">
+                    <i class="fa fa-print"></i>
+                    &nbsp;&nbsp;Imprimir Metodo Banco</button>
+                <button type="button" id="btnPreparar" 
+                class="btn btn-md btn-success"  
+                style="display:none"
+                onclick="GenerarTxt()">
+                    <i class="fa fa-credit-card"></i>
+                    &nbsp;&nbsp;Generar Metodo Banco</button>
+                    
+            </div>
+        </div><!-- /.box -->
+    </div>
+    
+    <div  class="modal fade bs-example-modal-md in" tabindex="-1" role="dialog" 
+        aria-labelledby="myLargeModalLabel" id="mdlPrepararMetodo" aria-hidden="false">
+            <div class="modal-dialog modal-md" role="document">
+    
+            <!-- Modal content-->
+            <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+                <div class="modal-header" style="background-color:#337ab7;color:white;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Generar metodos a banco</h4>
+        
+                </div>
+                <div class="modal-body" id="divResult">
+                    
+                </div>
+                <div class="overlay" id="_cargandog" style="display:none">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+                <div class="modal-footer" id="divResultFooter">
+                    
+                </div>
+            
+            </div>
+    
+        </div>
+        </div>
+    
+
+        <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+            aria-labelledby="myLargeModalLabel" id="mdlMetodoLista" aria-hidden="false">
+            <div class="modal-dialog" role="document">            
+            <!-- Modal content-->
+            <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+            <div class="modal-header" style="background-color:#337ab7;color:white;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Descargar nómina</h4>
+    
+            </div>
+            <div class="modal-body" id="_Metodolista">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnPreparar" class="btn btn-md btn-success" onclick="AceptarMetodo()">
+                    Aceptar</button>
+            </div>
+            
+            </div>
+    
+        </div>
+    </div>

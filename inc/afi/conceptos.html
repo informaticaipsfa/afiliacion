@@ -72,7 +72,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <div class="col-md-4 col-sm-4">
-                                <label>Código / Cuenta</label>
+                                <label>Código</label>
                                 <input  id="txtCodigo" class="form-control"  type="text"
                                 required >
                             </div>
@@ -92,6 +92,11 @@
                         </div> <!-- Grupo nombres-->
 
                         <div class="form-group">
+                            <div class="col-md-6 col-sm-4">
+                                <label>Cuenta Contable</label>
+                                <input  id="txtCuentaContable" class="form-control"  type="text"
+                                required >
+                            </div>
                             <div class="col-md-3 col-sm-4">
                                 <label>Tipo</label>
                                 <select id="cmbTipo" class="form-control" required >
@@ -103,10 +108,6 @@
                                     <option value="99">OPERACIONES INDIVIDUALES</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 col-sm-4">
-                                <label>Partida Presupuestaria</label>
-                                <input id="txtPresupuesto" class="form-control"  type="text" required>
-                            </div>
                             <div class="col-md-3 col-sm-4">
                                 <label>Estatus</label>
                                 <select id="cmbEstatus" class="form-control" required >
@@ -114,6 +115,14 @@
                                     <option value="0">INACTIVO</option>
                                 </select>
                             </div>
+                        </div> <!-- Grupo nombres-->
+
+                        <div class="form-group">                          
+                            <div class="col-md-6 col-sm-4">
+                                <label>Partida Presupuestaria</label>
+                                <input id="txtPresupuesto" class="form-control"  type="text" required>
+                            </div>
+                            
                         </div> <!-- Grupo nombres-->
 
                         <div class="form-group" style="display:none">

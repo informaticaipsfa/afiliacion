@@ -1,4 +1,4 @@
-var ObjCalcular = {};
+let ObjCalcular = {};
 
 class Calculadora{
     
@@ -9,11 +9,14 @@ class Calculadora{
         var fingreso = req.fingreso.substring(0, 10);
         var fascenso = req.fascenso.substring(0, 10);
 
+        ObjCalcular = req;
+
         $("#txtGradoT").val(req.Grado.abreviatura.toUpperCase().trim());
         $("#txtGrado").val(req.Grado.abreviatura);
         $("#txtComponente").val(req.Componente.abreviatura);
         $("#txtNombre").val(nombre.toUpperCase().trim());        
         $('#txtFIngreso').val(fingreso.substring(0, 10));
+        $('#txtSituacion').val(req.situacion);
         var fretiro = req.fretiro.substring(0, 10);
         if ( fretiro == "0001-01-01" ){
             fretiro = new Date().toISOString().slice(0, 10);    
@@ -220,16 +223,54 @@ class WCalc{
 
         tblP.row.add([
             'TOTALES',
-            parseFloat(parseFloat(tasignacion).toFixed(2)),
-            parseFloat(parseFloat(tfcis).toFixed(2)),
-            parseFloat(parseFloat(ttotal).toFixed(2)),
-            parseFloat(parseFloat(tbonr).toFixed(2)),
-            parseFloat(parseFloat(tvaca).toFixed(2)),
-            parseFloat(parseFloat(taguin).toFixed(2)),
-            parseFloat(parseFloat(tneto).toFixed(2))
+            parseFloat(accounting.formatMoney(tasignacion, "", 2, ".", ",")),
+            parseFloat(accounting.formatMoney(tfcis, "", 2, ".", ",")),
+            parseFloat(accounting.formatMoney(ttotal, "", 2, ".", ",")),
+            parseFloat(accounting.formatMoney(tbonr, "", 2, ".", ",")),
+            parseFloat(accounting.formatMoney(tvaca, "", 2, ".", ",")),
+            parseFloat(accounting.formatMoney(taguin, "", 2, ".", ",")),
+            parseFloat(accounting.formatMoney(tneto, "", 2, ".", ","))
         ]).draw(false);
-
+        if(ObjCalcular.situacion == 'FCP'){
+            $("#_tblFamiliaresHMTL").html(obtenerTablaFamiliaresHTML());
+            var tblF = $('#tblFamiliares').DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': false,
+                'info': false,
+                'autoWidth': false,
+                "language": {
+                    "decimal": ",",
+                    "thousands": "."
+                }
+            });
+            tblF.clear().draw();
+            ObjCalcular.Familiar.forEach(fam => {
+                var familiares = new Familiar();
+                familiares.parentesco = fam.parentesco;
+                familiares.Persona.DatoBasico.sexo = fam.Persona.DatoBasico.sexo;
+                if(fam.pprestaciones != undefined){
+                    var apellido = fam.Persona.DatoBasico.apellidoprimero ;
+                    var nombre = fam.Persona.DatoBasico.nombreprimero;
+                    var fcis = (tfcis * fam.pprestaciones)/100;
+                    var neto = (tneto * fam.pprestaciones)/100;
+                    tblF.row.add([
+                        fam.Persona.DatoBasico.cedula,
+                        apellido + " " + nombre,
+                        familiares.GenerarParentesco(),
+                        fam.pprestaciones,
+                        accounting.formatMoney(fcis, "", 2, ".", ","),
+                        accounting.formatMoney(neto, "", 2, ".", ",")
+                    ]).draw(false);
+                }
+            });
+        }
+       
     }
+
+   
+
 }
 
 function obtenerTablaCalculosHTML(){
@@ -252,10 +293,32 @@ function obtenerTablaCalculosHTML(){
     </table>`;
 
 }
+
+
+function obtenerTablaFamiliaresHTML(){
+    return `
+    <table class="ui celled table tablanetos" cellspacing="0" width="800px" id="tblFamiliares" >
+        <thead>
+            <tr>
+                <th>CEDULA</th>
+                <th>APELLIDOS Y NOMBRES</th>
+                <th>PARENTESCO</th>
+                <th>% PENSION</th>      
+                <th>FCIS. 6.5%</th>
+                <th>NETO</th>
+            </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+}
 function ejecutarCalculadora(){
     var Calc = new WCalc();
     Calc.inicio = $("#txtInicioCalc").val();
     Calc.fin = $("#txtFinCalc").val();
+    $("#_tblCalculadoraHMTL").html("");
+    $("#_tblFamiliaresHMTL").html("");
+
     if(Calc.inicio == "" || Calc.fin == "" ){
         $.notify({
                 title: '<strong>Proceso de Cálculos!</strong>',
@@ -345,6 +408,7 @@ function imprimirCalculos(){
     Usuario = json.Usuario;
 
     var tabla = $("#_tblCalculadoraHMTL").html();
+    var tablaF = $("#_tblFamiliaresHMTL").html();
     var ventana = window.open("", "_blank");
     // style="background: url('../images/fondo.png') no-repeat center;"
     var grado = $("#txtGradoT").val();
@@ -404,6 +468,8 @@ function imprimirCalculos(){
         </table>
         <br>
         ${tabla}
+        <br><br>
+        ${tablaF}
     </div><br><br><br>
     <h3><BR>
     APROBADO POR<BR></h3>

@@ -1,0 +1,731 @@
+<form id="_frmDatoFamiliar">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Cédula:</label>
+                        <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false" id="btnnacionalidad" disabled>V</button>
+                              <ul class="dropdown-menu" id="liNacionalidad">
+                                <li><a href="#" onclick="NacionalidadFamiliar('V');">V</a></li>
+                                <li><a href="#" onclick="NacionalidadFamiliar('M');">M</a></li>
+                                <li><a href="#" onclick="NacionalidadFamiliar('E');">E</a></li>
+                              </ul>
+                        </span>
+                            <input type="hidden" id="txtnropersonaf">
+                            <input class="form-control" id="txtcedulaf" type="text"
+                                   onblur="ValidarMilitar('txtcedulaf')" disabled required>
+                            <input type="hidden" id="txtidf">
+                            <select id="cmbmilitarf" style="display:none">
+                                <option selected="selected" value=0></option>
+                                <option value=1></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-8 col-xs-8">
+                        <label>Fecha de Nacimiento:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+
+
+                            <input id="txtnacimientof" class="form-control" disabled type="text"
+                                   onblur="CalcularEdadFamiliar('txtedadf','txtnacimientof')" required>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                        <label>Edad:</label>
+                        <input id="txtedadf" class="form-control" type="text" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Sexo:</label>
+                        <select class="js-states form-control" style="width: 100%" tabindex="-1" aria-hidden="true"
+                                id="cmbsexof" disabled onchange="SeleccionarPorSexoFamiliar()" required>
+                            <option selected="selected" value="F">FEMENINO</option>
+                            <option value="M">MASCULINO</option>
+                        </select>
+                    </div>
+
+                </div> <!-- Fecha Nacimiento -->
+            </div><!-- /.Row -->
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Nombres:</label>
+                        <input id="txtnombref" class="form-control" type="text" disabled required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Apellidos:</label>
+                        <input id="txtapellidof" class="form-control" type="text" disabled required>
+                    </div>
+                </div> <!-- Grupo nombres-->
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        <label>Edo. Civil:</label>
+                        <select class="js-states form-control" style="width: 100%" disabled tabindex="-1"
+                                aria-hidden="true" id="cmbedocivilf" required>
+                            <option selected="selected" value="SS"></option>
+                            <option value="S">SOLTERO</option>
+                            <option value="C">CASADO</option>
+                            <option value="D">DIVORCIADO</option>
+                            <option value="V">VIUDO</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Parentesco:</label>
+                        <select class="js-states form-control" style="width: 100%" disabled tabindex="-1"
+                                aria-hidden="true" id="cmbparentescof" required>
+                                <option value="S"></option>
+                                <option value="HJ" selected="selected">HIJO</option>
+                                <option value="PD">PADRE</option>
+                                <option value="MD">MADRE</option>
+                                <option value="EA">ESPOSO</option>
+                                <option value="HO">HERMANO</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" id="_situacionf">
+                        <label>Situacion:</label>
+                        <select class="js-states form-control" style="width: 100%" disabled id="cmbsituacionf">
+                            <option value="S"></option>
+                            <option selected="selected" value=1>ACTIVO</option>
+                            <option value=0>INACTIVO</option>
+                            <option value=2 disabled>SOBREVIVIENTE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" id="_condicionf" style="display:none">
+                        <label>Condición Especial:</label>
+                        <select class="js-states form-control" style="width: 100%" disabled id="cmbcondicionf">
+                            <option selected="selected" value="S"></option>
+                            <option value=0>NO</option>
+                            <option value=1>SI</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3" id="_estudiaf" style="display:none">
+                        <label>Constancia de Estudio:</label>
+                        <select class="js-states form-control" style="width: 100%" disabled id="cmbestudiaf">
+                            <option selected="selected" value="S"></option>
+                            <option value=0>NO</option>
+                            <option value=1>SI</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Fecha de Defunción:</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input id="txtdefuncionf" class="form-control" disabled type="text">
+                        </div>
+                    </div>
+
+                </div> <!-- Grupo nombres   <div class="row">-->
+            </div>
+        </div>
+        <div class="col-md-2">
+            <br>
+
+            <div style="width: 120px; height: 140px; " id="view-_imgIngFam">
+                <img style="width: 120px; height: 140px;"
+                     class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                     src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'" id="_imgIngFam"/>
+            </div>
+            <div class="file-field input-field col file-field-input-field ">
+                <label class="btn btn-default btn-file" style="display:none" id="imgIngFam">Foto
+                    <input type="file" style="visibility:hidden;" id="imgIngFam" accept="image/*"
+                           onchange="readURL(this,'_imgIngFam');" onclick="clearURL(this)">
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs box box-primary" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#direccion" aria-controls="home" role="tab"
+                       data-toggle="tab">Dirección</a>
+                </li>
+                <li role="presentation">
+                    <a href="#banconomina" aria-controls="profile" id="_banconomina" role="tab"
+                    data-toggle="tab">Banco</a>
+                </li>
+                <li role="presentation"><a href="#partida" aria-controls="profile" role="tab" data-toggle="tab">Partida
+                    Nacimiento</a></li>
+                <li role="presentation"><a href="#condicionespecial" aria-controls="profile" id="_condicionfdoc"
+                                           role="tab" data-toggle="tab" style="display:none">Condición Especial</a></li>
+                <li role="presentation"><a href="#datoestudio" aria-controls="profile" id="_estudiafdoc" role="tab"
+                                           data-toggle="tab" style="display:none">Datos de Estudio</a></li>
+                <li role="presentation"><a href="#dfisico" aria-controls="messages" role="tab" data-toggle="tab">Datos
+                    Fisicos</a></li>
+                <li role="presentation"><a href="#dredes" aria-controls="messages" role="tab" data-toggle="tab"
+                                           style="display:none">Redes Sociales</a></li>
+
+                <li role="presentation"><a href="#dcarnet" aria-controls="messages" role="tab" data-toggle="tab">TIF</a>
+                </li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="direccion" style="padding:25px">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Estado:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled id="cmbestadof"
+                                        onchange="CiudadMunicipio(1);" required>
+                                    <option value="S" selected="selected"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Ciudad:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled id="cmbciudadf"
+                                        required>
+                                    <option value="S" selected="selected"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Municipio:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled id="cmbmunicipiof"
+                                        required onchange="SeleccionarParroquia(1);" required>
+                                    <option value="S" selected="selected"></option>
+                                </select>
+                            </div>
+
+                        </div> <!-- Grupo nombres-->
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Parroquia:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled id="cmbparroquiaf"
+                                        required>
+                                    <option value="S" selected="selected"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Calle / Edificio:</label>
+                                <input id="txtcallef" class="form-control" disabled type="text" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label># Casa:</label>
+                                <input id="txtcasaf" class="form-control" disabled type="text">
+                            </div>
+                            <div class="col-md-2">
+                                <label># Apto.:</label>
+                                <input id="txtaptof" class="form-control" disabled type="text">
+                            </div>
+                        </div> <!-- Grupo nombres-->
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Teléfono:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input id="txttelefonof" class="form-control" disabled type="text"
+                                           data-inputmask='"mask": "(9999) 999-99-99"' data-mask required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Celular:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+
+                                    <input id="txtcelularf" class="form-control" disabled type="text"
+                                           data-inputmask='"mask": "(9999) 999-99-99"' data-mask required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Correo Electronico:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                    <input id="txtcorreof" class="form-control" disabled type="text"
+                                           onblur="ValidarCorreo()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row"><div class="col-md-12">
+                          <br>
+                          <button class="btn btn-success pull-right" onclick="traeDireccion()">Importar Dirección</button>
+                        </div></div>
+                    </div>
+                </div><!-- Tab panes  Direccion-->
+                
+                <div role="tabpanel" class="tab-pane" id="banconomina" style="padding:15px">
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-12">
+                            <label>Institución Financiera</label>
+                                <select class="js-states form-control" style="width: 100%"
+                                aria-hidden="true" disabled="disabled" required id="cmbminstfinancieraf"
+                                onchange="SeleccionarCuentaf()">
+                                <option selected="selected" value="0000">PAGO POR CHEQUE</option>
+                                <option value="0156">100%BANCO</option>
+                                <option value="0196">ABN AMRO BANK</option>
+                                <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
+                                <option value="0171">BANCO ACTIVO BANCO COMERCIAL, C.A.</option>
+                                <option value="0166">BANCO AGRICOLA</option>
+                                <option value="0175">BANCO BICENTENARIO</option>
+                                <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
+                                <option value="0164">BANCO DE DESARROLLO DEL MICROEMPRESARIO</option>
+                                <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                                <option value="0114">BANCO DEL CARIBE C.A.</option>
+                                <option value="0149">BANCO DEL PUEBLO SOBERANO C.A.</option>
+                                <option value="0163">BANCO DEL TESORO</option>
+                                <option value="0176">BANCO ESPIRITO SANTO, S.A.</option>
+                                <option value="0115">BANCO EXTERIOR C.A.</option>
+                                <option value="0003">BANCO INDUSTRIAL DE VENEZUELA.</option>
+                                <option value="0173">BANCO INTERNACIONAL DE DESARROLLO, C.A.</option>
+                                <option value="0105">BANCO MERCANTIL C.A.</option>
+                                <option value="0191">BANCO NACIONAL DE CREDITO</option>
+                                <option value="0116">BANCO OCCIDENTAL DE DESCUENTO.</option>
+                                <option value="0138">BANCO PLAZA</option>
+                                <option value="0108">BANCO PROVINCIAL BBVA</option>
+                                <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
+                                <option value="0168">BANCRECER S.A. BANCO DE DESARROLLO</option>
+                                <option value="0134">BANESCO BANCO UNIVERSAL</option>
+                                <option value="0177">BANFANB</option>
+                                <option value="0146">BANGENTE</option>
+                                <option value="0174">BANPLUS BANCO COMERCIAL C.A</option>
+                                <option value="0190">CITIBANK.</option>
+                                <option value="0121">CORP BANCA.</option>
+                                <option value="0157">DELSUR BANCO UNIVERSAL</option>
+                                <option value="0151">FONDO COMUN</option>
+                                <option value="0601">INSTITUTO MUNICIPAL DE CR&#201;DITO POPULAR</option>
+                                <option value="0169">MIBANCO BANCO DE DESARROLLO, C.A.</option>
+                                <option value="0137">SOFITASA</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label >Tipo de Cuenta:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled="disabled" 
+                                    required aria-hidden="true" id="cmbmtipofinancieraf" >
+                                    <option selected="selected" value="S"></option>
+                                    <option value="CQ" selected="selected">CHEQUE</option>
+                                    <option value="CA">AHORRO</option>
+                                    <option value="CC">CORRIENTE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-12">
+                                <label>Cédula / Autorizado:</label>
+                                <input id="txtautorizadof" class="form-control" disabled="disabled" type="text">
+                                <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label>Nombre del titular:</label>
+                                <input id="txttitularf" class="form-control" disabled="disabled" type="text">
+                                <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
+                            </div>
+                        </div><!-- .Form-Group -->        
+                        <div class="form-group">
+                            <div class="form-group">                                
+                                <div class="col-md-6 col-sm-12">
+                                    <label>Nro. de Cuenta:</label>
+                                    <input id="txtmnrocuentaf" class="form-control" disabled="disabled" type="text" maxlength="20">
+                                    <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
+                                </div>
+                            </div><!-- .Form-Group -->  
+                        </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="condicionespecial" style="padding:15px">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgCondicionEspecial">
+                                <img style="width: 120px;height: 140px; margin-left: 0px"
+                                     class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                                     src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"
+                                     id="_imgpartida"/>
+                            </div>
+                            <div class="file-field input-field col file-field-input-field ">
+                                &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file">Seleccionar Informe
+                                <input type="file" style="visibility:hidden;" id="imgCondicionEspecial" accept="image/*"
+                                       onchange="readURL(this,'_imgCondicionEspecial');"
+                                       onclick="clearURL(this)"></label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>Fecha:</label>
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input id="txtfechacondicionf" class="form-control" disabled="disabled"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label>Tipo de Discapacidad:</label>
+                                    <select class="js-states form-control" style="width: 100%" id="cmbDiscapacidadf">
+                                        <option selected="selected" value="S"></option>
+                                        <option value=0>TOTAL Y PERMANENTE</option>
+                                        <option value=1>PARCIAL Y PERMANENTE</option>
+                                        <option value=2>CATASTROFICO</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Diagnostico:</label>
+                                    <input id="txtdiagnosticof" class="form-control" disabled="disabled" type="text">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label>Hospital Militar:</label>
+                                    <select class="js-states form-control" style="width: 100%" tabindex="-1"
+                                            aria-hidden="true" id="cmbHospitalf">
+                                        <option value="S"></option>
+                                        <option value="0">HOSPITAL "TCNEL. FRANCISCO VALBUENA"</option>
+                                        <option value="1">HOSPITAL "TN.PEDRO MANUEL CHIRINOS"</option>
+                                        <option value="2">HOSPITAL "DR.JOSE ÁNGEL ÁLAMO"</option>
+                                        <option value="3">HOSPITAL "CNEL. ELBANO PAREDES VIVAS"</option>
+                                        <option value="4">HOSPITAL "DR.FRANCISCO ISNARDI"</option>
+                                        <option value="5">HOSPITAL "DR.VICENTE SALIAS"</option>
+                                        <option value="6">HOSPITAL "DR.CARLOS ARVELO"</option>
+                                        <option value="7">HOSPITAL "CNEL.NELSON SAYAGO MORA"</option>
+                                        <option value="8">HOSPITAL "CNEL.FRANCISCO JAVIER GUTIÉRREZ"</option>
+                                        <option value="9">HOSPITAL "DR.RAÚL PERDONO"</option>
+                                        <option value="10">HOSPITAL "DR.MANUEL SILVERIO CASTILLO"</option>
+                                        <option value="11">HOSPITAL "CAP.GUILLERMO HERNÁNDEZ JACOBSEN"</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="datoestudio" style="padding:15px">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgEstudiaf">
+                                <img style="width: 120px;height: 140px; margin-left: 0px" class="profile-user-img img-responsive
+                         file-path-wrapper-pre-view" src="images/ndisponible.jpg"
+                                     onerror="this.src='images/ndisponible.jpg'" id="_imgEstudiaf"/>
+                            </div>
+                            <div class="file-field input-field col file-field-input-field ">
+                                &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file">Seleccionar Firma
+                                <input type="file" style="visibility:hidden;" id="imgEstudiaf" accept="image/*"
+                                       onchange="readURL(this,'_imgEstudiaf');"
+                                       onclick="clearURL(this)"></label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label>Carrera:</label>
+                                    <input id="txtcarreraf" class="form-control" disabled type="text">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Nivel:</label>
+                                    <select class="js-states form-control" style="width: 100%" id="cmbnivelf" disabled>
+                                        <option selected="selected" value="S"></option>
+                                        <option value=0>PREGRADO</option>
+                                        <option value=1>POSTGRADO</option>
+                                        <option value=2>MAESTRIA</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>Semestre / Año:</label>
+                                    <input id="txtsemestref" class="form-control" disabled type="text">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Fecha de Inicio:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input class="form-control" id="txtiniciof" disabled type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Fecha de Fin:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input class="form-control" id="txtfinf" disabled type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Nombre de la Universidad:</label>
+                                    <input class="form-control" id="txtuniversidadf" disabled type="text">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="partida" disabled style="padding:15px">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgpartidaF">
+                                <img style="width: 120px;height: 140px; margin-left:0px"
+                                     class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                                     src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"
+                                     id="_imgpartidaF"/>
+                            </div>
+                            <div class="file-field input-field col file-field-input-field ">
+                                &nbsp;<label class="btn btn-default btn-file"> Seleccionar Partida
+                                <input type="file" style="visibility:hidden;" id="imgpartidaF" accept="image/*"
+                                       onchange="readURL(this,'_imgpartidaF');" onclick="clearURL(this)"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label>Registro Civil:</label>
+                                    <input id="txtpregistrocivilf" class="form-control" disabled type="text">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Año:</label>
+                                    <input id="txtpanof" class="form-control" disabled type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Nro. Acta:</label>
+                                    <input id="txtpactaf" class="form-control" disabled type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Nro. Folio:</label>
+                                    <input id="txtpfoliof" class="form-control" disabled type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Libro:</label>
+                                    <input id="txtplibrof" class="form-control" disabled type="text">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div><!-- Tab panel Partida de Nacimiento -->
+                <div role="tabpanel" class="tab-pane" id="dfisico" style="padding:15px">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Estatura:</label>
+                                <input id="txtestaturaf" class="form-control" disabled type="text" required
+                                       maxlength="4" onkeypress="return Util.SoloNumero(event,this)">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Peso:</label>
+                                <input id="txtpesof" class="form-control" disabled type="text" required maxlength="6"
+                                       onkeypress="return Util.SoloNumero(event,this)">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Talla:</label>
+                                <input id="txttallaf" class="form-control" disabled type="text" maxlength="2" required>
+                            </div>
+                        </div> <!-- Grupo nombres-->
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Color de Piel:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled id="cmbpielf"
+                                        required>
+                                    <option value="S" selected="selected"></option>
+                                    <option value="NE">NEGRA</option>
+                                    <option value="BL">BLANCA</option>
+                                    <option value="CA">CANELA</option>
+                                    <option value="MO">MORENA</option>
+                                    <option value="RO">ROSADA</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Color de Ojos:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled id="cmbojosf"
+                                        required>
+                                    <option value="S" selected="selected"></option>
+                                    <option value="CA">CASTAÑO</option>
+                                    <option value="AM">ÁMBAR</option>
+                                    <option value="AV">AVELLANA</option>
+                                    <option value="VE">VERDE</option>
+                                    <option value="AZ">AZUL</option>
+                                    <option value="GR">GRIS</option>
+                                    <option value="NE">NEGRO</option>
+                                    <option value="MA">MARRÓN</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Color de Cabello:</label>
+                                <select class="js-states form-control" style="width: 100%" disabled
+                                        id="cmbcolorcabellof" required>
+                                    <option value="S" selected="selected"></option>
+                                    <option value="NE">NEGRO</option>
+                                    <option value="BA">BLANCO</option>
+                                    <option value="MA">MARRON</option>
+                                    <option value="CA">CASTAÑO</option>
+                                    <option value="AM">AMARILLO</option>
+                                    <option value="AZ">AZUL</option>
+                                    <option value="VI">VIOLETA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><!-- Grupo nombres-->
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Seña Particular:</label>
+                                <input id="txtsenaparticularf" class="form-control" disabled type="text">
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <label>Historia clinica:</label>
+                                <input id="hclinicaf" class="form-control" type="text" >
+                            </div>
+                            <div class="col-md-2">
+                                <label>Grupo sanguineo:</label>
+                                <select class="js-states form-control" style="width: 90%" id="gsanguineof">
+                                    <option value="S" selected="selected"></option>
+                                    <option value="0-">0-</option>
+                                    <option value="O+">0+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="AB+">AB+</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Donante:</label>
+                                <select class="js-states form-control" style="width: 90%" id="donantef" required>
+                                    <option value="S"></option>
+                                    <option value="SI">SI</option>
+                                    <option value="NO">NO</option>
+                                </select>
+                            </div>
+                        </div> <!-- Grupo nombres-->
+                    </div>
+                </div>
+
+
+            <!-- Tab panes Datos Fisicos-->
+            <div role="tabpanel" class="tab-pane" id="dredes" style="padding:15px">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-6 ">Twitter:</label>
+                        <label class="col-md-6">FaceBook:</label>
+                        <div class="col-md-6">
+                            <input id="txttwitterf" class="form-control" type="text">
+                        </div>
+
+                        <div class="col-md-6">
+                            <input id="txtfacebookf" class="form-control" type="text">
+                        </div>
+
+                    </div> <!-- Grupo nombres-->
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-6 ">Instagram:</label>
+                        <label class="col-md-6">Linkedin:</label>
+                        <div class="col-md-6">
+                            <input id="txtinstagramf" class="form-control" type="text">
+                        </div>
+
+                        <div class="col-md-6">
+                            <input id="txtlinkedinf" class="form-control" type="text">
+                        </div>
+
+                    </div> <!-- Grupo nombres-->
+
+                </div>
+
+            </div><!-- Tab panes Redes Sociales-->
+
+            <div role="tabpanel" class="tab-pane" id="dcarnet" style="padding:15px">
+
+                <div class="row">
+                    <label class="col-md-12"></label>
+                </div>
+                <div class="row">
+                    <!-- Firma -->
+                    <div class="col-md-3">
+                        <div>
+                            <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imghuellaF">
+                                <img style="width: 120px;height: 140px; margin-left: 0px"
+                                     class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                                     src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"
+                                     id="_imghuellaF"/>
+                            </div>
+                            <div class="file-field input-field col file-field-input-field ">
+                                &nbsp;&nbsp;&nbsp;<label class="btn btn-default btn-file">Seleccionar Huella
+                                <input type="file" style="visibility:hidden;" id="imghuellaF" accept="image/*"
+                                       onchange="readURL(this,'_imghuellaF');" onclick="clearURL(this)">
+                            </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin Firma -->
+                    <div class="col-md-3">
+                        <div>
+                            <div style="width: 120px;height: 140px; margin-left:20px " id="view-_imgfirmaF">
+                                <img style="width: 120px;height: 140px; margin-left: 0px"
+                                     class="profile-user-img img-responsive file-path-wrapper-pre-view"
+                                     src="images/ndisponible.jpg" onerror="this.src='images/ndisponible.jpg'"
+                                     id="_imgfirmaF"/>
+                            </div>
+                            <div class="file-field input-field col file-field-input-field ">
+                                &nbsp;<label class="btn btn-default btn-file">Seleccionar Firma
+                                <input type="file" style="visibility:hidden;" id="imfirmaF" accept="image/*"
+                                       onchange="readURL(this,'_imgfirmaF');" onclick="clearURL(this)">
+                            </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- Tab panes Redes Sociales-->
+        </div>
+
+    </div>
+
+    </div>
+</form>

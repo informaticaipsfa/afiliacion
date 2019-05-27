@@ -123,6 +123,7 @@ class Concepto {
         this.formula = '';
         this.tipo = 0;
         this.partida = '';
+        this.cuenta = '';
         this.estatus = 0;
         this.componente = '';
         this.grado = '';
@@ -134,6 +135,7 @@ class Concepto {
         this.formula = $("#txtFormula").val();
         this.tipo = parseInt($("#cmbTipo").val());
         this.partida = $("#txtPresupuesto").val();
+        this.cuenta = $("#txtCuentaContable").val();
         this.estatus = parseInt($("#cmbEstatus").val());
         this.componente = $("#cmbComponente").val();
         this.grado = $("#cmbGrado").val();
@@ -155,9 +157,9 @@ class Concepto {
         $("#_TblConceptos").html(tabla);        
         var t = $('#tblConcepto').DataTable(opcionesConceptos);
         t.clear().draw();
-        
+        console.log(req);
         if(req == null) {
-
+            
         }else{
             req.forEach( v => {           
                 
