@@ -223,13 +223,13 @@ class WCalc{
 
         tblP.row.add([
             'TOTALES',
-            parseFloat(accounting.formatMoney(tasignacion, "", 2, ".", ",")),
-            parseFloat(accounting.formatMoney(tfcis, "", 2, ".", ",")),
-            parseFloat(accounting.formatMoney(ttotal, "", 2, ".", ",")),
-            parseFloat(accounting.formatMoney(tbonr, "", 2, ".", ",")),
-            parseFloat(accounting.formatMoney(tvaca, "", 2, ".", ",")),
-            parseFloat(accounting.formatMoney(taguin, "", 2, ".", ",")),
-            parseFloat(accounting.formatMoney(tneto, "", 2, ".", ","))
+            accounting.formatMoney(tasignacion, "Bs. ", 2, ".", ","),
+            accounting.formatMoney(tfcis, "Bs. ", 2, ".", ","),
+            accounting.formatMoney(ttotal, "Bs. ", 2, ".", ","),
+            accounting.formatMoney(tbonr, "Bs. ", 2, ".", ","),
+            accounting.formatMoney(tvaca, "Bs. ", 2, ".", ","),
+            accounting.formatMoney(taguin, "Bs. ", 2, ".", ","),
+            accounting.formatMoney(tneto, "Bs. ", 2, ".", ",")
         ]).draw(false);
         if(ObjCalcular.situacion == 'FCP'){
             $("#_tblFamiliaresHMTL").html(obtenerTablaFamiliaresHTML());

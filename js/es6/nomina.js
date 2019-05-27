@@ -115,7 +115,7 @@ function fnxC(fnxc){
 }
 
 
-
+let wLstConceptos = [];
 class Concepto {
     constructor(){
         this.codigo = '';
@@ -148,7 +148,8 @@ class Concepto {
         <table id="tblConcepto" class="ui celled table table-bordered table-striped dataTable" >
             <thead>
                 <tr role="row">
-                    <th>PARTIDA </th>
+                    <th>#</th>
+                    <th>PARTIDA</th>
                     <th>CODIGO</th>                                            
                     <th>DESCRIPCION</th>                   
                 </tr>
@@ -157,13 +158,15 @@ class Concepto {
         $("#_TblConceptos").html(tabla);        
         var t = $('#tblConcepto').DataTable(opcionesConceptos);
         t.clear().draw();
-        console.log(req);
+        wLstConceptos = req;
         if(req == null) {
             
         }else{
+            var i = 0;
             req.forEach( v => {           
-                
+                i++;
                 t.row.add([
+                    i,
                     v.partida,
                     v.codigo,
                     v.descripcion
@@ -174,8 +177,16 @@ class Concepto {
         $("#_cargandol").hide();
         $('#tblConcepto tbody').on('dblclick', 'tr', function () {
             var data = t.row(this).data();
-            console.log(data);
-            alert(1);
+            var pos = data[0] - 1;
+            var conc = wLstConceptos[pos];
+            $("#txtCode").val(pos);
+            $("#txtCodigo").val(conc.codigo);
+            $("#txtDescripcion").val(conc.descripcion);
+            $("#txtFormula").val(conc.formula);
+            $("#cmbTipo").val(conc.tipo);
+            $("#txtPresupuesto").val(conc.partida);
+            $("#txtCuentaContable").val(conc.cuenta);
+            $("#cmbEstatus").val(conc.estatus);
         });
     }
     
