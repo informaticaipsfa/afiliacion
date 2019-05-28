@@ -26,6 +26,7 @@ function ImprimirNeto(){
         var lbl =  obj[i].desc;        
         var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
+        var grado = $("#cmbgrado option:selected").text();
         console.log(obj[i]);
 		if(tipo == 97){
            
@@ -118,7 +119,7 @@ function ImprimirNeto(){
         <br>
     <table style="width:800px" class="tablaneto">
         <tr>
-            <td align="center"><b>GRADO</b><BR>MAYOR</td>
+            <td align="center"><b>GRADO</b><BR>${grado}</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
             <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${cedula}</cedula></td>
         </tr>
@@ -232,6 +233,7 @@ function ImprimirNetoSobreviviente(){
     var nombre = $("#txtnombre").val() + " " + $("#txtapellido").val();
     var cedula = $("#txtcedula").val();
     var porcentaje = $("#txtporcentaje").val();
+    var grado = $("#cmbgrado option:selected").text();
     var pension = 0.00;
     var nomina =  $("#cmbNetoPagoSobre option:selected").text().split('|');
     var fila = '';
@@ -386,7 +388,7 @@ function ImprimirNetoSobreviviente(){
             <td align="center" colspan="4" style="font-size:16px; padding:5px">CAUSANTE DE LA PENSION</td>
         </tr>
         <tr>
-            <td align="center"><b>GRADO</b><BR>MAYOR</td>
+            <td align="center"><b>GRADO</b><BR>${grado}</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
             <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${cedula}</cedula></td>
         </tr>
