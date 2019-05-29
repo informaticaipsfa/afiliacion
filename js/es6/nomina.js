@@ -484,7 +484,7 @@ function GenerarNomina(){
         Concepto.partida = v[3];
         Nom.Concepto.push(Concepto);
     });
-    console.log(Nom);
+    //    console.log(Nom);
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
     waitingDialog.show('Creando nómina por favor espere...');
