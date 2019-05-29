@@ -558,10 +558,21 @@ function CasoMenor2010(t){
             break;
         case 25:
             v = 99;
+            break; 
+        case 26:
+            v = 99;
+            break; 
+        case 27:
+            v = 99;
+            break; 
+        case 28:
+            v = 99;
+            break; 
+        case 29:
+            v = 99;
             break;        
         default:
-            if (t > 25) v = 100;
-            break;
+            if (t >= 30) v = 100;
     }
     return v;
 }
