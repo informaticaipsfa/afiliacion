@@ -362,6 +362,8 @@ class Familiar{
 		bnc.titular = $("#txttitularf").val();		
 		bnc.prioridad = "PRINCIPAL";
 		this.Persona.DatoFinanciero[0] = bnc;
+		this.pprestaciones = obtenerFamiliarPorcentaje(this.Persona.DatoBasico.cedula);
+		console.log(this.pprestaciones);
 
 
 		return this;
@@ -611,7 +613,7 @@ class Recibo{
 class Pension{
 	constructor(){
 		this.tipopension = "";
-		this.pprestaciones = 0;
+		this.pprestaciones = 0.00;
 		this.causal = "";
 		this.tipo = "";
 	}

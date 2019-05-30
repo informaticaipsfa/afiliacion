@@ -369,3 +369,15 @@ function FamiliaresHTML() {
   </table>`;
     return html;
 }
+
+function obtenerFamiliarPorcentaje(id){
+   var cantidad = ObjMilitar.Familiar.length;
+   for (let i = 0; i < cantidad; i++) {
+       const cedula = ObjMilitar.Familiar[i].Persona.DatoBasico.cedula;
+       if( cedula == id ){
+        return ObjMilitar.Familiar[i].pprestaciones;
+       }
+       
+   }
+   return 0;
+}
