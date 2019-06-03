@@ -4,7 +4,7 @@ class Calculadora{
     
 
     Crear(req){
-        
+        console.log(req);
         var nombre = req.Persona.DatoBasico.nombreprimero + " " + req.Persona.DatoBasico.apellidoprimero;
         var fingreso = Util.ConvertirFechaHumana(req.fingreso); //.substring(0, 10);
         var fascenso = Util.ConvertirFechaHumana(req.fascenso); //.substring(0, 10);
@@ -17,12 +17,9 @@ class Calculadora{
         $("#txtNombre").val(nombre.toUpperCase().trim());        
         $('#txtFIngreso').val(fingreso);
         $('#txtSituacion').val(req.situacion);
-        var fretiro = Util.ConvertirFechaHumana(req.fretiro); //.substring(0, 10);
-        // if ( fretiro == "0001-01-01" ){
-        //     fretiro = new Date().toISOString().slice(0, 10);    
-        // }
-
+        var fretiro = Util.ConvertirFechaHumana(req.fretiro);
         var rutaimg = Conn.URLIMG;
+
         var url = rutaimg + $("#txtcedula").val() + ".jpg";
         if (req.Persona.foto  != undefined){
             rutaimg = Conn.URLTEMP;
@@ -31,11 +28,23 @@ class Calculadora{
         $("#minifoto").attr("href", url);
         $("#_img").attr("src", url);
 
-        $('#txtFRetiro').val(fretiro.substring(0, 10));        
+
+        
+
+        $('#txtFRetiro').val(fretiro);        
         $('#txtFUAscenso').val(fascenso);
         $('#txtServicioT').val(req.tiemposervicio);
         
-        var antiguedad = antiguedadGrado(fascenso, fretiro);
+        var fing = $("#txtFIngreso").val().split("/");
+        var fasc = $("#txtFUAscenso").val().split("/");
+        var fret =  $("#txtFRetiro").val().split("/");
+        var Xfingreso = fing[2] + "-" + fing[1] + "-" + fing[0];
+        var Xfascenso = fasc[2] + "-" + fasc[1] + "-" + fasc[0];
+        var Xfretiro = fret[2] + "-" + fret[1] + "-" + fret[0];
+    
+
+
+        var antiguedad = antiguedadGrado(Xfascenso, Xfretiro);
         $('#txtAntiguedad').val(antiguedad['n']);
         
         var ti = parseInt(req.tiemposervicio.split("A")[0]);
