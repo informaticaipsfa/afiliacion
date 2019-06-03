@@ -437,3 +437,8 @@ function PrepararCalculadora(){
 function PrepararCuadreBanco(){
   
 }
+
+function PrepararOtrosPagos(){
+  CargarUrl("_cuerpo", "fin/otospagos");
+  $("#ModuloTitulo").html("Otros pagos");
+}

@@ -6,8 +6,8 @@ class Calculadora{
     Crear(req){
         
         var nombre = req.Persona.DatoBasico.nombreprimero + " " + req.Persona.DatoBasico.apellidoprimero;
-        var fingreso = req.fingreso.substring(0, 10);
-        var fascenso = req.fascenso.substring(0, 10);
+        var fingreso = Util.ConvertirFechaHumana(req.fingreso); //.substring(0, 10);
+        var fascenso = Util.ConvertirFechaHumana(req.fascenso); //.substring(0, 10);
 
         ObjCalcular = req;
 
@@ -15,12 +15,12 @@ class Calculadora{
         $("#txtGrado").val(req.Grado.abreviatura);
         $("#txtComponente").val(req.Componente.abreviatura);
         $("#txtNombre").val(nombre.toUpperCase().trim());        
-        $('#txtFIngreso').val(fingreso.substring(0, 10));
+        $('#txtFIngreso').val(fingreso);
         $('#txtSituacion').val(req.situacion);
-        var fretiro = req.fretiro.substring(0, 10);
-        if ( fretiro == "0001-01-01" ){
-            fretiro = new Date().toISOString().slice(0, 10);    
-        }
+        var fretiro = Util.ConvertirFechaHumana(req.fretiro); //.substring(0, 10);
+        // if ( fretiro == "0001-01-01" ){
+        //     fretiro = new Date().toISOString().slice(0, 10);    
+        // }
 
         var rutaimg = Conn.URLIMG;
         var url = rutaimg + $("#txtcedula").val() + ".jpg";
@@ -153,6 +153,7 @@ class WCalc{
                 "thousands": "."
             }
         });
+
         tblP.clear().draw();
         $.each(req.Retroactivo, function (clave, valor) { 
             console.log(valor);
@@ -312,6 +313,8 @@ function obtenerTablaFamiliaresHTML(){
         </tbody>
     </table>`;
 }
+
+//P876 .- 
 function ejecutarCalculadora(){
     var Calc = new WCalc();
     Calc.inicio = $("#txtInicioCalc").val();
@@ -329,12 +332,15 @@ function ejecutarCalculadora(){
         );
         return
     }
-    $("#_dtcalculadora").show();
 
-    Calc.fingreso = $("#txtFIngreso").val();
-    Calc.fascenso = $("#txtFUAscenso").val();
-    
-    Calc.fretiro = $("#txtFRetiro").val();
+    $("#_dtcalculadora").show();    
+    var fing = $("#txtFIngreso").val().split("/");
+    var fasc = $("#txtFUAscenso").val().split("/");
+    var fret =  $("#txtFRetiro").val().split("/");
+    Calc.fingreso = fing[2] + "-" + fing[1] + "-" + fing[0];
+    Calc.fascenso = fasc[2] + "-" + fasc[1] + "-" + fasc[0];    
+    Calc.fretiro = fret[2] + "-" + fret[1] + "-" + fret[0];;
+
     Calc.grado = $("#txtGradoT").val();
     Calc.codigo = $("#txtGrado").val();
     Calc.componente = $("#txtComponente").val();
