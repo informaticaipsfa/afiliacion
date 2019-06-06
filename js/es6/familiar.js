@@ -304,8 +304,8 @@ class WPensionadoSobrevive{
 		$("#_netosConceptosSobre").html(ConceptosNetosHTML());
 		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
         //
+        lstFamiliarNetos = [];
         
-        console.log(req);
 
 		req.forEach(pago => {
             $("#mdlNetosSobre").modal("show");		

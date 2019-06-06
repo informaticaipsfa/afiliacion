@@ -6,7 +6,35 @@
             <h3 class="box-title">Nómina generadas</h3>
         </div>
         <div class="box-body" >
-
+            <div class="row" >
+                <!-- Directivas -->
+                <div class="col-md-8 col-sm-12">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;Selección del mes:</label>
+                    <div class="input-group margin">
+                        <select class="js-states form-control"                                 
+                            style="width: 100%" required="" aria-hidden="true" id="cmbSolicitud">
+                            <option value="ENREO">ENERO</option>
+                            <option value="FEBRERO">FEBRERO</option>
+                            <option value="MARZO">MARZO</option>
+                            <option value="ABRIL">ABRIL</option>
+                            <option value="MAYO">MAYO</option>
+                            <option value="JUNIO">JUNIO</option>
+                            <option value="JULIO">JULIO</option>
+                            <option value="AGOSTO">AGOSTO</option>
+                            <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                            <option value="OCTUBRE">OCTUBRE</option>
+                            <option value="NOVIEMBRE">NOVIEMBRE</option>
+                            <option value="DICIEMBRE">DICIEMBRE</option>
+                        </select>
+                        <span id="btnCuadre" class="input-group-btn" style="display:none">
+                            <button type="button" class="btn btn-flat bg-purple" onclick="cuadreBanco()">
+                                <i class="fa fa-puzzle-piece"></i>
+                                &nbsp;&nbsp;Cuadre a banco</button>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
           <div id="_tblNomina">
 
           </div>

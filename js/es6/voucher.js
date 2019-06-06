@@ -45,7 +45,7 @@ function ImprimirNeto(){
                 var tasig = accounting.formatMoney(totalAsignacion, "Bs. ", 2, ".", ",");
                 fila += `
                 <tr>
-                    <td align="left">&nbsp;&nbsp;TOTAL DE ASIGNACIONES</td>
+                    <td align="left">&nbsp;&nbsp;SUBTOTAL</td>
                     <td align="right" style="width:200px"><b>${tasig}</b>&nbsp;&nbsp;</td>
                     <td align="right"></td>
                     <td align="right" style="width:200px"></td>
@@ -95,7 +95,7 @@ function ImprimirNeto(){
         
     }
     fila += `<tr>
-                <td align="right" colspan='2'>SUBTOTAL&nbsp;&nbsp;</td>
+                <td align="right" colspan='2'>TOTAL&nbsp;&nbsp;</td>
                 <td align="right" style="width:200px">${accounting.formatMoney(asignacion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
                 <td align="right" style="width:200px">${accounting.formatMoney(deduccion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
             </tr>`;
@@ -290,7 +290,7 @@ function ImprimirNetoSobreviviente(){
         fila += `
                 <tr>
                     <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
-                    <td align="right" style="width:200px">${stracount}&nbsp;&nbsp;</td>
+                    <td align="right" style="width:200px"><b>${stracount}</b>&nbsp;&nbsp;</td>
                     <td align="right"></td>
                     <td align="right" style="width:200px"></td>
                 </tr>
@@ -303,6 +303,7 @@ function ImprimirNetoSobreviviente(){
     }
 
     obj = lstFamiliarNetos[pos].conceptos;
+    
     var imprimir = false;
     var contador = 0;
     for(var i=0; i< obj.length; i++){
@@ -313,10 +314,11 @@ function ImprimirNetoSobreviviente(){
         var lbl =  obj[i].desc;        
         var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
-        
-       
-		if( contador < 1 && ( lstFamiliarNetos[pos].asignaciones == monto || imprimir == true ) ){
+
+        if(lstFamiliarNetos[pos].asignaciones == monto){
             imprimir = true;
+        }
+		if( contador < 2 &&  imprimir == true ) {            
            
             if(tipo == 1 || tipo == 97 ){ //Asignacion   
                 var sueldomensual = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
@@ -344,6 +346,7 @@ function ImprimirNetoSobreviviente(){
                     </tr>`;
                 asignacion += monto;
             }else{ //Deduccion
+                console.log("Deducciones");
                 var strconc = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
                 fila += `
                 <tr>
@@ -360,7 +363,7 @@ function ImprimirNetoSobreviviente(){
 
 
     fila += `<tr>
-                <td align="right" colspan='2'>SUBTOTAL&nbsp;&nbsp;</td>
+                <td align="right" colspan='2'>TOTAL&nbsp;&nbsp;</td>
                 <td align="right" style="width:200px">${accounting.formatMoney(asignacion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
                 <td align="right" style="width:200px">${accounting.formatMoney(deduccion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
             </tr>`;

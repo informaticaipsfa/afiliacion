@@ -657,6 +657,8 @@ class Militar{
 		this.pasearetiro = false;
 		this.pprestaciones = 0.00;
 	}
+
+	//P123 .-
 	Crear(militar){
 
 		var url = "";
@@ -944,8 +946,8 @@ class Militar{
 			
 	}
 
+	//P321 .-
   	Cargar(militar){
-
         this.id = militar.id;
         this.tipodato = militar.tipodato;
 		this.Persona.DatoBasico.nropersona =  militar.Persona.DatoBasico.nropersona;
@@ -1081,11 +1083,12 @@ class Militar{
 			valpase = true;
 		}
 		this.pasearetiro =valpase;
-		//console.log(this.pprestaciones)
+
 		return this;
 
 	}
 
+	//P0 -- 
   	ObtenerCategoria(){
         var cad = "";
         switch (this.categoria){
@@ -1104,8 +1107,7 @@ class Militar{
         return cad;
     }
 
-
-
+	//P0 -- 
 	Salvar(){
 		$("#_bxFamiliar").show();
 		$("#_bxFamiliarTarjeta").show();
@@ -1113,9 +1115,10 @@ class Militar{
 		$("#_btnTIM").show();
 		$("#_btnModificar").show();
 		$("#_btnSavlvar").hide();
-
-    	CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener(), this);
+		CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener(), this);
 	}
+
+	//P0 -- 
 	Actualizar(){
 		$("#_bxFamiliar").show();
 		$("#_bxFamiliarTarjeta").show();
@@ -1127,6 +1130,7 @@ class Militar{
 	}
 }
 
+//P0 -- 
 class CuentaBancaria{
 	constructor(){
 		this.banco = "";

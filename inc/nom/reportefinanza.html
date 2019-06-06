@@ -6,10 +6,26 @@
             <h3 class="box-title">Nómina generadas</h3>
         </div>
         <div class="box-body" >
+            <div class="row" >
+                <!-- Directivas -->
+                <div class="col-md-8 col-sm-12">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;Selección de mes:</label>
+                    <div class="input-group margin">
+                        <select class="js-states form-control"                                 
+                            style="width: 100%" required="" aria-hidden="true" id="cmbSolicitud">                                    
+                        </select>
+                        <span id="btnCuadre" class="input-group-btn" style="display:none">
+                            <button type="button" class="btn btn-flat bg-purple" onclick="cuadreBanco()">
+                                <i class="fa fa-puzzle-piece"></i>
+                                &nbsp;&nbsp;Cuadre a banco</button>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="_tblNomina">
 
-          <div id="_tblNomina">
-
-          </div>
+             </div>
 
         </div><!-- /.box-body -->
 
