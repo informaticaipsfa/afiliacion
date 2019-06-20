@@ -251,8 +251,9 @@ class DirCon {
                     </button></th>
                     <th>CODIGO</th>                                            
                     <th>DESCRIPCION</th>                   
-                    <th>PARTIDA </th>
+                    <th>PARTIDA</th>
                     <th>TIPO </th>
+                    <th>CUENTA</th>
                 </tr>
             </thead>
         </table>`;
@@ -264,7 +265,8 @@ class DirCon {
             'sueldo_base',
             'SUELDO BASE',
             '40701010101',
-            'DIR-SB'
+            'DIR-SB',
+            ''
         ]).draw(false);        
         dibujarTabla(tblP, fnx, 'DIR-PR');
         tblP.row.add([
@@ -272,7 +274,8 @@ class DirCon {
             'sueldo_mensual',
             'PENSION',
             '40701010101',
-            'DIR-SM'
+            'DIR-SM',
+            ''
         ]).draw(false);
         dibujarTabla(tblP, fnxc, 'DIR-LEY');
         
@@ -313,22 +316,24 @@ class DirCon {
                 $('#MytblConcepto i').attr('class', 'fa fa-minus-square');
             }
         });
+        tblP.column(5).visible(false);
     }
 }
 
-function dibujarTabla(tblP, fnx, concepto) {    
+function dibujarTabla( tblP, fnx, concepto ) {    
     for (const prop in fnx){  
         var partida =  fnx[prop].part == undefined? '':  fnx[prop].part;        
-        var abv =  fnx[prop].abv == undefined? 'DIRECTIVA PRIMAS':  fnx[prop].abv;        
+        var abv =  fnx[prop].abv == undefined? 'DIRECTIVA PRIMAS':  fnx[prop].abv;
+        var codigo = fnx[prop].rs == undefined? '':  fnx[prop].rs;    
+        var cuenta = fnx[prop].cuen == undefined? '':  fnx[prop].cuen;
         if( concepto == 'DIR-LEY'  ){            
             if( fnx[prop].tipo != 0 ){
-                tblP.row.add( [ '', fnx[prop].rs, abv, partida, 'DIR-CONC'] ).draw(false);
+                tblP.row.add( [ '', fnx[prop].rs, abv, partida, 'DIR-CONC', cuenta ] ).draw(false);
             }else{
-                tblP.row.add( [ '', fnx[prop].rs, abv, partida, concepto] ).draw(false);
+                tblP.row.add( [ '', fnx[prop].rs, abv, partida, concepto, cuenta ] ).draw(false);
             }
-
         }else {
-            tblP.row.add( [ '', fnx[prop].rs, abv, partida, concepto ] ).draw(false);
+            tblP.row.add( [ '', fnx[prop].rs, abv, partida, concepto, cuenta ] ).draw(false);
         }
     
     }; 
@@ -419,6 +424,7 @@ class WConcepto {
         this.codigo = '';
         this.nombre = '';
         this.partida = '';
+        this.cuenta = '';
         this.formula = '';
     }
 
@@ -482,9 +488,11 @@ function GenerarNomina(){
         Concepto.codigo = v[1];
         Concepto.nombre = v[2];
         Concepto.partida = v[3];
+        Concepto.cuenta = v[5];
         Nom.Concepto.push(Concepto);
     });
-    //    console.log(Nom);
+    
+    console.log(Nom);
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
     waitingDialog.show('Creando nómina por favor espere...');
