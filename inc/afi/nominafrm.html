@@ -161,11 +161,18 @@
         </div> <!-- Fin de stepper-->
 
         <div id="test-l-3" class="content">
+        <div class="row" style="padding-left:15px;padding-right:15px" >
+                <div class="callout callout-warning" id="divDtArchivosL" style="display:none">
+                    <h4>Subiendo archivos!</h4>
+
+                    <p>Este proceso puede durar un tiempo equivalente a la cantidad de archivos que se suban al sistema</p>
+                </div>
+            </div>
             <div class="row" style="padding-left:15px;padding-right:15px" >
                 <div class="callout callout-success" id="divDtArchivos" style="display:none">
                     <h4>Archivos cargados!</h4>
 
-                    <p id="dtArchivos"></p>
+                    <p id="dtArchivos">Ahora puede continuar con el proceso para la generación de la nómina</p>
                 </div>
             </div>
 
@@ -185,13 +192,13 @@
             <div class="row" >
                 <div class="col-md-6 col-sm-6" style="text-align: left">
                     <br>
-                    <button type="button" class="btn btn-warning" onclick="myStepper.previous()" >
+                    <button id="btnAnteriorArchivos" type="button" class="btn btn-warning" onclick="myStepper.previous()" >
                         <i class="glyphicon glyphicon-menu-left"></i>&nbsp;&nbsp;Volver atrás
                     </button>
                 </div>
                 <div class="col-md-6 col-sm-6" style="text-align: right">
                     <br>
-                    <button type="button" class="btn btn-primary" onclick="DetalleNomina();myStepper.next()">
+                    <button id="btnContinuarArchivos" type="button" class="btn btn-primary" onclick="DetalleNomina();myStepper.next()">
                             Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
                         </button>
                 </div>

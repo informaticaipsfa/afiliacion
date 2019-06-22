@@ -605,13 +605,17 @@ function EnviarArchivos() {
 
 
     var strUrl = "https://" + Conn.IP + Conn.PuertoSSL +  "/ipsfa/api/militar/jwtsubirarchivostxt";
-   
+    $("#divDtArchivosL").show();
+    $("#divDtArchivos").hide();
+    $("#divForma").hide();
+    $("#btnAnteriorArchivos").hide();
+    $("#btnContinuarArchivos").hide();
     $.ajax({
         url: strUrl,
         type: "post",
         dataType: "html",
         data: formData,
-        timeout: 15000,
+        timeout: 300000,
         cache: false,
         contentType: false,
         processData: false,
@@ -620,14 +624,19 @@ function EnviarArchivos() {
         }
     })
     .done(function (res) {
-        
+        $("#divDtArchivosL").hide();
         $("#divForma").hide();
         $("#divDtArchivos").show();
         $('#forma').trigger("reset");
+        $("#btnAnteriorArchivos").show();
+        $("#btnContinuarArchivos").show();
         
     }).fail(function (jqXHR, textStatus) {        
         $("#divForma").show();
         $("#divDtArchivos").hide();
+        $("#divDtArchivosL").hide();
+        $("#btnAnteriorArchivos").show();
+        $("#btnContinuarArchivos").show();
         $('#forma').trigger("reset");
         if (textStatus === 'timeout') {
             $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
