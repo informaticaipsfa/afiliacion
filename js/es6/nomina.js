@@ -615,7 +615,7 @@ function EnviarArchivos() {
         type: "post",
         dataType: "html",
         data: formData,
-        timeout: 600000,
+        timeout: 1500000,
         cache: false,
         contentType: false,
         processData: false,
