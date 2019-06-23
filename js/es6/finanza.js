@@ -13,7 +13,7 @@ class WListarMetodoBanco{
         var i = 0;
         var combo = '';
         req.forEach(e => {
-            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.obse} </option>`;            
+            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.mes} </option>`;            
             i++;
             $("#btnCuadre").show();
         });
