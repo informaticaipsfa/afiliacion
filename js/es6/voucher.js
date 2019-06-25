@@ -30,8 +30,7 @@ function ImprimirNeto(){
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
         var grado = $("#cmbgrado option:selected").text();
         //console.log(obj[i]);
-		if(tipo == 97){
-           
+		if(tipo == 97){      
            
             totalAsignacion += monto;
             fila += `
@@ -43,6 +42,7 @@ function ImprimirNeto(){
                 </tr>`;
             
 		}else{
+            console.log("0000 DE " + des);
             if( des == "SUELDO MENSUAL" ){
                 var tasig = accounting.formatMoney(totalAsignacion, "Bs. ", 2, ".", ",");
                 fila += `
@@ -84,7 +84,7 @@ function ImprimirNeto(){
                     </tr>`;
                 asignacion += monto;
             }else{ //Deduccion
-                console.log(des);
+                console.log("0000 DE " + des);
                 var strconceptos = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des);
                 fila += `
                     <tr>
