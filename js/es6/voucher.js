@@ -84,6 +84,7 @@ function ImprimirNeto(){
                     </tr>`;
                 asignacion += monto;
             }else{ //Deduccion
+                console.log(des);
                 var strconceptos = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des);
                 fila += `
                     <tr>
