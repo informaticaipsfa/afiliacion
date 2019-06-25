@@ -18,7 +18,9 @@ function ImprimirNeto(){
     var objNeto = [];
     var totalAsignacion = 0;
 
-	var obj = lstNeto[pos];
+    var obj = lstNeto[pos];
+    console.log(lstNeto);
+    
 	for(var i=0; i< obj.length; i++){
 		var monto = obj[i].mont;
         var tipo = obj[i].tipo;
@@ -27,7 +29,7 @@ function ImprimirNeto(){
         var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
         var grado = $("#cmbgrado option:selected").text();
-        console.log(obj[i]);
+        //console.log(obj[i]);
 		if(tipo == 97){
            
            
