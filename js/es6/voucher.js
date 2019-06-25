@@ -20,7 +20,7 @@ function ImprimirNeto(){
 
     var obj = lstNeto[pos];
     console.log(lstNeto);
-    
+
 	for(var i=0; i< obj.length; i++){
 		var monto = obj[i].mont;
         var tipo = obj[i].tipo;
@@ -84,9 +84,10 @@ function ImprimirNeto(){
                     </tr>`;
                 asignacion += monto;
             }else{ //Deduccion
+                var strconceptos = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des);
                 fila += `
                     <tr>
-                        <td align="left">&nbsp;&nbsp;${obtenerDescripcionConceptos(des)}</td>
+                        <td align="left">&nbsp;&nbsp;${strconceptos}</td>
                         <td align="right"></td>
                         <td align="right"></td>
                         <td align="right" style="width:200px">${montostr}&nbsp;&nbsp;</td>
