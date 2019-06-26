@@ -31,9 +31,9 @@ function Buscar(id) {
     });
 
     Util.ValidarFecha('txtnacimiento');
-    Util.ValidarFecha('txtfechagraduacion');
-    Util.ValidarFecha('txtmfecharesuelto');
-    Util.ValidarFecha('txtmfechaultimoascenso');
+    //Util.ValidarFecha('txtfechagraduacion');
+    //Util.ValidarFecha('txtmfecharesuelto');
+    //Util.ValidarFecha('txtmfechaultimoascenso');
 
 
 
