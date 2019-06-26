@@ -309,8 +309,9 @@ class Utilidad {
         $('#' + ID).datepicker({
             autoclose: true,
             format: "dd/mm/yyyy",
-            language: 'es',
-            endDate: "+0d"
+            language: 'es'
+            //,
+            //endDate: "+0d"
         });
     }
 
