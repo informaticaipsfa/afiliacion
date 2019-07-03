@@ -289,6 +289,23 @@ class Utilidad {
         return parent;
     }
 
+    /**
+     * 
+     * @param {date} fechainicio  AAAA/MM/DD
+     * @param {date} fechafin AAAA/MM/DD
+     */
+    CompararFechasMayorQue(fechainicio, fechafin){
+        var f = fechainicio.split("/");
+        var f1 = new Date(f[2], f[1], f[0]); //31 de diciembre de 2015
+        f = fechafin.split("/");
+        var f2 = new Date(f[2], f[1], f[0]); //30 de noviembre de 2014
+        
+        if ( f1 > f2 ){
+            console.log("Err Clasic");
+            $("#txtmfecharesuelto").val("");
+        }
+    
+    }
 
     //Obtener la direccion mac
     ObtenerMAC(MAC) {

@@ -306,7 +306,7 @@ class WPensionadoSobrevive{
         //
         lstFamiliarNetos = [];
         
-
+        
 		req.forEach(pago => {
             $("#mdlNetosSobre").modal("show");		
             console.log(JSON.parse(pago.calculos));

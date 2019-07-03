@@ -2,6 +2,7 @@ function ImprimirNeto(){
     if ( $("#cmbNetoPago option:selected").val() == "X" ) {        
         return false;
     }
+    console.log(lstNeto);
     var nombre = $("#txtnombre").val() + " " + $("#txtapellido").val();
     var cedula = $("#txtcedula").val();
     var porcentaje = $("#txtporcentaje").val();
@@ -15,7 +16,7 @@ function ImprimirNeto(){
     var objNeto = [];
     var totalAsignacion = 0;
     var obj = lstNeto[pos];
-    console.log(lstNeto);
+    
 	for(var i=0; i< obj.length; i++){
 		var monto = obj[i].mont;
         var tipo = obj[i].tipo;

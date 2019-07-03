@@ -434,8 +434,18 @@ function PrepararCalculadora(){
 }
 
 
-function PrepararCuadreBanco(){
-  
+
+function ReporteFinanza(){
+  // var lst = new WListarPendientes();
+  $("#ModuloTitulo").html("&nbsp;&nbsp;&nbsp;&nbsp;Ver nóminas pendientes");
+  // var ruta =  Conn.URL + "nomina/listarpendientes/4";
+  // CargarAPI(ruta, "GET", lst, lst);
+}
+
+function PrepararRechazos(){
+  CargarUrl("_divrechazos", "fin/rechazosfrm")
+  $("#ModuloTitulo").html("Rechazos Bancarios");
+  ListarNominasPagadas();
 }
 
 function PrepararOtrosPagos(){
@@ -443,3 +453,4 @@ function PrepararOtrosPagos(){
   $("#ModuloTitulo").html("Otros pagos");
   ListarConceptosContables();
 }
+

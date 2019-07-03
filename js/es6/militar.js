@@ -1317,7 +1317,7 @@ class WPensiones{
 		$("#cmbNetoPago").html('<option value="X">SELECCIONAR UN PAGO</option>');
 		$("#_netosConceptos").html(ConceptosNetosHTML());
 		var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
-		//console.log(req);
+		console.log(req);
 
 		req.forEach(pago => {
 			$("#mdlNetos").modal("show");			
@@ -1341,6 +1341,7 @@ function consultarNetoPago(){
 	$("#_netosConceptos").html(ConceptosNetosHTML());
 	var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
 	$("#_netosPrimas").html('');
+	
 	var obj = lstNeto[pos];
 	for(var i=0; i< obj.length; i++){
 		var monto = obj[i].mont;

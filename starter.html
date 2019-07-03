@@ -173,6 +173,7 @@
   <script src="js/es6/descuentos.js"></script>
   <script src="js/es6/finanza.js"></script>
   <script src="js/es6/voucher.js"></script>
+  <script src="js/es6/rechazos.js"></script>
   <script src="js/es6/calculadora.js"></script>
   <script src="js/es6/pagosaterceros.js"></script>
   <script src="../bower_components/barcode/dist/JsBarcode.all.js"></script>
@@ -513,7 +514,7 @@
 
     </div>
   </div>
-</div>
+  </div>
 
 
 <!-- Modal para la elaboración de netos-->
@@ -864,6 +865,28 @@ aria-labelledby="myLargeModalLabel" id="mdlDetallesDePago"
     </div><!-- /.modal -->
 
 
+
+    <!-- modal Rechazos de txt -->
+
+  <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlRechazosNeto"
+   aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Netos pagados en estatus de rechazo</h4>
+
+      </div>
+      <div class="modal-body" id="_divrechazos">
+      </div>
+
+    </div>
+  </div>
+</div>
 </div>
 </body>
 </html>

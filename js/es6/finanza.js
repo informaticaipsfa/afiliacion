@@ -223,13 +223,11 @@ class WListarPendientes{
 
 }
 
-function ReporteFinanza(){
+function ListarNominasGeneral(){
     var lst = new WListarPendientes();
-    $("#ModuloTitulo").html("&nbsp;&nbsp;&nbsp;&nbsp;Ver nóminas pendientes");
-    var ruta =  Conn.URL + "nomina/listarpendientes/4";
+    var ruta =  Conn.URL + "nomina/listarpendientes/" + $("#cmbSolicitud").val() + "/4";
     CargarAPI(ruta, "GET", lst, lst);
 }
-
 
 /**
  * HTML TABLE

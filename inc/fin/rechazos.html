@@ -1,0 +1,154 @@
+
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+    <div class="box box-primary ">
+        <div class="box-header with-border">
+            <i class="fa fa-bullhorn"></i>
+            <h3 class="box-title">Generar pago por nóminas</h3>
+        </div>
+        <div class="box-body" >
+            <div class="row" >
+                <!-- Directivas -->
+
+               
+                <div class="form-group">
+                    <div class="col-md-3">
+                      <label >Cedula:</label>
+                      <input id="txtcedula" class="form-control"  type="text" maxlength="8" required>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12" id="_cmbminstfinanciera">
+                      <label>Institución Financiera</label>
+                         <select class="js-states form-control" style="width: 100%"
+                         aria-hidden="true" required id="cmbminstfinanciera"
+                         onchange="SeleccionarCuenta()">
+                           <option selected="selected" value="S"></option>
+                           <option value="0000">BANCO VENEZUELA - CHEQUES</option>
+                           <option value="0156">100%BANCO</option>
+                           <option value="0196">ABN AMRO BANK</option>
+                           <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
+                           <option value="0171">BANCO ACTIVO BANCO COMERCIAL, C.A.</option>
+                           <option value="0166">BANCO AGRICOLA</option>
+                           <option value="0175">BANCO BICENTENARIO</option>
+                           <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
+                           <option value="0164">BANCO DE DESARROLLO DEL MICROEMPRESARIO</option>
+                           <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                           <option value="0114">BANCO DEL CARIBE C.A.</option>
+                           <option value="0149">BANCO DEL PUEBLO SOBERANO C.A.</option>
+                           <option value="0163">BANCO DEL TESORO</option>
+                           <option value="0176">BANCO ESPIRITO SANTO, S.A.</option>
+                           <option value="0115">BANCO EXTERIOR C.A.</option>
+                           <option value="0003">BANCO INDUSTRIAL DE VENEZUELA.</option>
+                           <option value="0173">BANCO INTERNACIONAL DE DESARROLLO, C.A.</option>
+                           <option value="0105">BANCO MERCANTIL C.A.</option>
+                           <option value="0191">BANCO NACIONAL DE CREDITO</option>
+                           <option value="0116">BANCO OCCIDENTAL DE DESCUENTO.</option>
+                           <option value="0138">BANCO PLAZA</option>
+                           <option value="0108">BANCO PROVINCIAL BBVA</option>
+                           <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
+                           <option value="0168">BANCRECER S.A. BANCO DE DESARROLLO</option>
+                           <option value="0134">BANESCO BANCO UNIVERSAL</option>
+                           <option value="0177">BANFANB</option>
+                           <option value="0146">BANGENTE</option>
+                           <option value="0174">BANPLUS BANCO COMERCIAL C.A</option>
+                           <option value="0190">CITIBANK.</option>
+                           <option value="0121">CORP BANCA.</option>
+                           <option value="0157">DELSUR BANCO UNIVERSAL</option>
+                           <option value="0151">FONDO COMUN</option>
+                           <option value="0601">INSTITUTO MUNICIPAL DE CR&#201;DITO POPULAR</option>
+                           <option value="0169">MIBANCO BANCO DE DESARROLLO, C.A.</option>
+                           <option value="0137">SOFITASA</option>
+                         </select>
+                     </div>
+                   </div>
+                   <div class="form-group">
+                     <div class="col-md-6 col-sm-12" id="_cmbmtipofinanciera">
+                       <label >Tipo de Cuenta:</label>
+                       <select class="js-states form-control" style="width: 100%" required aria-hidden="true" id="cmbmtipofinanciera" >
+                         <option selected="selected" value="S">-------------------</option>
+                         <option value="CH" selected="selected">CHEQUE</option>
+                         <option value="CA" selected="selected">AHORRO</option>
+                         <option value="CC">CORRIENTE</option>
+                       </select>
+                     </div>
+                     <div class="col-md-6 col-sm-12" id="_txtmnrocuenta">
+                       <label>Nro. de Cuenta:</label>
+                       <input  id="txtmnrocuenta" class="form-control"  type="text" maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask>
+                     </div>
+                   </div><!-- .Form-Group -->
+     
+            </div>
+
+            <div class="row">
+                <br>
+
+                <div class="col-md-12 col-sm-12">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;Solicitud de pago:</label>
+                    <div class="input-group margin">
+                        <select class="js-states form-control"                                 
+                            style="width: 100%" required="" aria-hidden="true" id="cmbSolicitud">                                    
+                        </select>
+
+                        <span id="btnCuadre" class="input-group-btn" style="display:none">
+                            <button type="button" class="btn btn-flat bg-purple" onclick="ConsultarNetosNomina()">
+                                <i class="fa fa-puzzle-piece"></i>
+                                &nbsp;&nbsp;Cargar cuenta bancaria en neto</button>
+                           
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+           
+
+        </div><!-- /.box-body -->
+
+        <!-- Loading (remove the following to stop the loading)-->
+        <div class="overlay" id="_cargandop" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <!-- end loading -->
+        <div class="modal-footer">    
+               
+            <button type="button" id="btnImprimir" 
+                class="btn btn-md btn-primary" 
+                style="display:none"
+                 onclick="ImprimirCuadreDosP()">
+                <i class="fa fa-print"></i>
+                &nbsp;&nbsp;Imprimir Metodo Banco</button>
+                
+                
+        </div>
+    </div><!-- /.box -->
+</div>
+
+
+
+<div class="col-md-12 col-lg-12" id="_dtdeducciones" >
+    <div class="box box-primary ">
+        <div class="box-header with-border">
+            <i class="fa fa-bullhorn"></i>
+            <h3 class="box-title">Detalle de las deducciones</h3>
+        </div>
+        <div class="box-body" id="_tblDeducciones">
+            
+                    
+        </div><!-- /.box-body -->
+
+    <!-- Loading (remove the following to stop the loading)-->
+    <div class="overlay" id="_cargando" style="display:none">
+        <i class="fa fa-refresh fa-spin"></i>
+    </div>
+    <!-- end loading -->
+    <div class="modal-footer">                      
+        <button type="button" id="btnPreparar" class="btn btn-md btn-success pull-right " onclick="imprimirDetalles()">
+            <i class="fa fa-calculator"></i>&nbsp;&nbsp;Imprimir Detalles
+        
+        </button>                              
+    </div>
+</div><!-- /.box -->
+</div>

@@ -26,6 +26,12 @@ function ListarConceptosContables(){
 }
 
 
+function listarNominaDetalleContable(){
+    var lst = new WNominaDetalleContable();
+    var ruta =  Conn.URL + "nomina/conceptos/contable/" + $("#cmbSolicitud").val();
+    CargarAPI(ruta, "GET", lst, lst);
+
+}
 class WNominaDetalleContable{
     constructor(){}
     Crear(req){
@@ -67,13 +73,6 @@ class WNominaDetalleContable{
 }
 
 
-function listarNominaDetalleContable(){
-    var lst = new WNominaDetalleContable();
-    var ruta =  Conn.URL + "nomina/conceptos/contable/" + $("#cmbSolicitud").val();
-    CargarAPI(ruta, "GET", lst, lst);
-
-}
-
 /**
  * HTML para el detalle de la nómina
  */
@@ -89,6 +88,79 @@ function NDDescuentosHTML(){
                 <th>Descripción</th>
                 
                 <th>Monto Total</th>
+            </tr>
+        </thead>
+    </table>`;
+}
+
+
+class WMedidaDetalleContable{
+    constructor(){}
+    Crear(req){
+        console.log(req);
+        $("#_tblDeducciones").html(NMedidasHTML());
+        var tlstD = $('#lstMedidas').DataTable({
+            'destroy': false,
+            'paging': false,
+            'lengthChange': false,
+            'searching': false,
+            'autoPrint': true,
+            'ordering': false,
+            'info': false,
+            'autoWidth': false,
+            'buttons': [
+                'copy', 'excel', 'pdf'
+            ]
+        });
+        tlstD.clear().draw(); 
+        var i = 0;
+        req.forEach(e => {
+            // var codigo = e.codi!=undefined?e.codi:0;
+            // var cuenta = e.cuenta!=undefined?e.cuenta:0;
+            i++;
+            tlstD.row.add([
+                i,
+                e.cedu,
+                e.bene,
+                e.caut,
+                e.naut, //e.cant,
+                e.tcue,
+                e.ncue
+            ]).draw(false);
+        });
+
+       
+
+
+    }
+}
+function listarMedidaJudicialesDt(){
+    console.log('!!!!');
+    var lst = new WMedidaDetalleContable();
+    var ruta =  Conn.URL + "lstmedidalistar/" + $("#cmbSolicitud").val();
+    CargarAPI(ruta, "GET", lst, lst);
+
+}
+
+
+
+
+/**
+ * HTML para el detalle de la nómina
+ */
+function NMedidasHTML(){
+    //<th>Cantidad</th>
+    return `<table id="lstMedidas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>CEDULA</th>            
+                <th>BENEFICIARIO</th>
+                <th>CED. AUTOR</th>
+                <th>AUTORIZADO</th>
+                <th>TIPO</th>
+                <th>CUENTA</th>
+                
             </tr>
         </thead>
     </table>`;

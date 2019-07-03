@@ -2600,3 +2600,10 @@ function alertNotifyAfiliacion(msj, color){
         } 
     );
 }
+
+function validarFechaIngreso(){
+    var Util = new Utilidad();
+    var finc = $("#txtfechagraduacion").val();
+    var ffin = $("#txtmfecharesuelto").val();
+    Util.CompararFechasMayorQue(finc, ffin);
+}
