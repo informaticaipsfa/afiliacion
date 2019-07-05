@@ -2127,6 +2127,10 @@ function ActivarPension(){
 
             
             break;
+        case "RSP":
+            
+                
+            break;
         case "PG":
             $("#liEstatusPension").show();
             break;

@@ -47,18 +47,26 @@ class WConsultarNetosNomina{
         var i = 0;
         req.forEach(e => {
             i++;
+
+            var btn = `<button type="button" id="btnMod${i}"
+            class="btn btn-sm btn-primary prvmodificar" onclick="agregarRechazo('${e.oidpago}')">
+            <i class="fa fa-random"></i></button>`
             tlstD.row.add([
                 i,
+                e.oidpago,
                 e.cedu,
                 e.tipo,
                 e.banc,
                 e.nume, //e.cant,
-                e.neto
+                e.neto,
+                btn
             ]).draw(false);
         });
-
+        tlstD.column(1).visible(false);
     }
 }
+
+
 
 
 function ConsultarNetosNomina(){
@@ -66,6 +74,8 @@ function ConsultarNetosNomina(){
     var ruta = Conn.URL + "nomina/verpagosindividual/" + $("#cmbSolicitud option:selected").val() + "/" + $("#txtcedula").val();
     CargarAPI(ruta, "GET", one, one);
 } 
+
+
 
 /**
  * HTML para el detalle de la nómina
@@ -76,13 +86,44 @@ function RechazosNetoHTML(){
         <thead>
             <tr>
                 <th>#</th>
+                <th>COD</th>
                 <th>Cedula</th>            
                 <th>Tipo</th>
                 <th>Banco</th>
-                <th>Cuenta/</th>
-                <th>Neto</th>                
+                <th>Cuenta</th>
+                <th>Neto</th>   
+                <th>ACCION</th>              
             </tr>
         </thead>
     </table>`;
 }
 
+
+
+class WRechazos{
+    constructor(){
+        this.codigo = '';
+        this.banco = '';
+        this.tipo = '';
+        this.cuenta = '';
+    }
+    Crear(req){
+        console.log(req);
+    }
+}
+/**
+ * Agregar Control 
+ */
+function agregarRechazo(codigo){
+
+    var wRechazos = new WRechazos();
+    wRechazos.codigo = codigo;
+    wRechazos.banco = $("#cmbminstfinanciera").val();
+    wRechazos.tipo = $("#cmbmtipofinanciera").val();
+    wRechazos.cuenta = $("#txtmnrocuenta").val();
+
+    var ruta = Conn.URL + "rechazos/agregar";
+    CargarAPI(ruta, "POST", wRechazos, wRechazos);
+    
+    
+}
