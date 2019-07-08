@@ -90,7 +90,7 @@
                     <label>&nbsp;&nbsp;&nbsp;&nbsp;Solicitud de pago:</label>
                     <div class="input-group margin">
                         <select class="js-states form-control"                                 
-                            style="width: 100%" required="" aria-hidden="true" id="cmbSolicitud">                                    
+                            style="width: 100%" required="" aria-hidden="true" id="cmbSolicitud" onchange="ListarRechazos()">                                    
                         </select>
 
                         <span id="btnCuadre" class="input-group-btn" style="display:none">
@@ -114,12 +114,7 @@
         <!-- end loading -->
         <div class="modal-footer">    
                
-            <button type="button" id="btnImprimir" 
-                class="btn btn-md btn-primary" 
-                style="display:none"
-                 onclick="ImprimirCuadreDosP()">
-                <i class="fa fa-print"></i>
-                &nbsp;&nbsp;Imprimir Metodo Banco</button>
+           
                 
                 
         </div>
@@ -128,13 +123,17 @@
 
 
 
-<div class="col-md-12 col-lg-12" id="_dtdeducciones" >
+<div class="col-md-12 col-lg-12" id="_dtNR" style="display:none">
     <div class="box box-primary ">
         <div class="box-header with-border">
             <i class="fa fa-bullhorn"></i>
-            <h3 class="box-title">Detalle de las deducciones</h3>
+            <h3 class="box-title" id="lblTituloRechazos"></h3>
         </div>
-        <div class="box-body" id="_tblDeducciones">
+
+        <div id="_tblMetodo" style="display:none">
+
+        </div>
+        <div class="box-body" id="_divNR">
             
                     
         </div><!-- /.box-body -->
@@ -144,11 +143,25 @@
         <i class="fa fa-refresh fa-spin"></i>
     </div>
     <!-- end loading -->
-    <div class="modal-footer">                      
-        <button type="button" id="btnPreparar" class="btn btn-md btn-success pull-right " onclick="imprimirDetalles()">
-            <i class="fa fa-calculator"></i>&nbsp;&nbsp;Imprimir Detalles
+    <div class="modal-footer">    
+        
+        <button type="button" id="btnImprimir" 
+            class="btn btn-md btn-primary" 
+            style="display:none"
+             onclick="ImprimirCuadreDosP()">
+            <i class="fa fa-print"></i>
+            &nbsp;&nbsp;Imprimir Metodo Banco</button>
+        <button type="button" 
+        style="display:none"
+        id="btnPreparar" class="btn btn-md btn-success pull-right " 
+        onclick="GenerarTxtRechazos()">
+            <i class="fa fa-calculator"></i>&nbsp;&nbsp;Generar Txt Rechazos
         
         </button>                              
     </div>
 </div><!-- /.box -->
 </div>
+
+
+
+

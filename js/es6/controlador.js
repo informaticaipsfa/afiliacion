@@ -446,6 +446,7 @@ function PrepararRechazos(){
   CargarUrl("_divrechazos", "fin/rechazosfrm")
   $("#ModuloTitulo").html("Rechazos Bancarios");
   ListarNominasPagadas();
+  
 }
 
 function PrepararOtrosPagos(){

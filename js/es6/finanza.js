@@ -161,12 +161,12 @@ function obtenerPosicion(v, codigo){
     };
 }
 
-function cuadreBanco(){
+function cuadreBanco(tabla){
     var lst = new WCuadreBanco();
     if($("#cmbSolicitud").val() == "0"){
         return
     }
-    var ruta =  Conn.URL + "nomina/cuadrebanco/" + $("#cmbSolicitud").val();
+    var ruta =  Conn.URL + "nomina/cuadrebanco/" + $("#cmbSolicitud").val() + "/" + tabla;
     CargarAPI(ruta, "GET", lst, lst);
 }
 

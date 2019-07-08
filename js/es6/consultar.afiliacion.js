@@ -2124,8 +2124,6 @@ function ActivarPension(){
             $("#txtPensionSobreviviente").attr('disabled', false);
             $("#liEstatusPension").show();
             $("#_btnPensionesAsignadas").hide();
-
-            
             break;
         case "RSP":
             
