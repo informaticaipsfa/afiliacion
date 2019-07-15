@@ -125,7 +125,8 @@ class WMedidaDetalleContable{
                 e.caut,
                 e.naut, //e.cant,
                 e.tcue,
-                e.ncue
+                e.ncue, 
+                e.mont
             ]).draw(false);
         });
 
@@ -160,7 +161,7 @@ function NMedidasHTML(){
                 <th>AUTORIZADO</th>
                 <th>TIPO</th>
                 <th>CUENTA</th>
-                
+                <th>MONTO</th>
             </tr>
         </thead>
     </table>`;
