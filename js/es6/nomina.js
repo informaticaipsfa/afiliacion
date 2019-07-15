@@ -502,6 +502,7 @@ function GenerarNomina(){
 function AceptarNomina(){
     ListarNominasPendientes();
     $("#mdlNominaLista").modal("hide");
+    
 }
 
 function DetalleNomina(){
@@ -715,6 +716,7 @@ class WListarNomina{
         });
         t.column(10).visible(false);
         t.column(11).visible(false);
+        verificarPrivilegioUsuario();
     }
 
 }

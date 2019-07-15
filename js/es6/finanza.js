@@ -445,9 +445,11 @@ function ImprimirCuadreDosP() {
     </table >
         <h3>
         RELACION DE PAGOS Y DEPOSITOS POR ENTIDADES BANCARIAS<BR>
-        ${nominastr}<BR>
+        ${nominastr}<BR>ss
         DESDE EL 01 DE JULIO AL 31 DE JULIO DEL AÑO 2019
     </h3><BR></div>`;
+
+    //
     var doc = contenido + html;
     ventana.document.write(doc);
     ventana.document.head.innerHTML = `

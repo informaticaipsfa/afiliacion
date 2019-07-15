@@ -58,6 +58,9 @@ function verificarPrivilegioUsuario(){
                 $(".prvcontancia").attr("disabled",false);
                 $(".prvcontancia").removeClass('hide');
                 break;
+            case "nomina.aprobar":
+                $(".prvaprobar").attr("disabled",false);
+                $(".prvaprobar").removeClass('hide');
             case "pension.ingresar":
                 $(".pensioningresar").attr("disabled",false);
                 $(".pensioningresar").removeClass('hide');
