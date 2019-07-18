@@ -113,7 +113,7 @@ class WRechazos{
         $("#mdlRechazosNeto").modal('hide');
         ListarRechazos();
         cuadreBanco('rechazos');
-        console.error("HOLAAAAAAAAAAAA");
+        //console.error("HOLAAAAAAAAAAAA");
     }
 }
 /**
@@ -160,6 +160,10 @@ class WLRechazos{
         var i = 0;
         req.forEach(e => {
             i++;
+            var modificar = `
+                <button type="button" id="btneliminarRechazos${i}"
+                class="btn btn-sm btn-danger" onclick="msjeliminarRechazos('${e.oid}')">
+                <i class="fa fa-close"></i></button>`;
             tblNR.row.add([
                 i,
                 e.oid,
@@ -169,7 +173,7 @@ class WLRechazos{
                 e.banc,
                 e.nume, //e.cant,
                 e.neto,
-                ''
+                modificar
             ]).draw(false);
         });
         if (i > 0){
@@ -186,6 +190,36 @@ function ListarRechazos(){
     var ruta = Conn.URL + "rechazos/listar/" + $("#cmbSolicitud option:selected").val();
     CargarAPI(ruta, "GET", wLRechazos, wLRechazos);
 }
+
+
+function msjeliminarRechazos(oid){
+   
+    $("#_contenido").html(`¿Está seguro que desea eliminar el registro de la nómina de rechazos?`);
+    var botones = `<button type="button" class="btn btn-success" data-dismiss="modal" 
+    onclick="eliminarRechazos(${oid})">Si</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>`;
+    $("#_botonesmsj").html(botones);
+    $('#modMsj').modal('show');
+    
+}
+
+class WNRechazos{
+    constructor(){}
+    Crear(req){
+        ListarRechazos();
+    }
+
+}
+
+/**
+ * Eliminar Rechazos nómina
+ */
+function eliminarRechazos(oid){
+    var wNRechazos = new WNRechazos();
+    var ruta = Conn.URL + "rechazos/eliminar/" + oid;
+    CargarAPI(ruta, "GET", wNRechazos, wNRechazos);
+}
+
 
 /**
  * HTML para el detalle de la nómina
