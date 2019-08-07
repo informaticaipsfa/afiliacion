@@ -212,6 +212,11 @@ $(function () {
 
   CargarUrl("_bxContenedores", "afi/contenedores");
 
+  CargarUrl("_hojaderuta", "rpt/hojaderuta");
+  CargarUrl("_hojadesolvencia", "rpt/hojadesolvencia");
+  CargarUrl("_autorizaciontratamiento", "rpt/autorizaciontratamiento");
+  
+
   $("#salvar").hide();
   $('#modMsj').on('shown.bs.modal', function () {
     $('#_aceptar').focus();

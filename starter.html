@@ -176,6 +176,7 @@
   <script src="js/es6/rechazos.js"></script>
   <script src="js/es6/calculadora.js"></script>
   <script src="js/es6/pagosaterceros.js"></script>
+  <script src="js/es6/reporte.js"></script>
   <script src="../bower_components/barcode/dist/JsBarcode.all.js"></script>
   <!-- InputMask -->
   <script src="../plugins/input-mask/jquery.inputmask.js"></script>
@@ -389,6 +390,10 @@
       </div>
       <div class="row " id="_bxBuscar"></div>
 
+      <div id="_hojaderuta" style="display: none"></div>
+      <div id="_hojadesolvencia" style="display: none"></div>
+      <div id="_autorizaciontratamiento" style="display: none"></div>
+      
 
       <div class="box  box-solid" id="_ficha" style="display:none">
       <div class="box-header with-border">
@@ -848,7 +853,8 @@ aria-labelledby="myLargeModalLabel" id="mdlDetallesDePago"
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content ">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Datos Básicos</h4>
           </div>
           <div class="modal-body" id="_boxModFamiliares">

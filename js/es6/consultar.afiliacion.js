@@ -1518,7 +1518,7 @@ function ConstanciaPensionSobr() {
     var clascat = 'OFICIAL / ASIMILADO'
     var nombrePI = 'ERIKA COROMOTO VIRGÜEZ OVIEDO';
     $('#modConsSobr').modal('show');
-    $('#lblprueba').text("aquí")
+    
 
 }
 

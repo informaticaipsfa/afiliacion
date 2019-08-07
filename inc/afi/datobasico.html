@@ -2,6 +2,29 @@
 <div class="box box-primary box-solid " >
   <div class="box-header with-border">
      <h3 class="box-title">Datos Basicos del Militar</h3>
+     <div class="pull-right box-tools">
+       
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" 
+         title="Reportes varios">
+          <i class="fa fa-book"></i></button>
+          <ul class="dropdown-menu">
+              <li><a href="#" onclick="CConstanciaAfiliacion()" id="_btnConstancia">Constancia de Afiliación</a></li>
+              <li><a href="#">Solvencia de Credito</a></li>
+              <li><a href="#">Autorización Locatel</a></li>
+              <li><a href="#" onclick="AutorizacionTratamientos()" id="_btnAutorizacionTra">Autorización Badan</a></li>
+              
+              <li class="divider"></li>
+              <li><a href="#">Constancia de Pensión</a></li>
+              <li><a href="#">Constancia de ARC</a></li>
+              <li class="divider"></li> 
+              <li><a href="#">Constancia de FAOV</a></li>
+              <li><a href="#" onclick="HojaDeRuta();" id="_btnHojaRuta">Hoja de Ruta</a></li>
+              <li><a href="#">Hoja de Solvencia</a></li>
+              <li><a href="#">Constancia de Fideicomiso</a></li>
+              
+              
+            </ul>
+      </div>
   </div>
   <div class="box-body">
 
@@ -840,14 +863,16 @@
     </div>
   </div><!-- /.box-body -->
   <div class="modal-footer" id="_botonesmilitar">
+
+  
       
     <button type="button" id="btnCalculos" class="btn btn-md bg-maroon derechoacrecer hide" 
       onclick="mostarCalculosConceptos()"><i class="fa fa-calculator"></i>&nbsp;&nbsp;Ver Cálculos</button>
 
     <button type="button" class="btn btn-md btn-success" data-dismiss="modal" onclick="PensionesAsignadas()" id="_btnPensionesAsignadas">
         <i class="fa fa-print "></i>&nbsp;&nbsp;Pensiones Asignadas</button>
-    <button type="button" class="btn btn-md btn-primary" data-dismiss="modal" onclick="CConstanciaAfiliacion()" id="_btnConstancia">
-      <i class="fa fa-print "></i>&nbsp;&nbsp;Constancia</button>
+    <!-- <button type="button" class="btn btn-md btn-primary" data-dismiss="modal" onclick="CConstanciaAfiliacion()" id="_btnConstancia">
+      <i class="fa fa-print "></i>&nbsp;&nbsp;Constancia</button> -->
     <button type="button" class="btn btn-md btn-primary prvcarnet hide" data-dismiss="modal" onclick="VisualizarCarnet()" id="_btnTIM">
       <i class="fa fa-credit-card"></i>&nbsp;&nbsp;Emitir TIM</button>
     <button type="button" class="btn btn-md btn-warning prvmodificar hide" data-dismiss="modal" onclick="activarSalvar()" id="_btnModificar">
