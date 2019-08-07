@@ -5,6 +5,7 @@ let estiloCSSDocumentos = `<style>
 @page {
     margin: 1.5cm;
     margin-bottom: 0.8cm;
+    margin-top: 0.8cm;
     size: letter;
 }
 section {
@@ -52,7 +53,12 @@ function HojaDeRuta(){
  * Hosa de Solvencia administrativa
  */
 function HojaDeSolvencia(){
-
+    var html = $("#_hojadesolvencia").html();
+    var ventana = window.open("", "_blank");
+    ventana.document.write(html);
+    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.print();
+    ventana.close();
 }
 
 /**
