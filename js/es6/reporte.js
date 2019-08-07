@@ -77,3 +77,15 @@ function AutorizacionTratamientos(){
     ventana.print();
     ventana.close();
 }
+
+/**
+ * 
+ */
+function ConstanciaFAOV(){
+    var html = $("#_constanciafaov").html();
+    var ventana = window.open("", "_blank");
+    ventana.document.write(html);
+    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.print();
+    ventana.close();
+}
