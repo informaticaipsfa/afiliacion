@@ -50,7 +50,7 @@ function HojaDeRuta(){
 }
 
 /**
- * Hosa de Solvencia administrativa
+ * Hoja de Solvencia administrativa
  */
 function HojaDeSolvencia(){
     var html = $("#_hojadesolvencia").html();
@@ -60,6 +60,19 @@ function HojaDeSolvencia(){
     ventana.print();
     ventana.close();
 }
+
+/**
+ * Hoja de Solvencia administrativa
+ */
+function ConstanciaCredito(){
+    var html = $("#_constanciacredito").html();
+    var ventana = window.open("", "_blank");
+    ventana.document.write(html);
+    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.print();
+    ventana.close();
+}
+
 
 /**
  * Constancia de Pension militar

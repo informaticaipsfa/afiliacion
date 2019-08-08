@@ -119,11 +119,11 @@ class Utilidad {
     }
 
     ConvertirFechaActualConstancia() {
-        var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        var meses = new Array("enero", "febrero", "marzo", "abril", "mayo", "junio",
+            "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
         var f = new Date();
 
-        return f.getDate() + " DEL MES DE " + meses[f.getMonth()] + " DE " + f.getFullYear();
+        return " mes de " + meses[f.getMonth()] + " de " + f.getFullYear();
     }
 
     //Recibe  Fecha Formato: DD/MM/AAAA

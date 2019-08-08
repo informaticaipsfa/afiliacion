@@ -216,6 +216,7 @@ $(function () {
   CargarUrl("_hojadesolvencia", "rpt/hojadesolvencia");
   CargarUrl("_autorizaciontratamiento", "rpt/autorizaciontratamiento");
   CargarUrl("_constanciafaov", "rpt/constanciafaov");
+  CargarUrl("_constanciacredito", "rpt/constanciacredito");
   
 
   $("#salvar").hide();
