@@ -231,197 +231,152 @@
           <br><br><br>
           <br><br><br>
           <br><br><br>
-                              
-<!--<table>
-<tr>
-<td style="width: 70%;  border: 0px solid #dddddd;">
-<center>
-REPÚBLICA BOLIVARIANA DE VENEZUELA<BR>
-MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
-VICEMINISTERIO DE SERVICIOS<BR>
-DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
-INSTITUTO DE PREVISIÓN SOCIAL<BR>
-DE LA FUERZA ARMADA<BR>
-</center>
-</td>
-<td style="width: 30%;  border: 0px solid #dddddd; text-align: right;">
-Sistema PACE<br>
-<?php echo 'Caracas, ' . date('d') . ' de ' . fecha(date('F')) . ' de '. date('Y') ?>
-
-</td>
-</tr>
-</table>
 
 
-
-          
-           <table>
-            <thead>
-              <tr>
-                <th colspan="7">Datos Básicos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Cédula</td>
-                <td><?php echo $Beneficiario->cedula;?>
-                </td>
-                <td>Número de cuenta:</td>
-                <td colspan="3">
-                <?php
-                  echo $Beneficiario->numero_cuenta;
-                ?>
-                </td>
-          
-              </tr>
-              <tr>
-                <td>Nombre Completo</td>
-                <td colspan="3"><?php echo $Beneficiario->nombres . ' ' . $Beneficiario->apellidos;?>
-                </td>
-                <td>Estatus</td>
-                <td><?php echo $Beneficiario->estatus_descripcion; ?></td>
-              </tr>
-              <tr>
-                <td>Componente</td>
-                <td><?php echo $Beneficiario->Componente->nombre; ?>
-                </td>
-                <td>Grado</td>
-                <td><?php echo $Beneficiario->Componente->Grado->nombre; ?></td>
-                <td>Sexo</td>
-                <td ><?php echo $Beneficiario->sexo; ?></td>
-              </tr>
-              <tr>
-                <td>Fecha Ingreso</td>
-                <td><?php
-          
-                    $f = explode('-',$Beneficiario->fecha_ingreso);
-          
-                   echo $f[2] . '-' . $f[1] . '-' . $f[0];
-                ?>
-                </td>
-                <td>Tiempo de Serv.</td>
-                <td><?php echo $Beneficiario->tiempo_servicio; ?></td>
-                <td>N° Hijos</td>
-                <td><?php echo $Beneficiario->numero_hijos; ?></td>
-              </tr>
-              <tr>
-                <td>Últ. Ascenso</td>
-                <td><?php
-                   $f =  explode('-',$Beneficiario->fecha_ultimo_ascenso);
-                   echo $f[2] . '-' . $f[1] . '-' . $f[0];
-                 ?>
-                </td>
-                <td>Estatus de N° Ascenso</td>
-                <td><?php echo $Beneficiario->no_ascenso; ?></td>
-                <td>St. Profesional</td>
-                <td><?php echo $Beneficiario->profesionalizacion; ?></td>
-              </tr>
-              <tr>
-               <td>Años Recon.</td>
-               <td><?php echo $Beneficiario->ano_reconocido; ?>
-               </td>
-               <td>Meses Recon.</td>
-               <td><?php echo $Beneficiario->mes_reconocido; ?></td>
-               <td>Dias Recon.</td>
-               <td><?php echo $Beneficiario->dia_reconocido; ?></td>
-             </tr>
-             <tr>
-              <td>Fecha Retiro</td>
-              <td colspan="3">
-              <?php
-                if ($Beneficiario->fecha_retiro != ''){
-                  $f =  explode('-',$Beneficiario->fecha_retiro);
-                  echo $f[2] . '-' . $f[1] . '-' . $f[0];
-                }
-              ?></td>
-              <td>Motivo de Paralizacion</td>
-                <td><?php echo $Beneficiario->motivo_paralizacion; ?></td>
-          
-            </tr>
-          
-          </table><br>
-          
-          
-          <?php
-          
-            $sCabecera = '<table style="width:50%">
-            <thead>
-              <tr>
-                <th colspan="7">Movimientos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th colspan="7"><center>Anticipos</center></th>
-              </tr>
-              <tr><td style="width: 30%">Fecha</td><td style="width: 70%"><center>Monto</center></td></tr>';
-          
-            $sCuerpo = '';
-          
-            $sPie = '
-            </tbody>
-            </table>';
-            $iCant = count($Beneficiario->HistorialOrdenPagos);
-            if($iCant > 0){
-              foreach ($Beneficiario->HistorialOrdenPagos as $k => $v) {
-                $f =  explode('-',$v->fecha);
-                if($v->estatus == 100){
-                  $sCuerpo .= '<tr><td>' . $f[2] . '-' . $f[1] . '-' . $f[0] .
-                    '</td><td style="text-align: right;">' . number_format($v->monto, 2, ',','.') . '</td></tr>';
-                }
-          
-              }
-          
-              echo $sCabecera . $sCuerpo . $sPie;
-            }
-          
-          ?>
-          
-          
-          
-          <br><br><br><br><br><br><br>
-          
-          
-          <table>
-            <tr>
-              <td style="border:0px; width: 50%; text-align: center;"><b>
-                EGLIS MEDINA GARCIA<BR>
-                CNEL.<BR>
-                JEFE DEL DPTO. DE FIDEICOMISO<BR>
-                </b>
-              </td>
-              <td style="border:0px; width: 50%; text-align: center;"><b>
-                JUAN MIGUEL QUINTERO MORALES<BR>
-                CNEL.<BR>
-                GERENTE DE BIENESTAR Y SEGURIDAD SOCIAL
-                </b>
-              </td>
-            </tr>
-          </table>
-          </center>
-          
-            <br><br>
-            <center>
-              <button onclick="imprimir()" id="btnPrint">Imprimir Reporte</button>
-            </center>
-          
-            <script language="Javascript">
-              function imprimir(){
-                  document.getElementById('btnPrint').style.display = 'none';
-                  window.print();
-                  window.close();
-              }
-            </script>
-          
-          </body>
-          </html>
-          
-
-        -->
-          </div>
+    </div>
             <div class="footer">
                 <hr>
                 Av. Los Proceres, Edf. Sede del IPSFA, P.B., Gerencia de Finanzas. Santa Monica, Municipio
                 Libertador del Distrito Capital, Caracas. Correo Electrónico: drogueriaipsfaccs@gmail.com
             </div>
-            </section>
+        
+</section>
+
+<section class="content">
+    <div class="wrapper" >
+        <html>
+            <body>
+                <table>
+                    <thead>
+                        <tr>
+                        <th colspan="7">Datos Básicos</th>
+                        </tr>
+                    </thead>
+                </table>
+                <table>
+                        <tr>
+                            <td>Cédula</td>
+                            <td></td>
+                            <td>Número de cuenta:</td>
+                            <td colspan="3"> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Nombre Completo</td>
+                            <td colspan="3"></td>
+                            <td>Estatus</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>Componente</td>
+                            <td></td>
+                            <td>Grado</td>
+                            <td></td>
+                            <td>Sexo</td>
+                            <td ></td>
+                        </tr>
+
+                        <tr>
+                            <td>Fecha Ingreso</td>
+                            <td></td>
+                            <td>Tiempo de Serv.</td>
+                            <td></td>
+                            <td>N° Hijos</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>Últ. Ascenso</td>
+                            <td></td>
+                            <td>Estatus de N° Ascenso</td>
+                            <td></td>
+                            <td>St. Profesional</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>Años Recon.</td>
+                            <td></td>
+                            <td>Meses Recon.</td>
+                            <td></td>
+                            <td>Dias Recon.</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>Fecha Retiro</td>
+                            <td colspan="3"> </td>
+                            <td>Motivo de Paralizacion</td>
+                            <td></td>
+                        </tr>
+
+
+                </table><br>
+                  
+                        <thead>
+                            <tr>
+                                <th colspan="7">Movimientos</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                 <th colspan="7"><center>Anticipos</center></th>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 30%">Fecha</td>
+                                <td style="width: 70%"><center>Monto</center></td>
+                            </tr>
+
+                        </tbody>
+
+                            <tr> 
+                                <td></td>
+                                <td style="text-align: right;"></td>
+                            </tr>
+
+            <br><br>
+            <br><br>
+            <br><br>
+            <br>  
+
+                            <table>
+                                <tr>
+                                    <td style="border:0px; width: 50%; text-align: center;"><b>
+                                    EGLIS MEDINA GARCIA<BR>
+                                    CNEL.<BR>
+                                    JEFE DEL DPTO. DE FIDEICOMISO<BR>
+                                    </b>
+                                    </td>
+                                    <td style="border:0px; width: 50%; text-align: center;"><b>
+                                    JUAN MIGUEL QUINTERO MORALES<BR>
+                                    CNEL.<BR>
+                                    GERENTE DE BIENESTAR Y SEGURIDAD SOCIAL
+                                    </b>
+                                    </td>
+                                </tr>
+                            </table>
+
+            <br><br>
+
+                                        <center>
+                                        <button onclick="imprimir()" id="btnPrint">Imprimir Reporte</button>
+                                        </center>
+
+
+
+            </body>
+        </html>
+
+    </table>
+    </div>  
+
+                <div class="footer">
+                <hr>
+                Av. Los Proceres, Edf. Sede del IPSFA, P.B., Gerencia de Finanzas. Santa Monica, Municipio
+                Libertador del Distrito Capital, Caracas. Correo Electrónico: drogueriaipsfaccs@gmail.com
+                </div>             
+</section>
