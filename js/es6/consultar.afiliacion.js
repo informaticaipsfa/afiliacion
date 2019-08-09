@@ -191,8 +191,6 @@ function ConstanciaFamiliaresHTML() {
         <th class="alinear_tddatos">CÉDULA</th>
         <th class="alinear_tddatos">PARENTESCO</th>
         <th class="alinear_tddatos">FECHA NAC.</th>
-        <th class="alinear_tddatos">EDO CIVIL</th>
-        <th class="alinear_tddatos">SITUACIÓN</th>
       </tr>
     </thead >
     <tbody id="_contenidoFamiliares">
@@ -1468,47 +1466,7 @@ function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
 
 
 
-function CConstanciaAfiliacion() {
-    var Util = new Utilidad();
-    var urlMil = Conn.URLIMG + $("#txtcedula").val() + ".jpg";
-    var urlGra = "images/grados/" + ObjMilitar.Grado.abreviatura + ".png";
-    urlGra = urlGra.toLowerCase();
-    var fechaActual = ConvertirFechaActual();
-    var tiempo = ObjMilitar.tiemposervicio;
 
-
-
-    var gradoPI = 'VICEALMIRANTE';
-    var clascat = $("#cmbcategoria option:selected").text() + ' / ' + $("#cmbclase option:selected").text();
-    var nombrePI = 'ERIKA COROMOTO VIRGÜEZ OVIEDO';
-    $('#modRpt').modal('show');
-    if( $("#cmbCondicion").val() != "2" ){
-        $("#lblgradoMil").text($("#cmbgrado option:selected").text());
-    }
-
-    $("#lblGradoFoto").text($("#cmbgrado option:selected").text());
-    $("#lblcedulaMil").text($("#txtcedula").val());
-    $("#lblnombreMil").text($("#txtapellido").val() + ' ' + $("#txtnombre").val());
-    $("#lbledoCivilM").text($("#cmbedocivil option:selected").text());
-    $("#lblfchNacMil").text($("#txtnacimiento").val());
-    $("#lbldireccionMil").text($("#txtmcalle").val() + ' ' + $("#txtmcasa").val() +
-        ' ' + $("#txtmapto").val() + ' ' + $("#cmbmparroquia option:selected").text() +
-        ' ' + $("#cmbmmunicipio option:selected").text() + ' ' + $("#cmbmciudad option:selected").text() +
-        ' ' + $("#cmbmestado option:selected").text());
-    $("#lblfchIngresoFANB").text($("#txtfechagraduacion").val());
-    $("#lblfchUltAscenso").text($("#_fascenso").html());
-    $("#lblaServicio").text(tiempo);
-    $("#lblcomponente").text($("#cmbcomponente option:selected").text());
-    $("#lblsituacionMil").text($("#cmbsituacion option:selected").text());
-      $("#_fotoConstancia").attr("src", urlMil);
-    $("#_Constgrado").attr("src", urlGra);
-    $("#lblfchActual").text(fechaActual);
-    $("#lblgradoPI").text(gradoPI);
-    $("#lblnombrePI").text(nombrePI);
-    $("#lblgradoPIF").text(gradoPI);
-    $("#lblclascat").text(clascat);
-
-}
 
 function ConstanciaPensionSobr() {
     var fechaActual = ConvertirFechaActual();

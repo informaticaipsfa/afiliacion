@@ -75,9 +75,12 @@ function CargarFamiliaresModal(militar, t){
                 <td class="alinear_tddatos">${cedula}</td>
                 <td class="alinear_tddatos">${familiar.GenerarParentesco(strEdo)}</td>
                 <td class="alinear_tddatos">${fnac}</td>
-                <td class="alinear_tddatos">${edocivil}</td>
-                <td class="alinear_tddatos">${situacion}</td>
+                
             </tr>`);
+
+            // <td class="alinear_tddatos">${edocivil}</td>
+            // <td class="alinear_tddatos">${situacion}</td>
+
         }
         
         //var txtporc = `${porcentaje} %<input id="prc-${cedula}" type="hidden" value="${porcentaje}"></input>`;

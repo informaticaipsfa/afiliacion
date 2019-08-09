@@ -37,12 +37,78 @@ p {
     font-size: 12px;
 }
 </style>`;
+
+function CConstanciaAfiliacion() {
+    var Util = new Utilidad();
+    var urlMil = Conn.URLIMG + $("#txtcedula").val() + ".jpg";
+    if (ObjMilitar.Persona.foto  != undefined){
+        var url = Conn.URLTEMP;
+        urlMil = url + $("#txtcedula").val() + "/foto.jpg";
+    }
+
+    var urlGra = "images/grados/" + ObjMilitar.Grado.abreviatura + ".png";
+    urlGra = urlGra.toLowerCase();
+    var fechaActual = ConvertirFechaActual();
+    var tiempo = ObjMilitar.tiemposervicio;
+
+    // $("#_fotoConstancia").attr("src", urlMil);
+    // $("#_Constgrado").attr("src", urlGra);
+
+    var gradoPI = 'GENERAL DE DIVISIÓN';
+    var clascat = $("#cmbcategoria option:selected").text() + ' / ' + $("#cmbclase option:selected").text();
+    var nombrePI = 'RENIER ENRIQUE URBÁEZ FERMÍN';
+    //$('#modRpt').modal('show');
+    if( $("#cmbCondicion").val() != "2" ){
+        $("#lblgradoMil").text($("#cmbgrado option:selected").text());
+    }
+
+    $("#lblGradoFoto").text($("#cmbgrado option:selected").text());
+    $("#lblcedulaMil").text($("#txtcedula").val());
+    $("#lblnombreMil").text($("#txtapellido").val() + ' ' + $("#txtnombre").val());
+    $("#lbledoCivilM").text($("#cmbedocivil option:selected").text());
+    $("#lblfchNacMil").text($("#txtnacimiento").val());
+    $("#lbldireccionMil").text($("#txtmcalle").val() + ' ' + $("#txtmcasa").val() +
+        ' ' + $("#txtmapto").val() + ' ' + $("#cmbmparroquia option:selected").text() +
+        ' ' + $("#cmbmmunicipio option:selected").text() + ' ' + $("#cmbmciudad option:selected").text() +
+        ' ' + $("#cmbmestado option:selected").text());
+    $("#lblfchIngresoFANB").text($("#txtfechagraduacion").val());
+    $("#lblfchUltAscenso").text($("#_fascenso").html());
+    $("#lblaServicio").text(tiempo);
+    $("#lblcomponente").text($("#cmbcomponente option:selected").text());
+    $("#lblsituacionMil").text($("#cmbsituacion option:selected").text());
+    
+    
+    
+    $("#lblfchActual").text(fechaActual);
+    $("#lblgradoPI").text(gradoPI);
+    $("#lblnombrePI").text(nombrePI);
+    $("#lblgradoPIF").text(gradoPI);
+    $("#lblclascat").text(clascat);
+
+    var html = $("#_contenidorpt").html();
+    var ventana = window.open("", "_blank");
+    ventana.document.write(html);
+    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.print();
+    ventana.close();
+}
+
+
 /**
  * Hoja de Ruta para los procesos de baja
  */
 function HojaDeRuta(){
+    $("#hrgrado").html($("#cmbgrado option:selected").text());
+    $("#hrcedula").html($("#txtcedula").val());
+    $("#hrnombre").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
+    $("#hrcomponente").html($("#cmbcomponente option:selected").text());
     var html = $("#_hojaderuta").html();
+    
+
+
     var ventana = window.open("", "_blank");
+
+
     ventana.document.write(html);
     ventana.document.head.innerHTML = estiloCSSDocumentos;
     ventana.print();
@@ -107,4 +173,28 @@ function ConstanciaFAOV(){
     ventana.document.head.innerHTML = estiloCSSDocumentos;
     ventana.print();
     ventana.close();
+}
+
+
+class WFideicomiso{
+    constructor(){}
+    Crear(req){
+        console.log(req);
+        
+        var html = $("#_constanciafideicomiso").html();
+        var ventana = window.open("", "_blank");
+        ventana.document.write(html);
+        ventana.document.head.innerHTML = estiloCSSDocumentos;
+        ventana.print();
+        ventana.close();
+    }
+}
+
+/**
+ * Hoja de Ruta para los procesos de baja
+ */
+function CConstanciaFideicomiso(){
+    var wfide = new WFideicomiso();
+    var ruta =  Conn.URL + "militar/pace/consultarbeneficiario/" + $("#txtcedula").val();
+    CargarAPI(ruta, "GET", wfide, wfide);
 }

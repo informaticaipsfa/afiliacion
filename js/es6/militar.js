@@ -702,7 +702,8 @@ class Militar{
 			url = "images/grados/" + militar.Grado.abreviatura + ".png";
 			url = url.toLowerCase();
 			$("#_imggrado").attr("src", url);
-
+    		$("#_Constgrado").attr("src", url); //Grado de la constancia de afiliacion
+			
 			var rutaimg = Conn.URLIMG;
 			url = rutaimg + $("#txtcedula").val() + ".jpg";
 			if (militar.Persona.foto  != undefined){
@@ -711,6 +712,7 @@ class Militar{
 			}
 			$("#minifoto").attr("href", url);
 			$("#_img").attr("src", url);
+			$("#_fotoConstancia").attr("src", url); //Foto para la constancia de afiliacion
 			$("#txtdefuncion").val("");
 			if(militar.situacion == "FCP"){
 				$("#txtdefuncion").val(Util.ConvertirFechaHumana(DB.fechadefuncion));
