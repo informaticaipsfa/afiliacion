@@ -99,18 +99,17 @@ function CConstanciaAfiliacion() {
  */
 function HojaDeRuta(){
 
+    
     var tiempo_servServ = ObjMilitar.tiemposervicio;
+
     $("#hrgrado").html($("#cmbgrado option:selected").text());
     $("#hrcedula").html($("#txtcedula").val());
     $("#hrnombre").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
     $("#hrcomponente").html($("#cmbcomponente option:selected").text());
     $("#hrtiempoServicio").text(tiempo_servServ);
-    var html = $("#_hojaderuta").html();
     
-
-
+    var html = $("#_hojaderuta").html();  
     var ventana = window.open("", "_blank");
-
 
     ventana.document.write(html);
     ventana.document.head.innerHTML = estiloCSSDocumentos;
@@ -122,13 +121,14 @@ function HojaDeRuta(){
  * Hoja de Solvencia administrativa
  */
 function HojaDeSolvencia(){
-    var tiempo = ObjMilitar.tiemposervicio;
-    
+        
+    var tiemposolv = ObjMilitar.tiemposervicio;
+
     $("#hsapelidosNombre").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
     $("#solvCedula").html($("#txtcedula").val());
     $("#solvGrado").html($("#cmbgrado option:selected").text());
     $("#solvComponente").html($("#cmbcomponente option:selected").text());
-    ("#solvtiempoServicio").text(tiempo);
+    $("#solvtiempoServicio").text(tiemposolv);
 
     var html = $("#_hojadesolvencia").html();
     var ventana = window.open("", "_blank");
