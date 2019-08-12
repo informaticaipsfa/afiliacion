@@ -98,10 +98,13 @@ function CConstanciaAfiliacion() {
  * Hoja de Ruta para los procesos de baja
  */
 function HojaDeRuta(){
+
+    var tiempo_servServ = ObjMilitar.tiemposervicio;
     $("#hrgrado").html($("#cmbgrado option:selected").text());
     $("#hrcedula").html($("#txtcedula").val());
     $("#hrnombre").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
     $("#hrcomponente").html($("#cmbcomponente option:selected").text());
+    $("#hrtiempoServicio").text(tiempo_servServ);
     var html = $("#_hojaderuta").html();
     
 
@@ -119,6 +122,14 @@ function HojaDeRuta(){
  * Hoja de Solvencia administrativa
  */
 function HojaDeSolvencia(){
+    var tiempo = ObjMilitar.tiemposervicio;
+    
+    $("#hsapelidosNombre").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
+    $("#solvCedula").html($("#txtcedula").val());
+    $("#solvGrado").html($("#cmbgrado option:selected").text());
+    $("#solvComponente").html($("#cmbcomponente option:selected").text());
+    ("#solvtiempoServicio").text(tiempo);
+
     var html = $("#_hojadesolvencia").html();
     var ventana = window.open("", "_blank");
     ventana.document.write(html);
@@ -178,9 +189,37 @@ function ConstanciaFAOV(){
 
 class WFideicomiso{
     constructor(){}
-    Crear(req){
-        console.log(req);
+    Crear(militar){
+        console.log(militar);
+        console.log(militar.Componente);
+       
+        var componente = militar.Componente.nombre;
+        var nroCuenta = militar.numero_cuenta;
+        var nombre = militar.nombres + " " + militar.apellidos;
+        var status = militar.estatus_descripcion;
+        var grado = militar.Componente.Grado.descripcion;
+        var tiempo_serv = militar.tiempo_servicio;
+
+
+
+        $("#fdcedula").html($("#txtcedula").val());
+        $("#fdnumeroCuenta").html( nroCuenta );
+        $("#fdestatus").html( status);
+        $("#fdnombre_apellido").html( nombre );
+        $("#fdcomponente").html( componente );
+        $("#fdgrado").html( grado );
+        $("#fdsexo").html($("#cmbsexo option:selected").text());
+        $("#fd_fhingreso").html($("#txtfechagraduacion").val());
+        $("#fdtiempoServicio").html( tiempo_serv );
+
         
+        
+
+
+
+
+
+
         var html = $("#_constanciafideicomiso").html();
         var ventana = window.open("", "_blank");
         ventana.document.write(html);
