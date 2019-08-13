@@ -237,3 +237,35 @@ function CConstanciaFideicomiso(){
     var ruta =  Conn.URL + "militar/pace/consultarbeneficiario/" + $("#txtcedula").val();
     CargarAPI(ruta, "GET", wfide, wfide);
 }
+
+
+/**
+ * 
+ */
+class WSolvenciaR{
+    constructor(){}
+    Crear(req){
+        console.log(req.sueldo_mensual);
+
+        $("#cedulacp").html($("#txtcedula").val());
+        $("#nombrecp").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
+        var n = parseFloat(req.sueldo_mensual.mt);
+        $("#montocp").html( numeral(n).format('0.0,') );
+
+        var html = $("#_constanciapensionado").html();
+        var ventana = window.open("", "_blank");
+        ventana.document.write(html);
+        ventana.document.head.innerHTML = estiloCSSDocumentos;
+        ventana.print();
+        ventana.close();
+    }
+}
+
+/**
+ * Constancia de Solvencia
+ */
+function CConstanciaSolvencia(){
+    var wS = new WSolvenciaR();
+    var ruta =  Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
+    CargarAPI(ruta, "GET", wS, wS);
+}
