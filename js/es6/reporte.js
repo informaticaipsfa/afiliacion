@@ -18,13 +18,13 @@ body {
 }
 .baner {
     text-align: center;
-    line-height: 18px; 
-    font-size: 14px; 
+    line-height: 22px; 
+    font-size: 15px; 
 }
 p {
     text-align: justify;
-    line-height: 15px; 
-    font-size: 12px;
+    line-height: 22px; 
+    font-size: 14px;
 }
 .wrapper {
     min-height: 100%;
@@ -36,7 +36,7 @@ p {
     height: 5em;
     font-size: 12px;
 }
-</style>`;
+</style>`
 
 function CConstanciaAfiliacion() {
     var Util = new Utilidad();
@@ -191,7 +191,7 @@ class WFideicomiso{
     constructor(){}
     Crear(militar){
         console.log(militar);
-        console.log(militar.Componente);
+        //console.log(militar.Componente);
        
         var componente = militar.Componente.nombre;
         var nroCuenta = militar.numero_cuenta;
@@ -199,6 +199,18 @@ class WFideicomiso{
         var status = militar.estatus_descripcion;
         var grado = militar.Componente.Grado.descripcion;
         var tiempo_serv = militar.tiempo_servicio;
+        var nro_hijos = militar.numero_hijos;
+        var nro_status = militar.no_ascenso;
+        var p_profecinalizacion = militar.profesionalizacion;
+        
+        var año_rec = militar.ano_reconocido;
+        
+        var mes_rec = militar.mes_reconocido;
+        
+        var dia_rec = militar.dia_reconocido;
+        
+        var f_retiro = militar.fecha_retiro;
+
 
 
 
@@ -211,14 +223,19 @@ class WFideicomiso{
         $("#fdsexo").html($("#cmbsexo option:selected").text());
         $("#fd_fhingreso").html($("#txtfechagraduacion").val());
         $("#fdtiempoServicio").html( tiempo_serv );
+        $("#fdnumHijos").html( nro_hijos );
+        $("#fd_status_merito").html( nro_status );
+        $("#fd_ultimoAscenso").text($("#_fascenso").html());
+        $("#fdstProfesional").html(p_profecinalizacion);
+        $("#fdstProfesional").html(año_rec);
+        $("#fdmesesRec").html(mes_rec);
+        $("#fddiasRec").html(dia_rec);
+        $("#fdfechaRetiro").html(f_retiro);
 
         
         
-
-
-
-
-
+        
+   
 
         var html = $("#_constanciafideicomiso").html();
         var ventana = window.open("", "_blank");
