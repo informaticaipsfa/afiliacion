@@ -245,7 +245,17 @@ function CConstanciaFideicomiso(){
 class WSolvenciaR{
     constructor(){}
     Crear(req){
-        console.log(req.sueldo_mensual);
+        //console.log(req.sueldo_mensual);
+        var tp = $("#_tiemposervicio").html().split(" ");
+        $("#fingcp").html( $("#txtfechagraduacion").val()  );
+        $("#fretcp").html( $("#txtmfecharesuelto").val() );
+        var ano = tp[0].split("A");
+        $("#facp").html(ano[0]);
+        var mes = tp[1].split("M");
+        $("#fmcp").html( mes[0] );
+        var dia = tp[2].split("D");
+        $("#fdcp").html( dia[0] );
+        
 
         $("#cedulacp").html($("#txtcedula").val());
         $("#nombrecp").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
