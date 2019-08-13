@@ -250,7 +250,11 @@ class WSolvenciaR{
         $("#cedulacp").html($("#txtcedula").val());
         $("#nombrecp").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
         var n = parseFloat(req.sueldo_mensual.mt);
-        $("#montocp").html( numeral(n).format('0.0,') );
+        var s = numeral(n).format('0.0,');
+        var r1 = s.replace('.', '#');
+        var r2 = r1.replace(',', '.');
+        var r3 = r2.replace('#', ',');
+        $("#montocp").html( r3 );
 
         var html = $("#_constanciapensionado").html();
         var ventana = window.open("", "_blank");
