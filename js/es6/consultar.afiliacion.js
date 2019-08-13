@@ -184,7 +184,9 @@ function BancariosHTML() {
 
 
 function ConstanciaFamiliaresHTML() {
-    var html = `<table class="table-fondo " cellspacing="0" width="100%" id="tblConstFamiliares" >
+    var html = `<table class="table-fondo " cellspacing="0" width="100%" id="tblConstFamiliares" style="border: 1px solid #CCC; 
+    line-height: 14px; 
+    font-size: 12px;" >
     <thead>
       <tr class="titulo_tabla table-borderedtd" >
         <th class="alinear_td">APELLIDOS Y NOMBRES</th>

@@ -18,13 +18,13 @@ body {
 }
 .baner {
     text-align: center;
-    line-height: 22px; 
-    font-size: 15px; 
+    line-height: 18px; 
+    font-size: 14px; 
 }
 p {
     text-align: justify;
-    line-height: 22px; 
-    font-size: 14px;
+    line-height: 15px; 
+    font-size: 12px;
 }
 .wrapper {
     min-height: 100%;
