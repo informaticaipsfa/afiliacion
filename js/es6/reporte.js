@@ -30,10 +30,10 @@ p {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -4em;
+    margin: 0 auto -5em;
 }
 .footer, .push {
-    height: 4em;
+    height: 5em;
     font-size: 12px;
 }
 </style>`;
