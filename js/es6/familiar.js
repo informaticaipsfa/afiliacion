@@ -20,9 +20,11 @@ function CargarFamiliaresModal(militar, t){
             fvence = Util.ConvertirFechaHumana(v.Tif.fechavencimiento);
         }
 
-        var modificar = '<div class="btn-group"><button type="button" id="btnModFamiliar' + j + '" \
-            class="btn btn-sm btn-info prvmodificar hide" onclick="ModificarFamiliarPos(' + j + ')">\
-            <i class="fa fa-pencil"></i></button>';
+        var modificar = `<div class="btn-group">
+            <button type="button" id="btnModFamiliar${j}" 
+                class="btn btn-sm btn-info prvmodificar hide" onclick="ModificarFamiliarPos(${j})">
+                <i class="fa fa-pencil"></i>
+            </button>`;
         var mil = nombre.toUpperCase();
         if (v.esmilitar == true) {
             mil = nombre.toUpperCase() + '<font color="#0E6626"><i class="fa fa-fw fa-male"></i></font>&nbsp;';
@@ -35,10 +37,31 @@ function CargarFamiliaresModal(militar, t){
                 
                 modificar += `<button type="button" id="btnModCal${j}"
                 class="btn btn-sm bg-maroon prvmodificar hide" onclick="ModificarCalPos('${j}')">
-                <i class="fa fa-calculator"></i></button>
-                <button type="button" id="btnModPension${j}"
-                class="btn btn-sm bg-olive prvmodificar hide" onclick="PensionAsignadaSobre('${j}')">
-                <i class="fa fa-print"></i></button>`;
+                <i class="fa fa-calculator"></i></button>                
+                <button type="button" 
+                    id="btnModPension${j}" class="btn btn-sm btn-success dropdown-toggle prvmodificar hide" data-toggle="dropdown" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" onclick="PensionAsignadaSobre('${j}')">Consultar Netos</a></li>
+                  <li><a href="#" onclick="CConstanciaSolvenciaFCP('${j}')">Constancia de Pensión</a></li>
+                </ul>
+                `;
+
+            //     `
+            //     <button type="button" 
+            //     class="btn btn-sm bg-olive" >
+            //     <i class="fa fa-print"></i></button>
+
+            //     <div class="btn-group open">
+            //     <button type="button" class="btn btn-success">Action</button>
+            //     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+            //       <span class="caret"></span>
+            //       <span class="sr-only">Toggle Dropdown</span>
+            //     </button>
+                
+            //   </div>`
                 
             }
         }

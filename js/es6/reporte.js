@@ -300,3 +300,61 @@ function CConstanciaSolvencia(){
     var ruta =  Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
     CargarAPI(ruta, "GET", wS, wS);
 }
+
+
+
+
+let FamiliarWSolvenciaRFCP = {};
+/**
+ * 
+ */
+class WSolvenciaRFCP{
+    constructor(){}
+    Crear(req){
+        //console.log(req.sueldo_mensual);
+        var fam = FamiliarWSolvenciaRFCP.Persona.DatoBasico;
+
+
+        // var tp = $("#_tiemposervicio").html().split(" ");
+        // $("#fingcp").html( $("#txtfechagraduacion").val()  );
+        // $("#fretcp").html( $("#txtmfecharesuelto").val() );
+        // var ano = tp[0].split("A");
+        // $("#facp").html(ano[0]);
+        // var mes = tp[1].split("M");
+        // $("#fmcp").html( mes[0] );
+        // var dia = tp[2].split("D");
+        // $("#fdcp").html( dia[0] );
+        
+        $("#cedulafm").html( fam.cedula  );
+        $("#nombrefm").html( fam.apellidoprimero + " " + fam.nombreprimero  );
+        $("#relacionfm").html( Util.ConvertirParentesco(FamiliarWSolvenciaRFCP.parentesco, fam.sexo)  );
+        
+
+
+        $("#cedulartps").html($("#txtcedula").val());
+        $("#gradotps").html( $("#cmbgrado option:selected").text() + " " + $("#txtapellido").val() + ' ' + $("#txtnombre").val());
+        var n = (parseFloat(req.sueldo_mensual.mt) * FamiliarWSolvenciaRFCP.pprestaciones) / 100;
+        var s = numeral(n).format('0.0,');
+        var r1 = s.replace('.', '#');
+        var r2 = r1.replace(',', '.');
+        var r3 = r2.replace('#', ',');
+        $("#montocps").html( r3 );
+
+        var html = $("#_constanciapensionadosobre").html();
+        var ventana = window.open("", "_blank");
+        ventana.document.write(html);
+        ventana.document.head.innerHTML = estiloCSSDocumentos;
+        ventana.print();
+        ventana.close();
+    }
+}
+
+/**
+ * Constancia de Solvencia
+ */
+function CConstanciaSolvenciaFCP(pos){
+    var wS = new WSolvenciaRFCP();
+    FamiliarWSolvenciaRFCP = ObjMilitar.Familiar[pos-1]
+    var ruta =  Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
+    CargarAPI(ruta, "GET", wS, wS);
+}
