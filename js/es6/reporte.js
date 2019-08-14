@@ -202,16 +202,16 @@ class WFideicomiso{
         var nro_hijos = militar.numero_hijos;
         var nro_status = militar.no_ascenso;
         var p_profecinalizacion = militar.profesionalizacion;
-        
-        var año_rec = militar.ano_reconocido;
-        
+        var aRec = militar.mes_reconocido;
         var mes_rec = militar.mes_reconocido;
-        
         var dia_rec = militar.dia_reconocido;
-        
         var f_retiro = militar.fecha_retiro;
+        var motiv_p = militar.motivo_paralizacion;
 
-
+        var sueldo_b = militar.sueldo_base;
+        var comp_esp = militar.prima_transporte;
+        var descd= militar.prima_descendencia;
+        var productiv = militar. prima_especial;
 
 
         $("#fdcedula").html($("#txtcedula").val());
@@ -227,10 +227,17 @@ class WFideicomiso{
         $("#fd_status_merito").html( nro_status );
         $("#fd_ultimoAscenso").text($("#_fascenso").html());
         $("#fdstProfesional").html(p_profecinalizacion);
-        $("#fdstProfesional").html(año_rec);
+        $("#fdañosRec").html(aRec);
         $("#fdmesesRec").html(mes_rec);
         $("#fddiasRec").html(dia_rec);
         $("#fdfechaRetiro").html(f_retiro);
+        $("#fdmotivoParali").html(motiv_p);
+
+        $("#fdsueldoBase").html(sueldo_b)
+        $("#fddescencia").html(comp_esp);
+        $("#fdproduct").html(productiv);
+
+
 
         
         
