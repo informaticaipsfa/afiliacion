@@ -203,7 +203,9 @@ function AgregarConceptos(){
     $("#_cargando").show();
     CargarAPI(url, "POST", Obj.Obtener());
     LimpiarFormulario();
-  }
+}
+
+
 function LimpiarFormulario(){
     $("#txtCodigo").val('');
     $("#txtDescripcion").val('');
@@ -492,7 +494,7 @@ function GenerarNomina(){
         Nom.Concepto.push(Concepto);
     });
     
-    console.log(Nom);
+    //console.log(Nom);
     var ruta = Conn.URL + "nomina/generar";
     $('#mdlPrepararNomina').modal('hide');
     waitingDialog.show('Creando nómina por favor espere...');
