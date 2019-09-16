@@ -326,7 +326,7 @@ class WSolvenciaR{
         
 
         $("#cedulacp").html($("#txtcedula").val());
-        $("#nombrecp").html($("#txtapellido").val() + ' ' + $("#txtnombre").val());
+        $("#nombrecp").html($("#cmbgrado option:selected").text() + ' ' + $("#txtapellido").val() + ' ' + $("#txtnombre").val());
         var n = parseFloat(req.sueldo_mensual.mt);
         var s = numeral(n).format('0.0,');
         var r1 = s.replace('.', '#');
