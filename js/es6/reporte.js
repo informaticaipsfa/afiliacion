@@ -207,11 +207,34 @@ class WFideicomiso{
         var dia_rec = militar.dia_reconocido;
         var f_retiro = militar.fecha_retiro;
         var motiv_p = militar.motivo_paralizacion;
-
         var sueldo_b = militar.sueldo_base;
         var comp_esp = militar.prima_transporte;
         var descd= militar.prima_descendencia;
         var productiv = militar. prima_especial;
+        var prima_tserv = militar.prima_tiemposervicio;
+        var nroAsceso = militar.prima_noascenso;
+        var primaPro = militar.prima_profesionalizacion
+        var primaesta = militar.prima_compensacionespecial;
+        var sueldoG = militar.sueldo_global;
+        var bonoVacional = militar.vacaciones;
+        var aguinaldo = militar.aguinaldos;
+        var sueldoInte = militar.sueldo_integral;
+
+        var asigAntig = militar.asignacion_antiguedad;
+        var capBan = militar.capital_banco;
+        var garant = militar.garantias;
+
+        var diasAdi = militar.dias_adicionales;
+        var depBnco = militar.asignacion_depositada;
+        var saldBan = militar.saldo_disponible;
+
+        var diferencia = militar.diferencia_AA;
+        var fechaUltimoDepos = militar.fecha_ultimo_deposito;
+        var aporto = militar.porcentaje_cancelado;
+
+
+
+
 
 
         $("#fdcedula").html($("#txtcedula").val());
@@ -232,10 +255,31 @@ class WFideicomiso{
         $("#fddiasRec").html(dia_rec);
         $("#fdfechaRetiro").html(f_retiro);
         $("#fdmotivoParali").html(motiv_p);
-
         $("#fdsueldoBase").html(sueldo_b)
         $("#fddescencia").html(comp_esp);
         $("#fdproduct").html(productiv);
+        $("#fdañosServ").html(prima_tserv);
+        $("#fdnroAsceso").html(nroAsceso);
+        $("#fdprofesionalizacion").html(primaPro);
+        $("#fdEsta").html(primaesta);
+        $("#fdsueldoMen").html(sueldoG);
+        $("#fdvacacional").html(bonoVacional);
+        $("#fdaguinaldos").html(aguinaldo);
+        $("#fdsueldoIn").html(sueldoInte);
+
+        $("#fdasigAnt").html(asigAntig);
+        $("#fdcapitalBanc").html(capBan);
+        $("#fdgarantias").html(garant);
+
+        $("#fddiasAdi").html(diasAdi);
+        $("#fddepoBanc").html(depBnco);
+        $("#fdsaldBan").html(saldBan);
+
+        $("#fddiferencia").html(saldBan);
+        $("#fdfechaUltimoD").html(saldBan);
+        $("#fdaporto").html(saldBan);
+
+
 
 
 
