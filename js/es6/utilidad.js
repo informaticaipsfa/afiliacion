@@ -158,6 +158,15 @@ class Utilidad {
         return respuesta;
     }
 
+    //
+    AMCuentaBancaria(cadena){
+        var max = cadena.length;
+        var derecha = cadena.substring(0, 4);
+        var izquierda = cadena.substring(19);
+        return derecha + '****************' + izquierda;
+    }
+
+    //
     MensajeFormulario(_frm,ele) {
 
         $("#" + _frm + " :input").each(function (i) {

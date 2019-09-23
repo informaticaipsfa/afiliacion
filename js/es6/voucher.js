@@ -2,7 +2,7 @@ function ImprimirNeto(){
     if ( $("#cmbNetoPago option:selected").val() == "X" ) {        
         return false;
     }
-    console.log(lstNeto);
+    //console.log(lstNeto);
     var nombre = $("#txtnombre").val() + " " + $("#txtapellido").val();
     var cedula = $("#txtcedula").val();
     var porcentaje = $("#txtporcentaje").val();
@@ -25,6 +25,7 @@ function ImprimirNeto(){
         var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
         var grado = $("#cmbgrado option:selected").text();
+        var amcuenta = Util.AMCuentaBancaria(ObjMilitar.Persona.DatoFinanciero[0].cuenta);
 		if(tipo == 97){      
            
             totalAsignacion += monto;
@@ -37,7 +38,7 @@ function ImprimirNeto(){
                 </tr>`;
             
 		}else{
-            console.log("0000 DE " + des);
+            //console.log("0000 DE " + des);
             if( des == "SUELDO MENSUAL" ){
                 var tasig = accounting.formatMoney(totalAsignacion, "Bs. ", 2, ".", ",");
                 fila += `
@@ -131,7 +132,10 @@ function ImprimirNeto(){
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
             <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${cedula}</cedula></td>
         </tr>
-     
+        <tr>
+            <td align="center"><b>CUENTA BANCARIA</b><BR>${amcuenta}</td>
+            <td align="left" colspan="4"></td>
+        </tr>
     </table>
     <BR><BR>
     <table style="width:800px" class="tablaneto">
