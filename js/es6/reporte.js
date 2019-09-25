@@ -79,7 +79,7 @@ function CConstanciaAfiliacion() {
     
     
     
-    $("#lblfchActual").text(fechaActual);
+    $("#lblfchActualA").text(fechaActual);
     $("#lblgradoPI").text(gradoPI);
     $("#lblnombrePI").text(nombrePI);
     $("#lblgradoPIF").text(gradoPI);
