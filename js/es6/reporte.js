@@ -339,6 +339,9 @@ class WSolvenciaR{
         var r3 = r2.replace('#', ',');
         $("#montocp").html( r3 );
 
+        var fechaActual = ConvertirFechaActual();
+        $("#lblfchActual").text(fechaActual);
+
         var html = $("#_constanciapensionado").html();
         var ventana = window.open("", "_blank");
         ventana.document.write(html);
