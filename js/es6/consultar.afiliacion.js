@@ -190,16 +190,18 @@ function ConstanciaFamiliaresHTML() {
     <thead>
       <tr class="titulo_tabla table-borderedtd" >
         <th class="alinear_td">APELLIDOS Y NOMBRES</th>
-        <th class="alinear_tddatos">CÉDULA</th>
-        <th class="alinear_tddatos">PARENTESCO</th>
-        <th class="alinear_tddatos">FECHA NAC.</th>
+        <th >CÉDULA</th>
+        <th >PARENTESCO</th>
+        <th >FECHA NAC.</th>        
+        <th >SITUACION.</th>
       </tr>
     </thead >
     <tbody id="_contenidoFamiliares">
     </tbody>
-  </table>`;
+    </table>`;
 
     return html;
+    //<th class="alinear_tddatos">EDO. CIVIL</th>
 }
 
 function HistoricoMilitarHTML() {

@@ -97,12 +97,11 @@ function CargarFamiliaresModal(militar, t){
             $("#_contenidoFamiliares").append(`<tr><td>${nombreCompleto}</td>
                 <td class="alinear_tddatos">${cedula}</td>
                 <td class="alinear_tddatos">${familiar.GenerarParentesco(strEdo)}</td>
-                <td class="alinear_tddatos">${fnac}</td>
-                
+                <td class="alinear_tddatos">${fnac}</td>                
+                <td class="alinear_tddatos">${situacion}</td>
             </tr>`);
-
-            // <td class="alinear_tddatos">${edocivil}</td>
-            // <td class="alinear_tddatos">${situacion}</td>
+            //<td class="alinear_tddatos">${edocivil}</td>
+            
 
         }
         
