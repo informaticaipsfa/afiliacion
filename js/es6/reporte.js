@@ -79,7 +79,7 @@ function CConstanciaAfiliacion() {
     
     
     
-    $("#lblfchActual").text(fechaActual);
+    $("#lblfchActualA").text(fechaActual);
     $("#lblgradoPI").text(gradoPI);
     $("#lblnombrePI").text(nombrePI);
     $("#lblgradoPIF").text(gradoPI);
@@ -207,11 +207,33 @@ class WFideicomiso{
         var dia_rec = militar.dia_reconocido;
         var f_retiro = militar.fecha_retiro;
         var motiv_p = militar.motivo_paralizacion;
-
         var sueldo_b = militar.sueldo_base;
         var comp_esp = militar.prima_transporte;
         var descd= militar.prima_descendencia;
         var productiv = militar. prima_especial;
+        var prima_tserv = militar.prima_tiemposervicio;
+        var nroAsceso = militar.prima_noascenso;
+        var primaPro = militar.prima_profesionalizacion;
+        var primaesta = militar.prima_compensacion_especial;
+        var sueldoG = militar.sueldo_global;
+        var bonoVacional = militar.vacaciones;
+        var aguinaldo = militar.aguinaldos;
+        var sueldoInte = militar.sueldo_integral;
+        var asigAntig = militar.asignacion_antiguedad;
+        var capBan = militar.Calculo.capital_banco;
+        var garant = militar.Calculo.garantias;
+        var diasAdi = militar.Calculo.dias_adicionales;
+        var depBnco = militar.Calculo.asignacion_depositada;
+        var saldBan = militar.Calculo.saldo_disponible;
+        var difere = militar.Calculo.diferencia_AA;
+        var fUltimoDep = militar.Calculo.fecha_ultimo_deposito;
+        var aporto = militar.Calculo.porcentaje_cancelado;
+        var embargo = militar.Calculo.embargos;
+        var anticipo = militar.Calculo.anticipos;
+        var f_Ult_anticipos = militar.Calculo.fecha_ultimo_anticipo;
+        var Comision = militar.Calculo.comision_servicios;
+        var montoRecup = militar.Calculo.monto_recuperado;
+        var totalEbargo = militar.Calculo.total_embargos;
 
 
         $("#fdcedula").html($("#txtcedula").val());
@@ -232,10 +254,37 @@ class WFideicomiso{
         $("#fddiasRec").html(dia_rec);
         $("#fdfechaRetiro").html(f_retiro);
         $("#fdmotivoParali").html(motiv_p);
-
-        $("#fdsueldoBase").html(sueldo_b)
-        $("#fddescencia").html(comp_esp);
+        $("#fdsueldoBase").html(sueldo_b);
+        $("#fdcompEspe_protMovi").html(comp_esp);
+        $("#fddescencia").html(descd);
         $("#fdproduct").html(productiv);
+        $("#fdañosServ").html(prima_tserv);
+        $("#fdnroAsceso").html(nroAsceso);
+        $("#fdprofesionalizacion").html(primaPro);
+        $("#fdEsta").html(primaesta);
+        $("#fdsueldoMen").html(sueldoG);
+        $("#fdvacacional").html(bonoVacional);
+        $("#fdaguinaldos").html(aguinaldo);
+        $("#fdsueldoIn").html(sueldoInte);
+        $("#fdasigAnt").html(asigAntig);
+        $("#fdcapitalBanc").html(capBan);
+        $("#fdgarantias").html(garant);
+        $("#fddiasAdi").html(diasAdi);
+        $("#fddepoBanc").html(depBnco);
+        $("#fdsaldBan").html(saldBan);
+        $("#fddiferencia").html(difere);
+        $("#fdfechaUltimoD").html(fUltimoDep);
+        $("#fdaporto").html(aporto);
+        $("#fdEmbargo").html(embargo);
+        $("#fdAnticipos").html(anticipo);
+        $("#fdUltAticipos").html(f_Ult_anticipos);
+
+
+        $("#fdComisionS").html(Comision);
+        $("#fdMontoRecupAct").html(montoRecup);
+        $("#fdTotalEmbargo").html(totalEbargo);
+
+
 
 
 
