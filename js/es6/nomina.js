@@ -108,7 +108,22 @@ function fnxC(fnxc){
             break;
         case 'porcentaje_profesionalizacion':
             $('#txtFormula').val(fn +  ' $porcentaje_profesionalizacion ' );
-            break;        
+            break;
+        case 'bono_recreacional':
+            $('#txtFormula').val(fn +  ' $bono_recreacional ' );
+            break;
+        case 'bono_fin_ano':
+            $('#txtFormula').val(fn +  ' $bono_fin_ano ' );
+            break;
+        case 'pension_integral':
+            $('#txtFormula').val(fn +  ' $pension_integral ' );
+            break;
+        case 'pension_diaria_integral':
+            $('#txtFormula').val(fn +  ' $pension_diaria_integral ' );
+            break;
+        case 'aguinaldo':
+            $('#txtFormula').val(fn +  ' $aguinaldo ' );
+            break;
         default:
             break;
     }
