@@ -1,5 +1,14 @@
-export class Credito {
-	constructor() {
-		this.Monto = 210.89;
-	}
+function IniciarCredito(estatus){
+    myStepper = new Stepper(document.querySelector('#stepper-credito'));
+    // $('#datepicker').datepicker({
+    //     autoclose: true,
+    //     format: "yyyy-mm-dd",
+    //     language: 'es'
+    // });
+    // $('#datepickerfin').datepicker({
+    //     autoclose: true,
+    //     format: "yyyy-mm-dd",
+    //     language: 'es'
+	// });
+	$('#mdlCreditos').modal('show');
 }

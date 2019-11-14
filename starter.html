@@ -172,6 +172,7 @@
   <script src="js/es6/nomina.js"></script>
   <script src="js/es6/directiva.js"></script>
   <script src="js/es6/medidajudicial.js"></script>
+  <script src="js/es6/credito.js"></script>
   <script src="js/es6/descuentos.js"></script>
   <script src="js/es6/finanza.js"></script>
   <script src="js/es6/voucher.js"></script>
@@ -485,9 +486,28 @@
   </div><!-- /.modal -->
 
 
+  <!-- Créditos -->
+  <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+    aria-labelledby="myLargeModalLabel" id="mdlCreditos"
+     aria-hidden="false">
+      <div class="modal-dialog modal-lg" role="document">
 
+      <!-- Modal content-->
+      <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+        <div class="modal-header" style="background-color:#337ab7;color:white;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Creditos</h4>
 
+        </div>
+        <div class="modal-body" id="_stepperCredito">
+        </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- Medida Judiciales Modal -->
   <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
     aria-labelledby="myLargeModalLabel" id="mdlMedidaJudicial"
      aria-hidden="false">
@@ -507,7 +527,8 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- Descuentos -->
   <div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
   aria-labelledby="myLargeModalLabel" id="mdlDescuentos"
    aria-hidden="false">

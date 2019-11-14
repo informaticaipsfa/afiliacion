@@ -195,6 +195,7 @@ $(function () {
   CargarUrl("_bxDatoBasico", "afi/datobasico");
   CargarUrl("_bxMedidaJudicial", "afi/medidajudicial");
   CargarUrl("_stepper", "afi/medidajudicialfrm");
+  CargarUrl("_stepperCredito", "cre/stepsolicitud");
   CargarUrl("_bxDescuentos", "afi/descuentos");
   
   CargarUrl("_decuentos", "afi/descuentosfrm");
@@ -469,3 +470,13 @@ function PrepararOtrosPagos(){
   ListarConceptosContables();
 }
 
+
+
+/**
+ * Listar Carnet's
+ *
+ **/
+function SolicitudCredito() {
+  CargarUrl("_cuerpo", "cred/organigrama")
+  $("#ModuloTitulo").html("Departamento de Crédito");
+}
