@@ -1,5 +1,8 @@
+
+
+
 function IniciarCredito(estatus){
-    myStepper = new Stepper(document.querySelector('#stepper-credito'));
+    StepperCredito = new Stepper(document.querySelector('#stepper-credito'));
     // $('#datepicker').datepicker({
     //     autoclose: true,
     //     format: "yyyy-mm-dd",
@@ -11,4 +14,9 @@ function IniciarCredito(estatus){
     //     language: 'es'
 	// });
 	$('#mdlCreditos').modal('show');
+}
+
+
+function CargarCredito( str ){
+	StepperCredito.next();
 }

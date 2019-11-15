@@ -1,7 +1,10 @@
 let ObjMilitar = new Militar();
 let OqMilitar = new Militar();
 let ObjPACE = new PACE();
+
 let myStepper;
+let StepperCredito;
+
 function Buscar(id) {
     var Util = new Utilidad();
     if (id != undefined) {
