@@ -117,8 +117,98 @@
             
             
             </div> <!-- Fin del primer stepper -->
-            <div id="cred-l-2" class="content"></div>
-            <div id="cred-l-3" class="content"></div>
+            <div id="cred-l-2" class="content">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-6">
+                            <label>Sueldo:</label>
+                            <input id="txtSueldoCr" class="form-control" type="text">
+                            
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <label>Monto:</label>
+                            <input id="txtMontoCr" class="form-control" type="text">
+                            
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label >Cuotas por años:</label>
+                            <select class="js-states form-control" style="width: 100%" 
+                                required aria-hidden="true" id="cmbCuotasCr" >
+                                <option value="1" selected="selected">1 </option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+ 
+                        <div class="col-md-8 col-sm-12">
+                            <label >Concepto:</label>
+                            <select class="js-states form-control" style="width: 100%" disabled="disabled"
+                                required aria-hidden="true" id="cmbConceptoCr" >
+                                <option value="PP" selected="selected">PRESTAMO PERSONAL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <label>Tasa de Intereses:</label>
+                            <input id="txtInteresCr" class="form-control" type="text">
+                            
+                        </div>
+ 
+                    </div><!-- Fin de la primera fila -->
+
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <button type="button" class="btn btn-primary pull-left" onclick="StepperCredito.back();">
+                                Volver atrás&nbsp;&nbsp;</i>
+                            </button>
+                            
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <button type="button" class="btn btn-primary pull-right" onclick="TablaAmortizacion()">
+                                Generar tabla de amortización&nbsp;&nbsp;</i>
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!-- Fin del segundo stepper -->
+            <div id="cred-l-3" class="content"  style="height:400px">
+                <div class="row" style="height:200px"> 
+                    <div class="col-md-12 col-sm-12" id="_TblAmortizacion">
+
+                    </div>
+                    <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6">
+                                    <br>
+                                    <button type="button" class="btn btn-primary pull-left" onclick="StepperCredito.back();">
+                                        Volver atrás&nbsp;&nbsp;</i>
+                                    </button>
+                                    
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <br>
+                                    <button type="button" class="btn btn-primary pull-right" onclick="">
+                                        Continuar&nbsp;&nbsp;</i>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
       
         </div>
     </div>
