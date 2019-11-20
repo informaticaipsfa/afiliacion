@@ -3,15 +3,8 @@ let opcionesCredito = {
     paging: false,            
     scrollY:        200,
     deferRender:    true,
-    scroller:       true,
-    language: {
-        "lengthMenu": "Mostar _MENU_ filas por pagina",
-        "zeroRecords": "Nada que mostrar",
-        "info": "Mostrando _PAGE_ de _PAGES_",
-        "infoEmpty": "No se encontro nada",
-        "infoFiltered": "(filtered from _MAX_ total records)",
-        "search": "Buscar"
-    }
+	scroller:       true,   
+    searching: 		false,
 };
 
 class Credito{
@@ -74,9 +67,9 @@ function TablaAmortizacion(){
 		
 		var ainteres = monto * interes;
 		var capital = cuota - ainteres;
-		var saldo = monto - ainteres - capital;
+		var saldo = monto - capital;
 		t.row.add([
-			i, //#
+			i + 1, //#
 			parseFloat( monto ).toFixed(2), //Balance
 			parseFloat( cuota ).toFixed(2), //Cuota
 			parseFloat( ainteres ).toFixed(2), //Interes
@@ -85,7 +78,7 @@ function TablaAmortizacion(){
 			'' 
 		]).draw(false);
 
-		monto =  monto - cuota;
+		monto =  saldo;
 	}
 	StepperCredito.next();
 }
