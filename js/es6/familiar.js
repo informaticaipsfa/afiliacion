@@ -39,7 +39,7 @@ function CargarFamiliaresModal(militar, t){
                 class="btn btn-sm bg-maroon prvmodificar hide" onclick="ModificarCalPos('${j}')">
                 <i class="fa fa-calculator"></i></button>                
                 <button type="button" 
-                    id="btnModPension${j}" class="btn btn-sm btn-success dropdown-toggle prvmodificar hide" data-toggle="dropdown" aria-expanded="false">
+                    id="btnModPension${j}" class="btn btn-sm btn-success dropdown-toggle prvreporte hide" data-toggle="dropdown" aria-expanded="false">
                   <span class="caret"></span>
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>

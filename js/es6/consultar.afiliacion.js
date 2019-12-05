@@ -3,7 +3,9 @@ let OqMilitar = new Militar();
 let ObjPACE = new PACE();
 
 let myStepper;
+let StepperPrestamo;
 let StepperCredito;
+
 
 function Buscar(id) {
     var Util = new Utilidad();

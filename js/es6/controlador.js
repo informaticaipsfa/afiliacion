@@ -50,6 +50,11 @@ function verificarPrivilegioUsuario(){
                 $(".prvmodificar").attr("disabled",false);
                 $(".prvmodificar").removeClass('hide');
                 break;
+                 
+            case "afiliacion.reporte":
+                  $(".prvreporte").attr("disabled",false);
+                  $(".prvreporte").removeClass('hide');
+                  break;
             case "afiliacion.carnet":
                 $(".prvcarnet").attr("disabled",false);
                 $(".prvcarnet").removeClass('hide');
@@ -68,6 +73,10 @@ function verificarPrivilegioUsuario(){
             case "pension.derechoacrecer":
                 $(".derechoacrecer").attr("disabled",false);
                 $(".derechoacrecer").removeClass('hide');
+                break;
+            case "credito.ingresar":
+                $(".prvcredito").attr("disabled",false);
+                $(".prvcredito").removeClass('hide');
                 break;
 
         }
@@ -195,7 +204,8 @@ $(function () {
   CargarUrl("_bxDatoBasico", "afi/datobasico");
   CargarUrl("_bxMedidaJudicial", "afi/medidajudicial");
   CargarUrl("_stepper", "afi/medidajudicialfrm");
-  CargarUrl("_stepperCredito", "cre/stepsolicitud");
+  CargarUrl("_stepperCredito", "cre/stepcredito");
+  CargarUrl("_stepperPrestamo", "cre/stepsolicitud");
   CargarUrl("_bxDescuentos", "afi/descuentos");
   
   CargarUrl("_decuentos", "afi/descuentosfrm");

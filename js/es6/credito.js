@@ -1,15 +1,17 @@
 let opcionesCredito = {
-    ordering: false,
-    paging: false,            
-    scrollY:        200,
+	ordering: 		false,
+    paging: 		false, 
+    scrollY:        250,
     deferRender:    true,
-	scroller:       true,   
-    searching: 		false,
+	scroller:       true,
+	searching: 		false,
+    ordering: 		false,
+    info: 			false,
 };
 
 class Credito{
 	constructor(){
-		this.cuota = 0;
+		this.cuotas = [];
 		this.periodo = 0;
 		this.monto = 0.0;
 		this.sueldo = 0.0;
@@ -18,10 +20,57 @@ class Credito{
 
 	}
 }
-
-
 function IniciarCredito(estatus){
     StepperCredito = new Stepper(document.querySelector('#stepper-credito'));
+	$('#mdlCredito').modal('show');
+}
+
+
+
+
+
+/**
+ *  Prestamos 
+ * 
+ * 
+ */
+class Prestamo{
+	constructor(){
+		this.cuotas = [];
+		this.periodo = 0;
+		this.cuota = 0.0;
+		this.monto = 0.0;
+		this.sueldo = 0.0;
+		this.totalinteres = 0.0;
+
+	}
+	Crear(){
+
+	}
+
+}
+
+let prestamo = new Prestamo();
+
+
+function PrCalcularPorcentaje(){
+	var monto = parseFloat( $("#txtSueldoPr").val() ) * 1; //  sueldo para realizar calculos del 30%
+	var cantidad = ( monto * 70 ) / 100;
+
+	$("#txtCuotaMaxima").val( parseFloat( cantidad ).toFixed(2) );
+
+}
+
+function CrHideAlert(){
+	$("#divPrAlert").hide();
+}
+
+function CrResumen(){
+	
+}
+
+function IniciarPrestamo(estatus){
+    StepperPrestamo = new Stepper(document.querySelector('#stepper-prestamo'));
     // $('#datepicker').datepicker({
     //     autoclose: true,
     //     format: "yyyy-mm-dd",
@@ -32,18 +81,20 @@ function IniciarCredito(estatus){
     //     format: "yyyy-mm-dd",
     //     language: 'es'
 	// });
-	$('#mdlCreditos').modal('show');
+	$('#mdlPrestamo').modal('show');
 }
 
 
-function CargarCredito( str ){
-	StepperCredito.next();
+function CargarPrestamo( str ){
+	
+	$("#cmbConceptoPr").val(str);
+	StepperPrestamo.next();
 }
 
-function CalcularCredito(){
-	var monto = parseFloat( $("#txtMontoCr").val() ) * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
-	var interes = parseFloat( $("#txtInteresCr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
-	var periodo = parseFloat( $("#cmbCuotasCr").val() ) * 1 * 12;// multiplicamos por 12 para devolver valor mensual
+function CalcularPrestamo(){
+	var monto = parseFloat( $("#txtMontoPr").val() ) * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
+	var periodo = parseFloat( $("#cmbCuotasPr").val() ) * 1 * 12;// multiplicamos por 12 para devolver valor mensual
 	
 	var potencia = 1 + interes;
 	var xxx = Math.pow(potencia, -periodo);//  funcion matematica donde la base es la potencia y el exponente el tiempo
@@ -55,19 +106,63 @@ function CalcularCredito(){
 	return equivalencia;
 }
 
+
+function CalcularCuotasPr(){
+	if ( $("#txtMontoPr").val() == "" ) { 
+		$("#divPrAlert").html("Debe introducir un monto");
+		$("#divPrAlert").show();
+		return false;
+	}
+
+	var monto = parseFloat( $("#txtMontoPr").val() ) * 1;
+	var cuota = CalcularPrestamo();
+	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
+	prestamo.cuota = parseFloat( cuota ).toFixed(2);
+
+	$("#txtCuotaMensual").val(prestamo.cuota);
+}
+
+
 function TablaAmortizacion(){
+	
+
+	if ( $("#txtMontoPr").val() == "" ) { 
+		$("#divPrAlert").html("Debe introducir un monto");
+		$("#divPrAlert").show();
+		return false;
+	}
+	StepperPrestamo.next();
 	$("#_TblAmortizacion").html(HTMLTblAmortizacion());        
-	var t = $('#tblCredito').DataTable(opcionesCredito);
+	var t = $('#tblPrestamo').DataTable(opcionesCredito);
 	t.clear().draw();
-	var monto = parseFloat( $("#txtMontoCr").val() ) * 1;
-	var cuota = CalcularCredito();
-	var periodo = parseInt( $("#cmbCuotasCr").val() ) * 1 * 12;
-	var interes = parseFloat( $("#txtInteresCr").val() ) / (100 * 12);
+	var monto = parseFloat( $("#txtMontoPr").val() ) * 1;
+	var cuota = CalcularPrestamo();
+	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
+	var totalInteres = 0;
+	prestamo.cuota = parseFloat( cuota ).toFixed(2);
+	prestamo.capital = parseFloat( monto ).toFixed(2);
+	//$("#txtCuotaMensual").val(prestamo.cuota);
+	var ano = 2019;
+	var mes = 11;
+
 	for (var i = 0; i < periodo; i++) {
+		var lstC = {};
 		
 		var ainteres = monto * interes;
 		var capital = cuota - ainteres;
 		var saldo = monto - capital;
+		lstC = {
+			balance : parseFloat( monto ).toFixed(2),
+			cuota: parseFloat( cuota ).toFixed(2),
+			interes: parseFloat( ainteres ).toFixed(2),
+			capital: parseFloat( capital ).toFixed(2),
+			saldo: parseFloat( saldo ).toFixed(2),
+			fecha: '01-01-2019'
+		}
+		prestamo.cuotas.push(lstC);
+		totalInteres += ainteres;
 		t.row.add([
 			i + 1, //#
 			parseFloat( monto ).toFixed(2), //Balance
@@ -75,21 +170,28 @@ function TablaAmortizacion(){
 			parseFloat( ainteres ).toFixed(2), //Interes
 			parseFloat( capital ).toFixed(2), //Capital
 			parseFloat( saldo ).toFixed(2), //Saldo
-			'' 
+			'01-01-2019' 
 		]).draw(false);
+		if ( mes == 12 ) {
+			ano++;
+			mes=1;
+		}else{
+			mes++;
+		}
 
 		monto =  saldo;
 	}
-	StepperCredito.next();
+	prestamo.totalinteres = parseFloat( totalInteres ).toFixed(2);
+	
 }
 
 
 function HTMLTblAmortizacion(){
 	return `
-	<table id="tblCredito" class="ui celled table table-bordered table-striped dataTable" >
+	<table id="tblPrestamo" class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
-			<tr role="row">
-				<th>#</th>
+			<tr>
+				<th style="width:30px">ACCION</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
@@ -98,5 +200,23 @@ function HTMLTblAmortizacion(){
 				<th>FECHA</th>
 			</tr>
 		</thead>
+		<tbody>
+		</<tbody>
 	</table>`;
+}
+
+function PrResumen(){
+
+
+	$("#txtConceptoPrT").val( $("#cmbConceptoPr option:selected").text() );
+	$("#txtCuotaPrT").val( prestamo.cuota );
+	$("#txtInteresPrT").val( $("#txtInteresPr").val() );
+	$("#txtTotalInteresPrT").val( prestamo.totalinteres );
+	$("#txtCapitalPrT").val( prestamo.capital );
+	$("#txtAportePrT").val( $("#txtAportePr").val() );
+	$("#txtPlazoPr").val( prestamo.cuota );
+	var suma = parseFloat( prestamo.totalinteres ) * 1 +  parseFloat( prestamo.capital ) * 1;
+	$("#txtPagosPrT").val(  parseFloat( suma ).toFixed(2) );
+	
+	StepperPrestamo.next();
 }

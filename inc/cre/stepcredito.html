@@ -1,0 +1,134 @@
+
+    
+    </div>
+  
+    <div id="stepper-credito" class="bs-stepper">
+      <div class="bs-stepper-header">
+        <div class="step" data-target="#cred-l-1">
+          <a href="#">
+            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-label">Seleccionar</span>
+          </a>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#cred-l-2">
+          <a href="#">
+            <span class="bs-stepper-circle">2</span>
+            <span class="bs-stepper-label">Solicitud</span>
+          </a>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#cred-l-3">
+          <a href="#">
+            <span class="bs-stepper-circle">3</span>
+            <span class="bs-stepper-label">Forma de Cobro</span>
+          </a>
+        </div>
+        
+      </div>
+      <div class="bs-stepper-content">
+            <div id="cred-l-1" class="content">
+
+            
+                    <div class="row">
+                            <div class="col-lg-4 col-xs-6" >
+                                <a href="#" onclick="CargarCredito(0)">
+                                    <div class="small-box bg-green">
+                                        <div class="inner">
+                                            <p>Departamento Creditos</p>
+                                            <h2 id="_Crm">Credito<br>Hipotecarios</h2>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fa fa-home"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-lg-4 col-xs-6" >
+                                <a href="#" onclick="CargarCredito(1)">
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                                <p>Departamento Creditos</p>
+                                            <h2 id="_Cam">Creditos <br>Vehiculos</h2>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fa fa-car"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+            </div> <!-- Fin del primer stepper -->
+            <div id="cred-l-2" class="content">
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <button type="button" class="btn btn-warning pull-left" onclick="StepperCredito.previous();">
+                                Volver atrás&nbsp;&nbsp;</i>
+                            </button>
+                            
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <button type="button" class="btn btn-success pull-right" onclick="TablaAmortizacionCr()">
+                                Generar tabla de amortización&nbsp;&nbsp;</i>
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!-- Fin del segundo stepper -->
+            <div id="cred-l-3" class="content"  style="height:400px">
+                                   
+                    <div id="_TblAmortizacionCr">
+
+                    </div>                
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6">
+                                <br>
+                                <button type="button" class="btn btn-warning pull-left" onclick="StepperCredito.previous();">
+                                    Volver atrás&nbsp;&nbsp;</i>
+                                </button>
+                                
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <br>
+                                <button type="button" class="btn btn-info pull-right" onclick="CrResumen()">
+                                    Continuar&nbsp;&nbsp;</i>
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
+        
+            </div>
+      
+        </div>
+    </div>
+
+
+
+
+
+
+   
+      

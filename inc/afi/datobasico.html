@@ -4,11 +4,15 @@
      <h3 class="box-title">Datos Basicos del Militar</h3>
      <div class="pull-right box-tools">
 
-        <button type="button" class="btn btn-primary" title="Créditos" onclick="IniciarCredito()">
-          <i class="fa fa-credit-card"></i></button>
+        <button type="button" class="btn btn-primary prvcredito hide" title="Prestamos" onclick="IniciarPrestamo()">
+          <i class="fa fa-heartbeat"></i></button>
 
+        
+        <button type="button" class="btn btn-primary prvcredito hide" title="Créditos" onclick="IniciarCredito()">
+          <i class="fa fa-credit-card"></i></button>
+        
         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true" 
-         title="Reportes varios">
+          title="Reportes varios">
           <i class="fa fa-book"></i></button>
           <ul class="dropdown-menu">
               <li><a href="#" onclick="CConstanciaAfiliacion()" id="_btnConstancia">Constancia de Afiliación</a></li>
@@ -103,7 +107,7 @@
            <div class="col-md-3 col-sm-12" id="_divfechadefuncion">
              <label>Fecha de Defunción:</label>
              <div class="input-group input-group">
-             <input type="text" class="form-control" id="txtdefuncion" disabled="disabled">
+                <input type="text" class="form-control" id="txtdefuncion" disabled="disabled">
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-success btn-flat btn-md" id="btndefuncion"
                     onClick="seleccionarDefuncion()" disabled="disabled"><i class="fa fa-file-text"></i></button>
