@@ -220,3 +220,8 @@ function PrResumen(){
 	
 	StepperPrestamo.next();
 }
+
+function PrImprimir(){
+	var tabla = $("#_TblAmortizacion").innerHTML();
+	
+}
