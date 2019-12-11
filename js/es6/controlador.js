@@ -231,6 +231,8 @@ $(function () {
   CargarUrl("_constanciafideicomiso", "rpt/constanciafideicomiso");
   CargarUrl("_constanciapensionado", "rpt/constanciapensionado");
   CargarUrl("_constanciapensionadosobre", "rpt/constanciapensionsobr");
+  CargarUrl("_rptprestamos", "cre/rptprestamo");
+  
   
   
 

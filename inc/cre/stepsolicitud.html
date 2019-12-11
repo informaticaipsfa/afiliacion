@@ -204,10 +204,11 @@
                         
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6">
-                                <label>Porcentaje Administrativo:</label>
+                                <label>Porcentaje Autoseguro:</label>
                                 <select class="js-states form-control" style="width: 100%" 
-                                    required aria-hidden="true" id="cmbPorcentajeAdm" >
-                                    <option value="1" selected="selected">1% DE GASTOS ADMINISTRATIVOS</option>
+                                    required aria-hidden="true" id="cmbPorcentajeAdm"   disabled="disabled">
+                                    <option value="1" selected="selected">1% DE AUTOSEGURO</option>
+                                    <option value="2">1% DE GASTOS ADMINISTRATIVOS</option>
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-3">
@@ -316,6 +317,16 @@
                                 <label>Pagos Totales:</label>
                                 <input id="txtPagosPrT" class="form-control" type="text">
                             </div>
+
+                            <div class="col-md-4 col-sm-4">
+                                <label>Porcentaje Autoseguro:</label>
+                                <input id="txtPorcentajePrT" class="form-control" type="text">
+                            </div>
+
+                            <div class="col-md-4 col-sm-4">
+                                <label>Total a depositar:</label>
+                                <input id="txtDepositoPrT" class="form-control" type="text">
+                            </div>
                         </div>        
                 </div>
 
@@ -329,12 +340,16 @@
                             </button>
                             
                         </div>
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-2 col-sm-2">
+                        </div>
+                        <div class="col-md-4 col-sm-4">
                             <br>
+                            <button type="button" class="btn btn-primary " onclick="PrImprimir()">
+                                Imprimir&nbsp;&nbsp;</i>
+                            </button>
                             <button type="button" class="btn btn-success pull-right" onclick="PrGuardar()">
                                 Guardar&nbsp;&nbsp;</i>
-                            </button>
-                            
+                            </button>                            
                         </div>
                     </div>
                 </div>

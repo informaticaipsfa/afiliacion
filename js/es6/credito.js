@@ -144,12 +144,14 @@ function TablaAmortizacion(){
 	prestamo.cuota = parseFloat( cuota ).toFixed(2);
 	prestamo.capital = parseFloat( monto ).toFixed(2);
 	//$("#txtCuotaMensual").val(prestamo.cuota);
-	var ano = 2019;
-	var mes = 11;
-
+	var fecha = new Date();
+	var ano = fecha.getFullYear();
+	var mes = fecha.getMonth() + 1;
+	
 	for (var i = 0; i < periodo; i++) {
 		var lstC = {};
-		
+		var mess = mes;
+		if ( mes < 10) mess = '0' + mes;
 		var ainteres = monto * interes;
 		var capital = cuota - ainteres;
 		var saldo = monto - capital;
@@ -159,7 +161,7 @@ function TablaAmortizacion(){
 			interes: parseFloat( ainteres ).toFixed(2),
 			capital: parseFloat( capital ).toFixed(2),
 			saldo: parseFloat( saldo ).toFixed(2),
-			fecha: '01-01-2019'
+			fecha: '01-' + mess + '-' + ano + ''
 		}
 		prestamo.cuotas.push(lstC);
 		totalInteres += ainteres;
@@ -170,7 +172,7 @@ function TablaAmortizacion(){
 			parseFloat( ainteres ).toFixed(2), //Interes
 			parseFloat( capital ).toFixed(2), //Capital
 			parseFloat( saldo ).toFixed(2), //Saldo
-			'01-01-2019' 
+			'01-' + mess + '-' + ano + ''
 		]).draw(false);
 		if ( mes == 12 ) {
 			ano++;
@@ -205,6 +207,25 @@ function HTMLTblAmortizacion(){
 	</table>`;
 }
 
+function HTMLTblAmortizacionPrint(){
+	return `
+	<table id="tblPrestamo" class="ui celled table table-bordered table-striped dataTable" width="100%">
+		<thead>
+			<tr>
+				<th style="width:30px">ACCION</th>
+				<th>BALANCE</th>
+				<th>CUOTA</th>
+				<th>INTERES</th>                                            
+				<th>CAPITAL</th>                   
+				<th>SALDO</th>
+				<th>FECHA</th>
+			</tr>
+		</thead>
+		<tbody>
+		</<tbody>
+	</table>`;
+}
+
 function PrResumen(){
 
 
@@ -217,11 +238,22 @@ function PrResumen(){
 	$("#txtPlazoPr").val( prestamo.cuota );
 	var suma = parseFloat( prestamo.totalinteres ) * 1 +  parseFloat( prestamo.capital ) * 1;
 	$("#txtPagosPrT").val(  parseFloat( suma ).toFixed(2) );
+	var administrativo =  ( parseFloat(prestamo.capital)  * 1) /100
+	$("#txtPorcentajePrT").val(  parseFloat( administrativo ).toFixed(2) );
+	var deposito = (parseFloat( prestamo.capital ) *1 ) - parseFloat( administrativo ) *1;
+	$("#txtDepositoPrT").val(   parseFloat( deposito ).toFixed(2) );
 	
 	StepperPrestamo.next();
 }
 
 function PrImprimir(){
-	var tabla = $("#_TblAmortizacion").innerHTML();
-	
+	var tabla = $("#_TblAmortizacion").html();
+	$("#divCreditoTabla").html(tabla);
+
+	var html = $("#_rptprestamos").html();
+    var ventana = window.open("", "_blank");
+    ventana.document.write(html);
+    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.print();
+    ventana.close();
 }
