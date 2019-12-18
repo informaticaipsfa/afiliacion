@@ -139,7 +139,7 @@ class WCalc{
     Crear(req){
         
         wCalculos = req;
-        $('#cmbAguinaldos').html("");
+        $('#cmbAguinaldos').html(`<option value='0'>NO APLICA CALCULOS</option>`);
         
 
 
