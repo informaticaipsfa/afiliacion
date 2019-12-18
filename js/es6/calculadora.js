@@ -4,7 +4,7 @@ class Calculadora{
     
 
     Crear(req){
-        console.log(req);
+        
         var nombre = req.Persona.DatoBasico.nombreprimero + " " + req.Persona.DatoBasico.apellidoprimero;
         var fingreso = Util.ConvertirFechaHumana(req.fingreso); //.substring(0, 10);
         var fascenso = Util.ConvertirFechaHumana(req.fascenso); //.substring(0, 10);
@@ -77,7 +77,7 @@ function BuscarCalculos(){
 }
 
 function ActivarFechaCalculadora(){
-    console.log('Entrando');
+    //console.log('Entrando');
     $('#txtFIngreso').datepicker({
         autoclose: true,
         format: "yyyy-mm-dd",
@@ -119,6 +119,7 @@ function FrmCalculadora(valor) {
    
 }
 let wCalculos = {};
+let wCalSaldoAguinaldo = 0;
 
 class WCalc{
     constructor(){
@@ -138,19 +139,129 @@ class WCalc{
     Crear(req){
         
         wCalculos = req;
+        $('#cmbAguinaldos').html("");
+        
 
-        var tasignacion = 0;
-        var tfcis = 0;
-        var ttotal = 0;
-        var tbonr = 0;
-        var tvaca = 0;
 
-        var tbonos = 0;
-        var taguin = 0;
-        var tneto = 0;
-        //console.log(req.Retroactivo);
-        $("#_tblCalculadoraHMTL").html(obtenerTablaCalculosHTML());
-        var tblP = $('#tblCalculadora').DataTable({
+        $.each(req.Retroactivo, function (clave, valor) {        
+            $.each(valor, function (cl, vl) {
+                if( cl.search("AGU") != -1 ){
+                    $('#cmbAguinaldos').append(`<option value='${vl.mt}'>${vl.ABV}</option>`);
+                }                
+            });        
+        });
+    }
+   
+
+}
+
+function DibujarTabla(){
+
+    var tasignacion = 0;
+    var tfcis = 0;
+    var ttotal = 0;
+    var tbonr = 0;
+    var tvaca = 0;
+
+    var tbonos = 0;
+    var taguin = 0;
+    var tneto = wCalSaldoAguinaldo > 0 ? wCalSaldoAguinaldo: 0;
+
+    req = wCalculos;
+    $("#_tblCalculadoraHMTL").html(obtenerTablaCalculosHTML());
+    var tblP = $('#tblCalculadora').DataTable({
+        'paging': false,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': false,
+        'info': false,
+        'autoWidth': false,
+        "language": {
+            "decimal": ",",
+            "thousands": "."
+        }
+    });
+    tblP.clear().draw();
+
+    $.each(req.Retroactivo, function (clave, valor) { 
+        
+        var asignacion = 0;
+        var fcis = 0;
+        var bonr = 0;
+        var vaca = 0;
+        var bonos = 0;
+        var aguin = 0;
+        var detalle = 0;
+        
+        $.each(valor, function (cl, vl) {
+            
+            switch (cl) {
+                case 'sueldo_mensual':
+                    asignacion = vl.mt;        
+                    break;
+                case 'FCIS-00001':
+                    fcis =  vl.mt;
+                    break;
+                case 'retribucion_especial':
+                    bonr =  vl.mt;
+                    break;
+                case 'vacaciones':
+                    vaca =  vl.mt;
+                    break;
+                case 'aguinaldos':
+                    aguin =  vl.mt;
+                    break;
+                case 'detalle':
+                    detalle =  vl.ABV;
+                    break;
+                default:
+                    if ( cl.substring(0, 4) == 'bono' ){
+                        bonos +=  vl.mt;
+                    }
+                    break;
+            }
+            
+        });
+       
+            
+       var total = asignacion-fcis;
+       var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
+       var neto = total + totalretribuciones + vaca + aguin;
+
+       tasignacion += parseFloat(asignacion);
+       tfcis += parseFloat(fcis);
+       ttotal += parseFloat(total);
+       
+       tbonr += totalretribuciones; // BONOS 50% RETRIBUCIONES
+       tvaca += parseFloat(vaca); // Vacaciones
+       taguin += parseFloat(aguin);
+       tneto += parseFloat(neto);
+
+                    
+        tblP.row.add([
+            detalle.toUpperCase(),
+            parseFloat(parseFloat(asignacion).toFixed(2)),
+            parseFloat(parseFloat(fcis).toFixed(2)),
+            parseFloat(parseFloat(total).toFixed(2)),
+            parseFloat(parseFloat(totalretribuciones).toFixed(2)),
+            parseFloat(parseFloat(vaca).toFixed(2)),
+            parseFloat(parseFloat(aguin).toFixed(2)),
+            parseFloat(parseFloat(neto).toFixed(2))
+        ]).draw(false);
+    });
+    tblP.row.add([
+        'TOTALES',
+        accounting.formatMoney(tasignacion, "Bs. ", 2, ".", ","),
+        accounting.formatMoney(tfcis, "Bs. ", 2, ".", ","),
+        accounting.formatMoney(ttotal, "Bs. ", 2, ".", ","),
+        accounting.formatMoney(tbonr, "Bs. ", 2, ".", ","),
+        accounting.formatMoney(tvaca, "Bs. ", 2, ".", ","),
+        accounting.formatMoney(taguin, "Bs. ", 2, ".", ","),
+        accounting.formatMoney(tneto, "Bs. ", 2, ".", ",")
+    ]).draw(false);
+    if(ObjCalcular.situacion == 'FCP'){
+        $("#_tblFamiliaresHMTL").html(obtenerTablaFamiliaresHTML());
+        var tblF = $('#tblFamiliares').DataTable({
             'paging': false,
             'lengthChange': false,
             'searching': false,
@@ -162,125 +273,52 @@ class WCalc{
                 "thousands": "."
             }
         });
-
-        tblP.clear().draw();
-        $.each(req.Retroactivo, function (clave, valor) { 
-            console.log(valor);
-            var asignacion = 0;
-            var fcis = 0;
-            var bonr = 0;
-            var vaca = 0;
-            var bonos = 0;
-            var aguin = 0;
-            var detalle = 0;
-            
-            $.each(valor, function (cl, vl) {
-                
-                switch (cl) {
-                    case 'sueldo_mensual':
-                        asignacion = vl.mt;        
-                        break;
-                    case 'FCIS-00001':
-                        fcis =  vl.mt;
-                        break;
-                    case 'retribucion_especial':
-                        bonr =  vl.mt;
-                        break;
-                    case 'vacaciones':
-                        vaca =  vl.mt;
-                        break;
-                    case 'aguinaldos':
-                        aguin =  vl.mt;
-                        break;
-                    case 'detalle':
-                        detalle =  vl.ABV;
-                        break;
-                    default:
-                        if ( cl.substring(0, 4) == 'bono' ){
-                            bonos +=  vl.mt;
-                        }
-                        break;
-                }
-                
-            });
-           
-                
-           var total = asignacion-fcis;
-           var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
-           var neto = total + totalretribuciones + vaca + aguin;
-
-           tasignacion += parseFloat(asignacion);
-           tfcis += parseFloat(fcis);
-           ttotal += parseFloat(total);
-           
-           tbonr += totalretribuciones; // BONOS 50% RETRIBUCIONES
-           tvaca += parseFloat(vaca); // Vacaciones
-           taguin += parseFloat(aguin);
-           tneto += parseFloat(neto);
-
-                        
-            tblP.row.add([
-                detalle.toUpperCase(),
-                parseFloat(parseFloat(asignacion).toFixed(2)),
-                parseFloat(parseFloat(fcis).toFixed(2)),
-                parseFloat(parseFloat(total).toFixed(2)),
-                parseFloat(parseFloat(totalretribuciones).toFixed(2)),
-                parseFloat(parseFloat(vaca).toFixed(2)),
-                parseFloat(parseFloat(aguin).toFixed(2)),
-                parseFloat(parseFloat(neto).toFixed(2))
-            ]).draw(false);
+        tblF.clear().draw();
+        ObjCalcular.Familiar.forEach(fam => {
+            var familiares = new Familiar();
+            familiares.parentesco = fam.parentesco;
+            familiares.Persona.DatoBasico.sexo = fam.Persona.DatoBasico.sexo;
+            if(fam.pprestaciones != undefined){
+                var apellido = fam.Persona.DatoBasico.apellidoprimero ;
+                var nombre = fam.Persona.DatoBasico.nombreprimero;
+                var fcis = (tfcis * fam.pprestaciones)/100;
+                var neto = (tneto * fam.pprestaciones)/100;
+                tblF.row.add([
+                    fam.Persona.DatoBasico.cedula,
+                    apellido + " " + nombre,
+                    familiares.GenerarParentesco(),
+                    fam.pprestaciones,
+                    accounting.formatMoney(fcis, "", 2, ".", ","),
+                    accounting.formatMoney(neto, "", 2, ".", ",")
+                ]).draw(false);
+            }
         });
-
-        tblP.row.add([
-            'TOTALES',
-            accounting.formatMoney(tasignacion, "Bs. ", 2, ".", ","),
-            accounting.formatMoney(tfcis, "Bs. ", 2, ".", ","),
-            accounting.formatMoney(ttotal, "Bs. ", 2, ".", ","),
-            accounting.formatMoney(tbonr, "Bs. ", 2, ".", ","),
-            accounting.formatMoney(tvaca, "Bs. ", 2, ".", ","),
-            accounting.formatMoney(taguin, "Bs. ", 2, ".", ","),
-            accounting.formatMoney(tneto, "Bs. ", 2, ".", ",")
-        ]).draw(false);
-        if(ObjCalcular.situacion == 'FCP'){
-            $("#_tblFamiliaresHMTL").html(obtenerTablaFamiliaresHTML());
-            var tblF = $('#tblFamiliares').DataTable({
-                'paging': false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': false,
-                'info': false,
-                'autoWidth': false,
-                "language": {
-                    "decimal": ",",
-                    "thousands": "."
-                }
-            });
-            tblF.clear().draw();
-            ObjCalcular.Familiar.forEach(fam => {
-                var familiares = new Familiar();
-                familiares.parentesco = fam.parentesco;
-                familiares.Persona.DatoBasico.sexo = fam.Persona.DatoBasico.sexo;
-                if(fam.pprestaciones != undefined){
-                    var apellido = fam.Persona.DatoBasico.apellidoprimero ;
-                    var nombre = fam.Persona.DatoBasico.nombreprimero;
-                    var fcis = (tfcis * fam.pprestaciones)/100;
-                    var neto = (tneto * fam.pprestaciones)/100;
-                    tblF.row.add([
-                        fam.Persona.DatoBasico.cedula,
-                        apellido + " " + nombre,
-                        familiares.GenerarParentesco(),
-                        fam.pprestaciones,
-                        accounting.formatMoney(fcis, "", 2, ".", ","),
-                        accounting.formatMoney(neto, "", 2, ".", ",")
-                    ]).draw(false);
-                }
-            });
-        }
-       
     }
-
    
 
+
+}
+
+function SeleccionarAguinaldos(){
+    wCalSaldoAguinaldo = parseFloat( $("#cmbAguinaldos option:selected").val() );
+    $("#_tblAguinaldosHMTL").html(`
+        <table class="ui celled table tablanetos" cellspacing="0" width="800px" id="tblAguinaldos">
+            <thead>
+                <tr >
+                    <th>DESCRIPCION DEL MONTO DE LOS AGUINALDOS AÑO EN CURSO </th>
+                    <th>MONTO </th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${ $("#cmbAguinaldos option:selected").text() }</td>
+                    <td>${ accounting.formatMoney(wCalSaldoAguinaldo, "Bs. ", 2, ".", ",") }</td>
+                </tr>
+            </tbody>
+        </table>
+    `);
+    DibujarTabla();
 }
 
 function obtenerTablaCalculosHTML(){
@@ -421,7 +459,7 @@ function imprimirCalculos(){
     var s = e.split(".");
     var json = JSON.parse(atob(s[1]));
     Usuario = json.Usuario;
-
+    var tablaA = $("#_tblAguinaldosHMTL").html();
     var tabla = $("#_tblCalculadoraHMTL").html();
     var tablaF = $("#_tblFamiliaresHMTL").html();
     var ventana = window.open("", "_blank");
@@ -482,6 +520,8 @@ function imprimirCalculos(){
         </tr>
         </table>
         <br>
+        ${tablaA}
+        <br><br>
         ${tabla}
         <br><br>
         ${tablaF}
