@@ -139,13 +139,17 @@ class WCalc{
     Crear(req){
         
         wCalculos = req;
+        var cant = 0;
         $('#cmbAguinaldos').html(`<option value='0'>NO APLICA AGUINALDOS</option>`);        
-        $.each(req.Retroactivo, function (clave, valor) {        
-            $.each(valor, function (cl, vl) {
-                if( cl.search("AGU") != -1 ){
-                    $('#cmbAguinaldos').append(`<option value='${vl.mt}'>${vl.ABV}</option>`);
-                }                
-            });        
+        $.each(req.Retroactivo, function (clave, valor) { 
+            if (cant < 1){            
+                $.each(valor, function (cl, vl) {
+                    if( cl.search("AGU") != -1 ){
+                        $('#cmbAguinaldos').append(`<option value='${vl.mt}'>${vl.ABV}</option>`);
+                    }                
+                });        
+            }
+            cant++;
         });
     }
    
