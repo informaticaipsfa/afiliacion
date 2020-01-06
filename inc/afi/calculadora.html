@@ -103,6 +103,17 @@
                 </div> <!-- Grupo nombres -->                
             </div>
 
+            <div class="row" >
+                <div class="form-group">   
+                    <div class="col-md-4 col-sm-12"><br>           
+                        <button type="button" id="btnPreparar" class="btn btn-md bg-maroon pull-left " onclick="ejecutarCalculadora()">
+                                <i class="fa fa-calculator"></i>&nbsp;&nbsp;Realizar Cálculos
+                        </button> 
+                    </div>
+                </div>
+            </div>
+            
+
 
           </div><!-- Fin de Cuento -->    
           <div > <!-- Inicio de la Foto -->
@@ -118,11 +129,28 @@
             <i class="fa fa-refresh fa-spin"></i>
         </div>
         <!-- end loading -->
-        <div class="modal-footer">                      
-          <button type="button" id="btnPreparar" class="btn btn-md bg-maroon pull-left " onclick="ejecutarCalculadora()">
-                <i class="fa fa-calculator"></i>&nbsp;&nbsp;Realizar Cálculos
-            
-            </button>                              
+        <div class="modal-footer">    
+            <div class="row" >
+                <div class="form-group">   
+                    <div class="col-md-4 col-sm-12">                
+                        
+
+                        <div class="input-group">                
+                                <select class="js-states form-control" style="width: 100%"
+                                    aria-hidden="true" id="cmbAguinaldos">
+                                    <option value="S">Aplicar Aguinaldos</option>
+                                </select>
+                                
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-flat"
+                                    onClick="SeleccionarAguinaldos()"><i class="fa fa-calculator"></i>
+                                    </button>
+                                </span>
+                        </div>
+                        
+                    </div>
+                </div> <!-- Grupo nombres -->                
+            </div>
         </div>
     </div><!-- /.box -->
 </div>
@@ -134,15 +162,19 @@
                 <i class="fa fa-bullhorn"></i>
                 <h3 class="box-title">Detalle de la Calculadora</h3>
             </div>
-            <div class="box-body" id="_tblCalculadoraBody">
-               
-                <div id="_tblCalculadoraHMTL">
+            <div class="box-body" id="_tblCalculadoraBody">               
+                <div id="_tblAguinaldosHMTL">
 
                 </div>   
                 <br><br>
+                <div id="_tblCalculadoraHMTL">
+
+                </div>   
+                <br><br>                
                 <div id="_tblFamiliaresHMTL">
 
                 </div>
+
             </div><!-- /.box-body -->
 
         <!-- Loading (remove the following to stop the loading)-->

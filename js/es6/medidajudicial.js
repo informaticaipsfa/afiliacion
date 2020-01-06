@@ -6,12 +6,12 @@ function MostrarMedidaJudicial(MedidaJudicial,tMJ){
         var ced = v.cedautorizado!=undefined?v.cedautorizado:'';
         var tip = v.tipocuenta!='S'?v.tipocuenta:'';
         var cod = v.numero!=undefined?v.numero:'';
-        
+        var aut = v.autorizado!=undefined?v.autorizado.toUpperCase():'';
         tMJ.row.add([
             cod,
             TipoMedidaJudicial(v.tipo),
             ced,
-            v.autorizado.toUpperCase(),
+            aut,
             num, 
             tip,
             Util.ConvertirFechaHumana(v.fecha),

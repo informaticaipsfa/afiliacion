@@ -389,6 +389,9 @@ class WSolvenciaRFCP{
         var r3 = r2.replace('#', ',');
         $("#montocps").html( r3 );
 
+        var fechaActual = ConvertirFechaActual();
+        $("#lblfchActualSob").text(fechaActual);
+
         var html = $("#_constanciapensionadosobre").html();
         var ventana = window.open("", "_blank");
         ventana.document.write(html);
