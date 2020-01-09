@@ -278,19 +278,9 @@ class WFideicomiso{
         $("#fdEmbargo").html(embargo);
         $("#fdAnticipos").html(anticipo);
         $("#fdUltAticipos").html(f_Ult_anticipos);
-
-
         $("#fdComisionS").html(Comision);
         $("#fdMontoRecupAct").html(montoRecup);
         $("#fdTotalEmbargo").html(totalEbargo);
-
-
-
-
-
-        
-        
-        
    
 
         var html = $("#_constanciafideicomiso").html();
@@ -419,4 +409,15 @@ function CConstanciaSolvenciaFCP(pos){
     FamiliarWSolvenciaRFCP = ObjMilitar.Familiar[pos-1]
     var ruta =  Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
     CargarAPI(ruta, "GET", wS, wS);
+}
+
+function aportevoluntariocapital(){
+   
+    var html = $("#_aportevoluntariocapital").html();
+    var ventana = window.open("", "_blank");
+    ventana.document.write(html);
+    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.print();
+    ventana.close();
+
 }
