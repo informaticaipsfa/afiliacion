@@ -619,6 +619,31 @@ class Pension{
 	}
 }
 
+
+/**
+ *  Prestamos 
+ * 
+ * 
+ */
+class Prestamo{
+	constructor(){
+		this.cedula = '';
+		this.cuotas = [];
+		this.periodo = 0;
+		this.cuota = 0.0;
+		this.monto = 0.0;
+		this.sueldo = 0.0;
+		this.totalinteres = 0.0;
+		this.fiador = '';
+
+	}
+	
+	Crear(){
+
+	}
+
+}
+
 class Militar{
 	constructor(){
 		this.id = "";
@@ -656,6 +681,7 @@ class Militar{
 		this.numerohistoria = "";
 		this.pasearetiro = false;
 		this.pprestaciones = 0.00;
+		this.Prestamo = new Prestamo();
 	}
 
 	//P123 .-

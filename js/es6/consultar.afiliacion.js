@@ -606,7 +606,7 @@ function ActivarCalendarios() {
         language: 'es'
     });
 
-
+    
     ////ACTIVAR MASK
     $('[data-mask]').inputmask();
 }

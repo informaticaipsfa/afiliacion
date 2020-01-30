@@ -29,26 +29,7 @@ function IniciarCredito(estatus){
 
 
 
-/**
- *  Prestamos 
- * 
- * 
- */
-class Prestamo{
-	constructor(){
-		this.cuotas = [];
-		this.periodo = 0;
-		this.cuota = 0.0;
-		this.monto = 0.0;
-		this.sueldo = 0.0;
-		this.totalinteres = 0.0;
 
-	}
-	Crear(){
-
-	}
-
-}
 
 let prestamo = new Prestamo();
 
@@ -70,6 +51,11 @@ function CrResumen(){
 }
 
 function IniciarPrestamo(estatus){
+	$('#txtFechaAprobacion').datepicker({
+        autoclose: true,
+        format: "dd/mm/yyyy",
+        language: 'es'
+    });
     StepperPrestamo = new Stepper(document.querySelector('#stepper-prestamo'));
     // $('#datepicker').datepicker({
     //     autoclose: true,
@@ -133,7 +119,8 @@ function TablaAmortizacion(){
 		return false;
 	}
 	StepperPrestamo.next();
-	$("#_TblAmortizacion").html(HTMLTblAmortizacion());        
+	$("#_TblAmortizacionCrAux").html(HTMLTblAmortizacionPrint());
+	$("#_TblAmortizacion").html(HTMLTblAmortizacion());
 	var t = $('#tblPrestamo').DataTable(opcionesCredito);
 	t.clear().draw();
 	var monto = parseFloat( $("#txtMontoPr").val() ) * 1;
@@ -147,7 +134,7 @@ function TablaAmortizacion(){
 	var fecha = new Date();
 	var ano = fecha.getFullYear();
 	var mes = fecha.getMonth() + 1;
-	
+	var fila = 0;
 	for (var i = 0; i < periodo; i++) {
 		var lstC = {};
 		var mess = mes;
@@ -165,15 +152,27 @@ function TablaAmortizacion(){
 		}
 		prestamo.cuotas.push(lstC);
 		totalInteres += ainteres;
+		fila = i + 1
 		t.row.add([
-			i + 1, //#
+			fila, //#
 			parseFloat( monto ).toFixed(2), //Balance
 			parseFloat( cuota ).toFixed(2), //Cuota
 			parseFloat( ainteres ).toFixed(2), //Interes
 			parseFloat( capital ).toFixed(2), //Capital
 			parseFloat( saldo ).toFixed(2), //Saldo
-			'01-' + mess + '-' + ano + ''
+			'01-' + mess + '-' + ano 
 		]).draw(false);
+		
+		$("#tblPrestamoAuxBody").append(`<tr>
+			<td>${ fila }</td>
+			<td>${ numeral( parseFloat(monto,2)).format('0,0.00') }</td>
+			<td>${ numeral( parseFloat(cuota,2)).format('0,0.00') }</td>
+			<td>${ numeral( parseFloat(ainteres,2)).format('0,0.00')  }</td>
+			<td>${ numeral( parseFloat(capital,2)).format('0,0.00')  }</td>
+			<td>${ numeral( parseFloat(saldo,2)).format('0,0.00') }</td>
+			<td>${ '01-' + mess + '-' + ano }</td>
+		</tr>`);
+
 		if ( mes == 12 ) {
 			ano++;
 			mes=1;
@@ -187,6 +186,64 @@ function TablaAmortizacion(){
 	
 }
 
+
+
+function HTMLTblCabecera(){
+	var totalPrestamo = parseFloat( prestamo.totalinteres ) * 1 +  parseFloat( prestamo.capital ) * 1;
+	var depositado = parseFloat( (parseFloat( prestamo.capital ) *1 ) - ( ( parseFloat(prestamo.capital)  * 1) /100 )  ).toFixed(2);
+	
+	return `		
+		<table class="ui celled table table-bordered table-striped dataTable" width="100%">
+	
+				<TR>
+					<TD><B>CEDULA</B></TD>
+					<TD><B>APELLIDOS Y NOMBRES</B></TD>
+					<TD><B>FECHA ING. FANB</B></TD>
+				</TR>
+				<TR>
+					<TD>${ObjMilitar.id}</TD>
+					<TD>${ObjMilitar.Persona.DatoBasico.apellidoprimero  + " " + ObjMilitar.Persona.DatoBasico.nombreprimero }</TD>
+					<TD>${Util.ConvertirFechaHumana(ObjMilitar.fingreso)}</TD>
+				</TR>
+				<TR>
+					<TD><B>COMPONENTE</B></TD>
+					<TD><B>GRADO</B></TD>
+					<TD><B>TIEMPO DE SERVICIO</B></TD>
+				</TR>
+
+				<TR>
+					<TD>${ObjMilitar.Componente.descripcion}</TD>
+					<TD>${ObjMilitar.Grado.descripcion}</TD>
+					<TD>${ObjMilitar.tiemposervicio}</TD>
+				</TR>
+		</table>
+		<br>
+		<table class="ui celled table table-bordered table-striped dataTable" width="100%">
+	
+				<TR>
+					<td ><B>CONCEPTO</B></td><TD colspan=3>${$("#cmbConceptoPr option:selected").text()}</TD>
+					<td><B>CUOTA</B></td><TD>${ numeral( parseFloat(prestamo.cuota ,2)).format('0,0.00') }</TD>
+					<td><B>INTERESES</B></td><TD>${ $("#txtInteresPr").val() + "%"}</TD>
+					
+				</TR>
+				<TR>
+					<td><B>TOTAL. INT.</B></td><TD>${ numeral( parseFloat(prestamo.totalinteres ,2)).format('0,0.00')  + "%"}</TD>
+					<td><B>CAPITAL</B> </td><TD>${  numeral( parseFloat(prestamo.capital ,2)).format('0,0.00') + " Bs."}</TD>
+					<td><B>APORTE</B></td><TD>${ $("#txtAportePr").val() }</TD>
+					<td><B>TOTAL PREST.</B></td><TD>${ numeral( parseFloat(totalPrestamo ,2)).format('0,0.00') + " Bs." }</TD>
+				</TR>
+				<TR>
+					<td ><B>1% AUTO SEGURO.</B></td><TD>${ ( parseFloat(prestamo.capital)  * 1) /100 + " Bs."}</TD>
+					<td><B>DEPOSITADO</B></td><TD>${ numeral( parseFloat(depositado ,2)).format('0,0.00') + " Bs."  }</TD>
+					<td colspan=4></td>
+					
+				</TR>
+		</table>
+
+	`
+	
+
+}
 
 function HTMLTblAmortizacion(){
 	return `
@@ -209,10 +266,10 @@ function HTMLTblAmortizacion(){
 
 function HTMLTblAmortizacionPrint(){
 	return `
-	<table id="tblPrestamo" class="ui celled table table-bordered table-striped dataTable" width="100%">
+	<table id="tblPrestamoAux" class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
 			<tr>
-				<th style="width:30px">ACCION</th>
+				<th>#</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
@@ -221,14 +278,13 @@ function HTMLTblAmortizacionPrint(){
 				<th>FECHA</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tblPrestamoAuxBody">
+
 		</<tbody>
 	</table>`;
 }
 
 function PrResumen(){
-
-
 	$("#txtConceptoPrT").val( $("#cmbConceptoPr option:selected").text() );
 	$("#txtCuotaPrT").val( prestamo.cuota );
 	$("#txtInteresPrT").val( $("#txtInteresPr").val() );
@@ -247,7 +303,9 @@ function PrResumen(){
 }
 
 function PrImprimir(){
-	var tabla = $("#_TblAmortizacion").html();
+	
+	$("#divPrCabecera").html(HTMLTblCabecera());
+	var tabla = $("#_TblAmortizacionCrAux").html();	
 	$("#divCreditoTabla").html(tabla);
 
 	var html = $("#_rptprestamos").html();
@@ -257,3 +315,5 @@ function PrImprimir(){
     ventana.print();
     ventana.close();
 }
+
+fumcti

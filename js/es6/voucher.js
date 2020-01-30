@@ -18,7 +18,8 @@ function ImprimirNeto(){
     var obj = lstNeto[pos];
     
 	for(var i=0; i< obj.length; i++){
-		var monto = obj[i].mont;
+        console.info(obj[i]);
+        var monto = parseFloat(obj[i].mont, 2);
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
@@ -99,6 +100,9 @@ function ImprimirNeto(){
                 <td align="right" style="width:200px">${accounting.formatMoney(asignacion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
                 <td align="right" style="width:200px">${accounting.formatMoney(deduccion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</td>
             </tr>`;
+    console.log ( asignacion );
+    console.log ( deduccion );
+
     var neto = asignacion - deduccion;
     var ventana = window.open("", "_blank");
     ventana.document.write(`<center>
