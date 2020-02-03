@@ -815,11 +815,12 @@ class Militar{
 					
 			}
 			var Fideicomiso = militar.Fideicomiso;
-			if (militar.Fideicomiso.areconocido != undefined) {
+		
+			if (militar.areconocido != undefined) {
 					$("#_reconocidos").show();
-					$("#txtareconocido").val(Fideicomiso.areconocido);
-					$("#txtmreconocido").val(Fideicomiso.mreconocido);
-					$("#txtdreconocido").val(Fideicomiso.dreconocido);
+					$("#txtareconocido").val(militar.areconocido);
+					$("#txtmreconocido").val(militar.mreconocido);
+					$("#txtdreconocido").val(militar.dreconocido);
 			} else {
 					$("#_reconocidos").hide();
 					$("#txtareconocido").val("");
@@ -1044,6 +1045,10 @@ class Militar{
 		this.fascenso = fascenso;
 		this.fresuelto = fresuelto;
 		this.situacionpago = $("#cmbSituacionPago").val();
+
+		this.areconocido = parseInt($("#txtareconocido").val());
+        this.mreconocido = parseInt($("#txtmreconocido").val());
+		this.dreconocido = parseInt($("#txtdreconocido").val());
 		
 		this.pxnoascenso = parseInt($("#txtpnoascenso").val());
 		this.pprof = parseInt($("#cmbprofecionalizacion option:selected").val());
