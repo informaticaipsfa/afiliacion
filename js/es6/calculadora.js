@@ -132,6 +132,7 @@ class WCalc{
         this.antiguedad = 0;
         this.tiempo = 0;
         this.inicio = '';
+        this.situacion = '';
         this.fin = '';
         this.hijos = 0;
         this.porcentaje = 0.00;
@@ -217,10 +218,11 @@ function DibujarTabla(){
                     }
                     break;
             }
-            
+        
         });
-       
-            
+        
+       if( $("#txtSituacion").val() == "I" ) fcis = 0;
+
        var total = asignacion-fcis;
        var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
        var neto = total + totalretribuciones + vaca + aguin;
@@ -390,6 +392,7 @@ function ejecutarCalculadora(){
     Calc.componente = $("#txtComponente").val();
     Calc.antiguedad = $("#txtAntiguedad").val();
     Calc.tiempo = $("#txtServicio").val();
+    Calc.situacion = $("#txtSituacion").val();
     
     Calc.hijos = $("#txtNumHijos").val();
     Calc.porcentaje = $("#txtPension").val();
