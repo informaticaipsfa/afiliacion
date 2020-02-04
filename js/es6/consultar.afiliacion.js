@@ -716,9 +716,14 @@ function FrmDatosBasicos(valor) {
     $("#cmbsexo").attr('disabled', valor);
     $("#cmbedocivil").attr('disabled', valor);
     $("#txtdefuncion").attr('disabled', valor);
+
     $("#txtareconocido").attr('disabled', true);
     $("#txtmreconocido").attr('disabled', true);
     $("#txtdreconocido").attr('disabled', true);
+    $("#cmbprofecionalizacion").attr('disabled', true);
+    $("#cmbprimapermacnel").attr('disabled', true);
+    $("#txtpnoascenso").attr('disabled', true);
+
     $("#cmbpbaja").attr('disabled', valor);
     $("#cmbCondicion").attr('disabled', valor);
     $("#cmbtipopension").attr('disabled', valor);
@@ -2576,4 +2581,21 @@ function validarFechaIngreso(){
     var finc = $("#txtfechagraduacion").val();
     var ffin = $("#txtmfecharesuelto").val();
     Util.CompararFechasMayorQue(finc, ffin);
+}
+
+function validarMes(){
+    if ( parseInt( $("#txtmreconocido").val() ) > 11 ) {
+        alertNotifyAfiliacion("Error de mes mayores a 11", "warning");
+        $("#txtmreconocido").val('');
+        $("#txtmreconocido").focus();
+        
+    }
+}
+
+function validarDia(){
+    if ( parseInt( $("#txtdreconocido").val() ) > 30 ) {
+        alertNotifyAfiliacion("Error de dias mayores a 30", "warning");
+        $("#txtdreconocido").val('');
+        $("#txtdreconocido").focus();
+    }
 }
