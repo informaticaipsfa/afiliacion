@@ -740,6 +740,7 @@ function FrmDatosBasicos(valor) {
         $("#cargarfirma").hide();
         $("#cargarhuella").hide();
         $("#_reconocidos").hide();
+        if ( parseInt($("#txtareconocido").val()) > 0) $("#_reconocidos").show();
     }
     //$("#btnnacimiento").attr('disabled', valor);
     //$("#btndefuncion").attr('disabled', valor);

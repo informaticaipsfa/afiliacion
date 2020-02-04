@@ -816,7 +816,7 @@ class Militar{
 			}
 			var Fideicomiso = militar.Fideicomiso;
 		
-			if (militar.areconocido != undefined) {
+			if (militar.areconocido != undefined && militar.areconocido > 0) {
 					$("#_reconocidos").show();
 					$("#txtareconocido").val(militar.areconocido);
 					$("#txtmreconocido").val(militar.mreconocido);
@@ -1017,6 +1017,7 @@ class Militar{
         this.numerohistoria = militar.numerohistoria;
 		this.pasearetiro = militar.pasearetiro;
 		this.pprestaciones = militar.pprestaciones;
+		
     }
 	
 	Obtener(){
@@ -1109,6 +1110,7 @@ class Militar{
 		this.Pension.pprestaciones =  parseFloat($("#txtporcentaje").val());
 		this.Pension.causal = $("#cmbtipopension").val();
 		
+		
 
 		var valpase = false;
 		if($("#cmbpbaja option:selected").val() == 1){
@@ -1116,6 +1118,8 @@ class Militar{
 		}
 		this.pasearetiro =valpase;
 
+		
+		//console.info(this.areconocido, "Activando modulo de actualización");
 		return this;
 
 	}
@@ -1158,6 +1162,7 @@ class Militar{
 		$("#_btnTIM").show();
 		$("#_btnModificar").show();
 		$("#_btnSavlvar").hide();
+		
 		CargarAPI(Conn.URL + "militar/crud" , "PUT", this.Obtener());
 	}
 }
