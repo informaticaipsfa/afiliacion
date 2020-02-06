@@ -141,7 +141,12 @@ function HTMLArc(fila, neto, familiar){
     var nombre = $("#txtnombre").val() + " " + $("#txtapellido").val() ;
     var cedula = $("#txtcedula").val();
     var porpocentaje = "";
-    if(ArcPorcentaje > 0) porpocentaje = `POR PORCENTAJE ${accounting.formatMoney((neto * ArcPorcentaje)/100, "Bs. ", 2, ".", ",")}`
+    if(ArcPorcentaje > 0){
+        porpocentaje = `<br>PENSION DEL MILITAR : <b> &nbsp;&nbsp; ${accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;<br>
+        </b> DEVENGADO POR EL SOBREVIVIENTE :<b> &nbsp;&nbsp; ${accounting.formatMoney((neto * ArcPorcentaje)/100, "Bs. ", 2, ".", ",")}`;
+    } else{
+        porpocentaje = `<br>TOTAL DEVENGADO :<b> &nbsp;&nbsp; ${accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;<br>`;
+    }
 
     var ventana = window.open("", "_blank");
     var localtime = new Date().toLocaleString();
@@ -158,22 +163,22 @@ function HTMLArc(fila, neto, familiar){
             MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
             VICEMINISTERIO DE SERVICIOS, PERSONAL Y LOGÍSTICA<BR>
             DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
-            INSTITUTO DE PREVISIÓN SOCIAL DE LA FUERZA ARMADA<BR>
+            INSTITUTO DE PREVISIÓN SOCIAL DE LA <BR>FUERZA ARMADA NACIONAL BOLIVARIANA<BR>
             RIF: G20003692-3
             </center>
         </td>
         <td width="200px" valign="top"></td>
         </tr>
     </table >
-        <h3>TITULAR AR-C <br>
-            CORRESPONDIENTE A:<b>2019</b>
+        <h3>CONSTANCIA AR-C <br>
+            AÑO <b>2019</b>
         </h3>
         <br>
     <table style="width:800px" >
         <tr>
             <td align="center"><b>GRADO</b><BR>${grado}</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
-            <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${cedula}</cedula></td>
+            <td align="center"><b>N° DE CÉDULA</b><BR><label id="cedula">${cedula}</cedula></td>
         </tr>
        
     </table>
@@ -195,9 +200,8 @@ function HTMLArc(fila, neto, familiar){
         <tfoot>
             <tr>
                 <th align="center" colspan="4" 
-                    style="font-size:18px">
-                    <br>TOTAL DEVENGADO <br><b> &nbsp;&nbsp; ${accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;<br>
-                    ${porpocentaje}</b>
+                    style="font-size:16px">
+                    ${porpocentaje}
                 </th>
             </tr>
         </tfoot>
@@ -304,7 +308,7 @@ function CConstanciaARC(pos, parentesco){
         <tr>
             <td align="center"><b>PARENTESCO</b><BR>${parentesco}</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
-            <td align="center"><b>N° DE CEDULA</b><BR><label id="cedula">${DBF.cedula}</cedula></td>
+            <td align="center"><b>N° DE CÉDULA</b><BR><label id="cedula">${DBF.cedula}</cedula></td>
             <td align="center"><b>PORCENTAJE PENSION</b><BR><label>${ArcPorcentaje} %</cedula></td>
         </tr>
        
