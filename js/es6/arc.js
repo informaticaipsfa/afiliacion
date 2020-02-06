@@ -114,41 +114,51 @@ function DibujarTablaArc(){
        
     });
     
-    var e = {};
-    e = lstMontos['ENERO']; 
-        fila += lineaMes(e, 1);
-    e = lstMontos['FEBRERO'];         
-        fila += lineaMes(e, 2);
-    e = lstMontos['MARZO']; 
-        fila += lineaMes(e, 3); 
-    e = lstMontos['ABRIL'];     
-        fila += lineaMes(e, 4); 
+    var objE = {};
+    objE = lstMontos['ENERO']; 
+        fila += lineaMes(objE, 1);
 
-    e = lstMontos['MAYO']; 
-        fila += lineaMes(e, 5); 
-    e = lstMontos['JUNIO']; 
-        fila += lineaMes(e, 6);
+    objE = lstMontos['FEBRERO'];         
+        fila += lineaMes(objE, 2);
 
-    e = lstMontos['JULIO']; 
-        fila += lineaMes(e, 7); 
-    e = lstMontos['AGOSTO']; 
-        fila += lineaMes(e, 8); 
-    e = lstMontos['SEPTIEMBRE']; 
-        fila += lineaMes(e, 9); 
-    e = lstMontos['OCTUBRE']; 
-        fila += lineaMes(e, 10); 
-    e = lstMontos['NOVIEMBRE']; 
-        fila += lineaMes(e, 11);
-    e = lstMontos['DICIEMBRE'];
-        e.total += ArcAguinaldo; 
-        e.neto += ArcAguinaldo; 
-        fila += lineaMes(e,12);   
+    objE = lstMontos['MARZO']; 
+        fila += lineaMes(objE, 3);
+
+    objE = lstMontos['ABRIL'];   
+        fila += lineaMes(objE, 4); 
+
+    objE = lstMontos['MAYO']; 
+        fila += lineaMes(objE, 5); 
+
+    objE = lstMontos['JUNIO']; 
+        fila += lineaMes(objE, 6);
+
+    objE = lstMontos['JULIO']; 
+        fila += lineaMes(objE, 7); 
+
+    objE = lstMontos['AGOSTO']; 
+        fila += lineaMes(objE, 8); 
+
+    objE = lstMontos['SEPTIEMBRE']; 
+        fila += lineaMes(objE, 9); 
+
+    objE = lstMontos['OCTUBRE']; 
+        fila += lineaMes(objE, 10); 
+
+    objE = lstMontos['NOVIEMBRE']; 
+        fila += lineaMes(objE, 11);
+        
+    objE = lstMontos['DICIEMBRE'];
+        objE.total += ArcAguinaldo; 
+        objE.neto += ArcAguinaldo; 
+        fila += lineaMes(objE,12);   
 
     HTMLArc(fila, tneto, ArcFamiliar);
 
 }
 
 function lineaMes(e, pos) {
+    console.log(e);
     return `<tr><td >${pos}</td><td >${e.mes}</td><td align="right">${e.total}</td><td align="right">${e.neto}</td></tr>`
 }
 
