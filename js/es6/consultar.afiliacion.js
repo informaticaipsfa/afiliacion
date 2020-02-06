@@ -29,7 +29,7 @@ function Buscar(id) {
     CargarAPI(url, "GET", "", ObjMilitar);
 
     var url = Conn.URL + "militar/pace/" + $("#_cedula").val();
-    CargarAPI(url, "GET", "", ObjPACE);
+    //CargarAPI(url, "GET", "", ObjPACE);
 
     $('#lblformula').popover({
         container: 'body'

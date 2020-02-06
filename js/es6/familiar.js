@@ -46,6 +46,7 @@ function CargarFamiliaresModal(militar, t){
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="#" onclick="PensionAsignadaSobre('${j}')">Consultar Netos</a></li>
                   <li><a href="#" onclick="CConstanciaSolvenciaFCP('${j}')">Constancia de Pensión</a></li>
+                  <li><a href="#" onclick="CConstanciaARC('${j}', '${familiar.GenerarParentesco()}')">Constancia de AR-C</a></li>
                 </ul>
                 `;
 

@@ -690,7 +690,7 @@ class Militar{
 		var url = "";
 		var i = 0;
 		var j = 0;
-
+		
 
 		if (militar.tipo != undefined) {
 			$("#_cedula").val("");
