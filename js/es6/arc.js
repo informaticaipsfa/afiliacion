@@ -56,7 +56,7 @@ function DibujarTablaArc(){
         var vaca = 0;
         var bonos = 0;
         var aguin = 0;
-        var detalle = 0;
+        var detalle = "";
         var mesA = "ENERO";
         var mes = "ENERO";
         var neto = 0;
@@ -92,7 +92,7 @@ function DibujarTablaArc(){
         });
         
         var total = asignacion;
-        mes = detalle;
+        mes = detalle.toUpperCase();
 
         var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
         if ( mesA == mes ){
