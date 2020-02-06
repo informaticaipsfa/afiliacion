@@ -115,25 +115,41 @@ function DibujarTablaArc(){
     });
     
     var e = {};
-    e = lstMontos['ENERO']; e.pos = 1; fila += lineaMes(e);
-    e = lstMontos['FEBRERO']; e.pos = 2; fila += lineaMes(e);
-    e = lstMontos['MARZO']; e.pos = 3; fila += lineaMes(e); 
-    e = lstMontos['ABRIL']; e.pos = 4; fila += lineaMes(e); 
-    e = lstMontos['MAYO']; e.pos = 5; fila += lineaMes(e); 
-    e = lstMontos['JUNIO']; e.pos = 6; fila += lineaMes(e); 
-    e = lstMontos['JULIO']; e.pos = 7; fila += lineaMes(e); 
-    e = lstMontos['AGOSTO']; e.pos = 8; fila += lineaMes(e); 
-    e = lstMontos['SEPTIEMBRE']; e.pos = 9; fila += lineaMes(e); 
-    e = lstMontos['OCTUBRE']; e.pos = 10; fila += lineaMes(e); 
-    e = lstMontos['NOVIEMBRE']; e.pos = 11; fila += lineaMes(e);
-    e = lstMontos['DICIEMBRE']; e.pos = 12; e.total += ArcAguinaldo; e.neto += ArcAguinaldo; fila += lineaMes(e);   
+    e = lstMontos['ENERO']; 
+        fila += lineaMes(e, 1);
+    e = lstMontos['FEBRERO'];         
+        fila += lineaMes(e, 2);
+    e = lstMontos['MARZO']; 
+        fila += lineaMes(e, 3); 
+    e = lstMontos['ABRIL'];     
+        fila += lineaMes(e, 4); 
+
+    e = lstMontos['MAYO']; 
+        fila += lineaMes(e, 5); 
+    e = lstMontos['JUNIO']; 
+        fila += lineaMes(e, 6);
+
+    e = lstMontos['JULIO']; 
+        fila += lineaMes(e, 7); 
+    e = lstMontos['AGOSTO']; 
+        fila += lineaMes(e, 8); 
+    e = lstMontos['SEPTIEMBRE']; 
+        fila += lineaMes(e, 9); 
+    e = lstMontos['OCTUBRE']; 
+        fila += lineaMes(e, 10); 
+    e = lstMontos['NOVIEMBRE']; 
+        fila += lineaMes(e, 11);
+    e = lstMontos['DICIEMBRE'];
+        e.total += ArcAguinaldo; 
+        e.neto += ArcAguinaldo; 
+        fila += lineaMes(e,12);   
 
     HTMLArc(fila, tneto, ArcFamiliar);
 
 }
 
-function lineaMes(e) {
-    return `<tr><td >${e.pos}</td><td >${e.mes}</td><td align="right">${e.total}</td><td align="right">${e.neto}</td></tr>`
+function lineaMes(e, pos) {
+    return `<tr><td >${pos}</td><td >${e.mes}</td><td align="right">${e.total}</td><td align="right">${e.neto}</td></tr>`
 }
 
 function HTMLArc(fila, neto, familiar){
