@@ -47,7 +47,7 @@ function DibujarTablaArc(){
     var i = 0;
     var fila = '';
     var tneto = 0;
-    var lstMontos = [];
+    let lstMontos = [];
     $.each(req.Retroactivo, function (clave, valor) { 
         i++;
         var asignacion = 0;
@@ -115,6 +115,7 @@ function DibujarTablaArc(){
     });
     
     var objE = {};
+    console.log(lstMontos);
     objE = lstMontos['ENERO']; 
         fila += lineaMes(objE, 1);
 
@@ -147,7 +148,7 @@ function DibujarTablaArc(){
 
     objE = lstMontos['NOVIEMBRE']; 
         fila += lineaMes(objE, 11);
-        
+
     objE = lstMontos['DICIEMBRE'];
         objE.total += ArcAguinaldo; 
         objE.neto += ArcAguinaldo; 
