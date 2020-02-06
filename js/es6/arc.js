@@ -92,7 +92,7 @@ function DibujarTablaArc(){
         });
         
         var total = asignacion;
-        mes = detalle.toUpperCase();
+        mes = detalle;
 
         var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
         if ( mesA == mes ){
