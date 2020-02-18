@@ -2085,6 +2085,11 @@ function ActivarPension(){
             $("#_bxDescuentos").show();
             $("#liEstatusPension").show();                     
             break;
+        case "I":
+            $("#_bxMedidaJudicial").show();
+            $("#_bxDescuentos").show();
+            $("#liEstatusPension").show();                     
+            break;
         case "FCP":
             var t = $('#tblFamiliares').DataTable();
             t.column(16).visible(false);
