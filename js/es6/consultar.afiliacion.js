@@ -2086,7 +2086,12 @@ function ActivarPension(){
             $("#liEstatusPension").show();                     
             break;
         case "I":
-            $("#_bxMedidaJudicial").show();
+            //$("#_bxMedidaJudicial").show();
+            $("#_bxDescuentos").show();
+            $("#liEstatusPension").show();                     
+            break;
+        case "PG":
+            //$("#_bxMedidaJudicial").show();
             $("#_bxDescuentos").show();
             $("#liEstatusPension").show();                     
             break;
