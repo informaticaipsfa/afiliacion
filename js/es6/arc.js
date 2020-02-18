@@ -159,8 +159,20 @@ function DibujarTablaArc(){
 }
 
 function lineaMes(e, pos) {
-    console.log(e);
-    return `<tr><td >${pos}</td><td >${e.mes}</td><td align="right">${e.total}</td><td align="right">${e.neto}</td></tr>`
+    //console.log(e);
+
+    var n = parseFloat( e.neto );
+    var s = numeral(n).format('0.0,');
+    var r1 = s.replace('.', '#');
+    var r2 = r1.replace(',', '.');
+    var r3 = r2.replace('#', ',');
+
+    return `<tr>
+        <td >${pos}</td>
+        <td >${e.mes}</td>
+        <td align="right">${ r3 }</td>
+        <td align="right">${ r3 }</td>
+        </tr>`
 }
 
 function HTMLArc(fila, neto, familiar){
@@ -169,10 +181,10 @@ function HTMLArc(fila, neto, familiar){
     var cedula = $("#txtcedula").val();
     var porpocentaje = "";
     if(ArcPorcentaje > 0){
-        porpocentaje = `<br>PENSION DEL MILITAR : <b> &nbsp;&nbsp; ${accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;<br>
-        </b> DEVENGADO POR EL SOBREVIVIENTE :<b> &nbsp;&nbsp; ${accounting.formatMoney((neto * ArcPorcentaje)/100, "Bs. ", 2, ".", ",")}`;
+        porpocentaje = `<br>PENSION DEL MILITAR : <b> &nbsp;&nbsp; ${ accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;<br>
+        </b> DEVENGADO POR EL SOBREVIVIENTE :<b> &nbsp;&nbsp; ${ accounting.formatMoney((neto * ArcPorcentaje)/100, "Bs. ", 2, ".", ",")}`;
     } else{
-        porpocentaje = `<br>TOTAL DEVENGADO :<b> &nbsp;&nbsp; ${accounting.formatMoney(neto, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;<br>`;
+        porpocentaje = `<br>TOTAL DEVENGADO :<b> &nbsp;&nbsp; ${ accounting.formatMoney(neto, "Bs. ", 2, ".", ",") }&nbsp;&nbsp;<br>`;
     }
 
     var ventana = window.open("", "_blank");
