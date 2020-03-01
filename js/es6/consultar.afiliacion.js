@@ -2609,3 +2609,15 @@ function validarDia(){
         $("#txtdreconocido").focus();
     }
 }
+
+function validarCheque(e){
+    
+    if( $("#cmbmtipofinancieraf").val() == "CH" ) {
+        $("#txtautorizadof").val('');
+        $("#txtautorizadof").attr("disabled", true );
+
+    }else{
+        $("#txtautorizadof").attr("disabled", false);
+
+    }
+}

@@ -38,6 +38,7 @@ const formatter = new Intl.NumberFormat('en-NZ', {
 class WCuadreBanco{
     constructor(){}
     Crear(req){
+        console.info(req);
         $("#_tblMetodo").html(CuadreBancoHTML());
         var tM = $('#tblMetodo').DataTable({
             'destroy': false,
@@ -422,7 +423,7 @@ function ImprimirCuadreDosP() {
     var html = $("#_tblMetodo").html();
     var nominastr = $("#cmbSolicitud option:selected").text();
     var ventana = window.open("", "_blank");
-
+    var nomi = nominastr.split(")");
     var contenido = `<center>
     <div style="background: url('../images/fondo.png') no-repeat center;">
     <table style="width:800px"  class="membrete" style="border: 0px solid #CCC9C8;">
@@ -445,8 +446,7 @@ function ImprimirCuadreDosP() {
     </table >
         <h3>
         RELACION DE PAGOS Y DEPOSITOS POR ENTIDADES BANCARIAS<BR>
-        ${nominastr}<BR>ss
-        DESDE EL 01 DE JULIO AL 31 DE JULIO DEL AÑO 2019
+        ${nomi[1]}<BR>
     </h3><BR></div>`;
 
     //

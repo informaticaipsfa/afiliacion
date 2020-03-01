@@ -327,9 +327,9 @@
                             <div class="col-md-6 col-sm-12">
                                 <label >Tipo de Cuenta:</label>
                                 <select class="js-states form-control" style="width: 100%" disabled="disabled" 
-                                    required aria-hidden="true" id="cmbmtipofinancieraf" >
+                                    required aria-hidden="true" id="cmbmtipofinancieraf" onchange="validarCheque(this)">
                                     <option selected="selected" value="S"></option>
-                                    <option value="CQ" selected="selected">CHEQUE</option>
+                                    <option value="CH">CHEQUE</option>
                                     <option value="CA">AHORRO</option>
                                     <option value="CC">CORRIENTE</option>
                                 </select>
@@ -338,7 +338,9 @@
                         <div class="form-group">
                             <div class="col-md-6 col-sm-12">
                                 <label>Cédula / Autorizado:</label>
-                                <input id="txtautorizadof" class="form-control" disabled="disabled" type="text">
+                                <input id="txtautorizadof" class="form-control" disabled="disabled" type="text" maxlength="10"
+                                    onkeypress="return Util.SoloNumero(event, this.id);"
+                                >
                                 <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -351,7 +353,8 @@
                             <div class="form-group">                                
                                 <div class="col-md-6 col-sm-12">
                                     <label>Nro. de Cuenta:</label>
-                                    <input id="txtmnrocuentaf" class="form-control" disabled="disabled" type="text" maxlength="20">
+                                    <input id="txtmnrocuentaf" class="form-control" disabled="disabled" type="text" 
+                                    onkeypress="return Util.SoloNumero(event, this.id);" maxlength="20" >
                                     <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
                                 </div>
                             </div><!-- .Form-Group -->  
