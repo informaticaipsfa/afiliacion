@@ -40,7 +40,7 @@ function ImprimirNeto(){
             
 		}else{
             //console.log("0000 DE " + des);
-            if( des == "SUELDO MENSUAL" ){
+            if( des == "PENSÍON MENSUAL" ){
                 var tasig = accounting.formatMoney(totalAsignacion, "Bs. ", 2, ".", ",");
                 fila += `
                 <tr>
@@ -60,7 +60,7 @@ function ImprimirNeto(){
             if(tipo == 1){ //Asignacion   
                 var sueldomensual = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
                 if( des == "SUELDO MENSUAL" ){
-                    sueldomensual = `SUELDO MENSUAL ( ${porcentaje} % )`;                    
+                    sueldomensual = `PENSIÓN MENSUAL ( ${porcentaje} % )`;                    
                 } 
                 fila += `
                     <tr>
@@ -126,7 +126,7 @@ function ImprimirNeto(){
         </tr>
     </table >
         <h3>MILITAR TITULAR<BR>
-            RECIBO DE PAGO CORRESPONDIENTE A:<br>
+            RECIBO DE PAGO DE PENSIÓN CORRESPONDIENTE A:<br>
             ${nomina[0]}
         </h3>
         <br>
@@ -279,7 +279,7 @@ function ImprimirNetoSobreviviente(){
                     <td align="right" style="width:200px"></td>
                 </tr>`;            
 		}else{
-            if( des == "SUELDO MENSUAL" ){
+            if( des == "PENSIÓN MENSUAL" ){
           
             }
             if(tipo == 1){ //Asignacion   
@@ -292,7 +292,7 @@ function ImprimirNetoSobreviviente(){
     } // fin del repetir de las primas
     var sueldotitular = ( totalAsignacion * porcentaje) / 100;
     if (sueldotitular > 0 ){
-        var sueldomensual = `SUELDO MENSUAL A DISTRIBUIR ( ${porcentaje} % )`; 
+        var sueldomensual = `PENSIÓN MENSUAL A DISTRIBUIR ( ${porcentaje} % )`; 
         var stracount = accounting.formatMoney(sueldotitular, "Bs. ", 2, ".", ",");
         fila += `
                 <tr>
@@ -400,7 +400,7 @@ function ImprimirNetoSobreviviente(){
         </tr>
     </table >
         <h3>SOBREVIVIENTE<BR>
-            RECIBO DE PAGO CORRESPONDIENTE A:<br>
+            RECIBO DE PAGO DE PENSIÓN CORRESPONDIENTE A:<br>
             ${nomina[0]}
         </h3>
         <br>
