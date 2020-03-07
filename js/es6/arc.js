@@ -154,7 +154,7 @@ function DibujarTablaArc(){
     objE.neto += ArcAguinaldo; 
     fila += lineaMes(objE,12);   
 
-    tneto +=  objE.neto ;
+    //tneto +=  objE.neto ;
     HTMLArc(fila, tneto, ArcFamiliar);
 
 }
