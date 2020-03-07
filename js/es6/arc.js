@@ -172,7 +172,7 @@ function DibujarTablaArc(){
 }
 
 function lineaMes(e, pos) {
-    //console.log(e);
+    console.log(e);
 
     var n = parseFloat( e.neto );
     var s = numeral(n).format('0.0,');
