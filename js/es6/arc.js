@@ -103,7 +103,7 @@ function DibujarTablaArc(){
         
         mesA = mes
        
-       tneto +=  neto ;
+       
        lstMontos[mes] = {
            "pos" : i,
            "mes" : mes,
@@ -115,43 +115,55 @@ function DibujarTablaArc(){
     });
     
     var objE = {};
-    console.log(lstMontos);
+    tneto = 0;
+    //console.log(lstMontos);
     objE = lstMontos['ENERO']; 
         fila += lineaMes(objE, 1);
-
+        tneto +=  objE.neto;
     objE = lstMontos['FEBRERO'];         
         fila += lineaMes(objE, 2);
+        tneto +=  objE.neto;
 
     objE = lstMontos['MARZO']; 
         fila += lineaMes(objE, 3);
+        tneto +=  objE.neto;
 
     objE = lstMontos['ABRIL'];   
         fila += lineaMes(objE, 4); 
+        tneto +=  objE.neto;
 
     objE = lstMontos['MAYO']; 
         fila += lineaMes(objE, 5); 
+        tneto +=  objE.neto;
 
     objE = lstMontos['JUNIO']; 
         fila += lineaMes(objE, 6);
+        tneto +=  objE.neto;
 
     objE = lstMontos['JULIO']; 
         fila += lineaMes(objE, 7); 
+        tneto +=  objE.neto;
 
     objE = lstMontos['AGOSTO']; 
         fila += lineaMes(objE, 8); 
+        tneto +=  objE.neto;
 
     objE = lstMontos['SEPTIEMBRE']; 
         fila += lineaMes(objE, 9); 
+        tneto +=  objE.neto;
 
     objE = lstMontos['OCTUBRE']; 
         fila += lineaMes(objE, 10); 
+        tneto +=  objE.neto;
 
     objE = lstMontos['NOVIEMBRE']; 
         fila += lineaMes(objE, 11);
+        tneto +=  objE.neto;
 
     objE = lstMontos['DICIEMBRE'];
     objE.total += ArcAguinaldo; 
     objE.neto += ArcAguinaldo; 
+    tneto +=  objE.neto;
     fila += lineaMes(objE,12);   
 
     //tneto +=  objE.neto ;
