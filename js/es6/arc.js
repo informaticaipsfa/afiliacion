@@ -150,10 +150,11 @@ function DibujarTablaArc(){
         fila += lineaMes(objE, 11);
 
     objE = lstMontos['DICIEMBRE'];
-        objE.total += ArcAguinaldo; 
-        objE.neto += ArcAguinaldo; 
-        fila += lineaMes(objE,12);   
+    objE.total += ArcAguinaldo; 
+    objE.neto += ArcAguinaldo; 
+    fila += lineaMes(objE,12);   
 
+    tneto +=  objE.neto ;
     HTMLArc(fila, tneto, ArcFamiliar);
 
 }
