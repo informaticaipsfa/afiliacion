@@ -116,10 +116,12 @@ function DibujarTablaArc(){
     
     var objE = {};
     tneto = 0;
-    //console.log(lstMontos);
+    console.log(objE);
+
     objE = lstMontos['ENERO']; 
         fila += lineaMes(objE, 1);
         tneto +=  objE.neto;
+
     objE = lstMontos['FEBRERO'];         
         fila += lineaMes(objE, 2);
         tneto +=  objE.neto;
@@ -177,6 +179,7 @@ function lineaMes(e, pos) {
     var n = parseFloat( e.neto );
     var s = numeral(n).format('0.0,');
     var r1 = s.replace('.', '#');
+    console.log(s);
     var r2 = r1.replace(',', '.');
     var r3 = r2.replace('#', ',');
 
