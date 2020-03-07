@@ -113,7 +113,7 @@ function fnxC(fnxc){
             $('#txtFormula').val(fn +  ' $bono_recreacional ' );
             break;
         case 'bono_recreacionaln':
-            $('#txtFormula').val(fn +  ' $bono_recreacionalN ' );
+            $('#txtFormula').val(fn +  ' $bono_recreacionaln ' );
             break;
         case 'bono_fin_ano':
             $('#txtFormula').val(fn +  ' $bono_fin_ano ' );
