@@ -179,7 +179,6 @@ function lineaMes(e, pos) {
     var n = parseFloat( e.neto );
     var s = numeral(n).format('0.0,');
     var r1 = s.replace('.', '#');
-    console.log(s);
     var r2 = r1.replace(/,/g, '.');
     var r3 = r2.replace('#', ',');
 
@@ -225,7 +224,7 @@ function HTMLArc(fila, neto, familiar){
         <td width="200px" valign="top"></td>
         </tr>
     </table >
-        <h3>CONSTANCIA AR-C <br>
+        <h3>CONSTANCIA AR-C DE PENSIÓN<br>
             AÑO <b>2019</b>
         </h3>
         <br>
