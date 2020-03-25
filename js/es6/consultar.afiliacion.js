@@ -1260,6 +1260,11 @@ function ModificarFamiliarPos(pos) {
 
         }
         var df = Familiar.Persona.DatoFinanciero;
+        $("#cmbminstfinancieraf").val('0000');
+        $("#cmbmtipofinancieraf").val('S');
+        $("#txtmnrocuentaf").val('');
+        $("#txtautorizadof").val('');
+        $("#txttitularf").val('');
         if(df[0] != undefined){
             $("#cmbmtipofinancieraf").val(df[0].tipo);
             $("#cmbminstfinancieraf").val(df[0].institucion);

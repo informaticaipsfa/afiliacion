@@ -230,9 +230,9 @@ function HTMLArc(fila, neto, familiar){
         <br>
     <table style="width:800px" >
         <tr>
-            <td align="center"><b>GRADO</b><BR>${grado}</td>
+            <td align="center"><b>GRADO</b><BR>${ grado }</td>
             <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
-            <td align="center"><b>N° DE CÉDULA</b><BR><label id="cedula">${cedula}</cedula></td>
+            <td align="center"><b>N° DE CÉDULA</b><BR><label id="cedula">${ cedula }</cedula></td>
         </tr>
        
     </table>
