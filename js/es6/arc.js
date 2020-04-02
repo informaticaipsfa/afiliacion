@@ -1,182 +1,105 @@
 
+
+
+
+
 let wArc = {};
 let ArcFamiliar = "";
 let ArcPorcentaje = 0;
 let ArcAguinaldo = 0;
-class WArc{
+let Meses = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+
+
+
+
+class WARC {
     constructor(){
-        this.fingreso = '';
-        this.fascenso = '';
-        this.fretiro = '';
-        this.grado = '';
-        this.codigo = '';
-        this.componente = '';
-        this.antiguedad = 0;
-        this.tiempo = 0;
-        this.inicio = '';
-        this.situacion = '';
-        this.fin = '';
-        this.hijos = 0;
-        this.porcentaje = 0.00;
+        this.cedula = '';
+        this.anio = '';
     }
-    Crear(req){
-        
-        wArc = req;
-        
-        var max = req.Retroactivo.length;                     
-        $.each(req.Retroactivo[ max - 1 ], function (cl, vl) {
-            if( cl.search("AGU") != -1 ){
-                if(vl.codi == "AGUI0004") ArcAguinaldo = vl.mt;
-            }                
-        });
-        
-        DibujarTablaArc();
-    }
+    Crear (req){
+        var lista = req.rs;
+        var fila = '';
+        var tneto = 0.00;
+        var obj = [];
+        for(var i = 0; i <= 11; i++){
+            var mesAux = i+1;
 
-    
-   
-
-}
-
-
-
-function DibujarTablaArc(){
-
-    req = wArc;
-    var familia = "";
-    var i = 0;
-    var fila = '';
-    var tneto = 0;
-    let lstMontos = [];
-    $.each(req.Retroactivo, function (clave, valor) { 
-        i++;
-        var asignacion = 0;
-        var fcis = 0;
-        var bonr = 0;
-        var vaca = 0;
-        var bonos = 0;
-        var aguin = 0;
-        var detalle = "";
-        var mesA = "ENERO";
-        var mes = "ENERO";
-        var neto = 0;
-        
-        $.each(valor, function (cl, vl) {
-            
-            switch (cl) {
-                case 'sueldo_mensual':
-                    asignacion = vl.mt;        
-                    break;
-                case 'FCIS-00001':
-                    fcis =  vl.mt;
-                    break;
-                case 'retribucion_especial':
-                    bonr =  vl.mt;
-                    break;
-                case 'vacaciones':
-                    vaca =  vl.mt;
-                    break;
-                case 'aguinaldos':
-                    aguin =  vl.mt;
-                    break;
-                case 'detalle':
-                    detalle =  vl.mes;
-                    break;
-                default:
-                    if ( cl.substring(0, 4) == 'bono' ){
-                        bonos +=  vl.mt;
-                    }
-                    break;
+            if( lista[i] != undefined ) {
+                var mes = parseInt(lista[i].mes);
+                
+                tneto += parseFloat( lista[i].mont );
+                obj[Meses[mes - 1]] = {
+                    "mes": mes,
+                    "des": Meses[mes - 1],
+                    "mon": lista[i].mont
+                }           
             }
-        
-        });
-        
-        var total = asignacion;
-        mes = detalle.toUpperCase();
+                
+            
 
-        var totalretribuciones = parseFloat(bonr) + parseFloat(bonos);
-        if ( mesA == mes ){
-            neto += total + totalretribuciones + vaca;            
-        }else{
-            neto = total + totalretribuciones + vaca ;
         }
         
-        mesA = mes
-       
-       
-       lstMontos[mes] = {
-           "pos" : i,
-           "mes" : mes,
-           "total": neto,
-           "neto": neto
-       };
+        for(var i= 0; i <= 11; i++){
+            fila += seleccionarMesArc(Meses[i], i+1, obj);
+        }
+        
 
-       
-    });
-    
-    var objE = {};
-    tneto = 0;
-    console.log(objE);
-
-    objE = lstMontos['ENERO']; 
-        fila += lineaMes(objE, 1);
-        tneto +=  objE.neto;
-
-    objE = lstMontos['FEBRERO'];         
-        fila += lineaMes(objE, 2);
-        tneto +=  objE.neto;
-
-    objE = lstMontos['MARZO']; 
-        fila += lineaMes(objE, 3);
-        tneto +=  objE.neto;
-
-    objE = lstMontos['ABRIL'];   
-        fila += lineaMes(objE, 4); 
-        tneto +=  objE.neto;
-
-    objE = lstMontos['MAYO']; 
-        fila += lineaMes(objE, 5); 
-        tneto +=  objE.neto;
-
-    objE = lstMontos['JUNIO']; 
-        fila += lineaMes(objE, 6);
-        tneto +=  objE.neto;
-
-    objE = lstMontos['JULIO']; 
-        fila += lineaMes(objE, 7); 
-        tneto +=  objE.neto;
-
-    objE = lstMontos['AGOSTO']; 
-        fila += lineaMes(objE, 8); 
-        tneto +=  objE.neto;
-
-    objE = lstMontos['SEPTIEMBRE']; 
-        fila += lineaMes(objE, 9); 
-        tneto +=  objE.neto;
-
-    objE = lstMontos['OCTUBRE']; 
-        fila += lineaMes(objE, 10); 
-        tneto +=  objE.neto;
-
-    objE = lstMontos['NOVIEMBRE']; 
-        fila += lineaMes(objE, 11);
-        tneto +=  objE.neto;
-
-    objE = lstMontos['DICIEMBRE'];
-    objE.total += ArcAguinaldo; 
-    objE.neto += ArcAguinaldo; 
-    tneto +=  objE.neto;
-    fila += lineaMes(objE,12);   
-
-    //tneto +=  objE.neto ;
-    HTMLArc(fila, tneto, ArcFamiliar);
-
+        
+        HTMLArc(fila, tneto, ArcFamiliar);
+    }
 }
 
-function lineaMes(e, pos) {
-    console.log(e);
+function seleccionarMesArc(mes, pos, obj){
 
-    var n = parseFloat( e.neto );
+    var sel = {};
+    if( obj[mes] == undefined){
+       
+       obj[mes] = {
+            "mes": pos,
+            "des": mes,
+            "mon": 0
+        }     
+        sel =  obj[mes];
+    }else{
+        sel = obj[mes];
+    }
+
+    return lineaMes(sel.des, sel.mes, sel.mon);
+}
+
+function CConstanciaARC(pos, parentesco){
+    if(pos != undefined) {
+        var v = ObjMilitar.Familiar[pos-1];
+        var DBF = v.Persona.DatoBasico;
+        ArcPorcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
+        var nombre = DBF.apellidoprimero + ' ' + DBF.apellidosegundo + ' ' + DBF.nombreprimero + ' ' + DBF.nombresegundo;
+        ArcFamiliar = `<table style="width:800px" >
+        <tr>
+            <td align="center"><b>PARENTESCO</b><BR>${parentesco}</td>
+            <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
+            <td align="center"><b>N° DE CÉDULA</b><BR><label id="cedula">${DBF.cedula}</cedula></td>
+            <td align="center"><b>PORCENTAJE PENSION</b><BR><label>${ArcPorcentaje} %</cedula></td>
+        </tr>
+        
+    </table>`;
+    }
+    var Calc = new WARC();
+    Calc.cedula = ObjMilitar.id;
+    Calc.anio = "2020";
+
+  
+    
+    var ruta = Conn.URL + "pensionado/impimirarc";
+    CargarAPI(ruta, "POST", Calc, Calc);
+}
+
+
+
+function lineaMes( mes, pos, monto) {
+   
+
+    var n = parseFloat( monto );
     var s = numeral(n).format('0.0,');
     var r1 = s.replace('.', '#');
     var r2 = r1.replace(/,/g, '.');
@@ -184,7 +107,7 @@ function lineaMes(e, pos) {
 
     return `<tr>
         <td >${pos}</td>
-        <td >${e.mes}</td>
+        <td >${mes}</td>
         <td align="right">${ r3 }</td>
         <td align="right">${ r3 }</td>
         </tr>`
@@ -351,59 +274,3 @@ function HTMLArc(fila, neto, familiar){
      `;
 }
 
-
-function CConstanciaARC(pos, parentesco){
-    if(pos != undefined) {
-        var v = ObjMilitar.Familiar[pos-1];
-        var DBF = v.Persona.DatoBasico;
-        ArcPorcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
-        var nombre = DBF.apellidoprimero + ' ' + DBF.apellidosegundo + ' ' + DBF.nombreprimero + ' ' + DBF.nombresegundo;
-        ArcFamiliar = `<table style="width:800px" >
-        <tr>
-            <td align="center"><b>PARENTESCO</b><BR>${parentesco}</td>
-            <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
-            <td align="center"><b>N° DE CÉDULA</b><BR><label id="cedula">${DBF.cedula}</cedula></td>
-            <td align="center"><b>PORCENTAJE PENSION</b><BR><label>${ArcPorcentaje} %</cedula></td>
-        </tr>
-       
-    </table>`;
-    }
-    var Calc = new WArc();
-    Calc.inicio = "2019-01-01";
-    Calc.fin = "2019-12-31";
-
-    if(Calc.inicio == "" || Calc.fin == "" ){
-        $.notify({
-                title: '<strong>Proceso de Cálculos!</strong>',
-                message: 'Las fechas deben estar completas'
-            }, {
-                type: 'danger'
-            } 
-        );
-        return
-    }
-  
-    var fing = $("#txtfechagraduacion").val().split("/");
-    var fasc = $("#txtmfechaultimoascenso").val().split("/");
-    var fret =  $("#txtmfecharesuelto").val().split("/");
-    Calc.fingreso = fing[2] + "-" + fing[1] + "-" + fing[0];
-    Calc.fascenso = fasc[2] + "-" + fasc[1] + "-" + fasc[0];    
-    Calc.fretiro = fret[2] + "-" + fret[1] + "-" + fret[0];
-
-    var ti = parseInt(  $("#_tiemposervicio").html().split("A")[0] );
-    var antiguedad = antiguedadGrado(Calc.fascenso, Calc.fretiro);
-
-    Calc.grado = $("#cmbgrado option:selected").text();
-    Calc.codigo = $("#cmbgrado option:selected").val();
-    Calc.componente = $("#cmbcomponente").val();
-    Calc.antiguedad = "" + antiguedad['n'] + "";
-    Calc.tiempo = "" + ti + "";
-    Calc.situacion = $("#cmbsituacion option:selected").val();
-    
-    Calc.hijos = "0";
-    Calc.porcentaje = $("#txtporcentaje").val();
-    //console.log(Calc);
-    var ruta = Conn.URL + "pensionado/calcularretroactivo";
-    CargarAPI(ruta, "POST", Calc, Calc);
-
-}

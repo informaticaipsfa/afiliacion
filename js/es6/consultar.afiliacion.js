@@ -1265,6 +1265,8 @@ function ModificarFamiliarPos(pos) {
         $("#txtmnrocuentaf").val('');
         $("#txtautorizadof").val('');
         $("#txttitularf").val('');
+        console.log(df);
+        
         if(df[0] != undefined){
             $("#cmbmtipofinancieraf").val(df[0].tipo);
             $("#cmbminstfinancieraf").val(df[0].institucion);
