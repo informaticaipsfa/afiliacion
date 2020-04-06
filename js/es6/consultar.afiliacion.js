@@ -36,9 +36,6 @@ function Buscar(id) {
     });
 
     Util.ValidarFecha('txtnacimiento');
-    //Util.ValidarFecha('txtfechagraduacion');
-    //Util.ValidarFecha('txtmfecharesuelto');
-    //Util.ValidarFecha('txtmfechaultimoascenso');
 
 
 
@@ -206,7 +203,6 @@ function ConstanciaFamiliaresHTML() {
     </table>`;
 
     return html;
-    //<th class="alinear_tddatos">EDO. CIVIL</th>
 }
 
 function HistoricoMilitarHTML() {
@@ -440,7 +436,6 @@ function LimpiarFrmFamiliar() {
     $("#cmbojosf").val("");
     $("#cmbcolorcabellof").val("");
     $("#txtsenaparticularf").val("");
-
     //
     $("#txtcarreraf").val("");
     $("#cmbnivelf").val("");
@@ -457,10 +452,6 @@ function LimpiarFrmFamiliar() {
     $("#txtedadf").val("");
     urlf = "imagenes/ndisponible.jpg";
     $("#_imgIngFam").attr("src", urlf);
-    // $("#txttwitterf").val("");
-    // $("#txtfacebookf").val("");
-    // $("#txtinstagranf").val("");
-    // $("#txtlinkedinf").val("");
 }
 
 
@@ -472,7 +463,7 @@ function VisualizarCarnet() {
     if (Util.ValidarFormulario("_frmDatoBasico") == false) {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
-        if (ObjMilitar.estatuscarnet == undefined || ObjMilitar.estatuscarnet == 3 || ObjMilitar.estatuscarnet == 0) {
+        if (ObjMilitar.estatuscarnet == undefined || ObjMilitar.estatuscarnet == 3 ) {
             $("#modCarnetValidar").modal("show");
         } else {
             var militar = OqMilitar;
@@ -521,16 +512,10 @@ function VisualizarCarnetFamiliar() {
             break;
         }
     }
-    if(pos != ""){
-
-    }
-
+  
     url = Conn.URLIMG + cedula + ".jpg";
-
     $("#imgfotoCarnetf").attr("src", url);
-
     url = Conn.URLIMG + ObjMilitar.Familiar[pos].Persona.DatoBasico.cedula + ".jpg";
-
     $("#imgfirmaCarnetf").attr("src", url);
     $("#divfechavencimiento").html("**********");
     $("#lblnombref").html(ObjMilitar.Familiar[pos].Persona.DatoBasico.nombreprimero);
@@ -544,20 +529,15 @@ function VisualizarCarnetFamiliar() {
     $("#lblhistoriaf").html(ObjMilitar.Familiar[pos].numerohistoria);
     $("#lblgsanguineof").html(ObjMilitar.Familiar[pos].Persona.DatoFisionomico.gruposanguineo);
     $("#lbldonantef").html(ObjMilitar.Familiar[pos].donante);
-
     $("#visorCarnetFamiliar").modal("show");
-    //ImprimirCarnetFamiliar("_objectPDF2");
 }
 
 function ContinuarTIM() {
-
     var recibo = new Recibo();
     if (recibo.Verificar() === true) {
         recibo.Salvar();
         $('#modCarnetValidar').modal('hide');
-    } else {
-
-    }
+    } 
 }
 
 function ContinuarTIF() {
@@ -566,8 +546,7 @@ function ContinuarTIF() {
     if (recibo.VerificarF() === true) {
         recibo.SalvarF();
         $('#modCarnetValidarf').modal('hide');
-    } else {
-    }
+    } 
 }
 
 function enviarCarnetFamiliar() {
@@ -606,8 +585,6 @@ function ActivarCalendarios() {
         language: 'es'
     });
 
-    
-    ////ACTIVAR MASK
     $('[data-mask]').inputmask();
 }
 
@@ -648,7 +625,6 @@ function ActivarCalendariosFamiliar() {
         format: "dd/mm/yyyy",
         language: 'es'
     });
-    ////ACTIVAR MASK
     $('[data-mask]').inputmask();
 
 
@@ -729,7 +705,6 @@ function FrmDatosBasicos(valor) {
     $("#cmbtipopension").attr('disabled', valor);
     $("#txtporcentaje").attr('disabled', valor);
 
-    //$("#btnnacimiento").attr('disabled', valor);
     if (valor == false) {
         $("#cargarcopiacedula").show();
         $("#cargarpartida").show();
@@ -747,8 +722,6 @@ function FrmDatosBasicos(valor) {
         $("#_reconocidos").hide();
         if ( parseInt($("#txtareconocido").val()) > 0) $("#_reconocidos").show();
     }
-    //$("#btnnacimiento").attr('disabled', valor);
-    //$("#btndefuncion").attr('disabled', valor);
 }
 
 function LimpiarFrmDatosBasicos() {
@@ -1265,7 +1238,6 @@ function ModificarFamiliarPos(pos) {
         $("#txtmnrocuentaf").val('');
         $("#txtautorizadof").val('');
         $("#txttitularf").val('');
-        console.log(df);
         
         if(df[0] != undefined){
             $("#cmbmtipofinancieraf").val(df[0].tipo);
@@ -2527,7 +2499,6 @@ function EnviarArchivosIMG() {
 
 
     }).fail(function (jqXHR, textStatus) {
-        console.log(textStatus);
         $("#archivo").val("");
         if (textStatus === 'timeout') {
             $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
@@ -2556,7 +2527,6 @@ function CargarIMGFOTOS(){
   url = rutaimg + $("#txtcedula").val() + "/firma.jpg";
   $("#minifirma").attr("href", url);
   $("#_imgfirmam").attr("src", url);
-  //$("#_imgcarnetmilitar").attr("src", url);
   url = rutaimg + $("#txtcedula").val() + "/carnet.jpg";
   $("#_imgcarnet").attr("src", url);
 
@@ -2617,14 +2587,11 @@ function validarDia(){
     }
 }
 
-function validarCheque(e){
-    
+function validarCheque(e){    
     if( $("#cmbmtipofinancieraf").val() == "CH" ) {
         $("#txtautorizadof").val('');
         $("#txtautorizadof").attr("disabled", true );
-
     }else{
         $("#txtautorizadof").attr("disabled", false);
-
     }
 }
