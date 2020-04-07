@@ -463,7 +463,8 @@ function VisualizarCarnet() {
     if (Util.ValidarFormulario("_frmDatoBasico") == false) {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
-        if (ObjMilitar.estatuscarnet == undefined || ObjMilitar.estatuscarnet == 3  || ObjMilitar.estatuscarnet == 0) {
+        console.log(ObjMilitar);
+        if (ObjMilitar.estatuscarnet == undefined || ObjMilitar.estatuscarnet == 0) {
             $("#modCarnetValidar").modal("show");
         } else {
             var militar = OqMilitar;
