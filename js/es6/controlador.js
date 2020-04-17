@@ -492,3 +492,12 @@ function SolicitudCredito() {
   CargarUrl("_cuerpo", "cred/organigrama")
   $("#ModuloTitulo").html("Departamento de Crédito");
 }
+
+
+/**
+ * Liberar Carnet's
+ *
+ **/
+function LiberarCarnet() {
+  $("#ModuloTitulo").html("Liberación de Carnet's");
+}
