@@ -66,7 +66,7 @@ class GCarnet{
 
     Crear( resp ){
         if ( resp.msj != undefined ) {
-            $("#_contenido").html(reps.mensaje);
+            $("#_contenido").html(resp.mensaje);
         }else{
             $("#_contenido").html('Ocurrio un error inesperado, por favor consulte al administrador'); 
         }
