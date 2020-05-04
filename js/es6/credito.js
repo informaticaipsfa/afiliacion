@@ -9,17 +9,7 @@ let opcionesCredito = {
     info: 			false,
 };
 
-class Credito{
-	constructor(){
-		this.cuotas = [];
-		this.periodo = 0;
-		this.monto = 0.0;
-		this.sueldo = 0.0;
-	}
-	Crear(req){
 
-	}
-}
 function IniciarCredito(estatus){
     StepperCredito = new Stepper(document.querySelector('#stepper-credito'));
 	$('#mdlCredito').modal('show');
@@ -29,9 +19,7 @@ function IniciarCredito(estatus){
 
 
 
-
-
-let prestamo = new Prestamo();
+let wPrestamo = new CPersonal();
 
 
 function PrCalcularPorcentaje(){
@@ -57,16 +45,7 @@ function IniciarPrestamo(estatus){
         language: 'es'
     });
     StepperPrestamo = new Stepper(document.querySelector('#stepper-prestamo'));
-    // $('#datepicker').datepicker({
-    //     autoclose: true,
-    //     format: "yyyy-mm-dd",
-    //     language: 'es'
-    // });
-    // $('#datepickerfin').datepicker({
-    //     autoclose: true,
-    //     format: "yyyy-mm-dd",
-    //     language: 'es'
-	// });
+
 	$('#mdlPrestamo').modal('show');
 }
 
@@ -104,9 +83,9 @@ function CalcularCuotasPr(){
 	var cuota = CalcularPrestamo();
 	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
-	prestamo.cuota = parseFloat( cuota ).toFixed(2);
+	wPrestamo.cuota = parseFloat( cuota ).toFixed(2);
 
-	$("#txtCuotaMensual").val(prestamo.cuota);
+	$("#txtCuotaMensual").val(wPrestamo.cuota);
 }
 
 
@@ -128,8 +107,9 @@ function TablaAmortizacion(){
 	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
 	var totalInteres = 0;
-	prestamo.cuota = parseFloat( cuota ).toFixed(2);
-	prestamo.capital = parseFloat( monto ).toFixed(2);
+	wPrestamo.cuota = parseFloat(parseFloat( cuota ).toFixed(2));
+	wPrestamo.capital =  parseFloat(parseFloat( monto ).toFixed(2));
+	wPrestamo.montoaprobado =  parseFloat(parseFloat( monto ).toFixed(2));
 	//$("#txtCuotaMensual").val(prestamo.cuota);
 	var fecha = new Date();
 	var ano = fecha.getFullYear();
@@ -142,15 +122,15 @@ function TablaAmortizacion(){
 		var ainteres = monto * interes;
 		var capital = cuota - ainteres;
 		var saldo = monto - capital;
-		lstC = {
-			balance : parseFloat( monto ).toFixed(2),
-			cuota: parseFloat( cuota ).toFixed(2),
-			interes: parseFloat( ainteres ).toFixed(2),
-			capital: parseFloat( capital ).toFixed(2),
-			saldo: parseFloat( saldo ).toFixed(2),
-			fecha: '01-' + mess + '-' + ano + ''
-		}
-		prestamo.cuotas.push(lstC);
+		var lstC = new Cuota();
+		lstC.balance  =  parseFloat(parseFloat( monto ).toFixed(2));
+		lstC.cuota =  parseFloat(parseFloat( cuota ).toFixed(2));
+		lstC.interes =  parseFloat(parseFloat( ainteres ).toFixed(2));
+		lstC.capital =  parseFloat(parseFloat( capital ).toFixed(2));
+		lstC.saldo =  parseFloat(parseFloat( saldo ).toFixed(2));
+		lstC.fecha = '01-' + mess + '-' + ano + ''
+		
+		wPrestamo.cuotas.push(lstC);
 		totalInteres += ainteres;
 		fila = i + 1
 		t.row.add([
@@ -182,15 +162,21 @@ function TablaAmortizacion(){
 
 		monto =  saldo;
 	}
-	prestamo.totalinteres = parseFloat( totalInteres ).toFixed(2);
-	
+	wPrestamo.totalinteres =  parseFloat(  parseFloat( totalInteres ).toFixed(2) );
+	wPrestamo.Banco.tipo = ObjMilitar.Persona.DatoFinanciero[0].tipo;
+	wPrestamo.Banco.institucion = ObjMilitar.Persona.DatoFinanciero[0].institucion;
+	wPrestamo.Banco.cuenta = ObjMilitar.Persona.DatoFinanciero[0].cuenta;
+	wPrestamo.concepto =  $("#cmbConceptoPr option:selected").text();
+	wPrestamo.cedula = ObjMilitar.id;
+	wPrestamo.sueldo = $("#txtSueldoPr").val();
+	wPrestamo.fechaparobado = new Date(Util.ConvertirFechaUnix($("#txtFechaAprobacion").val())).toISOString();
 }
 
 
 
 function HTMLTblCabecera(){
-	var totalPrestamo = parseFloat( prestamo.totalinteres ) * 1 +  parseFloat( prestamo.capital ) * 1;
-	var depositado = parseFloat( (parseFloat( prestamo.capital ) *1 ) - ( ( parseFloat(prestamo.capital)  * 1) /100 )  ).toFixed(2);
+	var totalPrestamo = parseFloat( wPrestamo.totalinteres ) * 1 +  parseFloat( wPrestamo.capital ) * 1;
+	var depositado = parseFloat( (parseFloat( wPrestamo.capital ) *1 ) - ( ( parseFloat(wPrestamo.capital)  * 1) /100 )  ).toFixed(2);
 	
 	return `		
 		<table class="ui celled table table-bordered table-striped dataTable" width="100%">
@@ -222,18 +208,18 @@ function HTMLTblCabecera(){
 	
 				<TR>
 					<td ><B>CONCEPTO</B></td><TD colspan=3>${$("#cmbConceptoPr option:selected").text()}</TD>
-					<td><B>CUOTA</B></td><TD>${ numeral( parseFloat(prestamo.cuota ,2)).format('0,0.00') }</TD>
+					<td><B>CUOTA</B></td><TD>${ numeral( parseFloat(wPrestamo.cuota ,2)).format('0,0.00') }</TD>
 					<td><B>INTERESES</B></td><TD>${ $("#txtInteresPr").val() + "%"}</TD>
 					
 				</TR>
 				<TR>
-					<td><B>TOTAL. INT.</B></td><TD>${ numeral( parseFloat(prestamo.totalinteres ,2)).format('0,0.00')  + "%"}</TD>
-					<td><B>CAPITAL</B> </td><TD>${  numeral( parseFloat(prestamo.capital ,2)).format('0,0.00') + " Bs."}</TD>
+					<td><B>TOTAL. INT.</B></td><TD>${ numeral( parseFloat(wPrestamo.totalinteres ,2)).format('0,0.00')  + "%"}</TD>
+					<td><B>CAPITAL</B> </td><TD>${  numeral( parseFloat(wPrestamo.capital ,2)).format('0,0.00') + " Bs."}</TD>
 					<td><B>APORTE</B></td><TD>${ $("#txtAportePr").val() }</TD>
 					<td><B>TOTAL PREST.</B></td><TD>${ numeral( parseFloat(totalPrestamo ,2)).format('0,0.00') + " Bs." }</TD>
 				</TR>
 				<TR>
-					<td ><B>1% AUTO SEGURO.</B></td><TD>${ ( parseFloat(prestamo.capital)  * 1) /100 + " Bs."}</TD>
+					<td ><B>1% AUTO SEGURO.</B></td><TD>${ ( parseFloat(wPrestamo.capital)  * 1) /100 + " Bs."}</TD>
 					<td><B>DEPOSITADO</B></td><TD>${ numeral( parseFloat(depositado ,2)).format('0,0.00') + " Bs."  }</TD>
 					<td colspan=4></td>
 					
@@ -285,20 +271,29 @@ function HTMLTblAmortizacionPrint(){
 }
 
 function PrResumen(){
-	$("#txtConceptoPrT").val( $("#cmbConceptoPr option:selected").text() );
-	$("#txtCuotaPrT").val( prestamo.cuota );
-	$("#txtInteresPrT").val( $("#txtInteresPr").val() );
-	$("#txtTotalInteresPrT").val( prestamo.totalinteres );
-	$("#txtCapitalPrT").val( prestamo.capital );
-	$("#txtAportePrT").val( $("#txtAportePr").val() );
-	$("#txtPlazoPr").val( prestamo.cuota );
-	var suma = parseFloat( prestamo.totalinteres ) * 1 +  parseFloat( prestamo.capital ) * 1;
-	$("#txtPagosPrT").val(  parseFloat( suma ).toFixed(2) );
-	var administrativo =  ( parseFloat(prestamo.capital)  * 1) /100
-	$("#txtPorcentajePrT").val(  parseFloat( administrativo ).toFixed(2) );
-	var deposito = (parseFloat( prestamo.capital ) *1 ) - parseFloat( administrativo ) *1;
-	$("#txtDepositoPrT").val(   parseFloat( deposito ).toFixed(2) );
+	wPrestamo.intereses =   parseFloat( parseFloat( $("#txtInteresPr").val()).toFixed(2)  );
 	
+	
+
+	$("#txtConceptoPrT").val( $("#cmbConceptoPr option:selected").text() );
+	$("#txtCuotaPrT").val( wPrestamo.cuota );
+	$("#txtInteresPrT").val( $("#txtInteresPr").val() );
+	
+	$("#txtTotalInteresPrT").val( wPrestamo.totalinteres );
+	$("#txtCapitalPrT").val( wPrestamo.capital );
+	$("#txtAportePrT").val( $("#txtAportePr").val() );
+	$("#txtPlazoPr").val( wPrestamo.cuota );
+	var suma = parseFloat( wPrestamo.totalinteres ) * 1 +  parseFloat( wPrestamo.capital ) * 1;
+	$("#txtPagosPrT").val(  parseFloat( suma ).toFixed(2) );
+
+	var administrativo =  ( parseFloat(wPrestamo.capital)  * 1) /100
+	$("#txtPorcentajePrT").val(  parseFloat( administrativo ).toFixed(2) );
+	wPrestamo.porcentajeseguro =  parseFloat( parseFloat( $("#txtAportePr").val()).toFixed(2) );
+
+	var deposito = (parseFloat( wPrestamo.capital ) *1 ) - parseFloat( administrativo ) *1;
+	$("#txtDepositoPrT").val(   parseFloat( deposito ).toFixed(2) );
+	wPrestamo.totaldepositar =   parseFloat( parseFloat( deposito ).toFixed(2) );
+
 	StepperPrestamo.next();
 }
 
@@ -316,3 +311,23 @@ function PrImprimir(){
     ventana.close();
 }
 
+
+
+/**
+ * Guardar Prestamo 
+ */
+
+
+class PrestamoPersonal{
+	constructor(){}
+	Crear(req){
+		console.log(req);
+	}
+}
+
+
+function PrGuardar(){
+	var wPrestamosPersona = new PrestamoPersonal();
+	console.log(wPrestamo);
+	CargarAPI(Conn.URL + "credito/crud" , "POST", wPrestamo, wPrestamosPersona);
+}

@@ -621,20 +621,84 @@ class Pension{
 
 
 /**
+ *  Cuota 
+ * 
+ * 
+ */
+class Cuota{
+	constructor(){
+		this.ID = '';
+		this.balance = 0.00;
+		this.cuota = 0.00;
+		this.interes = 0.00;
+		this.capital = 0.00;
+		this.saldo = 0.00;
+		this.fecha = '';		
+		this.estatus = 0;
+	}
+}
+
+/**
+ *  CPersonal 
+ * 
+ * 
+ */
+class CPersonal{
+	constructor(){
+		this.cedula = '';
+		this.capital = 0.0;
+		this.montoaprobado = 0.0;
+		this.cantidad = 0;
+		this.cuotas = [];
+		this.cuota = 0.0;
+		this.concepto = "";
+		this.periodo = "";
+		this.sueldo = 0.0;
+		this.totalinteres = 0.0;
+		this.fiador = '';
+		this.tipo = 0;
+		this.Banco = new DatoFinanciero();
+		this.intereses = 0.00;
+		this.porcentajeseguro = 0.00;
+		this.totaldepositar = 0.00;
+		this.fechacreacion = "";
+		this.fechaparobado = "";
+		
+	}
+	
+	Crear(){
+
+	}
+
+}
+
+/**
  *  Prestamos 
  * 
  * 
  */
 class Prestamo{
 	constructor(){
-		this.cedula = '';
-		this.cuotas = [];
-		this.periodo = 0;
-		this.cuota = 0.0;
-		this.monto = 0.0;
-		this.sueldo = 0.0;
-		this.totalinteres = 0.0;
-		this.fiador = '';
+		this.Personal = [];
+		this.Hipotecario = [];
+	}
+	
+	Crear(){
+
+	}
+
+}
+
+
+
+/**
+ *  Prestamos 
+ * 
+ * 
+ */
+class Credito{
+	constructor(){
+		this.Prestamo = new Prestamo();
 
 	}
 	
@@ -681,7 +745,7 @@ class Militar{
 		this.numerohistoria = "";
 		this.pasearetiro = false;
 		this.pprestaciones = 0.00;
-		this.Prestamo = new Prestamo();
+		this.Prestamo = [];
 	}
 
 	//P123 .-
