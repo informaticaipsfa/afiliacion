@@ -1,3 +1,6 @@
+let _LSTNOMINAS = {};
+let _ANOACTUAL = new Date().getUTCFullYear();
+
 function PrepararPago(){
     $("#ModuloTitulo").html("&nbsp;&nbsp;&nbsp;&nbsp;Gestionar Pagos");
     ListarMetodoBanco();
@@ -12,14 +15,29 @@ class WListarMetodoBanco{
         $("#cmbSolicitud").html(`<option value="0">NO HAY PAGOS PENDIENTES POR PROCESAR</option>`);
         var i = 0;
         var combo = '';
-        req.forEach(e => {
-            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.mes} </option>`;            
+        $("#cmbAno").val(_ANOACTUAL);
+        _LSTNOMINAS = req;
+        cargarComboPagos();
+
+    }
+}
+
+function cargarComboPagos(){
+    $("#btnCuadre").hide();
+    $("#cmbSolicitud").html(`<option value="0">NO HAY PAGOS PENDIENTES POR PROCESAR</option>`);
+    var i = 0;
+    var combo = '';
+    _LSTNOMINAS.forEach(e => {            
+        if( e.fech.substr(0,4) == $("#cmbAno").val() ) {
+            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.mes} </option>`;
+            //console.log(e.fech);
             i++;
-            $("#btnCuadre").show();
-        });
-        if(i > 0){
-            $("#cmbSolicitud").html(combo);
         }
+        $("#btnCuadre").show();
+
+    });
+    if(i > 0){
+        $("#cmbSolicitud").html(combo);
     }
 }
 
@@ -226,7 +244,8 @@ class WListarPendientes{
 
 function ListarNominasGeneral(){
     var lst = new WListarPendientes();
-    var ruta =  Conn.URL + "nomina/listarpendientes/" + $("#cmbSolicitud").val() + "/4";
+    var ano = $("#cmbLectivo").val();
+    var ruta =  Conn.URL + "nomina/listarpendientes/" + $("#cmbSolicitud").val() + "/4/" + ano;
     CargarAPI(ruta, "GET", lst, lst);
 }
 
