@@ -745,7 +745,7 @@ class WListarNomina{
 
 function ListarNominasPendientes(){
     var lst = new WListarNomina();
-    var ruta =  Conn.URL + "nomina/listarpendientes/S/1";
+    var ruta =  Conn.URL + "nomina/listarpendientes/S/1/2020";
     CargarAPI(ruta, "GET", lst, lst);
 }
 
