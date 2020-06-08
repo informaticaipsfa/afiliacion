@@ -9,6 +9,16 @@ let opcionesCredito = {
     info: 			false,
 };
 
+let opcionesCreditoPrestamo = {
+	ordering: 		false,
+    paging: 		true, 
+    deferRender:    true,
+	searching: 		false,
+    ordering: 		false,
+    info: 			false,
+};
+
+
 
 function IniciarCredito(estatus){
     StepperCredito = new Stepper(document.querySelector('#stepper-credito'));
@@ -84,6 +94,7 @@ function CalcularCuotasPr(){
 	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
 	wPrestamo.cuota = parseFloat( cuota ).toFixed(2);
+	wPrestamo.periodo = "MENSUAL"
 
 	$("#txtCuotaMensual").val(wPrestamo.cuota);
 }
@@ -110,6 +121,7 @@ function TablaAmortizacion(){
 	wPrestamo.cuota = parseFloat(parseFloat( cuota ).toFixed(2));
 	wPrestamo.capital =  parseFloat(parseFloat( monto ).toFixed(2));
 	wPrestamo.montoaprobado =  parseFloat(parseFloat( monto ).toFixed(2));
+	wPrestamo.cantidad = periodo
 	//$("#txtCuotaMensual").val(prestamo.cuota);
 	var fecha = new Date();
 	var ano = fecha.getFullYear();
@@ -128,7 +140,8 @@ function TablaAmortizacion(){
 		lstC.interes =  parseFloat(parseFloat( ainteres ).toFixed(2));
 		lstC.capital =  parseFloat(parseFloat( capital ).toFixed(2));
 		lstC.saldo =  parseFloat(parseFloat( saldo ).toFixed(2));
-		lstC.fecha = '01-' + mess + '-' + ano + ''
+		lstC.fecha = '01-' + mess + '-' + ano;
+		lstC.estatus = 0;
 		
 		wPrestamo.cuotas.push(lstC);
 		totalInteres += ainteres;
@@ -169,7 +182,8 @@ function TablaAmortizacion(){
 	wPrestamo.concepto =  $("#cmbConceptoPr option:selected").text();
 	wPrestamo.cedula = ObjMilitar.id;
 	wPrestamo.sueldo = $("#txtSueldoPr").val();
-	wPrestamo.fechaparobado = new Date(Util.ConvertirFechaUnix($("#txtFechaAprobacion").val())).toISOString();
+	wPrestamo.fechaaprobado = new Date(Util.ConvertirFechaUnix($("#txtFechaAprobacion").val())).toISOString();
+	wPrestamo.fechacreacion = new Date().toISOString();
 }
 
 
@@ -250,6 +264,27 @@ function HTMLTblAmortizacion(){
 	</table>`;
 }
 
+
+function HTMLTblAmortizacionCP(){
+	return `
+	<table id="tblPrestamoCP" class="ui celled table table-bordered table-striped dataTable" width="100%">
+		<thead>
+			<tr>
+				<th style="width:30px">ACCION</th>
+				<th>BALANCE</th>
+				<th>CUOTA</th>
+				<th>INTERES</th>                                            
+				<th>CAPITAL</th>                   
+				<th>SALDO</th>
+				<th>FECHA</th>
+			</tr>
+		</thead>
+		<tbody>
+		</<tbody>
+	</table>`;
+}
+
+
 function HTMLTblAmortizacionPrint(){
 	return `
 	<table id="tblPrestamoAux" class="ui celled table table-bordered table-striped dataTable" width="100%">
@@ -288,7 +323,7 @@ function PrResumen(){
 
 	var administrativo =  ( parseFloat(wPrestamo.capital)  * 1) /100
 	$("#txtPorcentajePrT").val(  parseFloat( administrativo ).toFixed(2) );
-	wPrestamo.porcentajeseguro =  parseFloat( parseFloat( $("#txtAportePr").val()).toFixed(2) );
+	wPrestamo.porcentajeseguro =  parseFloat( parseFloat( $("#txtPorcentajePrT").val()).toFixed(2) );
 
 	var deposito = (parseFloat( wPrestamo.capital ) *1 ) - parseFloat( administrativo ) *1;
 	$("#txtDepositoPrT").val(   parseFloat( deposito ).toFixed(2) );
@@ -330,4 +365,84 @@ function PrGuardar(){
 	var wPrestamosPersona = new PrestamoPersonal();
 	console.log(wPrestamo);
 	CargarAPI(Conn.URL + "credito/crud" , "POST", wPrestamo, wPrestamosPersona);
+}
+
+
+
+function ListaCreditoHTML(){
+	var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblCredito" >
+        <thead class="familiares">
+        <tr>
+			<th>NRO.</th>
+			<th>TIPO</th>        
+			<th>CUENTA</th>
+			<th>FECHA</th>
+			<th>COUTA</th>
+			<th>MONTO CREDITO</th>
+			<th>ESTATUS</th>
+			<th>#</th>
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
+
+function MostrarCredito(Credito, tCre){
+    var i = 0;
+    $.each( Credito.Prestamo, function (cl, val) {
+		$.each(val, function(c, v){
+			var oid = v.oid!=undefined?v.oid:'';
+			var conc = v.concepto!=undefined?v.concepto.toUpperCase():'';
+			var banc = v.Banco.cuenta!=undefined?v.Banco.cuenta:'';        
+			var estatus = v.estatus!=undefined?v.estatus:'PENDIENTE';
+			
+			if(estatus == 1){
+				estatus = "PROCESADO"
+			}else if (estatus == 2){
+				estatus = "CANCELADO"
+			}
+			tCre.row.add([
+				oid,
+				conc,
+				banc,
+				Util.ConvertirFechaHumana(v.fechacreacion),
+				accounting.formatMoney(v.cuota, "Bs. ", 2, ".", ","),
+				accounting.formatMoney(v.montoaprobado, "Bs. ", 2, ".", ","),
+				estatus,
+				i
+			]).draw(false);
+			i++;
+		});
+    });
+    tCre.column(7).visible(false);
+    //tCre.column(8).visible(false);
+    $('#tblCredito tbody').on('dblclick', 'tr', function () {        
+		var data = tCre.row(this).data();
+		$("#mdlCreditoPrestamo").modal('show');
+		$("#_TblAmortizacionCreditoPrestamo").html(HTMLTblAmortizacionCP());
+		var t = $('#tblPrestamoCP').DataTable(opcionesCreditoPrestamo);
+		var cuotas = ObjMilitar.Credito.Prestamo.Personal[data[7]].cuotas;
+		t.clear().draw();
+		var i = 1;
+
+		$.each(cuotas, function(c, v){
+			var saldo = v.saldo!=undefined?v.saldo:'';
+			var cuota = v.cuota!=undefined?v.cuota:'';
+			var capital = v.capital!=undefined?v.capital:'';
+			var interes = v.interes!=undefined?v.interes:'';
+			t.row.add([
+				i,
+				v.balance,
+				cuota,
+				interes,
+				capital,
+				saldo,
+				v.fecha
+			]).draw(false);
+			i++;
+		});
+
+	});
 }

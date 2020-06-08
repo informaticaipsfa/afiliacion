@@ -662,8 +662,7 @@ class CPersonal{
 		this.porcentajeseguro = 0.00;
 		this.totaldepositar = 0.00;
 		this.fechacreacion = "";
-		this.fechaparobado = "";
-		
+		this.fechaaprobado = "";		
 	}
 	
 	Crear(){
@@ -1026,14 +1025,21 @@ class Militar{
 				}
 				$("#_tblDescuentos").html(DescuentosHTML());
 				$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
-				var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);
-				
+				var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);				
 				tMJ.clear().draw();
 				MostrarMedidaJudicial(militar.Pension.MedidaJudicial, tMJ);
+				
+				
+				
 				
 				var DPen = $('#tblDescuentos').DataTable(tablaBasica);
 				DPen.clear().draw();
 				MostrarDescuentos(militar.Pension.Descuentos, DPen);
+
+				$("#_tblCredito").html(ListaCreditoHTML());
+				var tCre = $('#tblCredito').DataTable(tablaBasica);				
+				tCre.clear().draw();
+				MostrarCredito(militar.Credito, tCre);
 			}
 			
 	}
