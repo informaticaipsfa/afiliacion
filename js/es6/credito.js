@@ -357,8 +357,8 @@ class PrestamoPersonal{
 	constructor(){}
 	Crear(req){
 		console.log(req);
-
-		$("#mdlCreditoPrestamo").modal('hide');
+		$('#mdlCredito').modal('hide');
+		//$("#mdlCreditoPrestamo").modal('hide');
 		$("#txtConceptoPrT").val( '' );
 		$("#txtCuotaPrT").val('');
 		$("#txtInteresPrT").val('');
@@ -370,6 +370,8 @@ class PrestamoPersonal{
 		$("#txtPagosPrT").val('');
 		$("#txtPorcentajePrT").val('');
 		$("#txtDepositoPrT").val('');
+		alertNotifyCredito('Proceso exitoso', 'success');
+
 	}
 }
 
@@ -458,4 +460,18 @@ function MostrarCredito(Credito, tCre){
 		});
 
 	});
+}
+
+
+
+function alertNotifyCredito (msj, color){
+    $.notify(
+        {
+            title: '<strong>Proceso de Crédito!</strong>',
+            message: msj
+        },
+        {
+            type: color
+        } 
+    );
 }

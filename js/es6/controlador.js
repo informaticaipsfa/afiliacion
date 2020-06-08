@@ -505,3 +505,12 @@ function SolicitudCredito() {
 function LiberarCarnet() {
   $("#ModuloTitulo").html("Liberación de Carnet's");
 }
+
+
+/**
+ * Envio de crédito por operaciones
+ *
+ **/
+function CrCobranza(){
+  $("#ModuloTitulo").html("Envio de Cobranza");
+}
