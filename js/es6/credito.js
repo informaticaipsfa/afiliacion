@@ -357,13 +357,26 @@ class PrestamoPersonal{
 	constructor(){}
 	Crear(req){
 		console.log(req);
+
+		$("#mdlCreditoPrestamo").modal('hide');
+		$("#txtConceptoPrT").val( '' );
+		$("#txtCuotaPrT").val('');
+		$("#txtInteresPrT").val('');
+		
+		$("#txtTotalInteresPrT").val('');
+		$("#txtCapitalPrT").val('');
+		$("#txtAportePrT").val('');
+		$("#txtPlazoPr").val('');
+		$("#txtPagosPrT").val('');
+		$("#txtPorcentajePrT").val('');
+		$("#txtDepositoPrT").val('');
 	}
 }
 
 
 function PrGuardar(){
 	var wPrestamosPersona = new PrestamoPersonal();
-	console.log(wPrestamo);
+	
 	CargarAPI(Conn.URL + "credito/crud" , "POST", wPrestamo, wPrestamosPersona);
 }
 
