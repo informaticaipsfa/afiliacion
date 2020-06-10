@@ -181,6 +181,9 @@ function TablaAmortizacion(){
 	wPrestamo.Banco.cuenta = ObjMilitar.Persona.DatoFinanciero[0].cuenta;
 	wPrestamo.concepto =  $("#cmbConceptoPr option:selected").text();
 	wPrestamo.cedula = ObjMilitar.id;
+	var nombre = ObjMilitar.Persona.DatoBasico.nombreprimero + ' ' + ObjMilitar.Persona.DatoBasico.nombresegundo;
+	var apelli = ObjMilitar.Persona.DatoBasico.apellidoprimero + ' ' + ObjMilitar.Persona.DatoBasico.apellidosegundo;
+	wPrestamo.nombre = nombre + ' ' + apelli;
 	wPrestamo.sueldo = $("#txtSueldoPr").val();
 	wPrestamo.fechaaprobado = new Date(Util.ConvertirFechaUnix($("#txtFechaAprobacion").val())).toISOString();
 	wPrestamo.fechacreacion = new Date().toISOString();
@@ -358,6 +361,7 @@ class PrestamoPersonal{
 	Crear(req){
 		console.log(req);
 		$('#mdlCredito').modal('hide');
+		$('#mdlPrestamo').modal('hide');
 		//$("#mdlCreditoPrestamo").modal('hide');
 		$("#txtConceptoPrT").val( '' );
 		$("#txtCuotaPrT").val('');
@@ -389,13 +393,33 @@ function ListaCreditoHTML(){
         <thead class="familiares">
         <tr>
 			<th>NRO.</th>
+			<th>CEDULA</th>
+			<th>NOMBRE</th>
+			<th>CONCEPTO</th>
 			<th>TIPO</th>        
 			<th>CUENTA</th>
-			<th>FECHA</th>
-			<th>COUTA</th>
 			<th>MONTO CREDITO</th>
-			<th>ESTATUS</th>
-			<th>#</th>
+			<th>FECHA</th>
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
+
+function ListaCreditoHTMLZ(){
+	var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblCreditoZ" >
+        <thead class="familiares">
+        <tr>
+			<th>NRO.</th>
+			<th>CEDULA</th>
+			<th>NOMBRES Y APELLIDOS</th>
+			<th>CONCEPTO</th>
+			<th>TIPO</th>     
+			<th>CUENTA</th>
+			<th>MONTO CREDITO</th>
+			<th>FECHA</th>
         </tr>
         </thead >
         <tbody>
@@ -405,7 +429,8 @@ function ListaCreditoHTML(){
 }
 
 function MostrarCredito(Credito, tCre){
-    var i = 0;
+	var i = 0;
+	console.log(Credito);
     $.each( Credito.Prestamo, function (cl, val) {
 		$.each(val, function(c, v){
 			var oid = v.oid!=undefined?v.oid:'';
@@ -430,7 +455,8 @@ function MostrarCredito(Credito, tCre){
 			]).draw(false);
 			i++;
 		});
-    });
+	});
+	
     tCre.column(7).visible(false);
     //tCre.column(8).visible(false);
     $('#tblCredito tbody').on('dblclick', 'tr', function () {        
@@ -474,4 +500,60 @@ function alertNotifyCredito (msj, color){
             type: color
         } 
     );
+}
+
+
+/**
+ * Guardar Prestamo 
+ */
+
+
+class WListarPP{
+	constructor(){
+		this.fecha = '';
+	}
+
+
+	Crear(req){
+		console.log(req);
+		$("#_tblLstCredito").html(ListaCreditoHTMLZ());
+		var t = $('#tblCreditoZ').DataTable();
+		t.clear().draw();
+		var fila = 1;
+
+		req.forEach(e => {
+			t.row.add([
+				fila, //#
+				e.cedula, //Balance
+				e.nombre, //Cuota
+				e.concepto, //Interes
+				e.tipo, //Capital
+				e.cuenta,
+				e.monto,
+				Util.ConvertirFechaHumana(e.fecha)
+			]).draw(false);
+			
+			
+		});
+
+		alertNotifyCredito('Proceso exitoso', 'success');
+
+	}
+
+	Obtener(){
+		return this;
+	}
+
+}
+
+
+
+function ListarNominasCredito(){
+	var wListarPP = new WListarPP();
+	wListarPP.fecha = $("#cmbSolicitud").val();
+
+	//console.log( wListarPP.Obtener() );
+
+	CargarAPI(Conn.URL + "credito/listar" , "POST", wListarPP.Obtener(), wListarPP);
+
 }

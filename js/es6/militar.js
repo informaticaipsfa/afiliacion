@@ -646,6 +646,7 @@ class Cuota{
 class CPersonal{
 	constructor(){
 		this.cedula = '';
+		this.nombre = '';
 		this.capital = 0.0;
 		this.montoaprobado = 0.0;
 		this.cantidad = 0;
