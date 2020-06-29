@@ -1,5 +1,5 @@
 let _LSTNOMINAS = {};
-let _ANOACTUAL = new Date().getUTCFullYear();
+
 
 function PrepararPago(){
     $("#ModuloTitulo").html("&nbsp;&nbsp;&nbsp;&nbsp;Gestionar Pagos");

@@ -1,3 +1,62 @@
+let estiloCSSCredito = `
+	<style>
+		@charset "utf-8";
+		@page {
+			margin: 1.5cm;
+			margin-bottom: 0.8cm;
+			margin-top: 0.8cm;
+			size: letter;
+		}
+		section {
+			page-break-before: always;
+		}
+		body {
+			margin: 0px;
+			font-family: Calibri;
+			
+		}
+		.baner {
+			text-align: center;
+			line-height: 22px; 
+			font-size: 13px; 
+		}
+		p {
+			text-align: justify;
+			line-height: 22px; 
+			font-size: 12px;
+		}
+		.wrapper {
+			min-height: 100%;
+			height: auto !important;
+			height: 100%;
+			margin: 0 auto -5em;
+		}
+		.footer, .push {
+			height: 5em;
+			font-size: 10px;
+		}
+		ul, img, table {
+			page-break-inside: avoid;
+			font-size: 12px;
+			
+		}
+		tr    { 
+			page-break-inside:auto; 
+		}
+		
+		.documentoCss {
+			font-size: 12px;
+		}
+		
+		table.documentoCss th, table.documentoCss td{
+			border: 1px solid #CCCCCC;
+			border-spacing: 0.5rem;
+			border-collapse: collapse;
+		}
+	</style>
+	
+`
+
 let opcionesCredito = {
 	ordering: 		false,
     paging: 		false, 
@@ -156,7 +215,7 @@ function TablaAmortizacion(){
 			'01-' + mess + '-' + ano 
 		]).draw(false);
 		
-		$("#tblPrestamoAuxBody").append(`<tr>
+		$("#tblPrestamoAuxBody").append(`<tr ">
 			<td>${ fila }</td>
 			<td>${ numeral( parseFloat(monto,2)).format('0,0.00') }</td>
 			<td>${ numeral( parseFloat(cuota,2)).format('0,0.00') }</td>
@@ -241,7 +300,7 @@ function HTMLTblCabecera(){
 					<td colspan=4></td>
 					
 				</TR>
-		</table>
+		</table><br>
 
 	`
 	
@@ -290,9 +349,9 @@ function HTMLTblAmortizacionCP(){
 
 function HTMLTblAmortizacionPrint(){
 	return `
-	<table id="tblPrestamoAux" class="ui celled table table-bordered table-striped dataTable" width="100%">
-		<thead>
-			<tr>
+	<table id="tblPrestamoAux" cellspacing=0 celladding=0 width="100%" class="documentoCss" >
+		<thead >
+			<tr >
 				<th>#</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
@@ -302,7 +361,7 @@ function HTMLTblAmortizacionPrint(){
 				<th>FECHA</th>
 			</tr>
 		</thead>
-		<tbody id="tblPrestamoAuxBody">
+		<tbody id="tblPrestamoAuxBody" >
 
 		</<tbody>
 	</table>`;
@@ -335,6 +394,9 @@ function PrResumen(){
 	StepperPrestamo.next();
 }
 
+
+
+
 function PrImprimir(){
 	
 	$("#divPrCabecera").html(HTMLTblCabecera());
@@ -344,7 +406,7 @@ function PrImprimir(){
 	var html = $("#_rptprestamos").html();
     var ventana = window.open("", "_blank");
     ventana.document.write(html);
-    ventana.document.head.innerHTML = estiloCSSDocumentos;
+    ventana.document.head.innerHTML = estiloCSSCredito;
     ventana.print();
     ventana.close();
 }
@@ -393,12 +455,12 @@ function ListaCreditoHTML(){
         <thead class="familiares">
         <tr>
 			<th>NRO.</th>
-			<th>CEDULA</th>
-			<th>NOMBRE</th>
 			<th>CONCEPTO</th>
-			<th>TIPO</th>        
 			<th>CUENTA</th>
+			<th>FECHA</th>
+			<th>CUOTA</th>        
 			<th>MONTO CREDITO</th>
+			<th>ESTATUS</th>
 			<th>FECHA</th>
         </tr>
         </thead >

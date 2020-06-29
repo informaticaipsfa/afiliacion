@@ -94,6 +94,7 @@ function verificarPrivilegioUsuario(){
 
 
 
+let _ANOACTUAL = new Date().getUTCFullYear();
 
 let FrmValidar = false;
 let Usuario = {};
@@ -459,9 +460,7 @@ function PrepararNomina(){
 
 function PrepararCalculadora(){
   CargarUrl("_cuerpo", "afi/calculadora"); 
-  $("#ModuloTitulo").html("Calculadora");
-  
-  
+  $("#ModuloTitulo").html("Calculadora");  
 }
 
 
@@ -514,3 +513,9 @@ function LiberarCarnet() {
 function CrCobranza(){
   $("#ModuloTitulo").html("Envio de Cobranza");
 }
+
+function PrepararRetroactivo(){
+  CargarUrl("_cuerpo", "afi/retroactivo"); 
+  $("#ModuloTitulo").html("Pagar Retroactivo");  
+}
+
