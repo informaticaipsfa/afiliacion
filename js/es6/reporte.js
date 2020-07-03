@@ -326,8 +326,9 @@ class WSolvenciaR{
         var s = numeral(n).format('0.0,');
         var r1 = s.replace('.', '#');
         var r2 = r1.replace(',', '.');
-        var r3 = r2.replace('#', ',');
-        $("#montocp").html( r3 );
+        var r3 = r2.replace(',', '.');
+        var r4 = r3.replace('#', ',');
+        $("#montocp").html( r4 );
 
         var fechaActual = ConvertirFechaActual();
         $("#lblfchActual").text(fechaActual);
