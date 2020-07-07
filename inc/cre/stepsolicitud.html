@@ -188,28 +188,23 @@
                             </select>
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <label>Sueldo:</label>
+                            <label>Sueldo neto:</label>
                             <input id="txtSueldoPr" class="form-control" type="text" onblur="PrCalcularPorcentaje()">                            
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Aporte de Capital:</label>
-                            <input id="txtAportePr" class="form-control" type="text" value="0">                            
+                            <label>Aporte de capital:</label>
+                            <input id="txtAportePr" class="form-control" type="text" value="0" disabled="disabled">                            
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Monto:</label>
+                            <label>Monto a ortorgar:</label>
                             <input id="txtMontoPr" class="form-control" type="text" onclick="CrHideAlert()">
                         </div>
 
                         <div class="col-md-3 col-sm-12">
-                            <label >Cuotas por años:</label>
+                            <label >Plazo en años:</label>
                             <select class="js-states form-control" style="width: 100%" 
                                 required aria-hidden="true" id="cmbCuotasPr" >
                                 <option value="1" selected="selected">1 </option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
                             </select>
                         </div>
  
@@ -239,11 +234,10 @@
                                 <select class="js-states form-control" style="width: 100%" 
                                     required aria-hidden="true" id="cmbPorcentajeAdm"   disabled="disabled">
                                     <option value="1" selected="selected">1% DE AUTOSEGURO</option>
-                                    <option value="2">1% DE GASTOS ADMINISTRATIVOS</option>
                                 </select>
                             </div>
                             <div class="col-md-3 col-sm-3">
-                                <label>Cuota máxima mensual:</label>
+                                <label>Capacidad máxima mensual:</label>
                                 <input id="txtCuotaMaxima" class="form-control" type="text" disabled="disabled">
                             </div>
                             <div class="col-md-3 col-sm-3">

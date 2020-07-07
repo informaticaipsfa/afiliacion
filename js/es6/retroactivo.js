@@ -60,7 +60,7 @@ class WMesRetroactivo {
         var rs = req.rs;
         $("#cmbMesActivo").html("");
         rs.forEach(e => {
-            $("#cmbMesActivo").append(`<option value="${e.mes}">${e.desd + " | " + e.mes} </option>`);
+            $("#cmbMesActivo").append(`<option value="${e.desd.substr(0,10) + " | " + e.mes}">${e.desd.substr(0,10) + " | " + e.mes} </option>`);
         });
         $("#_cargando").hide();
     }
@@ -154,15 +154,22 @@ class WNominaRetroactivo {
         return this;
     }
 }
+
+
+
+
 function CargarNominasPR(){
     
     var Obj = new WNominaRetroactivo();
     var url = Conn.URL + "nomina/mes/detalle";
     Obj.tipo = $("#txtSituacion").val();
-    Obj.mes = $("#cmbMesActivo").val();
+    var arr = $("#cmbMesActivo").val().split("|", -1);
+    Obj.mes = arr[1].trim();
     Obj.ano = parseInt($("#cmbAnoActivo").val());
     Obj.cedula = $("#txtcedula").val();
     $("#_cargando").show();
+    $("#btnAsociar").show();
+    console.log(Obj);
     CargarAPI(url, "POST", Obj.Obtener(), Obj);
 
 }
@@ -179,3 +186,100 @@ function calcularRetroactivo(){
 
 }
 
+
+/**
+ * ***************************************
+ * Generar calculos para retroactivo
+ * 
+ */
+class XWNomina {
+    constructor(){
+        this.id = '';
+        this.cedula = '';
+        this.nombre = '';
+        this.tipo = '';
+        this.directiva = '';
+        this.fechainicio = '';
+        this.fechafin = '';
+        this.mes = '';
+        this.Concepto = [];
+        this.fecha = '';
+    }
+    Crear(req){
+        waitingDialog.hide();
+        alertNotify('Proceso exitoso', 'success');
+        
+
+        //console.error( req.sql );
+        console.info( JSON.parse( req.js ) );
+        // $("#_nominalista").html(`
+            
+        //     Total de Asignacion: ${req.asignacion}<br> 
+        //     Total de Deducciones: ${req.deduccion}<br>
+        //     Total Neto a pagar: ${req.neto}<br> <br>
+        //     <h4>
+        //     Total de activos: ${req.total}<br>
+            
+        //     Pensionados a cobrar: ${req.operados}<br>
+        //     Pensionados sin pago: ${req.sinpagos}<br>
+        //     Incidencias: ${req.incidencias}<br>
+        //     Paralizados: ${req.paralizados}<br>
+        //     Total de registros procesados: ${req.registros}<br>
+        //     </h4><br><br>
+        //     Codigo Hash de seguridad: ${req.md5}<br>
+        // `);
+
+        $("#mdlNominaLista").modal("show");
+        
+
+    }
+    Obtener(){
+        return this;
+    }
+}
+
+function operarRetroactivos(){
+    var Nom = new XWNomina();
+    
+    var Tbls = $('#tblConcepto').DataTable();
+    var t = Tbls.rows('.selected').data();
+    Nom.id  = '';
+    Nom.cedula = $("#txtcedula").val();
+    Nom.directiva = 'TODAS';
+    Nom.nombre = 'NOMINA MENSUAL';
+    Nom.tipo = $("#txtSituacion").val();
+    var arr = $("#cmbMesActivo").val().split("|", -1);
+    Nom.fecha = arr[0].trim();
+    Nom.mes = arr[1].trim();
+    Nom.codigo = MD5(Nom.cedula + Nom.directiva + Nom.nombre + Nom.tipo + Nom.fecha + Nom.mes);
+    Nom.fechainicio = Nom.fecha;
+    var fp = Nom.fecha.split("-", -1);
+    var d = new Date();
+    d.setFullYear(fp[0], fp[1], 0);
+    Nom.fechafin = d.toJSON().substring(0,10);
+    var i = 0;
+    $.each(t, function(c, v){
+        var Concepto = new WConcepto(); //Modulo: nomina.js
+        console.log(v[4]);
+        if (v[4] != 'PAGADA'){
+            i++;
+            Concepto.codigo = v[1];
+            Concepto.nombre = v[2];
+            Concepto.partida = v[3];
+            Concepto.cuenta = v[4];
+            Nom.Concepto.push(Concepto);
+        }
+
+    });
+    
+    if(i > 0){
+        var ruta = Conn.URL + "nomina/gretroctivo";
+        $('#mdlPrepararNomina').modal('hide');
+        waitingDialog.show('Creando nómina por favor espere...');
+        CargarAPI(ruta, "POST", Nom, Nom);
+    }else{
+        alertNotify('El pago ya fue procesado...', 'warning');
+        waitingDialog.hide();
+        return false;
+    }
+}

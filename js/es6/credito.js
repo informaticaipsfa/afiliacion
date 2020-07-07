@@ -78,7 +78,8 @@ let opcionesCreditoPrestamo = {
 };
 
 
-
+var cantVehi = 20;
+var cantHipo = 20;
 function IniciarCredito(estatus){
     StepperCredito = new Stepper(document.querySelector('#stepper-credito'));
 	$('#mdlCredito').modal('show');
