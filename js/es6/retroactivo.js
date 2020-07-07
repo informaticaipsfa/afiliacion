@@ -187,6 +187,7 @@ function calcularRetroactivo(){
 }
 
 
+let CalculosRetroactivos = [];
 /**
  * ***************************************
  * Generar calculos para retroactivo
@@ -209,9 +210,15 @@ class XWNomina {
         waitingDialog.hide();
         alertNotify('Proceso exitoso', 'success');
         
-
-        //console.error( req.sql );
-        console.info( JSON.parse( req.js ) );
+        // console.info( JSON.parse( req.js ) );
+        var arr = $("#cmbMesActivo").val().split("|", -1);
+        var rs = JSON.parse( req.js );
+        CalculosRetroactivos.push( { 
+            'mes': arr[1].trim(),
+            'valor': rs.conceptos,
+            'asignacion': rs.asignaciones,
+            'deduccion': rs.deducciones
+        } );
         // $("#_nominalista").html(`
             
         //     Total de Asignacion: ${req.asignacion}<br> 
