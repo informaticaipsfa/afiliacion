@@ -70,6 +70,8 @@ class WMesRetroactivo {
 }
 
 function CargarMesPR(){
+    CalculosRetroactivos = [];
+    $("#btnDisplay").hide();
     if (  parseInt($("#cmbAnoActivo").val()) == 0 ){
         return false; 
     }
@@ -209,34 +211,33 @@ class XWNomina {
     Crear(req){
         waitingDialog.hide();
         alertNotify('Proceso exitoso', 'success');
-        
+
+        limpiarConceptosR();
         // console.info( JSON.parse( req.js ) );
         var arr = $("#cmbMesActivo").val().split("|", -1);
         var rs = JSON.parse( req.js );
         CalculosRetroactivos.push( { 
             'mes': arr[1].trim(),
             'valor': rs.conceptos,
-            'asignacion': rs.asignaciones,
-            'deduccion': rs.deducciones
+            'asignacion': parseFloat(rs.asignaciones),
+            'deduccion': parseFloat(rs.deducciones)
         } );
-        // $("#_nominalista").html(`
-            
-        //     Total de Asignacion: ${req.asignacion}<br> 
-        //     Total de Deducciones: ${req.deduccion}<br>
-        //     Total Neto a pagar: ${req.neto}<br> <br>
-        //     <h4>
-        //     Total de activos: ${req.total}<br>
-            
-        //     Pensionados a cobrar: ${req.operados}<br>
-        //     Pensionados sin pago: ${req.sinpagos}<br>
-        //     Incidencias: ${req.incidencias}<br>
-        //     Paralizados: ${req.paralizados}<br>
-        //     Total de registros procesados: ${req.registros}<br>
-        //     </h4><br><br>
-        //     Codigo Hash de seguridad: ${req.md5}<br>
-        // `);
 
-        $("#mdlNominaLista").modal("show");
+        var prc = calcularConceptosR();
+        
+        $("#txtDetalles").html(`<p style="text-align: left;">            
+            Total de Asignacion: ${ numeral(parseFloat(prc.asignacion,2)).format('0,0.00')  }<br> 
+            Total de Deducciones: ${  numeral(parseFloat(prc.deduccion,2)).format('0,0.00') }<br><br>
+            Total de meses procesados: ${prc.cantidad}<br><br>
+            <h3 style="text-align: left;">
+            Total Neto a pagar: ${  numeral(parseFloat(prc.neto,2)).format('0,0.00') }&nbsp;&nbsp;<br> <br>
+            </h3>
+            </p>
+           
+        `);
+
+        $("#btnDisplay").show();
+        //$("#mdlNominaLista").modal("show");
         
 
     }
@@ -244,10 +245,49 @@ class XWNomina {
         return this;
     }
 }
+function calcularConceptosR(codigo){
+    var i = 0;
+    var totalA = 0;
+    var totalD = 0;
+    CalculosRetroactivos.forEach(e => {
+        totalA += e.asignacion;
+        totalD += e.deduccion;
+        i++;
+    });
+    return {
+        "asignacion": totalA,
+        "deduccion": totalD,
+        "neto": totalA - totalD,
+        "cantidad": i
+    };
+     
+}
+function validarConceptosR(){
+    var resp = false;
+    var arr = $("#cmbMesActivo").val().split("|", -1);
+    CalculosRetroactivos.forEach(e => {
+        if (e.mes == arr[1].trim()){
+            resp = true;
+        }
+    });
+    return resp;
+}
+
+function limpiarConceptosR(){
+    $("#_TblConceptos").html(TableHtmlRectroactivo());        
+    var t = $('#tblConcepto').DataTable(opcionesRetroactivo);
+    t.clear().draw();
+    $("#btnAsociar").hide();
+}
+
 
 function operarRetroactivos(){
-    var Nom = new XWNomina();
-    
+    if (validarConceptosR() == true){
+        alertNotify('Este calculo ya se ha procesado intente otro mes...', 'success');
+        limpiarConceptosR();
+        return false;
+    }
+    var Nom = new XWNomina();        
     var Tbls = $('#tblConcepto').DataTable();
     var t = Tbls.rows('.selected').data();
     Nom.id  = '';
@@ -282,11 +322,228 @@ function operarRetroactivos(){
     if(i > 0){
         var ruta = Conn.URL + "nomina/gretroctivo";
         $('#mdlPrepararNomina').modal('hide');
-        waitingDialog.show('Creando nómina por favor espere...');
+        waitingDialog.show('Calculado retroactivo por favor espere...');
         CargarAPI(ruta, "POST", Nom, Nom);
     }else{
         alertNotify('El pago ya fue procesado...', 'warning');
         waitingDialog.hide();
         return false;
     }
+}
+
+function registrarRetroactivos(){
+    $("#_contenido").html("Esta seguro que desea registrar el siguiente pago en la nómina del mes próximo");
+    $("#_botonesmsj").html(`
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="_aceptar" onClick="registrarEnNomina()">Aceptar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="_cancelar" onClick="cancelarEnNomina()">Cancelar</button>
+    `);
+    $("#modMsj").modal("show");
+    return false;
+}
+
+function registrarEnNomina(){
+    $("#modMsj").modal("hide");
+}
+function cancelarEnNomina(){
+    $("#modMsj").modal("hide");
+}
+
+function imprimirRetroactivo(){
+    var e = sessionStorage.getItem("ipsfaToken");
+    var s = e.split(".");
+    var json = JSON.parse(atob(s[1]));
+    Usuario = json.Usuario;
+    
+
+    var ventana = window.open("", "_blank");
+    // style="background: url('../images/fondo.png') no-repeat center;"
+    var grado = $("#txtGradoT").val();
+    var nombre = $("#txtNombre").val();
+    var cedula = $("#txtcedula").val();
+    var fingreso = $('#txtFIngreso').val();
+    var fretiro = $('#txtFRetiro').val();
+    var fultimo = $('#txtFUAscenso').val();
+    var servicio = $('#txtServicioT').val();
+    var hijos = $('#txtNumHijos').val();
+    var antiguedad = $('#txtAntiguedad').val();
+    var porcentaje = $('#txtPension').val();
+    var ano = $("#cmbAnoActivo").val();
+    var localtime = new Date().toLocaleString();
+    var detalle = detalleConceptosR();
+    ventana.document.write(`<center>
+    <div>
+        <table style="width:800px" class="membrete">
+            <tr>
+                <td width="200px" valign="top"><center><img  style="width: 100px;height: 100px; margin-left: 0px" 
+                class="img-responsive file-path-wrapper-pre-view" src="images/logo_ipsfa.png" id="_imgescudo"/></center>
+                </td>
+                <td width="400px">
+                    <center>
+                    REPÚBLICA BOLIVARIANA DE VENEZUELA <BR>
+                    MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
+                    VICEMINISTERIO DE SERVICIOS, PERSONAL Y LOGÍSTICA<BR>
+                    DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
+                    INSTITUTO DE PREVISIÓN SOCIAL DE LA FUERZA ARMADA<BR>
+                    RIF: G20003692-3
+                    </center>
+                </td>
+            <td width="200px" valign="top"></td>
+            </tr>
+        </table >
+        <h3>MILITAR TITULAR<BR>
+            CALCULOS CORRESPONDIENTE PARA EL PAGO
+        </h3>
+        <br>
+        <table style="width:800px" class="tablaneto">
+        <tr>
+            <td align="center"><b>GRADO</b><BR>${grado}</td>
+            <td colspan="2" align="center"><b>APELLIDOS Y NOMBRES</b><BR><label id="nombre">${nombre}</label></td>
+            <td align="center"><b>N° DE CEDULA</b><BR><label>${cedula}</label></td>
+        </tr>
+        <tr>
+            <td align="center"><b>FECHA INGRESO</b><BR>${fingreso}</td>
+            <td align="center"><b>FECHA RETIRO</b><BR><label id="nombre">${fretiro}</label></td>
+            <td align="center"><b>F. ULT. ASCENSO</b><BR><label>${fultimo}</label></td>
+            <td align="center"><b>TIEMPO SERVICIO</b><BR><label>${servicio}</label></td>
+        </tr>
+        <tr>
+            <td align="center"><b>ANTIGUEDAD</b><BR>${antiguedad}</td>
+            <td align="center"><b>PORCENTAJE</b><BR><label>${porcentaje}</label></td>
+            <td align="center"><b>NUMERO HIJOS</b><BR><label>${hijos}</label></td>
+            <td align="center"><b>AÑO ACTIVO</b><BR><label>${ano}</label></td>
+        </tr>
+        </table>
+        <br>
+        
+    </div><br>
+    ${ detalle }
+    <br><br>
+    <h3>APROBADO POR<BR></h3>
+    ${Usuario.nombre} / ${localtime}<br>
+    <button id="btnPrint" onClick="javascript:window.print();">Imprimir Reporte</buttton>
+    `);
+
+
+    ventana.document.head.innerHTML = ` <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SSSIFANB</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+        body{
+            font-family: Arial, Calibre;
+            font-size: 11px;
+        }
+        table{
+            border-collapse: collapse;
+            font-family: Arial, Calibre;
+            font-size: 10px;
+        }
+        .tablaneto {
+            border-collapse: collapse;
+        } 
+        .tablaneto tr{
+            border: 1px solid #CCCCCC;
+        } 
+        .tablaneto td {
+            border: 1px solid #CCCCCC;
+        } 
+        .tablaneto th {
+            border: 1px solid #CCCCCC;
+        }
+
+        .tablanetos {
+            border-collapse: collapse;
+            font-family: Arial, Calibre;
+            font-size: 11px;
+        } 
+        .tablanetos tr{
+            border: 1px solid #CCCCCC;
+        } 
+        .tablanetos td {
+            border: 1px solid #CCCCCC;
+            font-size: 11px;
+        } 
+        .tablanetos th {
+            border: 1px solid #CCCCCC;
+            background-color: #CCCCCC;
+        } 
+        @media print {
+            div {
+                background-position: 180px;
+                background: url('../images/fondo.png') no-repeat center;
+            }
+        }
+    </style>
+     `;
+}
+
+function detalleConceptosR(){
+    var table = '';
+    
+    var porcentaje = $("#txtPension").val();
+    CalculosRetroactivos.forEach(e => {
+        var fila = '';
+        table += `<H3>DESCRIPCION: PAGO CORRESPONDIENTE AL MES DE ${e.mes}</H3><table class="tablanetos" style="width:800px">
+        <thead>
+        <tr>
+            <th align="center" style="width:440px">CONCEPTO</th>
+            <th align="center" style="width:120px">CALCULOS</th>
+            <th align="left" style="width:120px">ASIGNACIONES</th>
+            <th align="center" style="width:120px">DEDUCCIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        `;
+        e.valor.forEach(x => {
+            
+            var montostr = accounting.formatMoney(x.mont, "Bs. ", 2, ".", ",");
+            var des = x.desc.replace("_", " ").toUpperCase();;
+            var tipo = x.tipo;
+            if(x.tipo == 97){                 
+                //totalAsignacion += monto;
+                
+                fila += `
+                    <tr>
+                        <td align="left" style="width:350px">&nbsp;&nbsp;${des}</td>
+                        <td align="right" style="width:150px">${montostr}&nbsp;&nbsp;</td>
+                        <td align="right" style="width:150px"></td>
+                        <td align="right" style="width:150px"></td>
+                    </tr>`;
+                
+            }else{
+                if(tipo == 1){ //Asignacion   
+                    var sueldomensual = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
+                    if( des == "SUELDO MENSUAL" ){
+                        sueldomensual = `PENSIÓN MENSUAL ( ${porcentaje} % )`;                    
+                    } 
+                    fila += `
+                        <tr>
+                            <td align="left" style="width:350px">&nbsp;&nbsp;${sueldomensual}</td>
+                            <td align="right" style="width:150px"></td>
+                            <td align="right" style="width:150px">${montostr}&nbsp;&nbsp;</td>
+                            <td align="right" style="width:150px"></td>
+                        </tr>`;
+                    //asignacion += monto;
+               }else{ //Deduccion
+                    var strconceptos = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des);
+                    fila += `
+                        <tr>
+                            <td align="left" style="width:350px">&nbsp;&nbsp;${strconceptos}</td>
+                            <td align="right" style="width:150px"></td>
+                            <td align="right" style="width:150px"></td>
+                            <td align="right" style="width:150px">${montostr}&nbsp;&nbsp;</td>
+                        </tr>`;
+                    //deduccion += monto;
+                }
+            } // fin del total de asignaciones
+            
+
+        });
+
+        table += fila + `</tbody></table>`;
+        
+    });
+    return table;
 }

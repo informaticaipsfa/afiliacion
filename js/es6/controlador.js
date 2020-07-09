@@ -517,5 +517,6 @@ function CrCobranza(){
 function PrepararRetroactivo(){
   CargarUrl("_cuerpo", "afi/retroactivo"); 
   $("#ModuloTitulo").html("Pagar Retroactivo");  
+  ObtenerConceptosW();
 }
 

@@ -145,10 +145,21 @@
                                             
                         </div>
                         <div class="col-md-3">
-                            <center>
-                                 <textarea style="width:180px; height: 250px;">
-                                </textarea>
-                            </center>
+                            <p style="text-align: left;">
+                                <label>Meses procesados:</label>
+                                 <div style="width:270px; height: 250px;" id="txtDetalles">
+                                 </div>
+                            </p><br>
+
+                            <div  style="display: none;" id="btnDisplay">
+                                <button type="button" class="btn btn-success btn-flat"
+                                    onClick="imprimirRetroactivo()" id="btnDetalle"><i class="fa fa-print"></i> Ver Detalle
+                                </button> 
+                                <button type="button" class="btn btn-warning btn-flat"
+                                    onClick="registrarRetroactivos()" id="btnRegistrar"><i class="fa fa-save"></i> Registrar
+                                </button> 
+                            </div>
+
                         </div>
 
                     </div>

@@ -231,8 +231,7 @@ class WObtenerConceptos{
 function ObtenerConceptosW(){ 
     var Obj = new WObtenerConceptos();
     var url = Conn.URL + "nomina/conceptos/listar/";    
-    CargarAPI(url, "GET", Obj, Obj);
-    
+    CargarAPI(url, "GET", Obj, Obj);    
 }
 
 
