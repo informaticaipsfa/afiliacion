@@ -245,7 +245,7 @@ class XWNomina {
         return this;
     }
 }
-function calcularConceptosR(codigo){
+function calcularConceptosR(){
     var i = 0;
     var totalA = 0;
     var totalD = 0;
@@ -370,6 +370,7 @@ function imprimirRetroactivo(){
     var ano = $("#cmbAnoActivo").val();
     var localtime = new Date().toLocaleString();
     var detalle = detalleConceptosR();
+    var lst = calcularConceptosR();
     ventana.document.write(`<center>
     <div>
         <table style="width:800px" class="membrete">
@@ -390,10 +391,9 @@ function imprimirRetroactivo(){
             <td width="200px" valign="top"></td>
             </tr>
         </table >
-        <h3>MILITAR TITULAR<BR>
-            CALCULOS CORRESPONDIENTE PARA EL PAGO
+        <h3>CALCULOS CORRESPONDIENTE PARA EL PAGO DE RETROACTIVO
         </h3>
-        <br>
+        
         <table style="width:800px" class="tablaneto">
         <tr>
             <td align="center"><b>GRADO</b><BR>${grado}</td>
@@ -411,6 +411,12 @@ function imprimirRetroactivo(){
             <td align="center"><b>PORCENTAJE</b><BR><label>${porcentaje}</label></td>
             <td align="center"><b>NUMERO HIJOS</b><BR><label>${hijos}</label></td>
             <td align="center"><b>AÑO ACTIVO</b><BR><label>${ano}</label></td>
+        </tr>
+        <tr>
+            <td align="center"></td>
+            <td align="center"><b>ASIGNACION</b><BR><label>${accounting.formatMoney(lst.asignacion, "Bs. ", 2, ".", ",")}</label></td>
+            <td align="center"><b>DEDUCCION</b><BR><label>${accounting.formatMoney(lst.deduccion, "Bs. ", 2, ".", ",")}</label></td>
+            <td align="center"><b>TOTAL A DEPOSITAR</b><BR><label>${accounting.formatMoney(lst.neto, "Bs. ", 2, ".", ",")}</label></td>
         </tr>
         </table>
         <br>
@@ -488,16 +494,18 @@ function detalleConceptosR(){
         table += `<H3>DESCRIPCION: PAGO CORRESPONDIENTE AL MES DE ${e.mes}</H3><table class="tablanetos" style="width:800px">
         <thead>
         <tr>
-            <th align="center" style="width:440px">CONCEPTO</th>
-            <th align="center" style="width:120px">CALCULOS</th>
-            <th align="left" style="width:120px">ASIGNACIONES</th>
-            <th align="center" style="width:120px">DEDUCCIONES</th>
+            <th align="center" style="width:350px">CONCEPTO</th>
+            <th align="center" style="width:150px">CALCULOS</th>
+            <th align="left" style="width:150px">ASIGNACIONES</th>
+            <th align="center" style="width:150px">DEDUCCIONES</th>
         </tr>
         </thead>
         <tbody>
         `;
+        var asignacion = 0;
+        var deduccion = 0;
         e.valor.forEach(x => {
-            
+            var monto = parseFloat(x.mont, 2);
             var montostr = accounting.formatMoney(x.mont, "Bs. ", 2, ".", ",");
             var des = x.desc.replace("_", " ").toUpperCase();;
             var tipo = x.tipo;
@@ -525,7 +533,7 @@ function detalleConceptosR(){
                             <td align="right" style="width:150px">${montostr}&nbsp;&nbsp;</td>
                             <td align="right" style="width:150px"></td>
                         </tr>`;
-                    //asignacion += monto;
+                    asignacion += monto;
                }else{ //Deduccion
                     var strconceptos = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des);
                     fila += `
@@ -535,14 +543,22 @@ function detalleConceptosR(){
                             <td align="right" style="width:150px"></td>
                             <td align="right" style="width:150px">${montostr}&nbsp;&nbsp;</td>
                         </tr>`;
-                    //deduccion += monto;
+                    deduccion += monto;
                 }
             } // fin del total de asignaciones
             
 
         });
-
-        table += fila + `</tbody></table>`;
+        var tfoot = `
+        <tfoot>
+            <tr>
+                <th align="left" style="width:350px">TOTALES</th>
+                <th  style="width:150px"></th>
+                <th align="right" style="width:150px">${accounting.formatMoney(asignacion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</th>
+                <th align="right" style="width:150px">${accounting.formatMoney(deduccion, "Bs. ", 2, ".", ",")}&nbsp;&nbsp;</th>
+            </tr>
+        </tfoot>`;
+        table += fila + `</tbody>${tfoot}</table>`;
         
     });
     return table;
