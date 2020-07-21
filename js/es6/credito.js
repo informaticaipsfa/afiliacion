@@ -122,7 +122,11 @@ function IniciarPrestamo(estatus){
 
 function CargarPrestamo( str ){
 	
-	$("#cmbConceptoPr").val(str);
+	$("#cmbConceptoPr").val( str );
+	$("#txtAportePr").attr("disabled", true);
+	if( str == "6" ) {
+		$("#txtAportePr").attr("disabled", false);
+	}
 	StepperPrestamo.next();
 }
 
@@ -138,6 +142,14 @@ function CalcularPrestamo(){
 	var equivalencia = xxx1 / (1 - xxx);
 
 	equivalencia = parseFloat(equivalencia); //  limitamos el número de decimales a cero
+	console.log("Mn: " + monto);
+	console.log("In: " + interes);
+	console.log("Pr: " + periodo);
+	console.log("Pot: " + potencia);
+	console.log("xxx: " + xxx);
+	console.log("xxx1: " + xxx1);
+	console.log("equ: " + equivalencia);
+
 	return equivalencia;
 }
 
