@@ -77,6 +77,7 @@ let opcionesCreditoPrestamo = {
     info: 			false,
 };
 
+let _GIROS = [];
 
 var cantVehi = 20;
 var cantHipo = 20;
@@ -113,6 +114,11 @@ function IniciarPrestamo(estatus){
         autoclose: true,
         format: "dd/mm/yyyy",
         language: 'es'
+	});
+	$('#txtFechaEspecial').datepicker({
+        autoclose: true,
+        format: "dd/mm/yyyy",
+        language: 'es'
     });
     StepperPrestamo = new Stepper(document.querySelector('#stepper-prestamo'));
 
@@ -130,8 +136,15 @@ function CargarPrestamo( str ){
 	StepperPrestamo.next();
 }
 
+function asignarMontoSol(){
+	var monto = (parseFloat( $("#txtMontoSol").val() ) * 1) - (parseFloat($("#txtAportePr").val()) * 1)
+	$("#txtMontoPr").val( monto );
+	//$("#txtMontoPrT").val( (parseFloat( $("#txtMontoSol").val() ) * 1) );
+	
+}
+
 function CalcularPrestamo(){
-	var monto = parseFloat( $("#txtMontoPr").val() ) * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
+	var monto = parseFloat( $("#txtMontoPr").val())  * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
 	var periodo = parseFloat( $("#cmbCuotasPr").val() ) * 1 * 12;// multiplicamos por 12 para devolver valor mensual
 	
@@ -170,7 +183,46 @@ function CalcularCuotasPr(){
 
 	$("#txtCuotaMensual").val(wPrestamo.cuota);
 }
+function CalcularInteresCuotaGiro(){
+	var monto = parseFloat( $("#txtMontoGiro").val())  * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
+	var periodo = parseFloat( $("#cmbCuotasPr").val() ) * 1 * 12;// multiplicamos por 12 para devolver valor mensual
+	
+	var potencia = 1 + interes;
+	var xxx = Math.pow(potencia, -periodo);//  funcion matematica donde la base es la potencia y el exponente el tiempo
+	
+	var xxx1 = monto * interes;
+	var equivalencia = xxx1 / (1 - xxx);
 
+	equivalencia = parseFloat(equivalencia); //  limitamos el número de decimales a cero
+
+	return equivalencia;
+}
+
+function CalcularMontoPr(){
+	var giro = parseFloat( $("#txtMontoGiro").val() ) * 1;
+	var monto = $("#txtMontoPr").val( );
+	$("#txtMontoPr").val( monto - giro  );
+	var x =  parseFloat( $("#txtMontoPrT").val() ) * 1;
+	$("#txtMontoPrT").val(x + giro);
+	CalcularCuotasPr();
+
+	var lstC = new Cuota();
+	lstC.balance  =  giro;
+	lstC.cuota =   CalcularInteresCuotaGiro() * 12;
+	lstC.interes =  ( CalcularInteresCuotaGiro() * 12 ) - giro;
+	lstC.capital =  giro;
+	lstC.saldo =  giro;
+	lstC.fecha = $("#txtFechaEspecial").val();
+	lstC.estatus = 0;
+	lstC.tipo =  parseFloat( $("#cmbespecial").val()) * 1;
+	_GIROS.push(lstC);
+	$("#tblDetalleEspecial").append(`
+		<tr><td>${lstC.fecha}</td><td>${$("#cmbespecial option:selected").text()}</td><td>${ numeral( parseFloat(giro,2)).format('0,0.00') } </td></tr>
+	`);
+
+
+}
 
 function TablaAmortizacion(){
 	
@@ -185,7 +237,7 @@ function TablaAmortizacion(){
 	$("#_TblAmortizacion").html(HTMLTblAmortizacion());
 	var t = $('#tblPrestamo').DataTable(opcionesCredito);
 	t.clear().draw();
-	var monto = parseFloat( $("#txtMontoPr").val() ) * 1;
+	var monto = ( parseFloat( $("#txtMontoPr").val() ) * 1)  ;
 	var cuota = CalcularPrestamo();
 	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
@@ -197,7 +249,7 @@ function TablaAmortizacion(){
 	//$("#txtCuotaMensual").val(prestamo.cuota);
 	var fecha = new Date();
 	var ano = fecha.getFullYear();
-	var mes = fecha.getMonth() + 1;
+	var mes = fecha.getMonth() + 2;
 	var fila = 0;
 	for (var i = 0; i < periodo; i++) {
 		var lstC = {};
@@ -213,6 +265,7 @@ function TablaAmortizacion(){
 		lstC.capital =  parseFloat(parseFloat( capital ).toFixed(2));
 		lstC.saldo =  parseFloat(parseFloat( saldo ).toFixed(2));
 		lstC.fecha = '01-' + mess + '-' + ano;
+		lstC.tipo = 0;
 		lstC.estatus = 0;
 		
 		wPrestamo.cuotas.push(lstC);
@@ -259,13 +312,14 @@ function TablaAmortizacion(){
 	wPrestamo.sueldo = $("#txtSueldoPr").val();
 	wPrestamo.fechaaprobado = new Date(Util.ConvertirFechaUnix($("#txtFechaAprobacion").val())).toISOString();
 	wPrestamo.fechacreacion = new Date().toISOString();
+	wPrestamo.capital = ( parseFloat( $("#txtMontoPr").val() ) * 1) + ( parseFloat( $("#txtMontoPrT").val() ) *1 ) ;
 }
 
 
 
 function HTMLTblCabecera(){
 	var totalPrestamo = parseFloat( wPrestamo.totalinteres ) * 1 +  parseFloat( wPrestamo.capital ) * 1;
-	var depositado = parseFloat( (parseFloat( wPrestamo.capital ) *1 ) - ( ( parseFloat(wPrestamo.capital)  * 1) /100 )  ).toFixed(2);
+	var depositado = parseFloat( (parseFloat( wPrestamo.capital ) *1 ) ).toFixed(2);
 	
 	return `		
 		<table class="ui celled table table-bordered table-striped dataTable" width="100%">
@@ -308,7 +362,7 @@ function HTMLTblCabecera(){
 					<td><B>TOTAL PREST.</B></td><TD>${ numeral( parseFloat(totalPrestamo ,2)).format('0,0.00') + " Bs." }</TD>
 				</TR>
 				<TR>
-					<td ><B>1% AUTO SEGURO.</B></td><TD>${ ( parseFloat(wPrestamo.capital)  * 1) /100 + " Bs."}</TD>
+					<td ><B>TOTAL DE GIROS.</B></td><TD>${ ( parseFloat( $("#txtMontoPrT").val() )  * 1) + " Bs."}</TD>
 					<td><B>DEPOSITADO</B></td><TD>${ numeral( parseFloat(depositado ,2)).format('0,0.00') + " Bs."  }</TD>
 					<td colspan=4></td>
 					
@@ -392,15 +446,17 @@ function PrResumen(){
 	$("#txtTotalInteresPrT").val( wPrestamo.totalinteres );
 	$("#txtCapitalPrT").val( wPrestamo.capital );
 	$("#txtAportePrT").val( $("#txtAportePr").val() );
-	$("#txtPlazoPr").val( wPrestamo.cuota );
+	$("#txtPlazoPr").val( wPrestamo.cuotas.length );
+	$("#txtGirosPr").val( _GIROS.length );
+	$("#txtGirosPrT").val( parseFloat( $("#txtMontoPrT").val() ) *1 );
 	var suma = parseFloat( wPrestamo.totalinteres ) * 1 +  parseFloat( wPrestamo.capital ) * 1;
 	$("#txtPagosPrT").val(  parseFloat( suma ).toFixed(2) );
 
-	var administrativo =  ( parseFloat(wPrestamo.capital)  * 1) /100
-	$("#txtPorcentajePrT").val(  parseFloat( administrativo ).toFixed(2) );
-	wPrestamo.porcentajeseguro =  parseFloat( parseFloat( $("#txtPorcentajePrT").val()).toFixed(2) );
+	var administrativo =  0; //( parseFloat(wPrestamo.capital)  * 1) /100
+	//$("#txtPorcentajePrT").val(  parseFloat( administrativo ).toFixed(2) );
+	wPrestamo.porcentajeseguro =  0; //parseFloat( parseFloat( $("#txtPorcentajePrT").val()).toFixed(2) );
 
-	var deposito = (parseFloat( wPrestamo.capital ) *1 ) - parseFloat( administrativo ) *1;
+	var deposito = ( parseFloat( wPrestamo.capital ) *1 ) ; //- parseFloat( administrativo ) *1;
 	$("#txtDepositoPrT").val(   parseFloat( deposito ).toFixed(2) );
 	wPrestamo.totaldepositar =   parseFloat( parseFloat( deposito ).toFixed(2) );
 
@@ -414,7 +470,10 @@ function PrImprimir(){
 	
 	$("#divPrCabecera").html(HTMLTblCabecera());
 	var tabla = $("#_TblAmortizacionCrAux").html();	
+	var tblD = $("#tblGiros").html();
+
 	$("#divCreditoTabla").html(tabla);
+	$("#divGiros").html(tblD)
 
 	var html = $("#_rptprestamos").html();
     var ventana = window.open("", "_blank");
@@ -447,7 +506,7 @@ class PrestamoPersonal{
 		$("#txtAportePrT").val('');
 		$("#txtPlazoPr").val('');
 		$("#txtPagosPrT").val('');
-		$("#txtPorcentajePrT").val('');
+		$("#txtPorcentajePrT").val('0');
 		$("#txtDepositoPrT").val('');
 		alertNotifyCredito('Proceso exitoso', 'success');
 

@@ -173,7 +173,7 @@
                             <div class="alert alert-danger" role="alert" id="divPrAlert" style="display: none">        
                             </div>
                         </div>
-                        <div class="col-md-8 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label >Concepto:</label>
                             <select class="js-states form-control" style="width: 100%" disabled="disabled"
                                 required aria-hidden="true" id="cmbConceptoPr" >
@@ -187,17 +187,21 @@
                                 <option value="7">VEHICULOS</option>
                             </select>
                         </div>
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-3 col-sm-3">
                             <label>Sueldo neto:</label>
                             <input id="txtSueldoPr" class="form-control" type="text" onblur="PrCalcularPorcentaje()">                            
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Aporte de capital:</label>
-                            <input id="txtAportePr" class="form-control" type="text" value="0" disabled="disabled">                            
+                            <label>Monto a solicitar:</label>
+                            <input id="txtMontoSol" class="form-control" type="text" onblur="asignarMontoSol()">
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Monto a ortorgar:</label>
-                            <input id="txtMontoPr" class="form-control" type="text" onclick="CrHideAlert()">
+                            <label>Aporte de capital:</label>
+                            <input id="txtAportePr" class="form-control" type="text" value="0" disabled="disabled"  onblur="asignarMontoSol()">                            
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <label>Monto a calcular:</label>
+                            <input id="txtMontoPr" class="form-control" type="text" onclick="CrHideAlert()" disabled="disabled">
                         </div>
 
                         <div class="col-md-3 col-sm-12">
@@ -205,35 +209,35 @@
                             <select class="js-states form-control" style="width: 100%" 
                                 required aria-hidden="true" id="cmbCuotasPr" >
                                 <option value="1" selected="selected">1 </option>
-                                <option value="2" selected="selected">2 </option>
-                                <option value="3" selected="selected">3 </option>
-                                <option value="4" selected="selected">4 </option>
-                                <option value="5" selected="selected">5 </option>
-                                <option value="6" selected="selected">6 </option>
-                                <option value="7" selected="selected">7 </option>
-                                <option value="8" selected="selected">8 </option>
-                                <option value="9" selected="selected">9 </option>
-                                <option value="10" selected="selected">10 </option>
-                                <option value="11" selected="selected">11 </option>
-                                <option value="12" selected="selected">12 </option>
-                                <option value="13" selected="selected">13 </option>
-                                <option value="14" selected="selected">14 </option>
-                                <option value="15" selected="selected">15 </option>
-                                <option value="16" selected="selected">16 </option>
-                                <option value="17" selected="selected">17 </option>
-                                <option value="18" selected="selected">18 </option>
-                                <option value="19" selected="selected">19 </option>
-                                <option value="20" selected="selected">20 </option>
-                                <option value="21" selected="selected">21 </option>
-                                <option value="22" selected="selected">22 </option>
-                                <option value="23" selected="selected">23 </option>
-                                <option value="24" selected="selected">24 </option>
-                                <option value="25" selected="selected">25 </option>
-                                <option value="26" selected="selected">26 </option>
-                                <option value="27" selected="selected">27 </option>
-                                <option value="28" selected="selected">28 </option>
-                                <option value="29" selected="selected">29 </option>
-                                <option value="30" selected="selected">30 </option>
+                                <option value="2" >2 </option>
+                                <option value="3" >3 </option>
+                                <option value="4" >4 </option>
+                                <option value="5" >5 </option>
+                                <option value="6" >6 </option>
+                                <option value="7" >7 </option>
+                                <option value="8" >8 </option>
+                                <option value="9" >9 </option>
+                                <option value="10" >10 </option>
+                                <option value="11" >11 </option>
+                                <option value="12" >12 </option>
+                                <option value="13" >13 </option>
+                                <option value="14" >14 </option>
+                                <option value="15" >15 </option>
+                                <option value="16" >16 </option>
+                                <option value="17" >17 </option>
+                                <option value="18" >18 </option>
+                                <option value="19" >19 </option>
+                                <option value="20" >20 </option>
+                                <option value="21" >21 </option>
+                                <option value="22" >22 </option>
+                                <option value="23" >23 </option>
+                                <option value="24" >24 </option>
+                                <option value="25" >25 </option>
+                                <option value="26" >26 </option>
+                                <option value="27" >27 </option>
+                                <option value="28" >28 </option>
+                                <option value="29" >29 </option>
+                                <option value="30" >30 </option>
                             </select>
                         </div>
  
@@ -258,7 +262,7 @@
                 <div class="row">
                         
                         <div class="form-group">
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-3 col-sm-3">
                                 <label>Fecha de Aprobación:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -270,13 +274,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-4">
-                                <label>Capacidad máxima mensual:</label>
+                            <div class="col-md-3 col-sm-3">
+                                <label>Capa. máx. mensual:</label>
                                 <input id="txtCuotaMaxima" class="form-control" type="text" disabled="disabled">
                             </div>
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-3 col-sm-3">
                                 <label>Cuota mensual:</label>
                                 <input id="txtCuotaMensual" class="form-control" type="text" disabled="disabled">
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <label>Monto total giros:</label>
+                                <input id="txtMontoPrT" class="form-control" type="text" onclick="CrHideAlert()" disabled="disabled" value="0">
                             </div>
                         </div>
                 </div>
@@ -302,9 +310,9 @@
                                     <label>Tipo de cuota especial:</label>
                                     <select class="js-states form-control" style="width: 100%" 
                                         required aria-hidden="true" id="cmbespecial"  >
-                                        <option value="1" selected="selected">CUOTA ESPECAIL</option>                                            
-                                        <option value="2">MENSUAL</option>
-                                        <option value="3">AGUINALDOS</option>
+                                        <option value=1 selected="selected">CUOTA ESPECIAL</option>                                            
+                                        <option value=2>VACACIONES </option>
+                                        <option value=3>AGUINALDOS</option>
                                     </select>
                                
                                 </div>
@@ -313,7 +321,7 @@
                                     <label>Monto del cuota:</label>
                                         
                                     <div class="input-group input-group">
-                                        <input id="txtInteresPr" class="form-control" type="text">
+                                        <input id="txtMontoGiro" class="form-control" type="text">
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-success btn-flat btn-md" id="btnMontoRe"
                                             onClick="CalcularMontoPr()" ><i class="fa fa-plus"></i></button>
@@ -331,14 +339,16 @@
                     <div class="form-group">
 
                         <div class="col-md-12 col-sm-12"> 
-                            <table class="ui celled table table-bordered table-striped dataTable" width="100%">
-                                <thead>
-                                    <tr><th>FECHA</th><th>TIPO DE CUOTA</th><th>MONTO</th></tr>
-                                </thead>
-                                <tbody id="tblDetalleEspecial">
+                            <div id="tblGiros">                            
+                                <table  class="ui celled table table-bordered table-striped dataTable" cellspacing=0 celladding=0 width="100%" class="documentoCss">
+                                    <thead>
+                                        <tr><th>FECHA</th><th>TIPO DE CUOTA</th><th>MONTO</th></tr>
+                                    </thead>
+                                    <tbody id="tblDetalleEspecial">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -419,9 +429,13 @@
                                 <label>Aporte Capital:</label>
                                 <input id="txtAportePrT" class="form-control" type="text">
                             </div>
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-2 col-sm-4">
                                 <label>Plazo:</label>
                                 <input id="txtPlazoPr" class="form-control" type="text">
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <label>Giros:</label>
+                                <input id="txtGirosPr" class="form-control" type="text">
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <label>Total Intereses:</label>
@@ -436,9 +450,13 @@
                                 <input id="txtPagosPrT" class="form-control" type="text">
                             </div>
 
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-4 col-sm-4" style="display: none;">
                                 <label>Porcentaje Autoseguro:</label>
                                 <input id="txtPorcentajePrT" class="form-control" type="text">
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <label>Total Giros:</label>
+                                <input id="txtGirosPrT" class="form-control" type="text">
                             </div>
 
                             <div class="col-md-4 col-sm-4">
