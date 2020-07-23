@@ -217,11 +217,29 @@ function CalcularMontoPr(){
 	lstC.estatus = 0;
 	lstC.tipo =  parseFloat( $("#cmbespecial").val()) * 1;
 	_GIROS.push(lstC);
+	var cant = _GIROS.length;
 	$("#tblDetalleEspecial").append(`
-		<tr><td>${lstC.fecha}</td><td>${$("#cmbespecial option:selected").text()}</td><td>${ numeral( parseFloat(giro,2)).format('0,0.00') } </td></tr>
+		<tr>
+			<td>${cant}</td>			
+			<td>${ numeral( parseFloat(lstC.balance,2)).format('0,0.00') } </td>
+			<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>
+			<td>${ numeral( parseFloat(lstC.cuota,2)).format('0,0.00') } </td>
+			<td>${lstC.fecha}</td>
+			<td>${$("#cmbespecial option:selected").text()}</td>
+		</tr>
 	`);
+	$("#txtMontoGiro").val('');
+	$("#txtFechaEspecial").val('');
 
+}
 
+function totalGirosintereses(){
+	var intereses = 0;
+	for (let i = 0; i < _GIROS.length; i++) {
+		const element = _GIROS[i];
+		intereses += element.interes;		
+	}
+	return intereses;
 }
 
 function TablaAmortizacion(){
@@ -300,7 +318,9 @@ function TablaAmortizacion(){
 
 		monto =  saldo;
 	}
-	wPrestamo.totalinteres =  parseFloat(  parseFloat( totalInteres ).toFixed(2) );
+
+	var totInteresGiros = totalGirosintereses() +   totalInteres;
+	wPrestamo.totalinteres =   parseFloat(totInteresGiros).toFixed(2);
 	wPrestamo.Banco.tipo = ObjMilitar.Persona.DatoFinanciero[0].tipo;
 	wPrestamo.Banco.institucion = ObjMilitar.Persona.DatoFinanciero[0].institucion;
 	wPrestamo.Banco.cuenta = ObjMilitar.Persona.DatoFinanciero[0].cuenta;
