@@ -236,7 +236,8 @@ function CalcularMontoPr(){
 	CalcularCuotasPr();
 
 	//Calcular el interes en funcion a los días 
-	var calInteres = ( giro * interes / 360 ) * restarFechasCredito( $("#txtFechaAprobacion").val(), $("#txtFechaEspecial").val()) ;
+	var dias = restarFechasCredito( $("#txtFechaAprobacion").val(), $("#txtFechaEspecial").val());
+	var calInteres = ( giro * interes / 360 ) *  dias;
 
 	var lstC = new Cuota();
 	lstC.balance  =  giro;
@@ -253,8 +254,10 @@ function CalcularMontoPr(){
 		<tr>
 			<td>${cant}</td>			
 			<td>${ numeral( parseFloat(lstC.balance,2)).format('0,0.00') } </td>
-			<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>
+			<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>		
 			<td>${ numeral( parseFloat(lstC.cuota,2)).format('0,0.00') } </td>
+			<td>${ numeral( parseFloat(lstC.capital,2)).format('0,0.00') } </td>
+			<td>${dias}</td>
 			<td>${lstC.fecha}</td>
 			<td>${$("#cmbespecial option:selected").text()}</td>
 		</tr>
@@ -437,7 +440,7 @@ function HTMLTblAmortizacion(){
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
 				<th>SALDO</th>
-				<th>FECHA</th>
+				<th>F. DE PAGO</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -477,7 +480,7 @@ function HTMLTblAmortizacionPrint(){
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
 				<th>SALDO</th>
-				<th>FECHA</th>
+				<th>F. DE PAGO</th>
 			</tr>
 		</thead>
 		<tbody id="tblPrestamoAuxBody" >
