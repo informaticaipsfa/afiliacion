@@ -199,20 +199,51 @@ function CalcularInteresCuotaGiro(){
 	return equivalencia;
 }
 
+function converAAMMDD(fch){
+	var fecha = fch.split("/");
+	return fecha[2] + "/" + fecha[1] + "/" + fecha[0] ;
+}
+/**
+ * @param {date} fchA '2020/08/01'
+ * @param {date} fechB 
+ */
+function restarFechasCredito(fchA, fechB){
+
+	let fecha1 = new Date(converAAMMDD(fchA));
+	let fecha2 = new Date(converAAMMDD(fechB));
+
+	let resta = fecha2.getTime() - fecha1.getTime();
+	console.log(Math.round(resta/ (1000*60*60*24)));
+	return Math.round(resta/ (1000*60*60*24));
+}
+
 function CalcularMontoPr(){
+	if ($("#txtFechaAprobacion").val() == "" || $("#txtFechaEspecial").val() == ""){
+		alertNotifyCredito('Debe agregar datos de la fecha correctamente Aprobación', 'warning');
+		return false;
+	}
 	var giro = parseFloat( $("#txtMontoGiro").val() ) * 1;
 	var monto = $("#txtMontoPr").val( );
+	var interes =  parseFloat( $("#txtInteresPr").val()) / 100;
+	
+	console.info(giro);
+	console.info(monto);
+	
 	$("#txtMontoPr").val( monto - giro  );
 	var x =  parseFloat( $("#txtMontoPrT").val() ) * 1;
+	console.log("X::: ", x);
 	$("#txtMontoPrT").val(x + giro);
 	CalcularCuotasPr();
 
+	//Calcular el interes en funcion a los días 
+	var calInteres = ( giro * interes / 360 ) * restarFechasCredito( $("#txtFechaAprobacion").val(), $("#txtFechaEspecial").val()) ;
+
 	var lstC = new Cuota();
 	lstC.balance  =  giro;
-	lstC.cuota =   CalcularInteresCuotaGiro() * 12;
-	lstC.interes =  ( CalcularInteresCuotaGiro() * 12 ) - giro;
+	lstC.cuota =   giro + calInteres;
+	lstC.interes =  calInteres;
 	lstC.capital =  giro;
-	lstC.saldo =  giro;
+	lstC.saldo =  giro + calInteres;
 	lstC.fecha = $("#txtFechaEspecial").val();
 	lstC.estatus = 0;
 	lstC.tipo =  parseFloat( $("#cmbespecial").val()) * 1;
@@ -230,6 +261,7 @@ function CalcularMontoPr(){
 	`);
 	$("#txtMontoGiro").val('');
 	$("#txtFechaEspecial").val('');
+	console.log(_GIROS);
 
 }
 
