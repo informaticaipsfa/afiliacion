@@ -155,13 +155,13 @@ function CalcularPrestamo(){
 	var equivalencia = xxx1 / (1 - xxx);
 
 	equivalencia = parseFloat(equivalencia); //  limitamos el número de decimales a cero
-	console.log("Mn: " + monto);
-	console.log("In: " + interes);
-	console.log("Pr: " + periodo);
-	console.log("Pot: " + potencia);
-	console.log("xxx: " + xxx);
-	console.log("xxx1: " + xxx1);
-	console.log("equ: " + equivalencia);
+	// console.log("Mn: " + monto);
+	// console.log("In: " + interes);
+	// console.log("Pr: " + periodo);
+	// console.log("Pot: " + potencia);
+	// console.log("xxx: " + xxx);
+	// console.log("xxx1: " + xxx1);
+	// console.log("equ: " + equivalencia);
 
 	return equivalencia;
 }
@@ -213,7 +213,7 @@ function restarFechasCredito(fchA, fechB){
 	let fecha2 = new Date(converAAMMDD(fechB));
 
 	let resta = fecha2.getTime() - fecha1.getTime();
-	console.log(Math.round(resta/ (1000*60*60*24)));
+	//console.log(Math.round(resta/ (1000*60*60*24)));
 	return Math.round(resta/ (1000*60*60*24));
 }
 
@@ -222,21 +222,40 @@ function CalcularMontoPr(){
 		alertNotifyCredito('Debe agregar datos de la fecha correctamente Aprobación', 'warning');
 		return false;
 	}
+	var cant = parseInt($("#cmbCuotasPr").val());
+	if (cant > 1 ) {
+		for (let i = 0; i < cant; i++) {		
+			CalcMontPr(i);		
+		}
+	}else{
+		CalcMontPr();
+	}
+	
+	$("#txtMontoGiro").val('');
+	$("#txtFechaEspecial").val('');
+	$("#cmbespecial").val(0);
+}
+
+function CalcMontPr(AA){
+	
 	var giro = parseFloat( $("#txtMontoGiro").val() ) * 1;
 	var monto = $("#txtMontoPr").val( );
 	var interes =  parseFloat( $("#txtInteresPr").val()) / 100;
 	
-	console.info(giro);
-	console.info(monto);
+
 	
 	$("#txtMontoPr").val( monto - giro  );
 	var x =  parseFloat( $("#txtMontoPrT").val() ) * 1;
-	console.log("X::: ", x);
 	$("#txtMontoPrT").val(x + giro);
 	CalcularCuotasPr();
 
 	//Calcular el interes en funcion a los días 
-	var dias = restarFechasCredito( $("#txtFechaAprobacion").val(), $("#txtFechaEspecial").val());
+	var fechaEspecialAux = $("#txtFechaEspecial").val();
+	var fp = fechaEspecialAux.split("/");
+	var ann = parseInt(fp[2]) + AA;
+	var fechaEspecial = fp[0] + "/" + fp[1] + "/" + ann;
+
+	var dias = restarFechasCredito( $("#txtFechaAprobacion").val(), fechaEspecial);
 	var calInteres = ( giro * interes / 360 ) *  dias;
 
 	var lstC = new Cuota();
@@ -245,26 +264,36 @@ function CalcularMontoPr(){
 	lstC.interes =  calInteres;
 	lstC.capital =  giro;
 	lstC.saldo =  giro + calInteres;
-	lstC.fecha = $("#txtFechaEspecial").val();
+	lstC.fecha = fechaEspecial;
 	lstC.estatus = 0;
+	lstC.dias = dias;
 	lstC.tipo =  parseFloat( $("#cmbespecial").val()) * 1;
 	_GIROS.push(lstC);
 	var cant = _GIROS.length;
 	$("#tblDetalleEspecial").append(`
-		<tr>
-			<td>${cant}</td>			
+		<tr>		
+			<td>${cant}</td>
 			<td>${ numeral( parseFloat(lstC.balance,2)).format('0,0.00') } </td>
 			<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>		
 			<td>${ numeral( parseFloat(lstC.cuota,2)).format('0,0.00') } </td>
 			<td>${ numeral( parseFloat(lstC.capital,2)).format('0,0.00') } </td>
-			<td>${dias}</td>
+			<td>${lstC.dias}</td>
 			<td>${lstC.fecha}</td>
-			<td>${$("#cmbespecial option:selected").text()}</td>
+			<td>
+				${$("#cmbespecial option:selected").text()}							
+			</td>
 		</tr>
 	`);
-	$("#txtMontoGiro").val('');
-	$("#txtFechaEspecial").val('');
-	console.log(_GIROS);
+	$("#botonesTablaEspecial").html(`
+		<button type="button" id="btn" class="btn btn-sm btn-danger btn-flat pull-right" onclick="borrarGirosEspeciales(1)">
+			<i class="fa fa-trash"></i>&nbsp;&nbsp;VACACIONES
+		</button>
+		<button type="button" id="btn" class="btn btn-sm btn-warning btn-flat pull-right" onclick="borrarGirosEspeciales(2)">
+			<i class="fa fa-trash"></i>&nbsp;&nbsp;AGUINALDOS
+		</button>
+	
+	`)
+	
 
 }
 
@@ -277,9 +306,73 @@ function totalGirosintereses(){
 	return intereses;
 }
 
-function TablaAmortizacion(){
-	
 
+function borrarGirosEspeciales(tipo){
+	//console.log(_GIROS);
+	var giros = [];
+	var suma = 0;
+	var resta = 0;
+	for (let i = 0; i < _GIROS.length; i++) {
+		const element = _GIROS[i];
+		if (element.tipo == tipo){
+			resta += parseFloat(element.capital);
+		}else{
+			suma += parseFloat(element.capital);
+			giros.push( element );
+		}
+		
+	}
+	var monto = parseFloat( $("#txtMontoPr").val() ) * 1;
+	$("#txtMontoPr").val( monto + resta );
+
+	var x =  parseFloat( $("#txtMontoPrT").val() ) * 1;
+	$("#txtMontoPrT").val(x - resta);
+	CalcularCuotasPr();
+	_GIROS = giros;
+	//console.log(_GIROS);
+	reconstruirGiros();
+	return giros;
+}
+function reconstruirGiros(){
+	
+	$("#tblDetalleEspecial").html('');
+
+	for (let i = 0; i < _GIROS.length; i++) {
+		const lstC = _GIROS[i];
+		var pos = i + 1;
+		$("#tblDetalleEspecial").append(`
+			<tr>		
+				<td>${ pos }</td>
+				<td>${ numeral( parseFloat(lstC.balance,2)).format('0,0.00') } </td>
+				<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>		
+				<td>${ numeral( parseFloat(lstC.cuota,2)).format('0,0.00') } </td>
+				<td>${ numeral( parseFloat(lstC.capital,2)).format('0,0.00') } </td>
+				<td>${lstC.dias}</td>
+				<td>${lstC.fecha}</td>
+				<td>
+					${comboEspecial(lstC.tipo)}							
+				</td>
+			</tr>
+		`);
+	};
+	
+}
+function comboEspecial(tipo){
+	var text = "";
+	switch (tipo) {
+		case 1:
+			text = "VACACIONES";
+			break;
+		case 2:
+			text = "AGUINALDOS";
+			break;
+		default:
+			text = "--------"
+			break;
+	}
+	return text;
+}
+function TablaAmortizacion(){
 	if ( $("#txtMontoPr").val() == "" ) { 
 		$("#divPrAlert").html("Debe introducir un monto");
 		$("#divPrAlert").show();
@@ -317,6 +410,7 @@ function TablaAmortizacion(){
 		lstC.interes =  parseFloat(parseFloat( ainteres ).toFixed(2));
 		lstC.capital =  parseFloat(parseFloat( capital ).toFixed(2));
 		lstC.saldo =  parseFloat(parseFloat( saldo ).toFixed(2));
+		lstC.dias = 0;
 		lstC.fecha = '01-' + mess + '-' + ano;
 		lstC.tipo = 0;
 		lstC.estatus = 0;

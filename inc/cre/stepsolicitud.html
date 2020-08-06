@@ -310,9 +310,9 @@
                                     <label>Tipo de cuota especial:</label>
                                     <select class="js-states form-control" style="width: 100%" 
                                         required aria-hidden="true" id="cmbespecial"  >
-                                        <option value=1 selected="selected">CUOTA ESPECIAL</option>                                            
-                                        <option value=2>VACACIONES </option>
-                                        <option value=3>AGUINALDOS</option>
+                                        <option value=0 selected="selected">-----------</option>                                            
+                                        <option value=1>VACACIONES </option>
+                                        <option value=2>AGUINALDOS</option>
                                     </select>
                                
                                 </div>
@@ -339,12 +339,17 @@
                     <div class="form-group">
 
                         <div class="col-md-12 col-sm-12"> 
-                            <div id="tblGiros">                            
+                            <div id='botonesTablaEspecial'>
+
+                            </div><br><br>
+
+                            <div id="tblGiros">   
+
                                 <table  class="documentoCss ui celled table table-bordered table-striped dataTable" cellspacing=0 celladding=0 width="100%">
                                     <thead>
                                         <tr>
-                                            <th style="width:30px">ACCION</th>
-                                            <th>MONTO</th>
+                                            <th style="width:20px">#</th>
+                                            <th>MONTO</th>                                            
                                             <th>INTERES</th>                                            
                                             <th>CUOTA</th>
                                             <th>CAPITAL</th>                   
