@@ -407,6 +407,17 @@ class Utilidad {
         });
         return MAP;   
     }
+    //var s = accounting.formatMoney(valor, "Bs# ", 2, ".", ","); //numeral(n).format('0.0,');
+
+    FormatoMoneda( monto ) {
+        var s = numeral( parseFloat(monto,2)).format('0,0.00');
+        var r1 = s.replace('.', '#');
+        var r2 = r1.replace(/,/g, '.');
+        var r3 = r2.replace('#', ',');
+        
+        console.log(s);
+        return r3;
+    }
 }
 
 

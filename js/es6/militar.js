@@ -633,9 +633,10 @@ class Cuota{
 		this.interes = 0.00;
 		this.capital = 0.00;
 		this.saldo = 0.00;
-		this.dias = 0;
 		this.fecha = '';		
 		this.estatus = 0;
+		this.tipo = 0;
+		this.dias = 0;
 	}
 }
 

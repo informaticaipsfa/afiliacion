@@ -267,16 +267,16 @@ function CalcMontPr(AA){
 	lstC.fecha = fechaEspecial;
 	lstC.estatus = 0;
 	lstC.dias = dias;
-	lstC.tipo =  parseFloat( $("#cmbespecial").val()) * 1;
+	lstC.tipo =  parseInt( $("#cmbespecial").val());
 	_GIROS.push(lstC);
 	var cant = _GIROS.length;
 	$("#tblDetalleEspecial").append(`
 		<tr>		
 			<td>${cant}</td>
-			<td>${ numeral( parseFloat(lstC.balance,2)).format('0,0.00') } </td>
-			<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>		
-			<td>${ numeral( parseFloat(lstC.cuota,2)).format('0,0.00') } </td>
-			<td>${ numeral( parseFloat(lstC.capital,2)).format('0,0.00') } </td>
+			<td>${ Util.FormatoMoneda(lstC.balance) } </td>
+			<td>${ Util.FormatoMoneda(lstC.interes) } </td>		
+			<td>${ Util.FormatoMoneda(lstC.cuota) } </td>
+			<td>${ Util.FormatoMoneda(lstC.capital) } </td>
 			<td>${lstC.dias}</td>
 			<td>${lstC.fecha}</td>
 			<td>
@@ -343,10 +343,10 @@ function reconstruirGiros(){
 		$("#tblDetalleEspecial").append(`
 			<tr>		
 				<td>${ pos }</td>
-				<td>${ numeral( parseFloat(lstC.balance,2)).format('0,0.00') } </td>
-				<td>${ numeral( parseFloat(lstC.interes,2)).format('0,0.00') } </td>		
-				<td>${ numeral( parseFloat(lstC.cuota,2)).format('0,0.00') } </td>
-				<td>${ numeral( parseFloat(lstC.capital,2)).format('0,0.00') } </td>
+				<td>${Util.FormatoMoneda(lstC.balance) } </td>
+				<td>${Util.FormatoMoneda(lstC.interes) } </td>		
+				<td>${Util.FormatoMoneda(lstC.cuota) } </td>
+				<td>${Util.FormatoMoneda(lstC.capital) } </td>
 				<td>${lstC.dias}</td>
 				<td>${lstC.fecha}</td>
 				<td>
@@ -420,21 +420,21 @@ function TablaAmortizacion(){
 		fila = i + 1
 		t.row.add([
 			fila, //#
-			parseFloat( monto ).toFixed(2), //Balance
-			parseFloat( cuota ).toFixed(2), //Cuota
-			parseFloat( ainteres ).toFixed(2), //Interes
-			parseFloat( capital ).toFixed(2), //Capital
-			parseFloat( saldo ).toFixed(2), //Saldo
+			Util.FormatoMoneda( monto), //Balance
+			Util.FormatoMoneda( cuota), //Cuota
+			Util.FormatoMoneda( ainteres), //Interes
+			Util.FormatoMoneda( capital), //Capital
+			Util.FormatoMoneda( saldo), //Saldo
 			'01-' + mess + '-' + ano 
 		]).draw(false);
 		
 		$("#tblPrestamoAuxBody").append(`<tr ">
 			<td>${ fila }</td>
-			<td>${ numeral( parseFloat(monto,2)).format('0,0.00') }</td>
-			<td>${ numeral( parseFloat(cuota,2)).format('0,0.00') }</td>
-			<td>${ numeral( parseFloat(ainteres,2)).format('0,0.00')  }</td>
-			<td>${ numeral( parseFloat(capital,2)).format('0,0.00')  }</td>
-			<td>${ numeral( parseFloat(saldo,2)).format('0,0.00') }</td>
+			<td>${ Util.FormatoMoneda(monto) }</td>
+			<td>${ Util.FormatoMoneda(cuota) }</td>
+			<td>${ Util.FormatoMoneda(ainteres)  }</td>
+			<td>${ Util.FormatoMoneda(capital)  }</td>
+			<td>${ Util.FormatoMoneda(saldo) }</td>
 			<td>${ '01-' + mess + '-' + ano }</td>
 		</tr>`);
 
@@ -448,8 +448,12 @@ function TablaAmortizacion(){
 		monto =  saldo;
 	}
 
+	for (let i = 0; i < _GIROS.length; i++) {
+		const lstC = _GIROS[i];
+		wPrestamo.cuotas.push(lstC);
+	}
 	var totInteresGiros = totalGirosintereses() +   totalInteres;
-	wPrestamo.totalinteres =   parseFloat(totInteresGiros).toFixed(2);
+	wPrestamo.totalinteres =   parseFloat(parseFloat(totInteresGiros).toFixed(2));
 	wPrestamo.Banco.tipo = ObjMilitar.Persona.DatoFinanciero[0].tipo;
 	wPrestamo.Banco.institucion = ObjMilitar.Persona.DatoFinanciero[0].institucion;
 	wPrestamo.Banco.cuenta = ObjMilitar.Persona.DatoFinanciero[0].cuenta;
@@ -500,19 +504,19 @@ function HTMLTblCabecera(){
 	
 				<TR>
 					<td ><B>CONCEPTO</B></td><TD colspan=3>${$("#cmbConceptoPr option:selected").text()}</TD>
-					<td><B>CUOTA</B></td><TD>${ numeral( parseFloat(wPrestamo.cuota ,2)).format('0,0.00') }</TD>
+					<td><B>CUOTA</B></td><TD>${ Util.FormatoMoneda(wPrestamo.cuota) }</TD>
 					<td><B>INTERESES</B></td><TD>${ $("#txtInteresPr").val() + "%"}</TD>
 					
 				</TR>
 				<TR>
-					<td><B>TOTAL. INT.</B></td><TD>${ numeral( parseFloat(wPrestamo.totalinteres ,2)).format('0,0.00')  + "%"}</TD>
-					<td><B>CAPITAL</B> </td><TD>${  numeral( parseFloat(wPrestamo.capital ,2)).format('0,0.00') + " Bs."}</TD>
+					<td><B>TOTAL. INT.</B></td><TD>${ Util.FormatoMoneda(wPrestamo.totalinteres)  + "%"}</TD>
+					<td><B>CAPITAL</B> </td><TD>${  Util.FormatoMoneda(wPrestamo.capital) + " Bs."}</TD>
 					<td><B>APORTE</B></td><TD>${ $("#txtAportePr").val() }</TD>
-					<td><B>TOTAL PREST.</B></td><TD>${ numeral( parseFloat(totalPrestamo ,2)).format('0,0.00') + " Bs." }</TD>
+					<td><B>TOTAL PREST.</B></td><TD>${ Util.FormatoMoneda(totalPrestamo) + " Bs." }</TD>
 				</TR>
 				<TR>
 					<td ><B>TOTAL DE GIROS.</B></td><TD>${ ( parseFloat( $("#txtMontoPrT").val() )  * 1) + " Bs."}</TD>
-					<td><B>DEPOSITADO</B></td><TD>${ numeral( parseFloat(depositado ,2)).format('0,0.00') + " Bs."  }</TD>
+					<td><B>DEPOSITADO</B></td><TD>${ Util.FormatoMoneda(depositado) + " Bs."  }</TD>
 					<td colspan=4></td>
 					
 				</TR>
@@ -731,8 +735,8 @@ function MostrarCredito(Credito, tCre){
 				conc,
 				banc,
 				Util.ConvertirFechaHumana(v.fechacreacion),
-				accounting.formatMoney(v.cuota, "Bs. ", 2, ".", ","),
-				accounting.formatMoney(v.montoaprobado, "Bs. ", 2, ".", ","),
+				Util.FormatoMoneda(v.cuota),
+				Util.FormatoMoneda(v.montoaprobado),
 				estatus,
 				i
 			]).draw(false);
