@@ -147,6 +147,20 @@
                                     </div>
                                 </a>
                             </div>
+
+                            <div class="col-lg-4 col-xs-6" >
+                                <a href="#" onclick="CargarPrestamo(8)">
+                                    <div class="small-box bg-purple">
+                                        <div class="inner">
+                                                <p>Departamento Creditos</p>
+                                            <h2 id="_Cam">Remodelación <br>Vivienda</h2>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fa fa-home"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                 
                 </div>
             
@@ -185,6 +199,7 @@
                                 <option value="5">MI CASA BIEN EQUIPADA</option>
                                 <option value="6">CREDITO HIPOTECARIO</option>
                                 <option value="7">VEHICULOS</option>
+                                <option value="8">REMODELACIÓN DE VIVIENDA</option>
                             </select>
                         </div>
                         <div class="col-md-3 col-sm-3">
@@ -378,14 +393,18 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-4 col-sm-4">
                             <br>
-                            <button type="button" class="btn btn-warning pull-left" onclick="StepperPrestamo.previous();">
+                            <button type="button" class="btn btn-flat btn-warning pull-left" onclick="StepperPrestamo.previous();">
                                 Volver atrás&nbsp;&nbsp;</i>
+                            </button>
+                     
+                            <button type="button" class="btn btn-flat btn-success pull-left" onclick="NuevoCredito();">
+                                Limpiar Credito&nbsp;&nbsp;</i>
                             </button>
                             
                         </div>
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-8 col-sm-8">
                             <br>
                             <button type="button" class="btn btn-primary pull-right" onclick="TablaAmortizacion()">
                                 Generar tabla de amortización&nbsp;&nbsp;</i>

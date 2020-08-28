@@ -415,8 +415,13 @@ class Utilidad {
         var r2 = r1.replace(/,/g, '.');
         var r3 = r2.replace('#', ',');
         
-        console.log(s);
+        //console.log(s);
         return r3;
+    }
+
+    FormatoNumero( monto ) {
+        var r1 = monto.replace(/\.\d/g, '');
+        return parseFloat( r1.replace(/,/g, '.') );
     }
 }
 

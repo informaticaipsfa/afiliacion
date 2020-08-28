@@ -650,6 +650,9 @@ class CPersonal{
 		this.cedula = '';
 		this.nombre = '';
 		this.capital = 0.0;
+		this.grado = '';
+		this.componente = '';
+		this.situacion = '';
 		this.montoaprobado = 0.0;
 		this.cantidad = 0;
 		this.cuotas = [];

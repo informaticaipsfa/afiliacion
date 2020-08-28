@@ -97,7 +97,7 @@ function PrCalcularPorcentaje(){
 	var monto = parseFloat( $("#txtSueldoPr").val() ) * 1; //  sueldo para realizar calculos del 30%
 	var cantidad = ( monto * 70 ) / 100;
 
-	$("#txtCuotaMaxima").val( parseFloat( cantidad ).toFixed(2) );
+	$("#txtCuotaMaxima").val( Util.FormatoMoneda(parseFloat( cantidad ).toFixed(2)) );
 
 }
 
@@ -181,7 +181,7 @@ function CalcularCuotasPr(){
 	wPrestamo.cuota = parseFloat( cuota ).toFixed(2);
 	wPrestamo.periodo = "MENSUAL"
 
-	$("#txtCuotaMensual").val(wPrestamo.cuota);
+	$("#txtCuotaMensual").val(Util.FormatoMoneda(wPrestamo.cuota));
 }
 function CalcularInteresCuotaGiro(){
 	var monto = parseFloat( $("#txtMontoGiro").val())  * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
@@ -373,6 +373,15 @@ function comboEspecial(tipo){
 	return text;
 }
 function TablaAmortizacion(){
+	$("#divPrAlert").hide();
+	var cmm = Util.FormatoNumero( $("#txtCuotaMaxima").val() ); //CApacidad
+	var cm =  Util.FormatoNumero( $("#txtCuotaMensual").val() ); //Cuota
+	if( cmm > cm ){
+		$("#divPrAlert").html("La capacidad máxima mensual no puede ser menor a la cuota mensual ");
+		$("#divPrAlert").show();
+		
+		return false;
+	}
 	if ( $("#txtMontoPr").val() == "" ) { 
 		$("#divPrAlert").html("Debe introducir un monto");
 		$("#divPrAlert").show();
@@ -466,8 +475,55 @@ function TablaAmortizacion(){
 	wPrestamo.fechaaprobado = new Date(Util.ConvertirFechaUnix($("#txtFechaAprobacion").val())).toISOString();
 	wPrestamo.fechacreacion = new Date().toISOString();
 	wPrestamo.capital = ( parseFloat( $("#txtMontoPr").val() ) * 1) + ( parseFloat( $("#txtMontoPrT").val() ) *1 ) ;
+	wPrestamo.componente = ObjMilitar.Componente.abreviatura;
+	wPrestamo.grado = ObjMilitar.Grado.abreviatura;
+	wPrestamo.situacion = ObjMilitar.situacion;
 }
 
+
+
+
+function NuevoCredito(){
+	$("#divPrAlert").hide();
+	$("#_TblAmortizacionCrAux").html(HTMLTblAmortizacionPrint());
+	$("#_TblAmortizacion").html(HTMLTblAmortizacion());
+	var t = $('#tblPrestamo').DataTable(opcionesCredito);
+	t.clear().draw();
+	$("#_tblLstCredito").html(ListaCreditoHTMLZ());
+	var t = $('#tblCreditoZ').DataTable();
+	t.clear().draw();
+	_GIROS = [];
+	$("#tblDetalleEspecial").html('');
+
+	wPrestamo = new CPersonal();
+
+	$("#txtSueldoPr").val( '' );
+	$("#txtMontoSol").val( '' );
+	$("#txtAportePr").val( '0' );
+	$("#txtMontoPr").val( '0' );
+	$("#cmbCuotasPr").val( '1' );
+	$("#txtInteresPr").val( '' );
+	$("#txtFechaAprobacion").val( '' );
+	$("#txtCuotaMaxima").val( '0' );
+	$("#txtCuotaMensual").val( '0' );
+	$("#txtMontoPrT").val( '0' );
+
+
+	//$("#mdlCreditoPrestamo").modal('hide');
+	$("#txtConceptoPrT").val( '' );
+	$("#txtCuotaPrT").val('');
+	$("#txtInteresPrT").val('');
+	
+	$("#txtTotalInteresPrT").val('');
+	$("#txtCapitalPrT").val('');
+	$("#txtAportePrT").val('');
+	$("#txtPlazoPr").val('');
+	$("#txtPagosPrT").val('');
+	$("#txtPorcentajePrT").val('0');
+	$("#txtDepositoPrT").val('');
+
+
+}
 
 
 function HTMLTblCabecera(){
@@ -479,45 +535,64 @@ function HTMLTblCabecera(){
 	
 				<TR>
 					<TD><B>CEDULA</B></TD>
-					<TD><B>APELLIDOS Y NOMBRES</B></TD>
+					<TD colspan=2><B>APELLIDOS Y NOMBRES</B></TD>
 					<TD><B>FECHA ING. FANB</B></TD>
 				</TR>
 				<TR>
 					<TD>${ObjMilitar.id}</TD>
-					<TD>${ObjMilitar.Persona.DatoBasico.apellidoprimero  + " " + ObjMilitar.Persona.DatoBasico.nombreprimero }</TD>
+					<TD colspan=2>${ObjMilitar.Persona.DatoBasico.apellidoprimero  + " " + ObjMilitar.Persona.DatoBasico.nombreprimero }</TD>
 					<TD>${Util.ConvertirFechaHumana(ObjMilitar.fingreso)}</TD>
 				</TR>
 				<TR>
 					<TD><B>COMPONENTE</B></TD>
 					<TD><B>GRADO</B></TD>
 					<TD><B>TIEMPO DE SERVICIO</B></TD>
+					<TD><B>SITUACION</B></TD>
 				</TR>
 
 				<TR>
 					<TD>${ObjMilitar.Componente.descripcion}</TD>
 					<TD>${ObjMilitar.Grado.descripcion}</TD>
 					<TD>${ObjMilitar.tiemposervicio}</TD>
+					<TD>${ObjMilitar.situacion}</TD>
 				</TR>
 		</table>
 		<br>
 		<table class="ui celled table table-bordered table-striped dataTable" width="100%">
 	
 				<TR>
-					<td ><B>CONCEPTO</B></td><TD colspan=3>${$("#cmbConceptoPr option:selected").text()}</TD>
-					<td><B>CUOTA</B></td><TD>${ Util.FormatoMoneda(wPrestamo.cuota) }</TD>
-					<td><B>INTERESES</B></td><TD>${ $("#txtInteresPr").val() + "%"}</TD>
+					<td ><B>CONCEPTO</B></td>
+					<TD colspan=3>${$("#cmbConceptoPr option:selected").text()}</TD>
+					<td><B>MONTO CREDITO</B> </td>
+					<TD>${  Util.FormatoMoneda(wPrestamo.capital) + " Bs."}</TD>
+					<td><B>PLAZO AÑOS</B> </td>
+					<TD>${ wPrestamo.cantidad /12  }</TD>
+					
+				
 					
 				</TR>
 				<TR>
-					<td><B>TOTAL. INT.</B></td><TD>${ Util.FormatoMoneda(wPrestamo.totalinteres)  + "%"}</TD>
-					<td><B>CAPITAL</B> </td><TD>${  Util.FormatoMoneda(wPrestamo.capital) + " Bs."}</TD>
-					<td><B>APORTE</B></td><TD>${ $("#txtAportePr").val() }</TD>
-					<td><B>TOTAL PREST.</B></td><TD>${ Util.FormatoMoneda(totalPrestamo) + " Bs." }</TD>
+					<td><B>INTERESES</B></td>
+					<TD>${ $("#txtInteresPr").val() + "%"}</TD>
+					<td><B>APORTE</B></td>
+					<TD>${ $("#txtAportePr").val() }</TD>
+					<td><B>TOTAL PREST.</B></td>
+					<TD>${ Util.FormatoMoneda(totalPrestamo) + " Bs." }</TD>
+					<td><B>TOTAL. INT.</B></td>
+					<TD>${ Util.FormatoMoneda(wPrestamo.totalinteres)  + " Bs."}</TD>
+					
+					
+					
 				</TR>
 				<TR>
-					<td ><B>TOTAL DE GIROS.</B></td><TD>${ ( parseFloat( $("#txtMontoPrT").val() )  * 1) + " Bs."}</TD>
-					<td><B>DEPOSITADO</B></td><TD>${ Util.FormatoMoneda(depositado) + " Bs."  }</TD>
-					<td colspan=4></td>
+					<td ><B>TOTAL DE CUOTAS.</B></td>
+					<TD>${ ( parseFloat( $("#txtMontoPr").val() )  * 1) + " Bs."}</TD>
+					<td ><B>TOTAL DE GIROS.</B></td>
+					<TD>${ ( parseFloat( $("#txtMontoPrT").val() )  * 1) + " Bs."}</TD>
+					<td><B>CUOTA</B></td>
+					<TD>${ Util.FormatoMoneda(wPrestamo.cuota) }</TD>
+					<td><B>DEPOSITADO</B></td>
+					<TD>${ Util.FormatoMoneda(depositado) + " Bs."  }</TD>
 					
 				</TR>
 		</table><br>
@@ -532,7 +607,7 @@ function HTMLTblAmortizacion(){
 	<table id="tblPrestamo" class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
 			<tr>
-				<th style="width:30px">ACCION</th>
+				<th style="width:30px">NUM.</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
@@ -552,7 +627,7 @@ function HTMLTblAmortizacionCP(){
 	<table id="tblPrestamoCP" class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
 			<tr>
-				<th style="width:30px">ACCION</th>
+				<th style="width:30px">NUM.</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
@@ -572,13 +647,13 @@ function HTMLTblAmortizacionPrint(){
 	<table id="tblPrestamoAux" cellspacing=0 celladding=0 width="100%" class="documentoCss" >
 		<thead >
 			<tr >
-				<th>#</th>
+				<th>NUM.</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
 				<th>SALDO</th>
-				<th>F. DE PAGO</th>
+				<th  style="display:none">F. DE PAGO</th>
 			</tr>
 		</thead>
 		<tbody id="tblPrestamoAuxBody" >
@@ -646,22 +721,12 @@ function PrImprimir(){
 class PrestamoPersonal{
 	constructor(){}
 	Crear(req){
-		console.log(req);
+
 		$('#mdlCredito').modal('hide');
 		$('#mdlPrestamo').modal('hide');
-		//$("#mdlCreditoPrestamo").modal('hide');
-		$("#txtConceptoPrT").val( '' );
-		$("#txtCuotaPrT").val('');
-		$("#txtInteresPrT").val('');
-		
-		$("#txtTotalInteresPrT").val('');
-		$("#txtCapitalPrT").val('');
-		$("#txtAportePrT").val('');
-		$("#txtPlazoPr").val('');
-		$("#txtPagosPrT").val('');
-		$("#txtPorcentajePrT").val('0');
-		$("#txtDepositoPrT").val('');
-		alertNotifyCredito('Proceso exitoso', 'success');
+		NuevoCredito();
+
+		alertNotifyCredito(' Registrado #: ' + req.msj, 'success');
 
 	}
 }
@@ -717,7 +782,7 @@ function ListaCreditoHTMLZ(){
 
 function MostrarCredito(Credito, tCre){
 	var i = 0;
-	console.log(Credito);
+	
     $.each( Credito.Prestamo, function (cl, val) {
 		$.each(val, function(c, v){
 			var oid = v.oid!=undefined?v.oid:'';
@@ -802,7 +867,7 @@ class WListarPP{
 
 
 	Crear(req){
-		console.log(req);
+		
 		$("#_tblLstCredito").html(ListaCreditoHTMLZ());
 		var t = $('#tblCreditoZ').DataTable();
 		t.clear().draw();
