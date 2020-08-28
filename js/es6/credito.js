@@ -376,7 +376,8 @@ function TablaAmortizacion(){
 	$("#divPrAlert").hide();
 	var cmm = Util.FormatoNumero( $("#txtCuotaMaxima").val() ); //CApacidad
 	var cm =  Util.FormatoNumero( $("#txtCuotaMensual").val() ); //Cuota
-	if( cmm > cm ){
+	
+	if( cmm < cm ){
 		$("#divPrAlert").html("La capacidad máxima mensual no puede ser menor a la cuota mensual ");
 		$("#divPrAlert").show();
 		

@@ -419,9 +419,9 @@ class Utilidad {
         return r3;
     }
 
-    FormatoNumero( monto ) {
-        var r1 = monto.replace(/\.\d/g, '');
-        return parseFloat( r1.replace(/,/g, '.') );
+    FormatoNumero( monto ) {        
+        var r1 = monto.replace(/\./g, '');
+        return parseFloat(r1.replace(/,/g, '.'));
     }
 }
 
