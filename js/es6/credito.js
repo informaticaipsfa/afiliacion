@@ -36,16 +36,16 @@ let estiloCSSCredito = `
 			font-size: 10px;
 		}
 		ul, img, table {
-			page-break-inside: avoid;
-			font-size: 12px;
+			/** page-break-inside: avoid; **/
+			font-size: 10px;
 			
 		}
 		tr    { 
-			page-break-inside:auto; 
+			/** page-break-inside:auto;  **/
 		}
 		
 		.documentoCss {
-			font-size: 12px;
+			font-size: 10px;
 		}
 		
 		table.documentoCss th, table.documentoCss td{
@@ -437,14 +437,14 @@ function TablaAmortizacion(){
 			'01-' + mess + '-' + ano 
 		]).draw(false);
 		
-		$("#tblPrestamoAuxBody").append(`<tr ">
+		$("#tblPrestamoAuxBody").append(`<tr>
 			<td>${ fila }</td>
 			<td>${ Util.FormatoMoneda(monto) }</td>
 			<td>${ Util.FormatoMoneda(cuota) }</td>
 			<td>${ Util.FormatoMoneda(ainteres)  }</td>
 			<td>${ Util.FormatoMoneda(capital)  }</td>
 			<td>${ Util.FormatoMoneda(saldo) }</td>
-			<td>${ '01-' + mess + '-' + ano }</td>
+			<td style="display:none">${ '01-' + mess + '-' + ano }</td>
 		</tr>`);
 
 		if ( mes == 12 ) {
@@ -653,7 +653,7 @@ function HTMLTblAmortizacionPrint(){
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
 				<th>SALDO</th>
-				<th  style="display:none">F. DE PAGO</th>
+				<th style="display:none">F. DE PAGO</th>
 			</tr>
 		</thead>
 		<tbody id="tblPrestamoAuxBody" >
