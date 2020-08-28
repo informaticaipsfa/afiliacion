@@ -701,7 +701,7 @@ function FirmaCredito(){
 			<br><br>
 			_________________________________<br>
 			${Usuario.nombre}<br>
-			${Usuario.cedula}
+			V.- ${Usuario.cedula}
 			</b>
 			</td>
 			<td style="width:50%; text-align:center" valign="center">
