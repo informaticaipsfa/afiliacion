@@ -415,8 +415,7 @@ class Utilidad {
         var r2 = r1.replace(/,/g, '.');
         var r3 = r2.replace('#', ',');
         
-        //console.log(s);
-        return r3;
+        return r3 == 'NaN'?'0,00':r3;
     }
 
     FormatoNumero( monto ) {        

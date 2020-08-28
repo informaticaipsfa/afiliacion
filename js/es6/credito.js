@@ -273,12 +273,12 @@ function CalcMontPr(AA){
 	$("#tblDetalleEspecial").append(`
 		<tr>		
 			<td>${cant}</td>
-			<td>${ Util.FormatoMoneda(lstC.balance) } </td>
-			<td>${ Util.FormatoMoneda(lstC.interes) } </td>		
-			<td>${ Util.FormatoMoneda(lstC.cuota) } </td>
-			<td>${ Util.FormatoMoneda(lstC.capital) } </td>
-			<td>${lstC.dias}</td>
-			<td>${lstC.fecha}</td>
+			<td style="text-align:right; display;none">${ Util.FormatoMoneda(lstC.balance) } </td>
+			<td style="text-align:right">${ Util.FormatoMoneda(lstC.cuota) } </td>
+			<td style="text-align:right">${ Util.FormatoMoneda(lstC.interes) } </td>		
+			<td style="text-align:right">${ Util.FormatoMoneda(lstC.capital) } </td>
+			<td style="text-align:right">${lstC.dias}</td>
+			<td >${lstC.fecha}</td>
 			<td>
 				${$("#cmbespecial option:selected").text()}							
 			</td>
@@ -440,11 +440,11 @@ function TablaAmortizacion(){
 		
 		$("#tblPrestamoAuxBody").append(`<tr>
 			<td>${ fila }</td>
-			<td>${ Util.FormatoMoneda(monto) }</td>
-			<td>${ Util.FormatoMoneda(cuota) }</td>
-			<td>${ Util.FormatoMoneda(ainteres)  }</td>
-			<td>${ Util.FormatoMoneda(capital)  }</td>
-			<td>${ Util.FormatoMoneda(saldo) }</td>
+			<td style="text-align:right">${ Util.FormatoMoneda(monto) }</td>
+			<td style="text-align:right">${ Util.FormatoMoneda(cuota) }</td>
+			<td style="text-align:right">${ Util.FormatoMoneda(ainteres)  }</td>
+			<td style="text-align:right">${ Util.FormatoMoneda(capital)  }</td>
+			<td style="text-align:right">${ Util.FormatoMoneda(saldo) }</td>
 			<td style="display:none">${ '01-' + mess + '-' + ano }</td>
 		</tr>`);
 
@@ -608,7 +608,7 @@ function HTMLTblAmortizacion(){
 	<table id="tblPrestamo" class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
 			<tr>
-				<th style="width:30px">NUM.</th>
+				<th style="width:30px">#</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
@@ -628,7 +628,7 @@ function HTMLTblAmortizacionCP(){
 	<table id="tblPrestamoCP" class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
 			<tr>
-				<th style="width:30px">NUM.</th>
+				<th style="width:30px">#</th>
 				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
@@ -648,8 +648,8 @@ function HTMLTblAmortizacionPrint(){
 	<table id="tblPrestamoAux" cellspacing=0 celladding=0 width="100%" class="documentoCss" >
 		<thead >
 			<tr >
-				<th>NUM.</th>
-				<th>BALANCE</th>
+				<th>#</th>
+				<th >BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
@@ -693,7 +693,28 @@ function PrResumen(){
 }
 
 
-
+function FirmaCredito(){
+	return `<table width="100%">
+		<tr>
+			<td style="width:50%; text-align:center" valign="center">
+			<b>Firma
+			<br><br>
+			_________________________________<br>
+			${Usuario.nombre}<br>
+			${Usuario.cedula}
+			</b>
+			</td>
+			<td style="width:50%; text-align:center" valign="center">
+			<b>Firma
+			<br><br>
+			_________________________________<br>
+			${ObjMilitar.Persona.DatoBasico.apellidoprimero  + " " + ObjMilitar.Persona.DatoBasico.nombreprimero }<br>
+			V.- ${ObjMilitar.id}
+			</b>
+			</td>
+		</tr>
+	</table>`
+}
 
 function PrImprimir(){
 	
@@ -703,10 +724,12 @@ function PrImprimir(){
 
 	$("#divCreditoTabla").html(tabla);
 	$("#divGiros").html(tblD)
+	$("#divFirmaCredito").html( FirmaCredito() )
 
 	var html = $("#_rptprestamos").html();
     var ventana = window.open("", "_blank");
-    ventana.document.write(html);
+	ventana.document.write(html);
+	
     ventana.document.head.innerHTML = estiloCSSCredito;
     ventana.print();
     ventana.close();
