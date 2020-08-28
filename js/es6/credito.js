@@ -272,14 +272,14 @@ function CalcMontPr(AA){
 	var cant = _GIROS.length;
 	$("#tblDetalleEspecial").append(`
 		<tr>		
-			<td>${cant}</td>
+			<td style="text-align:center">${cant}</td>
 			<td style="text-align:right; display:none">${ Util.FormatoMoneda(lstC.balance) } </td>
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.cuota) } </td>
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.interes) } </td>		
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.capital) } </td>
-			<td style="text-align:right">${lstC.dias}</td>
-			<td >${lstC.fecha}</td>
-			<td>
+			<td style="text-align:center">${lstC.dias}</td>
+			<td style="text-align:center">${lstC.fecha}</td>
+			<td style="text-align:center">
 				${$("#cmbespecial option:selected").text()}							
 			</td>
 		</tr>
@@ -342,7 +342,7 @@ function reconstruirGiros(){
 		var pos = i + 1;
 		$("#tblDetalleEspecial").append(`
 			<tr>		
-				<td>${ pos }</td>
+				<td style="text-align:center">${ pos }</td>
 				<td>${Util.FormatoMoneda(lstC.balance) } </td>
 				<td>${Util.FormatoMoneda(lstC.interes) } </td>		
 				<td>${Util.FormatoMoneda(lstC.cuota) } </td>
@@ -439,7 +439,7 @@ function TablaAmortizacion(){
 		]).draw(false);
 		
 		$("#tblPrestamoAuxBody").append(`<tr>
-			<td>${ fila }</td>
+			<td style="text-align:center">${ fila }</td>
 			<td style="text-align:right">${ Util.FormatoMoneda(monto) }</td>
 			<td style="text-align:right">${ Util.FormatoMoneda(cuota) }</td>
 			<td style="text-align:right">${ Util.FormatoMoneda(ainteres)  }</td>
@@ -694,11 +694,13 @@ function PrResumen(){
 
 
 function FirmaCredito(){
+	var fecha = new Date();
+
 	return `<table width="100%">
 		<tr>
 			<td style="width:50%; text-align:center" valign="center">
 			<b>Firma
-			<br><br>
+			<br><br><br><br>
 			_________________________________<br>
 			${Usuario.nombre}<br>
 			V.- ${Usuario.cedula}
@@ -706,14 +708,16 @@ function FirmaCredito(){
 			</td>
 			<td style="width:50%; text-align:center" valign="center">
 			<b>Firma
-			<br><br>
+			<br><br><br><br>
 			_________________________________<br>
 			${ObjMilitar.Persona.DatoBasico.apellidoprimero  + " " + ObjMilitar.Persona.DatoBasico.nombreprimero }<br>
 			V.- ${ObjMilitar.id}
 			</b>
 			</td>
 		</tr>
-	</table>`
+	</table><br><br>
+	Elaborado en fecha de: ${Util.ConvertirFechaHumana( fecha.toISOString() )}
+	`
 }
 
 function PrImprimir(){
