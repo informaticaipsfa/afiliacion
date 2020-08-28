@@ -273,7 +273,7 @@ function CalcMontPr(AA){
 	$("#tblDetalleEspecial").append(`
 		<tr>		
 			<td>${cant}</td>
-			<td style="text-align:right; display;none">${ Util.FormatoMoneda(lstC.balance) } </td>
+			<td style="text-align:right; display:none">${ Util.FormatoMoneda(lstC.balance) } </td>
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.cuota) } </td>
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.interes) } </td>		
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.capital) } </td>
