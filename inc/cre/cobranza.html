@@ -7,51 +7,57 @@
         <div class="box-body" >
             <div class="row" >
                 <!-- Directivas -->
-                    <div class="col-md-8 col-sm-12">
-                        <label>&nbsp;&nbsp;&nbsp;&nbsp;Selección del mes:</label>
-                        <div class="input-group margin">
-                            <select class="js-states form-control"                                 
-                                style="width: 70%" required="" aria-hidden="true" id="cmbSolicitud">
-                                <option value="0" selected>SELECCIONE</option>
-                                <option value="ENERO">ENERO</option>
-                                <option value="FEBRERO">FEBRERO</option>
-                                <option value="MARZO">MARZO</option>
-                                <option value="ABRIL">ABRIL</option>
-                                <option value="MAYO">MAYO</option>
-                                <option value="JUNIO">JUNIO</option>
-                                <option value="JULIO">JULIO</option>
-                                <option value="AGOSTO">AGOSTO</option>
-                                <option value="SEPTIEMBRE">SEPTIEMBRE</option>
-                                <option value="OCTUBRE">OCTUBRE</option>
-                                <option value="NOVIEMBRE">NOVIEMBRE</option>
-                                <option value="DICIEMBRE">DICIEMBRE</option>
-                            </select>
-                            <select class="js-states form-control"                                 
-                                style="width: 30%" required="" aria-hidden="true" id="cmbLectivo">
-                                <option value="0" selected>-------------</option>                               
-                                <option value="2020">2020</option>  
-                                <option value="2021">2021</option>  
-                                <option value="2022">2022</option>  
-                                <option value="2023">2023</option>  
-                                <option value="2024">2024</option>  
-                                <option value="2025">2025</option>  
-                            </select>
-                            <span class="input-group-btn" >
-                                <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasCredito()">
-                                    <i class="fa fa-puzzle-piece"></i>
-                                    &nbsp;&nbsp;Listar créditos</button>
-                                <button type="button" class="btn btn-flat bg-warning" onclick="DescargarNominasCredito()">
-                                    <i class="fa fa-save"></i>
-                                    &nbsp;&nbsp;Descargar créditos</button>
-                            </span>
-                        </div>
+                    <div class="col-md-10 col-sm-12">
+                        <label>&nbsp;&nbsp;Selección:</label>
+                        
+                            <div class="form-group">                               
+                
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                  </div>
+                                  <div class="pull-right"  style="width: 30%">
+                                    <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasCredito()">
+                                        <i class="fa fa-puzzle-piece"></i>
+                                        &nbsp;&nbsp;Listar</button>
+                                  </div>
+                                  <input type="text" style="width: 40%"  class="form-control pull-right" id="date_range">
+
+                                  <select class="js-states form-control"                                 
+                                        style="width: 30%" required="" aria-hidden="true" id="cmbEstatus">
+                                        
+                                        <option value="0" selected>POR APROBAR</option>
+                                        <option value="1" >APROBADOS</option>
+                                        <option value="2" >LIQUIDADOS</option>
+                                        <option value="3" >EN COBRANZA</option>
+                                    </select>
+                                    
+                                    <!-- <span class="input-group-btn" >
+                                        
+                                        <button type="button" class="btn btn-flat bg-warning" onclick="PrImprimirListado()">
+                                            <i class="fa fa-save"></i>
+                                            &nbsp;&nbsp;Imprimir</button>
+        
+                                            
+                                    </span> -->
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+
+
+
+                           
+                        
                     </div>
                 
             </div>
             <br><br>
             <div id="_tblLstCredito">
 
-             </div>
+            </div>
+            <div id="_tblLstCreditoAux" style="display:none">
+
+            </div>
 
         </div><!-- /.box-body -->
 
@@ -66,3 +72,49 @@
         </div>
     </div><!-- /.box -->
 </div>
+<div id="_rptcreditolst" style="display: none"></div>
+
+<script>
+   
+    $(function () {
+    $('#date_range').daterangepicker();
+    $('#date_range').daterangepicker({
+        "locale": {
+            "format": "YYYY-MM-DD",
+            "separator": " - ",
+            "applyLabel": "Seleccionar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Personalizar",
+            "daysOfWeek": [
+                "Do",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Ju",
+                "Vi",
+                "Sa"
+            ],
+            "monthNames": [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Setiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ],
+            "firstDay": 1
+        },
+        "startDate": "2020-08-01",
+        "endDate": "2020-08-31",
+        "opens": "center"
+    });
+});
+</script>

@@ -57,6 +57,61 @@ let estiloCSSCredito = `
 	
 `
 
+let estiloCSSCreditoLst = `
+	<style>
+		@charset "utf-8";
+		@page {
+			margin: 1.5cm;
+			margin-bottom: 0.8cm;
+			margin-top: 0.8cm;
+			size: letter landscape;
+			
+		}
+		section {
+			page-break-before: always;
+		}
+		body {
+			margin: 0px;
+			font-family: Calibri;
+			
+		}
+		.baner {
+			text-align: center;
+			line-height: 22px; 
+			font-size: 13px; 
+		}
+		p {
+			text-align: justify;
+			line-height: 22px; 
+			font-size: 12px;
+		}
+		.wrapper {
+			min-height: 100%;
+			height: auto !important;
+			height: 100%;
+			margin: 0 auto -5em;
+		}
+		.footer, .push {
+			height: 5em;
+			font-size: 10px;
+		}
+		ul, img, table {
+			font-size: 10px;
+			
+		}
+		.documentoCss {
+			font-size: 10px;
+		}
+		
+		table.documentoCss th, table.documentoCss td{
+			border: 1px solid #CCCCCC;
+			border-spacing: 0.5rem;
+			border-collapse: collapse;
+		}
+	</style>
+	
+`
+
 let opcionesCredito = {
 	ordering: 		false,
     paging: 		false, 
@@ -776,10 +831,10 @@ function ListaCreditoHTML(){
 			<th>CONCEPTO</th>
 			<th>CUENTA</th>
 			<th>FECHA</th>
-			<th>CUOTA</th>        
+			<!-- <th>CUOTA</th> -->
 			<th>MONTO CREDITO</th>
-			<th>ESTATUS</th>
-			<th>FECHA</th>
+			<th>ESTATUS</th> 
+			<th style="display:none">ID</th>
         </tr>
         </thead >
         <tbody>
@@ -793,16 +848,44 @@ function ListaCreditoHTMLZ(){
         <thead class="familiares">
         <tr>
 			<th>NRO.</th>
+			<th>COMP</th>
+			<th>GRAD.</th>
+			<th>SITU</th>
 			<th>CEDULA</th>
 			<th>NOMBRES Y APELLIDOS</th>
 			<th>CONCEPTO</th>
+			<th>N. CREDITO</th> 
+			<th>BANCO</th>
 			<th>TIPO</th>     
 			<th>CUENTA</th>
 			<th>MONTO CREDITO</th>
-			<th>FECHA</th>
         </tr>
         </thead >
         <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
+
+function ListaCreditoHTMLZAux(){
+	var html = `<table class="documentoCss ui celled table" cellspacing="0" width="100%" id="tblCreditoZ1" >
+        <thead class="familiares">
+        <tr>
+			<th>NRO.</th>
+			<th>COMP</th>
+			<th>GRAD.</th>
+			<th>SITU</th>
+			<th>CEDULA</th>
+			<th>NOMBRES Y APELLIDOS</th>
+			<th>CONCEPTO</th>
+			<th>N. CREDITO</th> 
+			<th>BANCO</th>
+			<th>TIPO</th>     
+			<th>CUENTA</th>
+			<th>MONTO CREDITO</th>
+        </tr>
+        </thead >
+        <tbody id="tblCreditoLstAux">
         </tbody>
     </table>`;
     return html;
@@ -817,6 +900,7 @@ function MostrarCredito(Credito, tCre){
 			var conc = v.concepto!=undefined?v.concepto.toUpperCase():'';
 			var banc = v.Banco.cuenta!=undefined?v.Banco.cuenta:'';        
 			var estatus = v.estatus!=undefined?v.estatus:'PENDIENTE';
+			var capital = v.capital!=undefined?v.capital:'0,00';
 			
 			if(estatus == 1){
 				estatus = "PROCESADO"
@@ -828,8 +912,8 @@ function MostrarCredito(Credito, tCre){
 				conc,
 				banc,
 				Util.ConvertirFechaHumana(v.fechacreacion),
-				Util.FormatoMoneda(v.cuota),
-				Util.FormatoMoneda(v.montoaprobado),
+				//Util.FormatoMoneda(v.cuota),
+				Util.FormatoMoneda(v.capital),
 				estatus,
 				i
 			]).draw(false);
@@ -837,7 +921,7 @@ function MostrarCredito(Credito, tCre){
 		});
 	});
 	
-    tCre.column(7).visible(false);
+    tCre.column(6).visible(false);
     //tCre.column(8).visible(false);
     $('#tblCredito tbody').on('dblclick', 'tr', function () {        
 		var data = tCre.row(this).data();
@@ -896,26 +980,53 @@ class WListarPP{
 
 	Crear(req){
 		
+		$("#_tblLstCreditoAux").html(ListaCreditoHTMLZAux());
 		$("#_tblLstCredito").html(ListaCreditoHTMLZ());
 		var t = $('#tblCreditoZ').DataTable();
 		t.clear().draw();
 		var fila = 1;
-
+		var sum = 0;
+		$("#tblCreditoLstAux").html('');
 		req.forEach(e => {
 			t.row.add([
 				fila, //#
+				e.componente, //Componente
+				e.grado, //Grado
+				e.situacion, //Situacion
 				e.cedula, //Balance
 				e.nombre, //Cuota
 				e.concepto, //Interes
+				e.codigo, //Codigo
+				e.instituto, //Capital
 				e.tipo, //Capital
 				e.cuenta,
-				e.monto,
-				Util.ConvertirFechaHumana(e.fecha)
+				Util.FormatoMoneda( e.monto )//	Util.ConvertirFechaHumana(e.fecha)
 			]).draw(false);
 			
+			sum += e.monto;
+			$("#tblCreditoLstAux").append(`<tr>
+				<td style="text-align:center">${ fila }</td>
+				<td style="text-align:center">${ e.componente }</td>
+				<td style="text-align:center">${ e.grado }</td>
+				<td style="text-align:center">${ e.situacion  }</td>
+				<td >${ e.cedula  }</td>
+				<td >${ e.nombre  }</td>
+				<td >${ e.concepto  }</td>
+				<td style="text-align:center">${ e.codigo  }</td>							
+				<td style="text-align:center">${ e.instituto  }</td>
+				<td style="text-align:center">${ e.tipo  }</td>
+				<td style="text-align:center">${ e.cuenta  }</td>
+				<td style="text-align:right">${ Util.FormatoMoneda( e.monto ) }&nbsp;&nbsp;</td>
+			</tr>`);
 			
 		});
 
+
+		$("#tblCreditoLstAux").append(`<tr>
+				<td colspan=10 style="text-align:center"></td>
+				<td style="text-align:center">TOTAL Bs.</td>
+				<td style="text-align:right">${ Util.FormatoMoneda( sum )  }&nbsp;&nbsp;</td>
+		</tr>`);
 		alertNotifyCredito('Proceso exitoso', 'success');
 
 	}
@@ -936,4 +1047,22 @@ function ListarNominasCredito(){
 
 	CargarAPI(Conn.URL + "credito/listar" , "POST", wListarPP.Obtener(), wListarPP);
 
+}
+
+
+function PrImprimirListado(){
+	
+	var tabla = $("#_tblLstCreditoAux").html();	
+
+	$("#divCabeceralst").html(tabla);
+	
+	//$("#divFirmaCredito").html( FirmaCredito() )
+
+	var html = $("#_rptcreditolst").html();
+    var ventana = window.open("", "_blank");
+	ventana.document.write(html);
+	
+    ventana.document.head.innerHTML = estiloCSSCreditoLst;
+    ventana.print();
+    ventana.close();
 }

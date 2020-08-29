@@ -240,6 +240,7 @@ $(function () {
   
   
   
+  
 
   $("#salvar").hide();
   $('#modMsj').on('shown.bs.modal', function () {
@@ -511,6 +512,9 @@ function LiberarCarnet() {
  *
  **/
 function CrCobranza(){
+  CargarUrl("_rptcreditolst", "cre/listado");
+  //Date range picker
+  
   $("#ModuloTitulo").html("Envio de Cobranza");
 }
 
