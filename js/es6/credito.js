@@ -1193,7 +1193,9 @@ class WCredActualizar{
 
 
 	Crear(req){
-		console.log(req);
+		
+		ListarNominasCredito();
+		alertNotifyCredito('Proceso exitoso', 'success');	
 	}
 	Obtener(){
 		return this;
