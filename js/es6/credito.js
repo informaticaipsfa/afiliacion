@@ -132,6 +132,32 @@ let opcionesCreditoPrestamo = {
     info: 			false,
 };
 
+
+let opcionesCreditoListar = {
+    ordering: false,
+    paging: false,          
+    columnDefs: [ {
+        orderable: false,
+        className: 'select-checkbox',
+        targets:   0
+    } ],
+    select: {
+        style: 'multi'
+    },
+    scrollY:        400,
+    deferRender:    true,
+    scroller:       true,
+    language: {
+        "lengthMenu": "Mostar _MENU_ filas por pagina",
+        "zeroRecords": "Nada que mostrar",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "No se encontro nada",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Buscar"
+    }
+};
+
+
 let _GIROS = [];
 
 var cantVehi = 20;
@@ -844,9 +870,14 @@ function ListaCreditoHTML(){
 }
 
 function ListaCreditoHTMLZ(){
-	var html = `<table class="ui celled table " cellspacing="0" width="100%" id="tblCreditoZ" >
+	var html = `<table class="ui celled table table-bordered table-striped dataTable " cellspacing="0" width="100%" id="tblCreditoZ" >
         <thead class="familiares">
-        <tr>
+		<tr>
+			<th style="text-align:center;">
+				<button style="border: none; background: transparent; font-size: 14px;" id="MytblConcepto">
+					<i class="fa fa-check-square"></i>  
+				</button>
+			</th>
 			<th>NRO.</th>
 			<th>COMP</th>
 			<th>GRAD.</th>
@@ -859,6 +890,7 @@ function ListaCreditoHTMLZ(){
 			<th>TIPO</th>     
 			<th>CUENTA</th>
 			<th>MONTO CREDITO</th>
+			<th>OID</th>
         </tr>
         </thead >
         <tbody>
@@ -869,8 +901,9 @@ function ListaCreditoHTMLZ(){
 
 function ListaCreditoHTMLZAux(){
 	var html = `<table class="documentoCss ui celled table" cellspacing="0" width="100%" id="tblCreditoZ1" >
-        <thead class="familiares">
-        <tr>
+        <thead >
+		<tr>
+			
 			<th>NRO.</th>
 			<th>COMP</th>
 			<th>GRAD.</th>
@@ -975,20 +1008,27 @@ function alertNotifyCredito (msj, color){
 class WListarPP{
 	constructor(){
 		this.fecha = '';
+		this.desde = '';
+		this.hasta = '';
+		this.estatus = 0;
 	}
 
 
 	Crear(req){
-		
+		$("#btnImprimirRelacion").hide();
+		$("#btnSalvarRelacion").hide();
 		$("#_tblLstCreditoAux").html(ListaCreditoHTMLZAux());
 		$("#_tblLstCredito").html(ListaCreditoHTMLZ());
-		var t = $('#tblCreditoZ').DataTable();
+		var t = $('#tblCreditoZ').DataTable(opcionesCreditoListar);
 		t.clear().draw();
-		var fila = 1;
+		var fila = 0;
 		var sum = 0;
 		$("#tblCreditoLstAux").html('');
+		if (req === null) return false;
 		req.forEach(e => {
+			fila++;
 			t.row.add([
+				'',
 				fila, //#
 				e.componente, //Componente
 				e.grado, //Grado
@@ -1000,9 +1040,11 @@ class WListarPP{
 				e.instituto, //Capital
 				e.tipo, //Capital
 				e.cuenta,
-				Util.FormatoMoneda( e.monto )//	Util.ConvertirFechaHumana(e.fecha)
+				Util.FormatoMoneda( e.monto ), 
+				e.oid //	Util.ConvertirFechaHumana(e.fecha)
 			]).draw(false);
 			
+
 			sum += e.monto;
 			$("#tblCreditoLstAux").append(`<tr>
 				<td style="text-align:center">${ fila }</td>
@@ -1021,12 +1063,56 @@ class WListarPP{
 			
 		});
 
+		t.column(13).visible(false);
+		
 
 		$("#tblCreditoLstAux").append(`<tr>
 				<td colspan=10 style="text-align:center"></td>
 				<td style="text-align:center">TOTAL Bs.</td>
 				<td style="text-align:right">${ Util.FormatoMoneda( sum )  }&nbsp;&nbsp;</td>
 		</tr>`);
+
+
+		$('#MytblConcepto').click(function() {
+            if (t.rows({
+                    selected: true
+                }).count() > 0) {
+                t.rows().deselect();
+                return;
+            }
+    
+            t.rows().select();
+        });
+    
+        t.on('select deselect', function(e, dt, type, indexes) {
+            if (type === 'row') {
+                // We may use dt instead of tblP to have the freshest data.
+                if (dt.rows().count() === dt.rows({
+                        selected: true
+                    }).count()) {
+                    // Deselect all items button.
+                    $('#MytblConcepto i').attr('class', 'fa fa-check-square');
+                    return;
+                }
+    
+                if (dt.rows({
+                        selected: true
+                    }).count() === 0) {
+                    // Select all items button.
+                    $('#MytblConcepto i').attr('class', 'fa fa-square');
+                    return;
+                }
+    
+                // Deselect some items button.
+                $('#MytblConcepto i').attr('class', 'fa fa-minus-square');
+            }
+        });
+		
+		
+
+		if(parseInt($("#cmbEstatus").val()) == 0)$("#btnSalvarRelacion").show();		
+		if(parseInt($("#cmbEstatus").val()) == 1)$("#btnImprimirRelacion").show();
+
 		alertNotifyCredito('Proceso exitoso', 'success');
 
 	}
@@ -1041,9 +1127,13 @@ class WListarPP{
 
 function ListarNominasCredito(){
 	var wListarPP = new WListarPP();
-	wListarPP.fecha = $("#cmbSolicitud").val();
-
+	wListarPP.fecha = $("#date_range").val();
+	var fech = wListarPP.fecha.split("AL");
+	wListarPP.desde = fech[0].trim();
+	wListarPP.hasta = fech[1].trim();
+	wListarPP.estatus =  parseInt($("#cmbEstatus").val());
 	//console.log( wListarPP.Obtener() );
+
 
 	CargarAPI(Conn.URL + "credito/listar" , "POST", wListarPP.Obtener(), wListarPP);
 
@@ -1065,4 +1155,75 @@ function PrImprimirListado(){
     ventana.document.head.innerHTML = estiloCSSCreditoLst;
     ventana.print();
     ventana.close();
+}
+
+
+function AprobarCreditos(){
+	var lst = [];
+	var Tbls = $('#tblCreditoZ').DataTable();
+	var t = Tbls.rows('.selected').data();
+	$.each(t, function(c, v){        
+        lst.push( v[13] );
+	});
+	
+	console.log(lst.length);
+
+	if(lst.length > 0) {
+		$('#mdlCreditoLista').modal("show");
+
+	}else{
+		alertNotifyCredito('Debe seleccionar por lo menos un crédito', 'warning');	
+	}
+
+
+	
+}
+
+
+
+class WCredActualizar{
+	constructor(){
+		this.estatus = 0;
+		this.serie = [];
+		this.cantidad = 0;
+		this.total = 0;
+		this.llave = '';
+		this.observacion = '';
+	}
+
+
+	Crear(req){
+		console.log(req);
+	}
+	Obtener(){
+		return this;
+	}
+}
+function AceptarCreditos(){
+	var wca = new WCredActualizar();
+
+	$('#mdlCreditoLista').modal("hide");
+	var lst = [];
+	var Tbls = $('#tblCreditoZ').DataTable();
+	var t = Tbls.rows('.selected').data();
+	var sum = 0;
+	var cant = 0;
+	$.each(t, function(c, v){ 
+		cant++;
+		sum += parseFloat( Util.FormatoNumero( v[12] ) );
+        lst.push( v[13] );
+	});
+	wca.estatus = 1;
+	wca.serie = lst;
+	wca.cantidad = cant;
+	wca.total = sum;
+	var fecha = new Date().toISOString();
+	var codigo = Usuario.nombre + sum + cant +  fecha;
+    MD5codigo = MD5(codigo);
+	wca.llave = MD5codigo;
+
+	//console.log(wca);
+	CargarAPI(Conn.URL + "credito/actualizar" , "POST", wca.Obtener(), wca);
+	
+	
 }
