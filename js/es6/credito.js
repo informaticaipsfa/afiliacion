@@ -1017,6 +1017,8 @@ class WListarPP{
 	Crear(req){
 		$("#btnImprimirRelacion").hide();
 		$("#btnSalvarRelacion").hide();
+		$("#btnEnviarRelacion").hide();
+		
 		$("#_tblLstCreditoAux").html(ListaCreditoHTMLZAux());
 		$("#_tblLstCredito").html(ListaCreditoHTMLZ());
 		var t = $('#tblCreditoZ').DataTable(opcionesCreditoListar);
@@ -1111,8 +1113,12 @@ class WListarPP{
 		
 
 		if(parseInt($("#cmbEstatus").val()) == 0)$("#btnSalvarRelacion").show();		
-		if(parseInt($("#cmbEstatus").val()) == 1)$("#btnImprimirRelacion").show();
-
+		if(parseInt($("#cmbEstatus").val()) == 1){
+			$("#btnImprimirRelacion").show();
+			$("#btnEnviarRelacion").show();
+			
+		}
+		if ( parseInt($("#cmbEstatus").val()) > 0 )t.column(0).visible(false);
 		alertNotifyCredito('Proceso exitoso', 'success');
 
 	}
@@ -1226,6 +1232,35 @@ function AceptarCreditos(){
 
 	//console.log(wca);
 	CargarAPI(Conn.URL + "credito/actualizar" , "POST", wca.Obtener(), wca);
+	
+	
+}
+
+function EnviarATesoreria(){
+	var wca = new WCredActualizar();
+
+	$('#mdlCreditoLista').modal("hide");
+	var lst = [];
+	var Tbls = $('#tblCreditoZ').DataTable();
+	var t = Tbls.rows().data();
+	var sum = 0;
+	var cant = 0;
+	$.each(t, function(c, v){ 
+		cant++;
+		sum += parseFloat( Util.FormatoNumero( v[12] ) );
+        lst.push( v[13] );
+	});
+	wca.estatus = 1;
+	wca.serie = lst;
+	wca.cantidad = cant;
+	wca.total = sum;
+	var fecha = new Date().toISOString();
+	var codigo = Usuario.nombre + sum + cant +  fecha;
+    MD5codigo = MD5(codigo);
+	wca.llave = MD5codigo;
+
+	console.log(wca);
+	CargarAPI(Conn.URL + "credito/enviar" , "POST", wca.Obtener(), wca);
 	
 	
 }
