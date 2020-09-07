@@ -1,0 +1,234 @@
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+    <div class="box box-primary ">
+        <div class="box-header with-border">
+            <i class="fa fa-bullhorn"></i>
+            <h3 class="box-title">Nómina generadas para créditos</h3>
+        </div>
+        <div class="box-body" >
+            <div class="row" >
+                <!-- Directivas -->
+                    <div class="col-md-10 col-sm-12">
+                        <label>&nbsp;&nbsp;Selección:</label>
+                        
+                            <div class="form-group">                               
+                
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                  </div>
+                                  <div class="pull-right"  style="width: 30%">
+                                    <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasCredito()">
+                                        <i class="fa fa-puzzle-piece"></i>
+                                        &nbsp;&nbsp;Listar</button>
+                                  </div>
+                                  <input type="text" style="width: 40%"  class="form-control pull-right" id="date_range">
+
+                                  <select class="js-states form-control"                                 
+                                        style="width: 30%" required="" aria-hidden="true" id="cmbEstatus">
+                                        <option value="2" >POR LIQUIDAR</option>
+                                        <option value="3" >EN COBRANZA</option>                                        
+                                  </select>
+                                    
+                                    
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+
+
+
+                           
+                        
+                    </div>
+                
+            </div>
+            <br><br>
+            <div id="_tblLstLiquidar">
+
+            </div>
+            <div id="_tblLstLiquidarAux" style="display:none">
+
+            </div>
+
+        </div><!-- /.box-body -->
+
+        <!-- Loading (remove the following to stop the loading)-->
+        <div class="overlay" id="_cargando" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <!-- end loading -->
+        <div class="modal-footer">    
+            <!-- <button type="button" class="btn btn-flat btn-warning pull-right" onclick="PrImprimirListado()" id ="btnImprimirRelacion" style="display: none;">
+                <i class="fa fa-print"></i>
+                &nbsp;&nbsp;Imprimir Relación</button>
+            <button type="button" class="btn btn-flat btn-success pull-right" onclick="AprobarCreditos()" id="btnSalvarRelacion" style="display: none;">
+                <i class="fa fa-save"></i>
+                &nbsp;&nbsp;Aprobar Relación</button>
+            <button type="button" class="btn btn-flat btn-primary pull-right" onclick="EnviarATesoreria()" id="btnEnviarRelacion" style="display: none;">
+                <i class="fa fa-check"></i>
+                &nbsp;&nbsp;Enviar A Tesoreria</button> -->
+
+        </div>
+    </div><!-- /.box -->
+</div>
+<div id="_rptcreditolst" style="display: none"></div>
+
+
+
+
+
+
+
+<div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlLiquidarC"
+    aria-hidden="false">
+    <div class="modal-dialog" role="document">
+    
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Liquidar créditos</h4>
+
+      </div>
+      <div class="modal-body" id="_creditolista">
+        
+        <div class="col-md-12">
+            <label>Descripción del pago:</label>
+            <textarea  id="txtObservacion" class="form-control"  type="text" 
+            required tabindex="1"></textarea>
+        </div>  
+        <div class="col-md-4">
+            <label>Fecha Deposito:</label>
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <div class="input-group input-group">
+                    <input class="form-control" id="fechadep" type="text">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <label>Institución Financiera</label>
+                    <select class="js-states form-control" style="width: 100%"
+                    aria-hidden="true" disabled="disabled" required id="cmbminstfinanciera">
+                      <option selected="selected" value="S"></option>
+                      <option value="0000">BANCO VENEZUELA - CHEQUES</option>
+                      <option value="0156">100%BANCO</option>
+                      <option value="0196">ABN AMRO BANK</option>
+                      <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
+                      <option value="0171">BANCO ACTIVO BANCO COMERCIAL, C.A.</option>
+                      <option value="0166">BANCO AGRICOLA</option>
+                      <option value="0175">BANCO BICENTENARIO</option>
+                      <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
+                      <option value="0164">BANCO DE DESARROLLO DEL MICROEMPRESARIO</option>
+                      <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                      <option value="0114">BANCO DEL CARIBE C.A.</option>
+                      <option value="0149">BANCO DEL PUEBLO SOBERANO C.A.</option>
+                      <option value="0163">BANCO DEL TESORO</option>
+                      <option value="0176">BANCO ESPIRITO SANTO, S.A.</option>
+                      <option value="0115">BANCO EXTERIOR C.A.</option>
+                      <option value="0003">BANCO INDUSTRIAL DE VENEZUELA.</option>
+                      <option value="0173">BANCO INTERNACIONAL DE DESARROLLO, C.A.</option>
+                      <option value="0105">BANCO MERCANTIL C.A.</option>
+                      <option value="0191">BANCO NACIONAL DE CREDITO</option>
+                      <option value="0116">BANCO OCCIDENTAL DE DESCUENTO.</option>
+                      <option value="0138">BANCO PLAZA</option>
+                      <option value="0108">BANCO PROVINCIAL BBVA</option>
+                      <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
+                      <option value="0168">BANCRECER S.A. BANCO DE DESARROLLO</option>
+                      <option value="0134">BANESCO BANCO UNIVERSAL</option>
+                      <option value="0177">BANFANB</option>
+                      <option value="0146">BANGENTE</option>
+                      <option value="0174">BANPLUS BANCO COMERCIAL C.A</option>
+                      <option value="0190">CITIBANK.</option>
+                      <option value="0121">CORP BANCA.</option>
+                      <option value="0157">DELSUR BANCO UNIVERSAL</option>
+                      <option value="0151">FONDO COMUN</option>
+                      <option value="0601">INSTITUTO MUNICIPAL DE CR&#201;DITO POPULAR</option>
+                      <option value="0169">MIBANCO BANCO DE DESARROLLO, C.A.</option>
+                      <option value="0137">SOFITASA</option>
+                    </select>
+
+        </div>
+        <div class="col-md-4">
+            <label>Num. Deposito:</label>
+            <input  id="numerodep" class="form-control"  type="text" disabled="disabled">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-md btn-success" onclick="AceptarLiquidar()">
+            Aceptar</button>
+        <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
+            Cancelar</button>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+   
+    $(function () {
+    $('#date_range').daterangepicker();
+    $('#date_range').daterangepicker({
+        "locale": {
+            "format": "YYYY-MM-DD",
+            "separator": " AL ",
+            "applyLabel": "Seleccionar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Personalizar",
+            "daysOfWeek": [
+                "Do",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Ju",
+                "Vi",
+                "Sa"
+            ],
+            "monthNames": [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Setiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ],
+            "firstDay": 1
+        },
+        "startDate": "2020-08-01",
+        "endDate": "2020-08-31",
+        "opens": "center"
+    });
+});
+</script>

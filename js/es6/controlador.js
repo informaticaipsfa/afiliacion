@@ -524,3 +524,7 @@ function PrepararRetroactivo(){
   ObtenerConceptosW();
 }
 
+function LiquidarCredito(){
+  CargarUrl("_cuerpo", "fin/liquidar"); 
+  $("#ModuloTitulo").html("Liquidar Créditos");
+}
