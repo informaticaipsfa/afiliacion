@@ -17,7 +17,7 @@
                                     <i class="fa fa-calendar"></i>
                                   </div>
                                   <div class="pull-right"  style="width: 30%">
-                                    <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasCredito()">
+                                    <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasLiquidar()">
                                         <i class="fa fa-puzzle-piece"></i>
                                         &nbsp;&nbsp;Listar</button>
                                   </div>
@@ -93,74 +93,60 @@
       </div>
       <div class="modal-body" id="_creditolista">
         
-        <div class="col-md-12">
-            <label>Descripción del pago:</label>
-            <textarea  id="txtObservacion" class="form-control"  type="text" 
-            required tabindex="1"></textarea>
-        </div>  
-        <div class="col-md-4">
-            <label>Fecha Deposito:</label>
-            <div class="input-group date">
-                <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <label>Descripción del pago:</label>
+                    <textarea  id="txtObservacion" class="form-control"  type="text" 
+                    required tabindex="1" style="height: 100px;"></textarea>
+                </div>  
+               
+                <div class="col-md-12">
+                    <label>Institución Financiera</label>
+                        <select class="js-states form-control" style="width: 100%"
+                            aria-hidden="true" required id="cmbminstfinanciera">
+                              <option selected="selected" value="S">SELECCIONAR</option>
+                              <option value="0156">100%BANCO</option>
+                              <option value="0175">BANCO BICENTENARIO</option>
+                              <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
+                              <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
+                              <option value="0114">BANCO DEL CARIBE C.A.</option>
+                              <option value="0163">BANCO DEL TESORO</option>
+                              <option value="0105">BANCO MERCANTIL C.A.</option>
+                              <option value="0138">BANCO PLAZA</option>
+                              <option value="0108">BANCO PROVINCIAL BBVA</option>
+                              <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
+                              <option value="0134">BANESCO BANCO UNIVERSAL</option>
+                              <option value="0177">BANFANB</option>
+                              <option value="0137">SOFITASA</option>
+                        </select>
+        
                 </div>
-                <div class="input-group input-group">
-                    <input class="form-control" id="fechadep" type="text">
+                <div class="col-md-6">
+                    <label>Fecha Deposito:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="input-group input-group">
+                            <input class="form-control" id="txtcedulaCredito" type="hidden">
+                            <input class="form-control" id="txtoidCredito" type="hidden">
+                            <input class="form-control" id="txtfechadep" type="text">
+                        </div>
+                    </div>
+        
                 </div>
+                <div class="col-md-6">
+                    <label>Num. Deposito:</label>
+                    <input  id="txtnumerodep" class="form-control"  type="text" >
+                </div>
+
+
             </div>
-
-        </div>
-        <div class="col-md-4">
-            <label>Institución Financiera</label>
-                    <select class="js-states form-control" style="width: 100%"
-                    aria-hidden="true" disabled="disabled" required id="cmbminstfinanciera">
-                      <option selected="selected" value="S"></option>
-                      <option value="0000">BANCO VENEZUELA - CHEQUES</option>
-                      <option value="0156">100%BANCO</option>
-                      <option value="0196">ABN AMRO BANK</option>
-                      <option value="0172">BANCAMIGA BANCO MICROFINANCIERO, C.A.</option>
-                      <option value="0171">BANCO ACTIVO BANCO COMERCIAL, C.A.</option>
-                      <option value="0166">BANCO AGRICOLA</option>
-                      <option value="0175">BANCO BICENTENARIO</option>
-                      <option value="0128">BANCO CARONI, C.A. BANCO UNIVERSAL</option>
-                      <option value="0164">BANCO DE DESARROLLO DEL MICROEMPRESARIO</option>
-                      <option value="0102">BANCO DE VENEZUELA S.A.I.C.A.</option>
-                      <option value="0114">BANCO DEL CARIBE C.A.</option>
-                      <option value="0149">BANCO DEL PUEBLO SOBERANO C.A.</option>
-                      <option value="0163">BANCO DEL TESORO</option>
-                      <option value="0176">BANCO ESPIRITO SANTO, S.A.</option>
-                      <option value="0115">BANCO EXTERIOR C.A.</option>
-                      <option value="0003">BANCO INDUSTRIAL DE VENEZUELA.</option>
-                      <option value="0173">BANCO INTERNACIONAL DE DESARROLLO, C.A.</option>
-                      <option value="0105">BANCO MERCANTIL C.A.</option>
-                      <option value="0191">BANCO NACIONAL DE CREDITO</option>
-                      <option value="0116">BANCO OCCIDENTAL DE DESCUENTO.</option>
-                      <option value="0138">BANCO PLAZA</option>
-                      <option value="0108">BANCO PROVINCIAL BBVA</option>
-                      <option value="0104">BANCO VENEZOLANO DE CREDITO S.A.</option>
-                      <option value="0168">BANCRECER S.A. BANCO DE DESARROLLO</option>
-                      <option value="0134">BANESCO BANCO UNIVERSAL</option>
-                      <option value="0177">BANFANB</option>
-                      <option value="0146">BANGENTE</option>
-                      <option value="0174">BANPLUS BANCO COMERCIAL C.A</option>
-                      <option value="0190">CITIBANK.</option>
-                      <option value="0121">CORP BANCA.</option>
-                      <option value="0157">DELSUR BANCO UNIVERSAL</option>
-                      <option value="0151">FONDO COMUN</option>
-                      <option value="0601">INSTITUTO MUNICIPAL DE CR&#201;DITO POPULAR</option>
-                      <option value="0169">MIBANCO BANCO DE DESARROLLO, C.A.</option>
-                      <option value="0137">SOFITASA</option>
-                    </select>
-
-        </div>
-        <div class="col-md-4">
-            <label>Num. Deposito:</label>
-            <input  id="numerodep" class="form-control"  type="text" disabled="disabled">
-        </div>
-
+      
       </div>
       <div class="modal-footer">
-        <button type="button"  class="btn btn-md btn-success" onclick="AceptarLiquidar()">
+        <button type="button"  class="btn btn-md btn-success" onclick="AgregarLiquidarCredito()">
             Aceptar</button>
         <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
             Cancelar</button>
@@ -191,6 +177,13 @@
 <script>
    
     $(function () {
+
+    $('#txtfechadep').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd",
+        language: 'es'
+    });
+
     $('#date_range').daterangepicker();
     $('#date_range').daterangepicker({
         "locale": {
