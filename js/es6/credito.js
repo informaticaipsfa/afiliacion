@@ -334,9 +334,10 @@ function CalcMontPr(AA){
 	var fechaEspecialAux = $("#txtFechaEspecial").val();
 	var fp = fechaEspecialAux.split("/");
 	var ann = parseInt(fp[2]) + AA;
-	var fechaEspecial = fp[0] + "/" + fp[1] + "/" + ann;
+	var fechaEspecial = ann + "-" + fp[1] + "-" + fp[0] ;
+	var fechaEspecialAux = fp[0] + "/" + fp[1]  + "/" +  ann ;
 
-	var dias = restarFechasCredito( $("#txtFechaAprobacion").val(), fechaEspecial);
+	var dias = restarFechasCredito( $("#txtFechaAprobacion").val(), fechaEspecialAux);
 	var calInteres = ( giro * interes / 360 ) *  dias;
 
 	var lstC = new Cuota();
@@ -348,6 +349,7 @@ function CalcMontPr(AA){
 	lstC.fecha = fechaEspecial;
 	lstC.estatus = 0;
 	lstC.dias = dias;
+	lstC.numero = _GIROS.length + 1;
 	lstC.tipo =  parseInt( $("#cmbespecial").val());
 	_GIROS.push(lstC);
 	var cant = _GIROS.length;
@@ -359,7 +361,7 @@ function CalcMontPr(AA){
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.interes) } </td>		
 			<td style="text-align:right">${ Util.FormatoMoneda(lstC.capital) } </td>
 			<td style="text-align:center">${lstC.dias}</td>
-			<td style="text-align:center">${lstC.fecha}</td>
+			<td style="text-align:center">${  fp[0] + "-" + fp[1] + "-" + ann  }</td>
 			<td style="text-align:center">
 				${$("#cmbespecial option:selected").text()}							
 			</td>
@@ -504,6 +506,7 @@ function TablaAmortizacion(){
 		var capital = cuota - ainteres;
 		var saldo = monto - capital;
 		var lstC = new Cuota();
+		fila = i + 1
 		
 		lstC.balance  =  parseFloat(parseFloat( monto ).toFixed(2));
 		lstC.cuota =  parseFloat(parseFloat( cuota ).toFixed(2));
@@ -514,10 +517,11 @@ function TablaAmortizacion(){
 		lstC.fecha = ano + '-' + mess + '-' + '01' ;
 		lstC.tipo = 0;
 		lstC.estatus = 0;
+		lstC.numero = fila;
 		
 		wPrestamo.cuotas.push(lstC);
 		totalInteres += ainteres;
-		fila = i + 1
+		
 		t.row.add([
 			fila, //#
 			Util.FormatoMoneda( monto), //Balance
@@ -849,6 +853,7 @@ class PrestamoPersonal{
 
 function PrGuardar(){
 	var wPrestamosPersona = new PrestamoPersonal();
+	//console.error(wPrestamo);
 	
 	CargarAPI(Conn.URL + "credito/crud" , "POST", wPrestamo, wPrestamosPersona);
 }

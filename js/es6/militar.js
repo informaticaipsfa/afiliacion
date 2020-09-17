@@ -637,6 +637,7 @@ class Cuota{
 		this.estatus = 0;
 		this.tipo = 0;
 		this.dias = 0;
+		this.numero = 0;
 	}
 }
 
