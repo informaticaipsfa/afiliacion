@@ -504,13 +504,14 @@ function TablaAmortizacion(){
 		var capital = cuota - ainteres;
 		var saldo = monto - capital;
 		var lstC = new Cuota();
+		
 		lstC.balance  =  parseFloat(parseFloat( monto ).toFixed(2));
 		lstC.cuota =  parseFloat(parseFloat( cuota ).toFixed(2));
 		lstC.interes =  parseFloat(parseFloat( ainteres ).toFixed(2));
 		lstC.capital =  parseFloat(parseFloat( capital ).toFixed(2));
 		lstC.saldo =  parseFloat(parseFloat( saldo ).toFixed(2));
 		lstC.dias = 0;
-		lstC.fecha = '01-' + mess + '-' + ano;
+		lstC.fecha = ano + '-' + mess + '-' + '01' ;
 		lstC.tipo = 0;
 		lstC.estatus = 0;
 		
