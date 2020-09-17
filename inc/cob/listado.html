@@ -1,0 +1,171 @@
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+    <div class="box box-primary ">
+        <div class="box-header with-border">
+            <i class="fa fa-bullhorn"></i>
+            <h3 class="box-title">Nómina generadas para créditos</h3>
+        </div>
+        <div class="box-body" >
+            <div class="row" >
+                <!-- Directivas -->
+                    <div class="col-md-10 col-sm-12">
+                        <label>&nbsp;&nbsp;Selección:</label>
+                        
+                            <div class="form-group">                               
+                
+                                <div class="input-group">
+                                  <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                  </div>
+                                  <div class="pull-right"  style="width: 30%">
+                                    <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasCredito()">
+                                        <i class="fa fa-puzzle-piece"></i>
+                                        &nbsp;&nbsp;Listar</button>
+                                  </div>
+                                  <input type="text" style="width: 40%"  class="form-control pull-right" id="date_range">
+
+                                  <select class="js-states form-control"                                 
+                                        style="width: 30%" required="" aria-hidden="true" id="cmbEstatus">                                        
+                                        <option value="3" >EN COBRANZA</option>
+                                        <option value="4" >CANCELADOS</option>
+                                    </select>
+                                    
+                                    
+                                </div>
+                                <!-- /.input group -->
+                              </div>
+
+
+
+                           
+                        
+                    </div>
+                
+            </div>
+            <br><br>
+            <div id="_tblLstCredito">
+
+            </div>
+            <div id="_tblLstCreditoAux" style="display:none">
+
+            </div>
+
+        </div><!-- /.box-body -->
+
+        <!-- Loading (remove the following to stop the loading)-->
+        <div class="overlay" id="_cargando" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <!-- end loading -->
+        <div class="modal-footer">    
+            <button type="button" class="btn btn-flat btn-warning pull-right" onclick="PrImprimirListado()" id ="btnImprimirRelacion" style="display: none;">
+                <i class="fa fa-print"></i>
+                &nbsp;&nbsp;Imprimir Relación</button>
+            <button type="button" class="btn btn-flat btn-success pull-right" onclick="AprobarCreditos()" id="btnSalvarRelacion" style="display: none;">
+                <i class="fa fa-save"></i>
+                &nbsp;&nbsp;Aprobar Relación</button>
+            <button type="button" class="btn btn-flat btn-primary pull-right" onclick="EnviarATesoreria()" id="btnEnviarRelacion" style="display: none;">
+                <i class="fa fa-check"></i>
+                &nbsp;&nbsp;Enviar A Tesoreria</button>
+
+        </div>
+    </div><!-- /.box -->
+</div>
+<div id="_rptcreditolst" style="display: none"></div>
+
+
+
+
+
+
+
+<div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+  aria-labelledby="myLargeModalLabel" id="mdlCreditoLista"
+    aria-hidden="false">
+    <div class="modal-dialog" role="document">
+    
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+      <div class="modal-header" style="background-color:#337ab7;color:white;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Aprobar créditos</h4>
+
+      </div>
+      <div class="modal-body" id="_creditolista">
+          ¿Estas seguro que deseas aprobar esta serie de créditos?<br><br>
+          Nota: <br>
+          Recuerde consultar los créditos aprobados: imprimirlos, y luego enviar a tesorería.
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-md btn-success" onclick="AceptarCreditos()">
+            Aceptar</button>
+        <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
+            Cancelar</button>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+   
+    $(function () {
+    $('#date_range').daterangepicker();
+    $('#date_range').daterangepicker({
+        "locale": {
+            "format": "YYYY-MM-DD",
+            "separator": " AL ",
+            "applyLabel": "Seleccionar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Personalizar",
+            "daysOfWeek": [
+                "Do",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Ju",
+                "Vi",
+                "Sa"
+            ],
+            "monthNames": [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Setiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ],
+            "firstDay": 1
+        },
+        "startDate": "2020-08-01",
+        "endDate": "2020-08-31",
+        "opens": "center"
+    });
+});
+</script>

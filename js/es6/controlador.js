@@ -528,3 +528,14 @@ function LiquidarCredito(){
   CargarUrl("_cuerpo", "fin/liquidar"); 
   $("#ModuloTitulo").html("Liquidar Créditos");
 }
+
+/**
+ * Envio de crédito por operaciones
+ *
+ **/
+function CobCobranza(){
+  //CargarUrl("_rptcreditolst", "cob/listado");
+  //Date range picker
+  
+  $("#ModuloTitulo").html("Envio de Cobranza Componentes");
+}

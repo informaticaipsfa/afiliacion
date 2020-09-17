@@ -424,13 +424,13 @@ function reconstruirGiros(){
 		$("#tblDetalleEspecial").append(`
 			<tr>		
 				<td style="text-align:center">${ pos }</td>
-				<td>${Util.FormatoMoneda(lstC.balance) } </td>
-				<td>${Util.FormatoMoneda(lstC.interes) } </td>		
-				<td>${Util.FormatoMoneda(lstC.cuota) } </td>
-				<td>${Util.FormatoMoneda(lstC.capital) } </td>
-				<td>${lstC.dias}</td>
-				<td>${lstC.fecha}</td>
-				<td>
+				<td style="text-align:right; display:none">${Util.FormatoMoneda(lstC.balance) } </td>
+				<td style="text-align:right;">${Util.FormatoMoneda(lstC.cuota) } </td>
+				<td style="text-align:right;">${Util.FormatoMoneda(lstC.interes) } </td>		
+				<td style="text-align:right;">${Util.FormatoMoneda(lstC.capital) } </td>
+				<td style="text-align:center">${lstC.dias}</td>
+				<td style="text-align:center">${lstC.fecha}</td>
+				<td style="text-align:center">
 					${comboEspecial(lstC.tipo)}							
 				</td>
 			</tr>
@@ -453,6 +453,7 @@ function comboEspecial(tipo){
 	}
 	return text;
 }
+
 function TablaAmortizacion(){
 	$("#divPrAlert").hide();
 	var cmm = Util.FormatoNumero( $("#txtCuotaMaxima").val() ); //CApacidad
@@ -486,7 +487,14 @@ function TablaAmortizacion(){
 	//$("#txtCuotaMensual").val(prestamo.cuota);
 	var fecha = new Date();
 	var ano = fecha.getFullYear();
-	var mes = fecha.getMonth() + 2;
+	var mes = fecha.getMonth() + 3;
+	
+	if(fecha.getDate() > 14 )mes += 1;
+	if(mes > 12){
+		mes = 1;
+		ano += 1;
+	}
+
 	var fila = 0;
 	for (var i = 0; i < periodo; i++) {
 		var lstC = {};
@@ -526,7 +534,7 @@ function TablaAmortizacion(){
 			<td style="text-align:right">${ Util.FormatoMoneda(ainteres)  }</td>
 			<td style="text-align:right">${ Util.FormatoMoneda(capital)  }</td>
 			<td style="text-align:right">${ Util.FormatoMoneda(saldo) }</td>
-			<td style="display:none">${ '01-' + mess + '-' + ano }</td>
+			<td style="text-align:right">${ '01-' + mess + '-' + ano }</td>
 		</tr>`);
 
 		if ( mes == 12 ) {
@@ -561,9 +569,6 @@ function TablaAmortizacion(){
 	wPrestamo.grado = ObjMilitar.Grado.abreviatura;
 	wPrestamo.situacion = ObjMilitar.situacion;
 }
-
-
-
 
 function NuevoCredito(){
 	$("#divPrAlert").hide();
@@ -735,7 +740,7 @@ function HTMLTblAmortizacionPrint(){
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
 				<th>SALDO</th>
-				<th style="display:none">F. DE PAGO</th>
+				<th>F. DE PAGO</th>
 			</tr>
 		</thead>
 		<tbody id="tblPrestamoAuxBody" >
@@ -902,8 +907,7 @@ function ListaCreditoHTMLZ(){
 function ListaCreditoHTMLZAux(){
 	var html = `<table class="documentoCss ui celled table" cellspacing="0" width="100%" id="tblCreditoZ1" >
         <thead >
-		<tr>
-			
+		<tr>			
 			<th>NRO.</th>
 			<th>COMP</th>
 			<th>GRAD.</th>
