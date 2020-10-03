@@ -537,5 +537,12 @@ function CobCobranza(){
   //CargarUrl("_rptcreditolst", "cob/listado");
   //Date range picker
   
-  $("#ModuloTitulo").html("Envio de Cobranza Componentes");
+  $("#ModuloTitulo").html("Listado de Creditos");
+}
+
+function CobGenerarTxt(id){
+  //CargarUrl("_rptcreditolst", "cob/listado");
+  //Date range picker
+  
+  $("#ModuloTitulo").html("Envio de Cobranza Generar Txt");
 }
