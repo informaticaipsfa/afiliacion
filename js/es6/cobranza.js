@@ -1,13 +1,32 @@
 class WCobranzaGtxt {
-    constructor(){}
+    constructor(){
+        console.info("Creando control");
+    }
     
     Crear(req){
-        console.log(req);
+        waitingDialog.hide();
+        $("#_tblLstCobranza").html(ListaCobranzaHTMLZ());
+        var t = $('#tblCobranzaZ').DataTable(opcionesCredito);
+	    t.clear().draw();
+	    
+        console.error(req);
+        var i = 0;
+
+        req.forEach(e => {
+            console.log(e);
+            i++;
+            t.row.add([
+                i, 
+                "<a target=top href='tmp/cobranza/" + e.componente + ".txt'>" + e.componente + "</a>", 
+                e.cantidad,
+                Util.FormatoMoneda(e.monto)
+            ]).draw(false);
+        });
         
     }
     
     Obtener(){
-
+        return this;
     }
 }
 
@@ -32,8 +51,25 @@ function CobGtxt(){
     waitingDialog.show('Generando archivos bancarios, por favor espere...');
     
     var ruta =  Conn.URL + "credito/creartxt/" + $("#cmbAno").val() + "/" + $("#cmbMes").val();
-    CargarAPI(ruta, "GET", wc, wc);
+    //var ruta =  Conn.URL + "credito/creartxt/2020/12";
+    //console.error("Aquí 12");
+    CargarAPI(ruta, "GET", wc.Obtener(), wc);
 }
 
 
 
+function ListaCobranzaHTMLZ(){
+	var html = `<table class="ui celled table table-bordered table-striped dataTable " cellspacing="0" width="100%" id="tblCobranzaZ" >
+        <thead class="familiares">
+		<tr>
+			<th>NRO.</th>
+			<th>COMPONENTE</th>
+            <th>CANTIDAD</th>
+            <th>MONTO</th>
+        </tr>
+        </thead >
+        <tbody>
+        </tbody>
+    </table>`;
+    return html;
+}
