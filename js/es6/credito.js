@@ -491,7 +491,7 @@ function TablaAmortizacion(){
 	var ano = fecha.getFullYear();
 	var mes = fecha.getMonth() + 3;
 	
-	if(fecha.getDate() > 14 )mes += 1;
+	if(fecha.getDate() > 16 )mes += 1;
 	if(mes > 12){
 		mes = 1;
 		ano += 1;
