@@ -548,5 +548,7 @@ function CobGenerarTxt(id){
 }
 
 function CobRelacionActiva(id){
+  
   $("#ModuloTitulo").html("Relación de Créditos Activos");
+  
 }

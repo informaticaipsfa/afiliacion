@@ -1291,15 +1291,38 @@ function RelacionCreditosActivosHTML(){
 			<th>CAPITAL</th>
 			<th>INTERESES</th>
 			<th>TOTAL</th>
-			
-
         </tr>
         </thead >
-        <tbody id="tblCreditoLstAux">
+        <tbody id="tblRelacionCuerpoAux">
         </tbody>
     </table>`;
 	return html;
 }
+function RelacionCreditosActivosHTMLAUX(){
+	var html = `<table class="documentoCss ui celled table" cellspacing="0" width="100%" id="tblRelacionAUX" >
+        <thead >
+		<tr>			
+			<th>NRO.</th>
+			<th>COMP</th>
+			<th>GRAD.</th>
+			<th>SITU</th>
+			<th>CEDULA</th>
+			<th>NOMBRES Y APELLIDOS</th>
+			<th>CONCEPTO</th>
+			<th>N. CREDITO</th> 
+			<th>F. OTORG.</th>
+			<th>CAPITAL</th>
+			<th>INTERESES</th>
+			<th>TOTAL</th>
+        </tr>
+        </thead >
+        <tbody id="tblRelacionCuerpo">
+        </tbody>
+    </table>`;
+	return html;
+}
+
+
 
 /**
  * Guardar Prestamo 
@@ -1321,13 +1344,15 @@ class WRelacion{
 		//$("#btnSalvarRelacion").hide();
 		//$("#btnEnviarRelacion").hide();
 		
-		//$("#_tblLstCreditoAux").html(RelacionCreditosActivosHTML());
+		$("#_tblLstRelacionAux").html(RelacionCreditosActivosHTMLAUX());
 		$("#_tblLstRelacion").html(RelacionCreditosActivosHTML());
 		var t = $('#tblRelacion').DataTable(opcionesCreditoPrestamo);
 		t.clear().draw();
 		var fila = 0;
 		var sum = 0;
-		//$("#tblCreditoLstAux").html('');
+		var interes = 0;
+		var totales = 0;
+		$("#tblRelacionCuerpo").html('');
 		if (req === null) return false;
 		req.forEach(e => {
 			fila++;
@@ -1349,7 +1374,35 @@ class WRelacion{
 			
 
 			sum += e.monto;
+			interes += e.totalinteres;
+			totales += e.monto + e.totalinteres;
+			$("#tblRelacionCuerpo").append(`<tr>
+				<td style="text-align:center">${ fila }</td>
+				<td style="text-align:center">${ e.componente }</td>
+				<td style="text-align:center">${ e.grado }</td>
+				<td style="text-align:center">${ e.situacion  }</td>
+				<td >${ e.cedula  }</td>
+				<td >${ e.nombre  }</td>
+				<td >${ e.concepto  }</td>
+				<td style="text-align:center">${ e.codigo  }</td>
+				<td style="text-align:center">${ Util.ConvertirFechaHumana( e.fecha)  }</td>							
+				<td style="text-align:right">${ Util.FormatoMoneda( e.monto ) }&nbsp;&nbsp;</td>
+				<td style="text-align:center">${ Util.FormatoMoneda(e.totalinteres)  }</td>
+				<td style="text-align:center">${ Util.FormatoMoneda(e.monto + e.totalinteres)  }</td>
+			</tr>`);
+			$("#btnImprimirRelacion").show();
+			
 		});
+
+		$("#tblRelacionCuerpo").append(`<tr>
+				<td colspan=8 style="text-align:center"></td>
+				<td style="text-align:center">TOTAL Bs.</td>
+				<td style="text-align:right">${ Util.FormatoMoneda( sum )  }&nbsp;&nbsp;</td>
+				<td style="text-align:right">${ Util.FormatoMoneda( interes )  }&nbsp;&nbsp;</td>
+				<td style="text-align:right">${ Util.FormatoMoneda( totales )  }&nbsp;&nbsp;</td>
+		</tr>`);
+
+		console.log($("#_tblLstRelacionAux").html());
 
 	}
 
@@ -1360,6 +1413,7 @@ class WRelacion{
 }
 
 function RelacionActivos(){
+	CargarUrl("_rptcreditolst", "cre/listado");
 	var wRelacion = new WRelacion();
 	wRelacion.fecha = $("#date_range").val();
 	var fech = wRelacion.fecha.split("AL");
@@ -1371,4 +1425,23 @@ function RelacionActivos(){
 
 	CargarAPI(Conn.URL + "credito/relacionactiva" , "POST", wRelacion.Obtener(), wRelacion);
 
+}
+
+
+function ImprimirRelacion(){
+	
+	var tabla = $("#_tblLstRelacionAux").html();	
+
+	$("#divCabeceralst").html(tabla);
+	console.log($("#divCabeceralst").html());
+	
+	//$("#divFirmaCredito").html( FirmaCredito() )
+
+	var html = $("#_rptcreditolst").html();
+    var ventana = window.open("", "_blank");
+	ventana.document.write(html);
+	
+    //ventana.document.head.innerHTML = estiloCSSCreditoLst;
+    ventana.print();
+    ventana.close();
 }
