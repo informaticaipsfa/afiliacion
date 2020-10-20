@@ -546,3 +546,7 @@ function CobGenerarTxt(id){
   
   $("#ModuloTitulo").html("Envio de Cobranza Generar Txt");
 }
+
+function CobRelacionActiva(id){
+  $("#ModuloTitulo").html("Relación de Créditos Activos");
+}

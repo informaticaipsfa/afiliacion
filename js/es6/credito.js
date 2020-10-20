@@ -1274,3 +1274,101 @@ function EnviarATesoreria(){
 	
 	
 }
+
+function RelacionCreditosActivosHTML(){
+	var html = `<table class="documentoCss ui celled table" cellspacing="0" width="100%" id="tblRelacion" >
+        <thead >
+		<tr>			
+			<th>NRO.</th>
+			<th>COMP</th>
+			<th>GRAD.</th>
+			<th>SITU</th>
+			<th>CEDULA</th>
+			<th>NOMBRES Y APELLIDOS</th>
+			<th>CONCEPTO</th>
+			<th>N. CREDITO</th> 
+			<th>F. OTORG.</th>
+			<th>CAPITAL</th>
+			<th>INTERESES</th>
+			<th>TOTAL</th>
+			
+
+        </tr>
+        </thead >
+        <tbody id="tblCreditoLstAux">
+        </tbody>
+    </table>`;
+	return html;
+}
+
+/**
+ * Guardar Prestamo 
+ */
+
+
+class WRelacion{
+	constructor(){
+		this.fecha = '';
+		this.desde = '';
+		this.hasta = '';
+		this.estatus = 0;
+	}
+
+
+	Crear(req){
+		console.log(req);
+		$("#btnImprimirRelacion").hide();
+		//$("#btnSalvarRelacion").hide();
+		//$("#btnEnviarRelacion").hide();
+		
+		//$("#_tblLstCreditoAux").html(RelacionCreditosActivosHTML());
+		$("#_tblLstRelacion").html(RelacionCreditosActivosHTML());
+		var t = $('#tblRelacion').DataTable(opcionesCreditoPrestamo);
+		t.clear().draw();
+		var fila = 0;
+		var sum = 0;
+		//$("#tblCreditoLstAux").html('');
+		if (req === null) return false;
+		req.forEach(e => {
+			fila++;
+			t.row.add([
+				fila, //#
+				e.componente, //Componente
+				e.grado, //Grado
+				e.situacion, //Situacion
+				e.cedula, //Balance
+				e.nombre, //Cuota
+				e.concepto, //Interes
+				e.codigo, //Codigo
+				Util.ConvertirFechaHumana( e.fecha),
+				Util.FormatoMoneda( e.monto ), 
+				Util.FormatoMoneda(e.totalinteres), //Capital
+				Util.FormatoMoneda(e.monto + e.totalinteres) //,
+				//Util.FormatoMoneda(e.abonado) //Capital
+			]).draw(false);
+			
+
+			sum += e.monto;
+		});
+
+	}
+
+	Obtener(){
+		return this;
+	}
+
+}
+
+function RelacionActivos(){
+	var wRelacion = new WRelacion();
+	wRelacion.fecha = $("#date_range").val();
+	var fech = wRelacion.fecha.split("AL");
+	wRelacion.desde = fech[0].trim();
+	wRelacion.hasta = fech[1].trim();
+	wRelacion.estatus =  parseInt($("#cmbEstatus").val());
+	//console.log( wRelacion.Obtener() );
+
+
+	CargarAPI(Conn.URL + "credito/relacionactiva" , "POST", wRelacion.Obtener(), wRelacion);
+
+}
