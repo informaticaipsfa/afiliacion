@@ -117,8 +117,8 @@ let estiloCSSCreditoLstRelacion = `
 		@charset "utf-8";
 		@page {
 			margin: 1.5cm;
-			margin-bottom: 0.8cm;
-			margin-top: 0.8cm;
+			margin-bottom: 1.5cm;
+			margin-top: 1.0cm;
 			size: letter landscape;
 			
 		}
