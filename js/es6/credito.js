@@ -112,6 +112,61 @@ let estiloCSSCreditoLst = `
 	
 `
 
+let estiloCSSCreditoLstRelacion = `
+	<style>
+		@charset "utf-8";
+		@page {
+			margin: 1.5cm;
+			margin-bottom: 0.8cm;
+			margin-top: 0.8cm;
+			size: letter landscape;
+			
+		}
+		section {
+			page-break-before: always;
+		}
+		body {
+			margin: 0px;
+			font-family: Calibri;
+			
+		}
+		.baner {
+			text-align: center;
+			line-height: 22px; 
+			font-size: 13px; 
+		}
+		p {
+			text-align: justify;
+			line-height: 22px; 
+			font-size: 12px;
+		}
+		.wrapper {
+			min-height: 100%;
+			height: auto !important;
+			height: 100%;
+			margin: 0 auto -5em;
+		}
+		.footer, .push {
+			height: 5em;
+			font-size: 8px;
+		}
+		ul, img, table {
+			font-size: 8px;
+			
+		}
+		.documentoCss {
+			font-size: 8px;
+		}
+		
+		table.documentoCss th, table.documentoCss td{
+			border: 1px solid #CCCCCC;
+			border-spacing: 0.5rem;
+			border-collapse: collapse;
+		}
+	</style>
+	
+`
+
 let opcionesCredito = {
 	ordering: 		false,
     paging: 		false, 
@@ -1306,10 +1361,10 @@ function RelacionCreditosActivosHTMLAUX(){
 			<th>COMP</th>
 			<th>GRAD.</th>
 			<th>SITU</th>
-			<th>CEDULA</th>
+			<th>CÉDULA</th>
 			<th>NOMBRES Y APELLIDOS</th>
 			<th>CONCEPTO</th>
-			<th>N. CREDITO</th> 
+			<th>N. CRÉDITO</th> 
 			<th>F. OTORG.</th>
 			<th>CAPITAL</th>
 			<th>INTERESES</th>
@@ -1413,7 +1468,7 @@ class WRelacion{
 }
 
 function RelacionActivos(){
-	CargarUrl("_rptcreditolst", "cre/listado");
+	CargarUrl("_rptcreditolst", "cre/relacion");
 	var wRelacion = new WRelacion();
 	wRelacion.fecha = $("#date_range").val();
 	var fech = wRelacion.fecha.split("AL");
@@ -1441,7 +1496,7 @@ function ImprimirRelacion(){
     var ventana = window.open("", "_blank");
 	ventana.document.write(html);
 	
-    //ventana.document.head.innerHTML = estiloCSSCreditoLst;
+    ventana.document.head.innerHTML = estiloCSSCreditoLstRelacion;
     ventana.print();
     ventana.close();
 }
