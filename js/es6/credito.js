@@ -132,8 +132,8 @@ let estiloCSSCreditoLstRelacion = `
 		}
 		.baner {
 			text-align: center;
-			line-height: 22px; 
-			font-size: 13px; 
+			line-height: 13px; 
+			font-size: 11px; 
 		}
 		p {
 			text-align: justify;
