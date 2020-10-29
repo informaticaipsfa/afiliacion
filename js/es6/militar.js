@@ -1018,11 +1018,14 @@ class Militar{
 						$("#mdlCondicion").modal('show');				
 					}
 				}
-				if (militar.Credito.Prestamo.Personal.length > 0){
-					$("#cmbCondicion").val("3");
-					$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
-					$("#mdlCondicion").modal('show');
+				if(ilitar.Credito.Prestamo.Personal != undefined){
+					if (militar.Credito.Prestamo.Personal.length > 0){
+						$("#cmbCondicion").val("3");
+						$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
+						$("#mdlCondicion").modal('show');
+					}
 				}
+				
 
 				$("#_cedula").val("");
 				$("#_ficha").show();
