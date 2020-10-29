@@ -1482,6 +1482,21 @@ function RelacionActivos(){
 
 }
 
+function RelacionPagados(){
+	CargarUrl("_rptcreditolst", "cre/relacion");
+	var wRelacion = new WRelacion();
+	wRelacion.fecha = $("#date_range").val();
+	var fech = wRelacion.fecha.split("AL");
+	wRelacion.desde = fech[0].trim();
+	wRelacion.hasta = fech[1].trim();
+	wRelacion.estatus =  parseInt($("#cmbEstatus").val());
+	//console.log( wRelacion.Obtener() );
+
+
+	CargarAPI(Conn.URL + "credito/relacionactiva" , "POST", wRelacion.Obtener(), wRelacion);
+
+}
+
 
 function ImprimirRelacion(){
 	

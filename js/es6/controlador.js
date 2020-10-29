@@ -552,3 +552,8 @@ function CobRelacionActiva(id){
   $("#ModuloTitulo").html("Relación de Créditos Activos");
   
 }
+function CobRelacionPagados(id){
+  
+  $("#ModuloTitulo").html("Relación de Créditos Pagados");
+  
+}
