@@ -340,7 +340,7 @@ function ImprimirNetoSobreviviente(){
                         <td align="right" style="width:200px"></td>
                     </tr>`;
                 asignacion += monto;
-            }else if(tipo == 2) { //Asignacion Retroactivos
+            }else if(tipo == 2 || tipo == 33) { //Asignacion Retroactivos
 
                
                 fila += `
