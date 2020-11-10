@@ -443,6 +443,7 @@ function ImprimirCuadreDosP() {
     var nominastr = $("#cmbSolicitud option:selected").text();
     var ventana = window.open("", "_blank");
     var nomi = nominastr.split(")");
+    var codigo = $("#cmbSolicitud option:selected").val();
     var contenido = `<center>
     <div style="background: url('../images/fondo.png') no-repeat center;">
     <table style="width:800px"  class="membrete" style="border: 0px solid #CCC9C8;">
@@ -465,7 +466,7 @@ function ImprimirCuadreDosP() {
     </table >
         <h3>
         RELACION DE PAGOS Y DEPOSITOS POR ENTIDADES BANCARIAS<BR>
-        ${nomi[1]}<BR>
+        ${nomi[1]} <BR> ${codigo}<BR>
     </h3><BR></div>`;
 
     //
