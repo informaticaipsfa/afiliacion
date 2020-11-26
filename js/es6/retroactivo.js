@@ -58,6 +58,7 @@ class WMesRetroactivo {
     }
     Crear(req){        
         var rs = req.rs;
+        console.log(req);
         $("#cmbMesActivo").html("");
         rs.forEach(e => {
             $("#cmbMesActivo").append(`<option value="${e.desd.substr(0,10) + " | " + e.mes}">${e.desd.substr(0,10) + " | " + e.mes} </option>`);
@@ -97,7 +98,7 @@ class WNominaRetroactivo {
     }
     Crear(req){        
         var rs = req.rs;
-        console.log(rs);
+        console.log(req);
         $("#_cargando").hide();
         $("#_TblConceptos").html(TableHtmlRectroactivo());        
         var t = $('#tblConcepto').DataTable(opcionesRetroactivo);

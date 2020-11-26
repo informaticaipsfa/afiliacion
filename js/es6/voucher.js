@@ -70,7 +70,7 @@ function ImprimirNeto(){
                         <td align="right" style="width:200px"></td>
                     </tr>`;
                 asignacion += monto;
-            }else if(tipo == 33){ //Asignacion
+            }else if(tipo == 33 || tipo == 2){ //Asignacion
                 var retroactivos = obtenerDescripcionConceptos(des)==""?des:obtenerDescripcionConceptos(des); 
                 fila += `
                     <tr>
