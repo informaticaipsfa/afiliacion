@@ -88,12 +88,11 @@ function CConstanciaARC(pos, parentesco){
         cedulafamiliar = DBF.cedula;
         
     }
+    
     var Calc = new WARC();
     Calc.cedula = ObjMilitar.id;
     Calc.cedulafamiliar = cedulafamiliar;
     Calc.anio = "2020";
-
-  
     
     var ruta = Conn.URL + "pensionado/impimirarc";
     CargarAPI(ruta, "POST", Calc, Calc);
