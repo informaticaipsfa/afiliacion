@@ -15,6 +15,7 @@ let Meses = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','
 class WARC {
     constructor(){
         this.cedula = '';
+        this.cedulafamiliar = '';
         this.anio = '';
     }
     Crear (req){
@@ -69,6 +70,7 @@ function seleccionarMesArc(mes, pos, obj){
 }
 
 function CConstanciaARC(pos, parentesco){
+    var cedulafamiliar = '';
     if(pos != undefined) {
         var v = ObjMilitar.Familiar[pos-1];
         var DBF = v.Persona.DatoBasico;
@@ -82,10 +84,13 @@ function CConstanciaARC(pos, parentesco){
             <td align="center"><b>PORCENTAJE PENSION</b><BR><label>${ArcPorcentaje} %</cedula></td>
         </tr>
         
-    </table>`;
+        </table>`;
+        cedulafamiliar = DBF.cedula;
+        
     }
     var Calc = new WARC();
     Calc.cedula = ObjMilitar.id;
+    Calc.cedulafamiliar = cedulafamiliar;
     Calc.anio = "2020";
 
   
