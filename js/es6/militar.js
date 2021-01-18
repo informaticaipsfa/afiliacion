@@ -979,6 +979,8 @@ class Militar{
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
 				$("#txtporcentaje").val(militar.Pension.pprestaciones);
 				$("#cmbtipopension").val(militar.Pension.causal);
+				$("#_btnCCSolvencia").hide();
+				$("#_btnCARC").hide();
 			}
 
 
@@ -988,74 +990,74 @@ class Militar{
 			verificarPrivilegioUsuario();
 			$("#_tblHistorialMilitar").html(HistoricoMilitarHTML());
 			var th = $('#tblhistoricomilitar').DataTable(tablaBasica);
-				th.clear().draw();
-				i = 0;
-				$.each(militar.HistorialMilitar, function (c, v) {
-					th.row.add([
-						i++,
-						v.categoria,
-						v.clase,
-						v.situacion,
-						v.grado,
-						v.fresuelto
-					]).draw(false);
-				});
-				var valpase = 0;
-				if(militar.pasearetiro){
-					valpase = 1;
-				}
-				$("#cmbpbaja").val(valpase);
-
-				if(valpase == 1){
-					$("#mdlPaseretiro").modal('show')
-				}
-				
-				$("#cmbCondicion").val("0");
-				if(militar.condicion != undefined){
-					$("#cmbCondicion").val(militar.condicion);
-					if (militar.condicion != 0){
-						$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
-						$("#mdlCondicion").modal('show');				
-					}
-				}
-				if(militar.Credito.Prestamo.Personal != undefined){
-					if (militar.Credito.Prestamo.Personal.length > 0){
-						$("#cmbCondicion").val("3");
-						$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
-						$("#mdlCondicion").modal('show');
-					}
-				}
-				
-
-				$("#_cedula").val("");
-				$("#_ficha").show();
-				$("#_consultarbox").hide();
-				$("#_search").show();
-				$("#_cargando").hide();
-
-				ActivarPension();
-				if(militar.Pension.pprestaciones != undefined){ 
-					$("#txtporcentaje").val(militar.Pension.pprestaciones);
-					$("#cmbtipopension").val(militar.Pension.causal);
-				}
-				$("#_tblDescuentos").html(DescuentosHTML());
-				$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
-				var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);				
-				tMJ.clear().draw();
-				MostrarMedidaJudicial(militar.Pension.MedidaJudicial, tMJ);
-				
-				
-				
-				
-				var DPen = $('#tblDescuentos').DataTable(tablaBasica);
-				DPen.clear().draw();
-				MostrarDescuentos(militar.Pension.Descuentos, DPen);
-
-				$("#_tblCredito").html(ListaCreditoHTML());
-				var tCre = $('#tblCredito').DataTable(tablaBasica);				
-				tCre.clear().draw();
-				MostrarCredito(militar.Credito, tCre);
+			th.clear().draw();
+			i = 0;
+			$.each(militar.HistorialMilitar, function (c, v) {
+				th.row.add([
+					i++,
+					v.categoria,
+					v.clase,
+					v.situacion,
+					v.grado,
+					v.fresuelto
+				]).draw(false);
+			});
+			var valpase = 0;
+			if(militar.pasearetiro){
+				valpase = 1;
 			}
+			$("#cmbpbaja").val(valpase);
+
+			if(valpase == 1){
+				$("#mdlPaseretiro").modal('show')
+			}
+			
+			$("#cmbCondicion").val("0");
+			if(militar.condicion != undefined){
+				$("#cmbCondicion").val(militar.condicion);
+				if (militar.condicion != 0){
+					$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
+					$("#mdlCondicion").modal('show');				
+				}
+			}
+			if(militar.Credito.Prestamo.Personal != undefined){
+				if (militar.Credito.Prestamo.Personal.length > 0){
+					$("#cmbCondicion").val("3");
+					$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
+					$("#mdlCondicion").modal('show');
+				}
+			}
+			
+
+			$("#_cedula").val("");
+			$("#_ficha").show();
+			$("#_consultarbox").hide();
+			$("#_search").show();
+			$("#_cargando").hide();
+
+			ActivarPension();
+			if(militar.Pension.pprestaciones != undefined){ 
+				$("#txtporcentaje").val(militar.Pension.pprestaciones);
+				$("#cmbtipopension").val(militar.Pension.causal);
+			}
+			$("#_tblDescuentos").html(DescuentosHTML());
+			$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
+			var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);				
+			tMJ.clear().draw();
+			MostrarMedidaJudicial(militar.Pension.MedidaJudicial, tMJ);
+			
+			
+			
+			
+			var DPen = $('#tblDescuentos').DataTable(tablaBasica);
+			DPen.clear().draw();
+			MostrarDescuentos(militar.Pension.Descuentos, DPen);
+
+			$("#_tblCredito").html(ListaCreditoHTML());
+			var tCre = $('#tblCredito').DataTable(tablaBasica);				
+			tCre.clear().draw();
+			MostrarCredito(militar.Credito, tCre);
+		}
 			
 	}
 
