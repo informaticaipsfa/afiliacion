@@ -972,15 +972,16 @@ class Militar{
 			$("#txtnumhistoriaclinica").val(militar.numerohistoria);
 			$("#_divpension").hide();
 			$("#lblFechaResolucion").html("Fecha de Resolución");
-
+			$("#_btnCCSolvencia").hide();
+			$("#_btnCARC").hide();
 			if(militar.Pension.grado != undefined && militar.Pension.grado != "" && militar.situacion != "ACT"){
 				$("#lblFechaResolucion").html("Fecha de Retiro");
 				$("#_divpension").show();
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
 				$("#txtporcentaje").val(militar.Pension.pprestaciones);
 				$("#cmbtipopension").val(militar.Pension.causal);
-				$("#_btnCCSolvencia").hide();
-				$("#_btnCARC").hide();
+				$("#_btnCCSolvencia").show();
+				$("#_btnCARC").show();
 			}
 
 
