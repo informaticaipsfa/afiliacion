@@ -1516,3 +1516,123 @@ function ImprimirRelacion(){
     ventana.print();
     ventana.close();
 }
+
+
+
+
+function ViewInputFileCob(){
+    $("#input-folder-2").fileinput({
+        browseLabel: 'Seleccionar Archivos',
+        previewFileIcon: '<i class="fa fa-file"></i>',
+        language: 'es',
+        theme: "fa",
+        hideThumbnailContent: true,
+        allowedPreviewTypes: null, // set to empty, null or false to disable preview for all types
+        previewFileIconSettings: {
+            'doc': '<i class="fas fa-file-word text-primary"></i>',
+            'xls': '<i class="fas fa-file-excel text-success"></i>',
+            'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
+            'jpg': '<i class="fas fa-file-image text-warning"></i>',
+            'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
+            'zip': '<i class="fas fa-file-archive text-muted"></i>',
+            'htm': '<i class="fas fa-file-code text-info"></i>',
+            'txt': '<i class="fa fa-search text-info"></i>',
+            'mov': '<i class="fas fa-file-video text-warning"></i>',
+            'mp3': '<i class="fas fa-file-audio text-warning"></i>',
+        },
+        previewFileExtSettings: {
+            'doc': function(ext) {
+                return ext.match(/(doc|docx)$/i);
+            },
+            'xls': function(ext) {
+                return ext.match(/(xls|xlsx)$/i);
+            },
+            'ppt': function(ext) {
+                return ext.match(/(ppt|pptx)$/i);
+            },
+            'jpg': function(ext) {
+                return ext.match(/(jp?g|png|gif|bmp)$/i);
+            },
+            'zip': function(ext) {
+                return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+            },
+            'htm': function(ext) {
+                return ext.match(/(php|js|css|htm|html)$/i);
+            },
+            'txt': function(ext) {
+                return ext.match(/(txt|ini|md)$/i);
+            },
+            'mov': function(ext) {
+                return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+            },
+            'mp3': function(ext) {
+                return ext.match(/(mp3|wav)$/i);
+            },
+        }
+      });
+      
+      $( "#forma" ).submit(function( event ) {
+          
+        EnviarArchivosCob();
+        event.preventDefault();
+      });
+}
+
+/**
+ * Enviando Archivos
+ */
+function EnviarArchivosCob() {
+    if ($("#input-folder-2").val() == "") {
+        $.notify("Debe seleccionar un archivo", {position: "top"});
+        return false;
+    }
+
+    
+
+    var f = $("#fechainicio").val();
+    $("#txtFileID").val(MD5codigo + "|" + f);
+
+    var formData = new FormData(document.forms.namedItem("forma"));
+
+
+    var strUrl = "https://" + Conn.IP +  "/ipsfa/api/militar/jwtsubirarchivoscob";
+    $("#divDtArchivosL").show();
+    $("#divDtArchivos").hide();
+    $("#divForma").hide();
+    $("#btnAnteriorArchivos").hide();
+    $("#btnContinuarArchivos").hide();
+    $.ajax({
+        url: strUrl,
+        type: "post",
+        dataType: "html",
+        data: formData,
+        timeout: 2000000,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", 'Bearer '+ sessionStorage.getItem('ipsfaToken'));
+        }
+    })
+    .done(function (res) {
+        $("#divDtArchivosL").hide();
+        $("#divForma").hide();
+        $("#divDtArchivos").show();
+        $('#forma').trigger("reset");
+        $("#btnAnteriorArchivos").show();
+        $("#btnContinuarArchivos").show();
+        
+    }).fail(function (jqXHR, textStatus) {        
+        $("#divForma").show();
+        $("#divDtArchivos").hide();
+        $("#divDtArchivosL").hide();
+        $("#btnAnteriorArchivos").show();
+        $("#btnContinuarArchivos").show();
+        $('#forma').trigger("reset");
+        if (textStatus === 'timeout') {
+            $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
+        }
+
+    });
+
+}

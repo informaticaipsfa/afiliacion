@@ -1,0 +1,72 @@
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+    <div class="box box-primary ">
+        <div class="box-header with-border">
+            <i class="fa fa-bullhorn"></i>
+            <h3 class="box-title">Realizar Amortización desde archivos de componentes</h3>
+        </div>
+        <div class="box-body" >
+            <div id="amortizar" class="content">
+                <div class="row" style="padding-left:15px;padding-right:15px" >
+                    <div class="callout callout-warning" id="divDtArchivosL" style="display:none">
+                        <h4>Subiendo archivos!</h4>
+            
+                        <p>Este proceso puede durar un tiempo equivalente a la cantidad de archivos que se suban al sistema</p>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:15px;padding-right:15px" >
+                    <div class="callout callout-success" id="divDtArchivos" style="display:none">
+                        <h4>Archivos cargados!</h4>
+            
+                        <p id="dtArchivos">Ahora puede continuar con el proceso para la generación de la nómina</p>
+                    </div>
+                </div>
+            
+                <div class="row" style="padding-left:15px;padding-right:15px" id="divForma">
+                    
+                    <form method="post" enctype="multipart/form-data" id="forma" name="forma">
+                        <input type="hidden" name="txtFileID" id="txtFileID" value="" readonly="readonly">
+                        <label for="input-folder-2">Cajas de ahorro y asociaciones</label>
+                        <div class="file-loading">
+                            <input id="input-folder-2" name="input-folder-2" type="file" multiple accept="text/*">
+                        </div>
+                        <div id="errorBlock" class="help-block"></div>
+                    </form>
+                </div>
+            
+            
+                
+            </div> <!-- Fin de Varios-->
+
+
+
+            <br><br>
+            <div id="_tblLstRelacion">
+
+            </div>
+            <div id="_tblLstRelacionAux" style="display:none">
+
+            </div>
+
+        </div><!-- /.box-body -->
+
+        <!-- Loading (remove the following to stop the loading)-->
+        <div class="overlay" id="_cargando" style="display:none">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <!-- end loading -->
+        <div class="modal-footer">    
+           
+            <button id="btnContinuarArchivos" type="button" class="btn btn-primary" onclick="ProcesarAmortizacion();">
+                Procesar&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i>
+            </button>
+            
+
+        </div>
+    </div><!-- /.box -->
+</div>
+
+
+ <script>
+
+    ViewInputFileCob();
+ </script>

@@ -557,3 +557,7 @@ function CobRelacionPagados(id){
   $("#ModuloTitulo").html("Relación de Créditos Pagados");
   
 }
+function CobAmortizaciones(id){
+  
+  $("#ModuloTitulo").html("Amortizaciones de créditos");
+}
