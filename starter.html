@@ -435,24 +435,10 @@
         </div> <!-- /.row -->
         
         <div class="row">
-          <div class="col-md-9" id="_bxCredito"></div>
-          <div class="col-md-3" ></div>
-        </div> <!-- /.row -->
-
-        <div class="row">
-             <div class="col-md-9" id="_bxMedidaJudicial"></div>
-             <div class="col-md-3" ></div>
-        </div> <!-- /.row -->
-        
-        <div class="row">
-            <div class="col-md-9" id="_bxDescuentos"></div>
-            <div class="col-md-3" ></div>
-        </div> <!-- /.row -->
-
-        
-
-        <div class="row">
-             <div class="col-md-12" id="_bxHMilitar"></div>
+          <div class="col-md-12" id="_bxCredito"></div>
+          <div class="col-md-12" id="_bxMedidaJudicial"></div>
+          <div class="col-md-12" id="_bxDescuentos"></div>
+          <div class="col-md-12" id="_bxHMilitar"></div>
         </div> <!-- /.row -->
       </div>
             <!-- /.box-body -->
@@ -652,16 +638,100 @@
         <div class="modal-header" style="background-color:#337ab7;color:white;">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title">Credito / Prestamo</h4>
+          <h4 class="modal-title">Estado de cuenta</h4>
 
         </div>
         <div class="modal-body" id="_frmCreditoPrestamo">
         </div>
-
+        <div class="modal-footer">
+          <button type="button"  class="btn btn-md btn-success" onclick="ImprimirEstadoCuenta()">
+            Imprimir</button>
+          <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
+            Cancelar</button>
+        </div>
       </div>
     </div>
   </div>
   
+
+
+ <!-- Detalles de Pagos del Credito / Prestamos -->
+<div  class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" id="mdlCuotaPagar"
+  aria-hidden="false">
+  <div class="modal-dialog" role="document">
+  
+  <!-- Modal content-->
+  <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
+    <div class="modal-header" style="background-color:#337ab7;color:white;">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <h4 class="modal-title">Pagar créditos</h4>
+
+    </div>
+    <div class="modal-body">
+      
+          <div class="row">
+
+              <div class="col-md-12">
+                  <label>Descripción del pago:</label>
+                  <textarea  id="txtObservacionCrd" class="form-control"  type="text" 
+                  required tabindex="1" style="height: 100px;"></textarea>
+              </div>  
+             
+              <div class="col-md-6">
+                  <label>Forma de Pago</label>
+                      <select class="js-states form-control" style="width: 100%"
+                          aria-hidden="true" required id="cmbFormaCrd">
+                            <option selected="selected" value="S">SELECCIONAR</option>
+                            <option value="DEP">DEPOSITO</option>
+                            <option value="TRA">TRANSFERENCIA</option>
+                            <option value="PAG">PAGO EN TAQUILLA</option>
+                            <option value="PET">PETROS</option>
+                            <option value="CRI">CRIPTOMONEDA</option>
+                            
+                      </select>
+      
+              </div>
+              <div class="col-md-6">
+                  <label>Fecha Operación:</label>
+                  <div class="input-group date">
+                      <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                      </div>
+                      <div class="input-group input-group">
+                          <input class="form-control" id="txtcedulaCredito" type="hidden">
+                          <input class="form-control" id="txtoidCredito" type="hidden">
+                          <input class="form-control" id="txtfechadepCredito" type="text">
+                      </div>
+                  </div>
+      
+              </div>
+              <div class="col-md-6">
+                  <label>Num. Operación:</label>
+                  <input  id="txtnumerodep" class="form-control"  type="text" >
+              </div>
+              <div class="col-md-6">
+                <label>Monto Pagado:</label>
+                <input  id="txtmonto" class="form-control"  type="text" >
+            </div>
+
+
+          </div>
+    
+    </div>
+    <div class="modal-footer">
+      <button type="button"  class="btn btn-md btn-success" onclick="PagarCredito()">
+          Aceptar</button>
+      <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
+          Cancelar</button>
+    </div>
+    
+  </div>
+
+</div>
+</div>
+
 
 
   <!-- Modal para la elaboración de netos sobrevivientes -->

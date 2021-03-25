@@ -185,6 +185,20 @@ let opcionesCreditoPrestamo = {
 	searching: 		false,
     ordering: 		false,
     info: 			false,
+	"language": {
+        "lengthMenu": "Mostar _MENU_ filas por pagina",
+        "zeroRecords": "Nada que mostrar",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "No se encontro nada",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Buscar",
+        "paginate": {
+            "first": "Primero",
+            "last": "Ultimo",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        },
+    },
 };
 
 
@@ -200,6 +214,22 @@ let opcionesCreditoListar = {
         style: 'multi'
     },
     scrollY:        400,
+    deferRender:    true,
+    scroller:       true,
+    language: {
+        "lengthMenu": "Mostar _MENU_ filas por pagina",
+        "zeroRecords": "Nada que mostrar",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "No se encontro nada",
+        "infoFiltered": "(filtered from _MAX_ total records)",
+        "search": "Buscar"
+    }
+};
+
+let opcionesCuotas = {
+    ordering: false,
+    paging: false,            
+    scrollY:        320,
     deferRender:    true,
     scroller:       true,
     language: {
@@ -319,6 +349,7 @@ function CalcularCuotasPr(){
 
 	$("#txtCuotaMensual").val(Util.FormatoMoneda(wPrestamo.cuota));
 }
+
 function CalcularInteresCuotaGiro(){
 	var monto = parseFloat( $("#txtMontoGiro").val())  * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
@@ -444,7 +475,6 @@ function totalGirosintereses(){
 	return intereses;
 }
 
-
 function borrarGirosEspeciales(tipo){
 	//console.log(_GIROS);
 	var giros = [];
@@ -471,6 +501,7 @@ function borrarGirosEspeciales(tipo){
 	reconstruirGiros();
 	return giros;
 }
+
 function reconstruirGiros(){
 	
 	$("#tblDetalleEspecial").html('');
@@ -495,6 +526,7 @@ function reconstruirGiros(){
 	};
 	
 }
+
 function comboEspecial(tipo){
 	var text = "";
 	switch (tipo) {
@@ -769,26 +801,25 @@ function HTMLTblAmortizacion(){
 	</table>`;
 }
 
-
 function HTMLTblAmortizacionCP(){
 	return `
-	<table id="tblPrestamoCP" class="ui celled table table-bordered table-striped dataTable" width="100%">
+	<table id="tblPrestamoCP" data-page-length='5' class="ui celled table table-bordered table-striped dataTable" width="100%">
 		<thead>
 			<tr>
 				<th style="width:30px">#</th>
-				<th>BALANCE</th>
 				<th>CUOTA</th>
 				<th>INTERES</th>                                            
 				<th>CAPITAL</th>                   
-				<th>SALDO</th>
 				<th>FECHA</th>
+				<th style="width:30px">TIPO</th>
+				<th>ESTATUS</th>
+
 			</tr>
 		</thead>
 		<tbody>
 		</<tbody>
 	</table>`;
 }
-
 
 function HTMLTblAmortizacionPrint(){
 	return `
@@ -838,7 +869,6 @@ function PrResumen(){
 
 	StepperPrestamo.next();
 }
-
 
 function FirmaCredito(){
 	var fecha = new Date();
@@ -922,11 +952,12 @@ function ListaCreditoHTML(){
         <tr>
 			<th>NRO.</th>
 			<th>CONCEPTO</th>
-			<th>CUENTA</th>
 			<th>FECHA</th>
-			<!-- <th>CUOTA</th> -->
 			<th>MONTO CREDITO</th>
-			<th>ESTATUS</th> 
+			<th>MONTO CUOTA</th>
+			<th>N° CUOTAS</th>
+			<th>SALDO</th> 
+			<th>ACC</th>
 			<th style="display:none">ID</th>
         </tr>
         </thead >
@@ -1000,7 +1031,12 @@ function MostrarCredito(Credito, tCre){
 			var banc = v.Banco.cuenta!=undefined?v.Banco.cuenta:'';        
 			var estatus = v.estatus!=undefined?v.estatus:'PENDIENTE';
 			var capital = v.capital!=undefined?v.capital:'0,00';
-			
+			var modificar = `
+            	<button type="button"
+                	class="btn btn-sm btn-warning prvcrdpagar" onclick="ShowPagarCredito('${oid}')">
+                	<i class="fa fa-money"></i>
+            	</button>
+				`;
 			if(estatus == 1){
 				estatus = "PROCESADO"
 			}else if (estatus == 2){
@@ -1009,25 +1045,72 @@ function MostrarCredito(Credito, tCre){
 			tCre.row.add([
 				oid,
 				conc,
-				banc,
 				Util.ConvertirFechaHumana(v.fechacreacion),
-				//Util.FormatoMoneda(v.cuota),
 				Util.FormatoMoneda(v.capital),
-				estatus,
+				Util.FormatoMoneda(v.cuota),
+				v.cantidad,
+				'0,00',
+				modificar,
 				i
 			]).draw(false);
 			i++;
 		});
 	});
 	
-    tCre.column(6).visible(false);
+    tCre.column(8).visible(false);
     //tCre.column(8).visible(false);
-    $('#tblCredito tbody').on('dblclick', 'tr', function () {        
+    $('#tblCredito tbody').on('dblclick', 'tr', function () {     
 		var data = tCre.row(this).data();
+		   
+		var id = parseInt(data[0].substring(2,12))
+		
+		listarCoutas(id);
+
+	});
+}
+
+
+function ShowPagarCredito(oid ){
+	$('#txtfechadepCredito').datepicker({
+        autoclose: true,
+        format: "dd/mm/yyyy",
+        language: 'es'
+    });
+	$("#txtObservacionCrd").val('CREDITO NUMERO: ' + oid + ' \n PAGAR COMPLETO');
+	$("#txtCedulaCredito").val($("#txtcedula").val());
+	$("#txtoidCredito").val(parseInt(oid.substring(2,12)));
+	$("#txtfechadepCredito").val();
+	$("#mdlCuotaPagar").modal("show");
+}
+function PagarCredito(){
+
+}
+
+class WListarCuotas{
+	constructor(){
+		this.id = '';
+		this.balance = 0.00;
+		this.cuota = 0.00;
+		this.interes = 0.00;
+		this.capital = 0.00;
+		this.saldo = 0.00;
+		this.fecha  = '';
+		this.estatus = 0;
+		this.tipo  = 0;
+		this.dias  = 0;
+		this.numero  = 0;
+	}
+
+	Obtener(){
+		return this;
+	}
+
+	Crear(req){
+		var cuotas = req;
+		//console.log(cuotas);
 		$("#mdlCreditoPrestamo").modal('show');
 		$("#_TblAmortizacionCreditoPrestamo").html(HTMLTblAmortizacionCP());
 		var t = $('#tblPrestamoCP').DataTable(opcionesCreditoPrestamo);
-		var cuotas = ObjMilitar.Credito.Prestamo.Personal[data[7]].cuotas;
 		t.clear().draw();
 		var i = 1;
 
@@ -1036,22 +1119,27 @@ function MostrarCredito(Credito, tCre){
 			var cuota = v.cuota!=undefined?v.cuota:'';
 			var capital = v.capital!=undefined?v.capital:'';
 			var interes = v.interes!=undefined?v.interes:'';
+			var estatus = v.estatus!=0?'PAGADA':'PENDIENTE'
+			
 			t.row.add([
 				i,
-				v.balance,
 				cuota,
 				interes,
 				capital,
-				saldo,
-				v.fecha
+				Util.ConvertirFechaHumana(v.fecha),
+				tipoCredito(v.tipo),
+				estatus
 			]).draw(false);
 			i++;
 		});
-
-	});
+	}
 }
+function listarCoutas(id){
+	var wlc = new WListarCuotas();
 
-
+	CargarAPI(Conn.URL + "credito/cuotas/" + id , "GET", wlc.Obtener(), wlc);
+	
+}
 
 function alertNotifyCredito (msj, color){
     $.notify(
@@ -1064,7 +1152,6 @@ function alertNotifyCredito (msj, color){
         } 
     );
 }
-
 
 /**
  * Guardar Prestamo 
@@ -1273,6 +1360,7 @@ class WCredActualizar{
 		return this;
 	}
 }
+
 function AceptarCreditos(){
 	var wca = new WCredActualizar();
 
@@ -1354,6 +1442,7 @@ function RelacionCreditosActivosHTML(){
     </table>`;
 	return html;
 }
+
 function RelacionCreditosActivosHTMLAUX(){
 	var html = `<table class="documentoCss ui celled table" cellspacing="0" width="100%" id="tblRelacionAUX" >
         <thead >
@@ -1378,7 +1467,22 @@ function RelacionCreditosActivosHTMLAUX(){
 	return html;
 }
 
-
+function tipoCredito(tipo){
+	var str = '';
+	switch (tipo) {
+		case 0:
+			str = 'M';
+			break;
+		case 1:
+			str = 'V';
+			break;
+	
+		default:
+			str = 'A';
+			break;
+	}
+	return str;
+}
 
 /**
  * Guardar Prestamo 
@@ -1498,7 +1602,6 @@ function RelacionPagados(){
 
 }
 
-
 function ImprimirRelacion(){
 	
 	var tabla = $("#_tblLstRelacionAux").html();	
@@ -1516,9 +1619,6 @@ function ImprimirRelacion(){
     ventana.print();
     ventana.close();
 }
-
-
-
 
 function ViewInputFileCob(){
     $("#input-folder-2").fileinput({

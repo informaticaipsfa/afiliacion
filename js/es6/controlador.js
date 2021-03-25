@@ -78,6 +78,10 @@ function verificarPrivilegioUsuario(){
                 $(".prvcredito").attr("disabled",false);
                 $(".prvcredito").removeClass('hide');
                 break;
+            case "credito.pagar":
+              $(".prvcrdpagar").attr("disabled",false);
+              $(".prvcrdpagar").removeClass('hide');
+              break;
 
         }
     })
