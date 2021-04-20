@@ -375,7 +375,7 @@ class Familiar{
 	}
 	Actualizar(){
 		var milfamiliar = new WMilitar();
-		CargarAPI(Conn.URL + "familiar/crud" , "PUT", this.Obtener(), milfamiliar);
+		CargarAPI(Conn.URL + "familiar/xcrud" , "POST", this.Obtener(), milfamiliar);
 	}
 }
 
@@ -1251,7 +1251,7 @@ class Militar{
 		$("#_btnModificar").show();
 		$("#_btnSavlvar").hide();
 		
-		CargarAPI(Conn.URL + "militar/crud" , "PUT", this.Obtener());
+		CargarAPI(Conn.URL + "militar/xcrud" , "POST", this.Obtener());
 	}
 }
 
