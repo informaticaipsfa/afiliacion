@@ -127,6 +127,15 @@ function fnxC(fnxc){
         case 'aguinaldo':
             $('#txtFormula').val(fn +  ' $aguinaldo ' );
             break;
+        case 'prima_descendencia':
+            $('#txtFormula').val(fn +  ' $this->Beneficiario->prima_descendencia ' );
+            break;
+        case 'prima_profesionalizacion':
+            $('#txtFormula').val(fn +  ' $this->Beneficiario->prima_profesionalizacion ' );
+            break;
+        case 'prima_tiemposervicio':
+            $('#txtFormula').val(fn +  ' $this->Beneficiario->prima_tiemposervicio ' );
+            break;
         default:
             break;
 
