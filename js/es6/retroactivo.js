@@ -93,7 +93,7 @@ class WNominaRetroactivo {
         this.ano = '';
         this.tipo = '';
         this.cedula = '';
-        this.familiar = '';
+        
 
     }
     Crear(req){        
@@ -170,9 +170,10 @@ function CargarNominasPR(){
     Obj.mes = arr[1].trim();
     Obj.ano = parseInt($("#cmbAnoActivo").val());
     Obj.cedula = $("#txtcedula").val();
+    
     $("#_cargando").show();
     $("#btnAsociar").show();
-    console.log(Obj);
+    //console.log(Obj);
     CargarAPI(url, "POST", Obj.Obtener(), Obj);
 
 }
@@ -370,8 +371,8 @@ function imprimirRetroactivo(){
     var porcentaje = $('#txtPension').val();
     var ano = $("#cmbAnoActivo").val();
     var localtime = new Date().toLocaleString();
-    var detalle = detalleConceptosR();
     var lst = calcularConceptosR();
+    var detalle = detalleConceptosR( lst.neto );
     ventana.document.write(`<center>
     <div>
         <table style="width:800px" class="membrete">
@@ -486,7 +487,7 @@ function imprimirRetroactivo(){
      `;
 }
 
-function detalleConceptosR(){
+function detalleConceptosR( neto ){
     var table = '';
     
     var porcentaje = $("#txtPension").val();
@@ -562,5 +563,48 @@ function detalleConceptosR(){
         table += fila + `</tbody>${tfoot}</table>`;
         
     });
+
+    if( $("#txtSituacion").val() == "FCP" ){
+
+        table += `<H3>DATO DE LOS FAMILIARES</H3>
+            <table class="tablanetos" style="width:800px">
+                <thead>
+                    <tr>
+                        <th style="width:100px">CEDULA</th>
+                        <th style="width:350px">APELLIDOS Y NOMBRE</th>
+                        <th style="width:120px">PARENTESCO</th>
+                        <th align="center" style="width:80px">%PENSION</th>
+                        <th align="center" style="width:150px">NETO</th>
+                    </tr>
+                </thead>
+            <tbody>
+        `;
+
+      
+        ObjCalcular.Familiar.forEach( v => {
+            var familiar = new Familiar();
+            
+            var DBF = v.Persona.DatoBasico;
+            var cedula = DBF.cedula;
+            var nombre = DBF.apellidoprimero + ' ' + DBF.apellidosegundo + ' ' + DBF.nombreprimero + ' ' + DBF.nombresegundo;
+            var parentesco = v.parentesco;
+            familiar.Persona.DatoBasico.sexo = DBF.sexo;
+            familiar.parentesco = parentesco;
+            var porcentaje = v.pprestaciones!=undefined?v.pprestaciones:0;
+            if (porcentaje > 0){
+                var monto = ((neto * porcentaje)/100);
+                table += `<tr>
+                    <td>${cedula}</td>
+                    <td>${nombre}</td>
+                    <td>${ familiar.GenerarParentesco() }</td>
+                    <td align="center">${porcentaje}</td>
+                    <td align="right">${ accounting.formatMoney(monto, "Bs. ", 2, ".", ",") }</td>
+                </tr>`
+            }
+
+        });
+        table += `</tbody></table>`;
+    }
+
     return table;
 }
