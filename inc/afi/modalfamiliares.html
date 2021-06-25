@@ -340,7 +340,7 @@
                                 <label>Cédula / Autorizado:</label>
                                 <input id="txtautorizadof" class="form-control" disabled="disabled" type="text" maxlength="10"
                                     onkeypress="return Util.SoloNumero(event, this.id);"
-                                >
+																		>
                                 <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -354,6 +354,7 @@
                                 <div class="col-md-6 col-sm-12">
                                     <label>Nro. de Cuenta:</label>
                                     <input id="txtmnrocuentaf" class="form-control" disabled="disabled" type="text" 
+																				onblur="validarTitularCuenta()"
                                     onkeypress="return Util.SoloNumero(event, this.id);" maxlength="20" >
                                     <!-- maxlength="23" data-inputmask='"mask": "9999-9999-99-9999999999"' data-mask> -->
                                 </div>

@@ -1429,7 +1429,9 @@ function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
             }
             var amilitar = militar.Persona.DatoBasico.apellidoprimero.split(" ");
             var nmilitar = militar.Persona.DatoBasico.nombreprimero.split(" ");
-            $("#lblafiliadof").html(militar.Grado.abreviatura + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
+				    var desGrado = militar.Grado.abreviatura; 
+            if ( desGrado == "AN") desGrado = "TC";
+				    $("#lblafiliadof").html(desGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
 
             url = rutaimgfamiliar + cedula + "/huella" + idf + ".bmp";
             $("#imghuellaCarnetf").attr("src", url);

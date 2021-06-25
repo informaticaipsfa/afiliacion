@@ -407,3 +407,19 @@ function obtenerFamiliarPorcentaje(id){
    }
    return 0;
 }
+
+
+
+function validarTitularCuenta(){
+	var nom = $("#txtnombref").val();
+  var ape = $("#txtapellidof").val();
+  if( $("#txtautorizadof").val() == $("#txttcedulaf").val()){		   
+		$("#txttitularf").val( nom + " " + ape );
+	}else if($("#txtautorizadof").val() == "0") {
+    $("#txtautorizadof").val($("#txtcedulaf").val());
+	  $("#txttitularf").val( nom + " " + ape );
+	}else if ($("#txttitularf").val() == ""){
+	  alert("debe introducir el nombre del autorizado para el banco");
+	}
+}
+
