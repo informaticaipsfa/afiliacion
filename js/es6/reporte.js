@@ -56,7 +56,7 @@ function CConstanciaAfiliacion() {
 
     var gradoPI = 'GENERAL DE DIVISIÓN';
     var clascat = $("#cmbcategoria option:selected").text() + ' / ' + $("#cmbclase option:selected").text();
-    var nombrePI = 'RENIER ENRIQUE URBÁEZ FERMÍN';
+    var nombrePI = 'ENRIQUE JOSÉ AROCHA RIVAS';
     //$('#modRpt').modal('show');
     if( $("#cmbCondicion").val() != "2" ){
         $("#lblgradoMil").text($("#cmbgrado option:selected").text());
