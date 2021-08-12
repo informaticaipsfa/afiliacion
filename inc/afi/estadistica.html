@@ -57,19 +57,32 @@
 	<div class="col-md-12 col-lg-12" >
 	    <div class="box box-primary box-solid ">
 	        <div class="box-header with-border">
-	            <center><h3 class="box-title">Reportes Generales</h3></center>
+	            <center><h3 class="box-title">Reportes General</h3></center>
 	        </div>
 	        <div class="box-body">
 						<div id="tblEstadistica">
 
 						</div>
 	        </div><!-- /.box-body -->
+				 <!-- Loading (remove the following to stop the loading)-->
+				 <div class="overlay" id="_cargando" style="display:none">
+					<i class="fa fa-refresh fa-spin"></i>
+				</div>
+			<div class="modal-footer">
+				<button 
+					type="button"  
+					class="btn btn-md btn-success" 
+					onclick="PrintEstadisticasComponente('tblEstadistica')" >
+				Imprimir</button>
+			</div><!-- /.box-body -->
 
-	        <!-- Loading (remove the following to stop the loading)-->
-	        <div class="overlay" id="_cargando" style="display:none">
-	            <i class="fa fa-refresh fa-spin"></i>
-	        </div>
+		
 	        <!-- end loading -->
+
+		
+
+	       
+			
 	    </div><!-- /.box -->
 	</div>
 

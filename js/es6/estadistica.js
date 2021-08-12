@@ -11,15 +11,16 @@ class EstadisticaComponente {
                   <th>FCP</th>
                   <th>FSP</th>
                   <th>INV</th>
+                  <th>PG</th>
                   <th>TOTAL</th>
               </tr>
           </thead></table>`);
       var t = $('#lstR').DataTable(opciones);
       t.clear().draw();
-      t.row.add([1, "EJERCITO BOLIVARIANO","","","","","","",0]).draw(false);
-      t.row.add([2, "ARMADA BOLIVARIANA","","","","","","",0]).draw(false);
-      t.row.add([3, "AVIACION MILITAR BOLIVARIANA","","","","","","",0]).draw(false);
-      t.row.add([4, "GUARDIA NACIONAL BOLIVARIANA","","","","","","",0]).draw(false);
+      t.row.add([1, "EJERCITO BOLIVARIANO","","","","","","","",0]).draw(false);
+      t.row.add([2, "ARMADA BOLIVARIANA","","","","","","","",0]).draw(false);
+      t.row.add([3, "AVIACION MILITAR BOLIVARIANA","","","","","","","",0]).draw(false);
+      t.row.add([4, "GUARDIA NACIONAL BOLIVARIANA","","","","","","","",0]).draw(false);
       t.row.add(["","TOTAL ",0,0,0,0,0,0,0]).draw(false);
       var matrix = [];
       for (var i=0;i<4;i++) {
@@ -287,4 +288,127 @@ class EstadisticaComponente {
     $("#_cargando").show();
     CargarAPI(url, "POST", "", ObjEsta);
   
+  }
+
+
+
+  function PrintEstadisticasComponente(div){
+    var e = sessionStorage.getItem("ipsfaToken");
+    var s = e.split(".");
+    var json = JSON.parse(atob(s[1]));
+    Usuario = json.Usuario;
+    var tabla = $("#tblEstadistica").html();
+    var fechaActual = ConvertirFechaActual();
+    
+    var ventana = window.open("", "_blank");
+    ventana.document.write(`<center>
+      <div>
+          <table style="width:800px" class="membrete">
+              <tr>
+                  <td width="200px" valign="top"><center><img  style="width: 100px;height: 100px; margin-left: 0px" 
+                  class="img-responsive file-path-wrapper-pre-view" src="images/logo_ipsfa.png" id="_imgescudo"/></center>
+                  </td>
+                  <td width="400px">
+                      <center>
+                      REPÚBLICA BOLIVARIANA DE VENEZUELA <BR>
+                      MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
+                      VICEMINISTERIO DE SERVICIOS, PERSONAL Y LOGÍSTICA<BR>
+                      DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
+                      INSTITUTO DE PREVISIÓN SOCIAL DE LA FUERZA ARMADA<BR>
+                      RIF: G20003692-3
+                      </center>
+                  </td>
+              <td width="200px" valign="top"></td>
+              </tr>
+          </table >
+          <h3>RELACION DE PERSONAL MILITAR REGISTRADO EN EL INSTITUTO</h3>
+      <br>
+      <p style="text-align: justify">
+
+        ${tabla}
+      </p>
+      </div>
+      
+  
+  
+    
+      <table border="0">
+          <tr>
+              
+              <td width="100%" valign="top">
+                  <center> <i>
+                    CHAVEZ VIVE LA PATRÍA SIGUE<br>
+                    INDEPENDENCIA Y PATRIA SOCIALISTA.....VIVIREMOS Y VENCEREMOS<br>
+                    “LEALES SIEMPRE, TRAIDORES NUNCA”...<br><br></i>           
+              </td>
+              <td width="15%" valign="top"></td>
+            </tr>
+      </table>
+  
+      <br>
+       
+      </p>
+    </div>
+    <div class="footer"> <br>
+     Impreso por: ${Usuario.nombre} / en la ciudad de Caracas a los ${fechaActual}.<br>
+    </div>`);
+  
+  
+      ventana.document.head.innerHTML = ` <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>SSSIFANB</title>
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+      <link rel="stylesheet" href="../css/dataTables.semanticui.min.css">
+      <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+      <style type="text/css">
+          body{
+              font-family: Arial, Calibre;
+              font-size: 11px;
+          }
+          table{
+              border-collapse: collapse;
+              font-family: Arial, Calibre;
+              font-size: 10px;
+          }
+          .tablaneto {
+              border-collapse: collapse;
+          } 
+          .tablaneto tr{
+              border: 1px solid #CCCCCC;
+          } 
+          .tablaneto td {
+              border: 1px solid #CCCCCC;
+          } 
+          .tablaneto th {
+              border: 1px solid #CCCCCC;
+          }
+  
+          .tablanetos {
+              border-collapse: collapse;
+              font-family: Arial, Calibre;
+              font-size: 11px;
+          } 
+          .tablanetos tr{
+              border: 1px solid #CCCCCC;
+          } 
+          .tablanetos td {
+              border: 1px solid #CCCCCC;
+              font-size: 11px;
+          } 
+          .tablanetos th {
+              border: 1px solid #CCCCCC;
+              background-color: #CCCCCC;
+          } 
+          @media print {
+              div {
+                  background-position: 180px;
+                  background: url('../images/fondo.png') no-repeat center;
+              }
+          }
+      </style>
+       `;
+  
+     ventana.print();
+     ventana.close();
+
   }

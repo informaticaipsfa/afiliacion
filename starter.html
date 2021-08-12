@@ -661,6 +661,7 @@
 aria-labelledby="myLargeModalLabel" id="mdlCuotaPagar"
   aria-hidden="false">
   <div class="modal-dialog" role="document">
+    
   
   <!-- Modal content-->
   <div class="modal-content" style="border-radius: 8px;border:2px #337ab7 solid; ">
@@ -688,8 +689,9 @@ aria-labelledby="myLargeModalLabel" id="mdlCuotaPagar"
                             <option value="DEP">DEPOSITO</option>
                             <option value="TRA">TRANSFERENCIA</option>
                             <option value="PAG">PAGO EN TAQUILLA</option>
-                            <option value="PET">PETROS</option>
-                            <option value="CRI">CRIPTOMONEDA</option>
+                            <option value="EFE">EFECTIVO</option>
+                            <!-- <option value="PET">PETROS</option>
+                            <option value="CRI">CRIPTOMONEDA</option> -->
                             
                       </select>
       
@@ -710,26 +712,37 @@ aria-labelledby="myLargeModalLabel" id="mdlCuotaPagar"
               </div>
               <div class="col-md-6">
                   <label>Num. Operación:</label>
-                  <input  id="txtnumerodep" class="form-control"  type="text" >
+                  <input  id="txtnumerodepCredito" class="form-control"  type="text" >
               </div>
               <div class="col-md-6">
-                <label>Monto Pagado:</label>
-                <input  id="txtmonto" class="form-control"  type="text" >
+                <label>Monto:</label>
+                <input  id="txtMontoCredito" class="form-control"  type="text" >
+                <input  id="txtMontoCreditoAux" class="form-control"  type="hidden" >
+                <input  id="txtConceptoCreditoAux" class="form-control"  type="hidden" >
             </div>
 
 
           </div>
     
     </div>
+    
     <div class="modal-footer">
-      <button type="button"  class="btn btn-md btn-success" onclick="PagarCredito()">
-          Aceptar</button>
-      <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
-          Cancelar</button>
+      <div class="row" id="btnCreditoPagar">
+        <button type="button"  class="btn btn-md btn-success" onclick="PagarCredito()" >
+            Aceptar</button>
+        <button type="button"  class="btn btn-md btn-alert" data-dismiss="modal">
+            Cancelar</button>
+      </div>
+      <div class="overlay" id="_cargandoPagarCredito" style="display:none">
+        
+        <h4 class="modal-title">Guardando datos por favor espere</h4>
+          
+        
+      </div>
     </div>
     
   </div>
-
+  
 </div>
 </div>
 

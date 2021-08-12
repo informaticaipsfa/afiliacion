@@ -821,6 +821,28 @@ function HTMLTblAmortizacionCP(){
 	</table>`;
 }
 
+function HTMLTblResumenCP(){
+	return `
+	<table id="tblResumenCP" data-page-length='5' class="ui celled table table-bordered table-striped dataTable" width="100%">
+		<thead>
+			<tr>
+				<th style="width:30px">#</th>
+				<th style="text-align:center;">CUOTA</th>
+				<th style="text-align:center;">MONTO</th>                                            
+				<th style="text-align:center;">TIPO</th>                   
+				<th style="text-align:center;">PAGADO</th>			
+				<th style="text-align:center;">PENDIENTE</th>
+			</tr>
+		</thead>
+		<tbody id="tblResumenCPBody">
+		</<tbody>
+		<tfoot id="tblResumenCPFoot">
+		<tfoot>
+	</table>`;
+}
+
+
+
 function HTMLTblAmortizacionPrint(){
 	return `
 	<table id="tblPrestamoAux" cellspacing=0 celladding=0 width="100%" class="documentoCss" >
@@ -1026,21 +1048,29 @@ function MostrarCredito(Credito, tCre){
 	
     $.each( Credito.Prestamo, function (cl, val) {
 		$.each(val, function(c, v){
+			console.log(v);
 			var oid = v.oid!=undefined?v.oid:'';
 			var conc = v.concepto!=undefined?v.concepto.toUpperCase():'';
 			var banc = v.Banco.cuenta!=undefined?v.Banco.cuenta:'';        
 			var estatus = v.estatus!=undefined?v.estatus:'PENDIENTE';
 			var capital = v.capital!=undefined?v.capital:'0,00';
+			var total = v.total!=undefined?1:0;
 			var modificar = `
             	<button type="button"
-                	class="btn btn-sm btn-warning prvcrdpagar" onclick="ShowPagarCredito('${oid}')">
+                	class="btn btn-sm btn-warning prvcrdpagar" onclick="ShowPagarCredito('${oid}', '${conc}')">
                 	<i class="fa fa-money"></i>
             	</button>
 				`;
-			if(estatus == 1){
-				estatus = "PROCESADO"
-			}else if (estatus == 2){
-				estatus = "CANCELADO"
+			if(total == 0){
+				total = "PROCESADO"
+			}else{
+				total = "CANCELADO"
+				modificar = `
+            	<button type="button"
+                	class="btn btn-sm btn-primary " onclick="PrintPagarCredito('${oid}', '${conc}')">
+                	<i class="fa fa-print"></i>
+            	</button>
+				`;
 			}
 			tCre.row.add([
 				oid,
@@ -1058,7 +1088,7 @@ function MostrarCredito(Credito, tCre){
 	});
 	
     tCre.column(8).visible(false);
-    //tCre.column(8).visible(false);
+    tCre.column(6).visible(false);
     $('#tblCredito tbody').on('dblclick', 'tr', function () {     
 		var data = tCre.row(this).data();
 		   
@@ -1070,21 +1100,115 @@ function MostrarCredito(Credito, tCre){
 }
 
 
-function ShowPagarCredito(oid ){
+function ShowPagarCredito( oid, concepto ){
 	$('#txtfechadepCredito').datepicker({
         autoclose: true,
         format: "dd/mm/yyyy",
         language: 'es'
     });
-	$("#txtObservacionCrd").val('CREDITO NUMERO: ' + oid + ' \n PAGAR COMPLETO');
+	$("#txtObservacionCrd").val('CRÉDITO Nº: ' + oid + ' \n PAGAR COMPLETO');
 	$("#txtCedulaCredito").val($("#txtcedula").val());
-	$("#txtoidCredito").val(parseInt(oid.substring(2,12)));
-	$("#txtfechadepCredito").val();
-	$("#mdlCuotaPagar").modal("show");
+	$("#txtoidCredito").val( oid );
+	$("#txtfechadepCredito").val("");
+	$("#txtConceptoCreditoAux").val( concepto );
+	CalcularMontoCredito( parseInt(oid.substring(2,12)) );
+	
 }
-function PagarCredito(){
 
+function CalcularMontoCredito(id){
+	var wlc = new WCalcularMontoCredito();
+
+	CargarAPI(Conn.URL + "credito/cuotas/" + id , "GET", wlc.Obtener(), wlc);
+	
 }
+
+class WCalcularMontoCredito{
+	constructor(){
+	}
+	Obtener(){
+		return this;
+	}
+	Crear(req){
+		var cuotas = req;
+		var monto = 0;
+		
+		console.log( req );
+		$.each(cuotas, function(c, v){
+			var concepto = v.saldo!=undefined?v.saldo:0;
+			var cuota = v.cuota!=undefined?v.cuota:0;
+			monto += cuota;
+		});
+
+		
+		
+		$("#txtMontoCredito").val( Util.FormatoMoneda( monto ) );
+		$("#txtMontoCreditoAux").val( monto );
+		
+		$("#mdlCuotaPagar").modal("show");
+
+
+	}
+}
+
+function PagarCredito(){
+	var alc = new WPagarCredito();
+	alc.oid = parseInt($("#txtoidCredito").val().substring(2,12)) 
+    alc.observacion = $("#txtObservacionCrd").val();
+	alc.cedula = $("#txtcedula").val();
+	alc.credito = $("#txtoidCredito").val();
+	alc.fecha = $("#txtfechadepCredito").val();
+	alc.numero = $("#txtnumerodepCredito").val();;
+	alc.banco = $("#cmbFormaCrd").val();
+	alc.banco = $("#cmbFormaCrd").val();
+	alc.total =  parseFloat(parseFloat( $("#txtMontoCreditoAux").val() ).toFixed(2));
+
+
+	//console.log( alc );
+	$("#btnCreditoPagar").hide();
+	$("#_cargandoPagarCredito").show();
+	
+	CargarAPI(Conn.URL + "credito/pagar" , "POST", alc, alc);
+}
+
+
+class WPagarCredito{
+	constructor(){
+        this.oid = 0;
+		this.observacion = '';
+        this.cedula = '';
+        this.credito = '';
+        this.fecha = '';
+        this.numero = '';
+        this.banco = '';
+		this.total = '';
+    }
+	Obtener(){
+		this.observacion = $("#txtObservacionCrd").val();
+		this.cedula = $("#txtcedula").val();
+		this.credito = $("#txtoidCredito").val();
+		this.fecha = $("#txtfechadepCredito").val();
+		this.numero = $("#txtnumerodepCredito").val();
+        this.banco = $("#cmbFormaCrd").val();
+		this.total = parseFloat( $("#txtMontoCredito").val() );
+	}
+
+	Crear(req){
+		$("#_cargandoPagarCredito").hide();
+		$("#btnCreditoPagar").show();
+		$("#txtnumerodepCredito").val("");
+		$("#cmbFormaCrd").val("S");
+		$('#mdlCuotaPagar').modal('hide');
+		alertNotifyCredito("El credito ha sido cancelado en su totalidad", 'success');
+		PrintPagarCredito($("#txtoidCredito").val(), $("#txtConceptoCreditoAux").val())
+
+		
+	}
+}
+
+
+
+
+
 
 class WListarCuotas{
 	constructor(){
@@ -1107,12 +1231,17 @@ class WListarCuotas{
 
 	Crear(req){
 		var cuotas = req;
+		var filaCuotas, filaVacaciones, filaAguinaldos;
+
 		//console.log(cuotas);
 		$("#mdlCreditoPrestamo").modal('show');
+		$("#_TblResumenCreditoPrestamo").html(HTMLTblResumenCP());
+
 		$("#_TblAmortizacionCreditoPrestamo").html(HTMLTblAmortizacionCP());
 		var t = $('#tblPrestamoCP').DataTable(opcionesCreditoPrestamo);
 		t.clear().draw();
 		var i = 1;
+		
 
 		$.each(cuotas, function(c, v){
 			var saldo = v.saldo!=undefined?v.saldo:'';
@@ -1121,6 +1250,7 @@ class WListarCuotas{
 			var interes = v.interes!=undefined?v.interes:'';
 			var estatus = v.estatus!=0?'PAGADA':'PENDIENTE'
 			
+
 			t.row.add([
 				i,
 				cuota,
@@ -1132,8 +1262,54 @@ class WListarCuotas{
 			]).draw(false);
 			i++;
 		});
+		var TotalPagado = 0;
+		var TotalPendiente = 0;
+		for (var i=0; i < 3; i++){
+			var rMensual = detalleCuotasTipo(cuotas, i);
+			$("#tblResumenCPBody").append(`<tr>
+					<td>${i + 1}</td>
+					<td style="text-align:center;">${rMensual.Cuota}</td>
+					<td style="text-align:right;">${ Util.FormatoMoneda(  rMensual.Pagado + rMensual.Pendiente )}</td>
+					<td style="text-align:center;">${tipoCreditoTexto(i)}</td>
+					<td style="text-align:right;">${ Util.FormatoMoneda( rMensual.Pagado ) }</td>
+					<td style="text-align:right;">${ Util.FormatoMoneda( rMensual.Pendiente )}</td>
+			</tr>`);
+			TotalPagado += rMensual.Pagado;
+			TotalPendiente += rMensual.Pendiente;
+		}
+		$("#tblResumenCPFoot").append(`<tr>
+					<td colspan=4>TOTAL</td>
+					<td style="text-align:right;">${ Util.FormatoMoneda( TotalPagado ) }</td>
+					<td style="text-align:right;">${ Util.FormatoMoneda( TotalPendiente )}</td>
+			</tr>`);
+
+		tblResumenCPFoot
+		
+
+	
+
+
 	}
 }
+
+function detalleCuotasTipo(rs, tipo){
+	var cuota = 0;
+	var monto = 0;
+	var pagado = 0;
+	var pendiente = 0;
+
+	$.each(rs, function(c, v){
+		//console.log(v);
+		if(v.tipo == tipo){
+			cuota++;
+			monto = v.cuota!=undefined?v.cuota:'';
+			pagado += v.estatus!=0?monto:0;
+			pendiente += v.estatus!=0?0:monto;
+		}
+	})
+	return { Cuota: cuota, Monto: monto, Pagado: pagado, Pendiente: pendiente };
+}
+
 function listarCoutas(id){
 	var wlc = new WListarCuotas();
 
@@ -1484,6 +1660,24 @@ function tipoCredito(tipo){
 	return str;
 }
 
+function tipoCreditoTexto(tipo){
+	var str = '';
+	switch (tipo) {
+		case 0:
+			str = 'MENSUAL';
+			break;
+		case 1:
+			str = 'VACACIONES';
+			break;
+	
+		default:
+			str = 'AGUINALDOS';
+			break;
+	}
+	return str;
+}
+
+
 /**
  * Guardar Prestamo 
  */
@@ -1736,3 +1930,155 @@ function EnviarArchivosCob() {
     });
 
 }
+
+function PrintPagarCredito(credito, concepto){
+	var e = sessionStorage.getItem("ipsfaToken");
+    var s = e.split(".");
+    var json = JSON.parse(atob(s[1]));
+    Usuario = json.Usuario;
+    
+
+    var grado = $("#txtGradoT").val();
+    var nombre = $("#txtnombre").val() + " " + $("#txtapellido").val();
+	
+    var cedula = $("#txtcedula").val();
+    var localtime = new Date().toLocaleString();
+	var fechaActual = ConvertirFechaActual();
+	var nombrePI = 'ENRIQUE JOSÉ AROCHA RIVAS';
+	var gradoPI = 'GENERAL DE DIVISIÓN';
+
+	var ventana = window.open("", "_blank");
+	ventana.document.write(`<center>
+    <div>
+        <table style="width:800px" class="membrete">
+            <tr>
+                <td width="200px" valign="top"><center><img  style="width: 100px;height: 100px; margin-left: 0px" 
+                class="img-responsive file-path-wrapper-pre-view" src="images/logo_ipsfa.png" id="_imgescudo"/></center>
+                </td>
+                <td width="400px">
+                    <center>
+                    REPÚBLICA BOLIVARIANA DE VENEZUELA <BR>
+                    MINISTERIO DEL PODER POPULAR PARA LA DEFENSA<BR>
+                    VICEMINISTERIO DE SERVICIOS, PERSONAL Y LOGÍSTICA<BR>
+                    DIRECCIÓN GENERAL DE EMPRESAS Y SERVICIOS<BR>
+                    INSTITUTO DE PREVISIÓN SOCIAL DE LA FUERZA ARMADA<BR>
+                    RIF: G20003692-3
+                    </center>
+                </td>
+            <td width="200px" valign="top"></td>
+            </tr>
+        </table >
+        <h3>CONSTANCIA DE SOLVENCIA DE CREDITO</h3>
+		<br>
+		<p style="text-align: justify">
+			Quien suscribe, General de División, Presidente de la Junta
+			Administradora del Instituto de Previsión Social de la Fuerza Armada
+			Nacional Bolivariana, por medio de la presente hace constar que el
+			(la) ciudadano (${grado}, (${nombre}),
+			titular de la cédula de identidad N°: V-(${cedula}, en fecha (día,
+			mes, año), realizó el pago de (Bs. 1.120.000,00) correspondientes a la
+			deuda total del crédito N° (${credito} por concepto de ((${concepto}).
+			Mediante (instrumento de pago).<br><br>
+
+			Solvencia que se Expide a petición de la parte interesada en la ciudad
+			de Caracas a los ${fechaActual}.<br><br>
+		</p>
+    </div>
+    
+
+
+	
+    <table border="0">
+        <tr>
+            <td width="15%" valign="top">
+                <img src="images/selloafiliacion.png" valing="left" width="240px" style="margin-left: -50px;margin-right: -100px">
+            </td>
+            <td width="70%" valign="top">
+                <center><h3>
+                <img style="width: 250px;height: 120px;"  
+                src="images/firma_digital.png" onerror="this.src='images/ndisponible.jpg'"/><br>
+                ${nombrePI}<BR>
+                ${gradoPI}<br>
+                PRESIDENTE DE LA JUNTA ADMINISTRADORA I.P.S.F.A.
+              </h3> <i>
+                  CHAVEZ VIVE LA PATRÍA SIGUE<br>
+                  INDEPENDENCIA Y PATRIA SOCIALISTA.....VIVIREMOS Y VENCEREMOS<br>
+                  “LEALES SIEMPRE, TRAIDORES NUNCA”...<br><br></i>           
+            </td>
+            <td width="15%" valign="top"></td>
+          </tr>
+    </table>
+
+    <br>
+     
+    </p>
+  </div>
+  <div class="footer"> <br> <br>
+   Impreso por: ${Usuario.nombre} / ${localtime}<br>
+    Direccón: Avenida Los Próceres Edif. Sede del IPSFA. Gerencia de Afiliación Planta Baja. Santa Mónica, 
+    municipio Libertador. Caracas, Distrito Capital. Teléfonos: (0212) - 609-23-10 / 609-23-11 /609-23-12 
+
+  </div>
+    
+    
+    `);
+
+
+    ventana.document.head.innerHTML = ` <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SSSIFANB</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+        body{
+            font-family: Arial, Calibre;
+            font-size: 11px;
+        }
+        table{
+            border-collapse: collapse;
+            font-family: Arial, Calibre;
+            font-size: 10px;
+        }
+        .tablaneto {
+            border-collapse: collapse;
+        } 
+        .tablaneto tr{
+            border: 1px solid #CCCCCC;
+        } 
+        .tablaneto td {
+            border: 1px solid #CCCCCC;
+        } 
+        .tablaneto th {
+            border: 1px solid #CCCCCC;
+        }
+
+        .tablanetos {
+            border-collapse: collapse;
+            font-family: Arial, Calibre;
+            font-size: 11px;
+        } 
+        .tablanetos tr{
+            border: 1px solid #CCCCCC;
+        } 
+        .tablanetos td {
+            border: 1px solid #CCCCCC;
+            font-size: 11px;
+        } 
+        .tablanetos th {
+            border: 1px solid #CCCCCC;
+            background-color: #CCCCCC;
+        } 
+        @media print {
+            div {
+                background-position: 180px;
+                background: url('../images/fondo.png') no-repeat center;
+            }
+        }
+    </style>
+     `;
+
+	 ventana.print();
+	 ventana.close();
+}
+

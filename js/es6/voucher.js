@@ -17,6 +17,7 @@ function ImprimirNeto(){
     var totalAsignacion = 0;
     var obj = lstNeto[pos];
     
+
 	for(var i=0; i< obj.length; i++){
         console.info(obj[i]);
         var monto = parseFloat(obj[i].mont, 2);
@@ -242,9 +243,8 @@ function ObtenerConceptosW(){
 function ImprimirNetoSobreviviente(){
     
 
-    if ( $("#cmbNetoPago option:selected").val() == "X" ) {        
-        return false;
-    }
+    if ( $("#cmbNetoPago option:selected").val() == "X" ) return false;
+  
     var nombre = $("#txtnombre").val() + " " + $("#txtapellido").val();
     var cedula = $("#txtcedula").val();
     var porcentaje = $("#txtporcentaje").val();
@@ -260,6 +260,7 @@ function ImprimirNetoSobreviviente(){
     var totalAsignacion = 0;
     var obj = lstFamiliarNetos[pos].primas;
 
+    console.log( lstFamiliarNetos[pos] )
     
 	for(var i=0; i< obj.length; i++){
 		var monto = obj[i].mont;
@@ -377,7 +378,7 @@ function ImprimirNetoSobreviviente(){
     var neto = asignacion - deduccion;
     var strneto = accounting.formatMoney(neto, "Bs. ", 2, ".", ",");
 
-    var ventana = window.open("", "_blank");
+    //var ventana = window; window.open("", "_blank");
     ventana.document.write(`<center>
     <div style="background: url('../images/fondo.png') no-repeat center;">
     <table style="width:800px" class="membrete">
