@@ -21,29 +21,32 @@ class EstadisticaComponente {
       t.row.add([2, "ARMADA BOLIVARIANA","","","","","","","",0]).draw(false);
       t.row.add([3, "AVIACION MILITAR BOLIVARIANA","","","","","","","",0]).draw(false);
       t.row.add([4, "GUARDIA NACIONAL BOLIVARIANA","","","","","","","",0]).draw(false);
-      t.row.add(["","TOTAL ",0,0,0,0,0,0,0]).draw(false);
+      t.row.add(["","TOTAL ",0,0,0,0,0,0,0,0]).draw(false);
       var matrix = [];
       for (var i=0;i<4;i++) {
          matrix[i] = [];
       }
-  
+      
+      
+
       Obj.forEach( v => {
         var fil = CodigoComponente(v._id.componente) - 1;
         var col = PosicionColumna(v._id.situacion) - 1;    
-        if(fil < 4 && col < 7) matrix[fil][col] = parseInt(v.cantidad);
+        if(fil < 4 && col < 8) matrix[fil][col] = parseInt(v.cantidad);
       });
   
       for (var i=0;i<4;i++) {
+        
         for (var j=0;j<6;j++) {
-           var acumularcol = parseInt(t.cell(i, 8).data()) + parseInt(matrix[i][j]);
+           var acumularcol = parseInt(t.cell(i, 9).data()) + parseInt(matrix[i][j]);
            t.cell(i, j + 2).data(matrix[i][j]).draw();
            var acumular = parseInt(t.cell(4, j + 2).data()) + parseInt(matrix[i][j]);
-           t.cell(i, 8).data(acumularcol).draw(false);
+           t.cell(i, 9).data(acumularcol).draw(false);
            t.cell(4, j + 2).data(acumular).draw(false);
         }
       }
-      var total = parseInt(t.cell(0, 8).data()) + parseInt(t.cell(1, 8).data()) + parseInt(t.cell(2, 8).data()) + parseInt(t.cell(3, 8).data());
-      t.cell(4, 8).data(total).draw(false);
+      var total = parseInt(t.cell(0, 9).data()) + parseInt(t.cell(1, 9).data()) + parseInt(t.cell(2, 9).data()) + parseInt(t.cell(3, 9).data());
+      t.cell(4, 9).data(total).draw(false);
       $("#_cargando").hide();
     }
   
@@ -118,8 +121,11 @@ class EstadisticaComponente {
       case "I":
         return 6
         break;
-      case "D":
+      case "PG":
         return 7
+        break;
+      case "D":
+        return 8
         break;
       default:
         return 8
