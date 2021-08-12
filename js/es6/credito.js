@@ -1057,7 +1057,7 @@ function MostrarCredito(Credito, tCre){
 			var total = v.total!=undefined?1:0;
 			var modificar = `
             	<button type="button"
-                	class="btn btn-sm btn-warning prvcrdpagar" onclick="ShowPagarCredito('${oid}', '${conc}')">
+                	class="btn btn-sm btn-warning prvcrdpagar hide" onclick="ShowPagarCredito('${oid}', '${conc}')">
                 	<i class="fa fa-money"></i>
             	</button>
 				`;
@@ -1067,7 +1067,7 @@ function MostrarCredito(Credito, tCre){
 				total = "CANCELADO"
 				modificar = `
             	<button type="button"
-                	class="btn btn-sm btn-primary " onclick="PrintPagarCredito('${oid}', '${conc}')">
+                	class="btn btn-sm btn-primary" onclick="PrintPagarCredito('${oid}', '${conc}')">
                 	<i class="fa fa-print"></i>
             	</button>
 				`;

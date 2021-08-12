@@ -35,9 +35,11 @@ class EstadisticaComponente {
         if(fil < 4 && col < 8) matrix[fil][col] = parseInt(v.cantidad);
       });
   
+      
+
       for (var i=0;i<4;i++) {
-        
-        for (var j=0;j<6;j++) {
+        if (matrix[i][6] === undefined )  matrix[i][6] = 0;
+        for (var j=0;j<7;j++) {
            var acumularcol = parseInt(t.cell(i, 9).data()) + parseInt(matrix[i][j]);
            t.cell(i, j + 2).data(matrix[i][j]).draw();
            var acumular = parseInt(t.cell(4, j + 2).data()) + parseInt(matrix[i][j]);
@@ -303,7 +305,7 @@ class EstadisticaComponente {
     var s = e.split(".");
     var json = JSON.parse(atob(s[1]));
     Usuario = json.Usuario;
-    var tabla = $("#tblEstadistica").html();
+    var tabla = $("#lstR").html();
     var fechaActual = ConvertirFechaActual();
     
     var ventana = window.open("", "_blank");
@@ -329,13 +331,16 @@ class EstadisticaComponente {
           </table >
           <h3>RELACION DE PERSONAL MILITAR REGISTRADO EN EL INSTITUTO</h3>
       <br>
-      <p style="text-align: justify">
-
-        ${tabla}
-      </p>
+      
+        <table cellspacing="0" width="100%" border="1" style="border: 1px solid #CCC; line-height: 14px; 
+        font-size: 12px;">
+      
+          ${tabla}
+        </table>
+      
       </div>
       
-  
+      <br><br>
   
     
       <table border="0">
