@@ -987,8 +987,7 @@ class Militar{
 
 			
 			CargarFamiliaresModal(militar, t);
-
-			verificarPrivilegioUsuario();
+			
 			$("#_tblHistorialMilitar").html(HistoricoMilitarHTML());
 			var th = $('#tblhistoricomilitar').DataTable(tablaBasica);
 			th.clear().draw();
@@ -1063,6 +1062,7 @@ class Militar{
 			var tCre = $('#tblCredito').DataTable(tablaBasica);				
 			tCre.clear().draw();
 			MostrarCredito(militar.Credito, tCre);
+			verificarPrivilegioUsuario();
 		}
 			
 	}
