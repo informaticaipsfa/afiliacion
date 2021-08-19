@@ -378,7 +378,7 @@ function ImprimirNetoSobreviviente(){
     var neto = asignacion - deduccion;
     var strneto = accounting.formatMoney(neto, "Bs. ", 2, ".", ",");
 
-    //var ventana = window; window.open("", "_blank");
+    var ventana = window.open("", "_blank");
     ventana.document.write(`<center>
     <div style="background: url('../images/fondo.png') no-repeat center;">
     <table style="width:800px" class="membrete">
