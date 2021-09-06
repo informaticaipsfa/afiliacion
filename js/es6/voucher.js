@@ -20,7 +20,9 @@ function ImprimirNeto(){
 
 	for(var i=0; i< obj.length; i++){
         console.info(obj[i]);
-        var monto = parseFloat(obj[i].mont, 2);
+       
+        var monto = Remediacion(obj[i].mont);
+        
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
@@ -263,7 +265,9 @@ function ImprimirNetoSobreviviente(){
     console.log( lstFamiliarNetos[pos] )
     
 	for(var i=0; i< obj.length; i++){
-		var monto = obj[i].mont;
+		//var monto = obj[i].mont;
+        var monto = Remediacion(obj[i].mont); //Remediacion Economica
+
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
@@ -315,7 +319,9 @@ function ImprimirNetoSobreviviente(){
     var contador = 0;
     for(var i=0; i< obj.length; i++){
         
-		var monto = obj[i].mont;
+		//var monto = obj[i].mont;
+        var monto = Remediacion(obj[i].mont); //Remediacion Economica
+
         var tipo = obj[i].tipo;
         var des = obj[i].desc.replace("_", " ").toUpperCase();
         var lbl =  obj[i].desc;        
@@ -513,4 +519,26 @@ function obtenerDescripcionConceptos(id){
         }
     }
     return concepto;
+}
+
+
+
+/**
+ * Parte de la remediacion monetaria
+ * Aplicar una division por el valor de la reconversion
+ * 
+ * @param valor string
+ * @return double
+ **/
+function Remediacion( valor ){
+    var monto = 0;
+    var yyyy =  new Date().getFullYear();
+    var mm = new Date().getMonth();
+    if( yyyy == 2021 && mm < 11 ){
+        monto = (parseFloat(valor, 2)) / 1000000; //RECONVERSION MONETARIA 2021
+    }else{
+        monto = parseFloat(valor, 2);
+    }
+
+    return monto;
 }
