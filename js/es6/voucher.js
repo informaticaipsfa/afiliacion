@@ -534,7 +534,7 @@ function Remediacion( valor ){
     var monto = 0;
     var yyyy =  new Date().getFullYear();
     var mm = new Date().getMonth();
-    if( yyyy == 2021 && mm < 11 ){
+    if( yyyy == 2021 && mm < 9 ){
         monto = (parseFloat(valor, 2)) / 1000000; //RECONVERSION MONETARIA 2021
     }else{
         monto = parseFloat(valor, 2);
