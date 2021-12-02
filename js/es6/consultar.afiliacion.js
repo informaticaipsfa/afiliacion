@@ -1316,7 +1316,13 @@ function verCarnet(serial, cedula, vence, estatus,idf) {
           $("#imghuellaCarnet").attr("src", url);
           url = rutaimg + cedula + "/foto.jpg";
           $("#imgfotoCarnet").attr("src", url);
-          $("#lblgrado").html(militar.Grado.descripcion);
+          var conGrado = militar.Grado.descripcion;
+          if ( militar.condicion != undefined) {
+              if ( militar.condicion == 2 ) conGrado = "CIUDADANO";
+          }
+          
+          $("#lblgrado").html(conGrado);
+          
           $("#lblnombre").html(militar.Persona.DatoBasico.nombreprimero);
           $("#lblapellido").html(militar.Persona.DatoBasico.apellidoprimero);
           $("#lblcedula").html("C.I. " + militar.Persona.DatoBasico.cedula);
