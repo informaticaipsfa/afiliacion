@@ -1439,7 +1439,7 @@ function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
             if ( desGrado == "AN") desGrado = "TC";
 				    $("#lblafiliadof").html(desGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
 
-            var conGrado = militar.Grado.descripcion;
+            var conGrado = desGrado;
             if ( militar.condicion != undefined) {
                 if ( militar.condicion == 2 ) conGrado = "CIUDADANO";
             }
