@@ -1439,6 +1439,13 @@ function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
             if ( desGrado == "AN") desGrado = "TC";
 				    $("#lblafiliadof").html(desGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
 
+            var conGrado = militar.Grado.descripcion;
+            if ( militar.condicion != undefined) {
+                if ( militar.condicion == 2 ) conGrado = "CIUDADANO";
+            }
+            
+            $("#lblafiliadof").html(conGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
+
             url = rutaimgfamiliar + cedula + "/huella" + idf + ".bmp";
             $("#imghuellaCarnetf").attr("src", url);
             var historia = militar.Familiar[pos].historiamedica;
