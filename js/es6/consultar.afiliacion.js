@@ -1889,7 +1889,7 @@ function ImprimirCarnet(nombre) {
         height: auto;
         position: absolute;
         left: 127px;
-        top: 140px
+        top: 130px
     }
     .telefono-contacto{border:0px #0033FF solid; width:76px; height:14px; position:absolute; left: 186px; top: 185px;font-size:10px;font-weight:bold;}
     .datos-medicos-i{border:0px #0033FF solid; width:150px; height:auto; position:absolute; left: 170px; top: 45px;font-size:10px;font-weight:bold;}
