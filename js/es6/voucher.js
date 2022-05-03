@@ -23,8 +23,7 @@ function ImprimirNeto(){
 
     if( montosisa > 0 ){
         montosisatxt = `OTRAS DEDUCCIONES <br>
-        CONCEPTO : CAJA DE AHORRO CARAEIPSFANB <br>
-        MONTO : <b>${accounting.formatMoney(montosisa, "Bs. ", 2, ".", ",")} </b>`;
+        CAJA DE AHORRO CARAEIPSFANB ( 8% ) : <b>${accounting.formatMoney(montosisa, "Bs. ", 2, ".", ",")} </b> <br>`;
     }
      
     
@@ -176,10 +175,12 @@ function ImprimirNeto(){
         </tfoot>
     </table>
     <br>
-    <h3> IPSFA EN CONTACTO
+    <h3> OTRAS DEDUCCIONES
     <table style="width:800px" class="tablaneto">
         <tr>
-            <td align="justify" style="width:800px;height: 80px">${montosisatxt}</td>                        
+            <td align="justify" style="width:800px;height: 80px">
+            <b>CUENTA BANCARIA</b>${amcuenta}<br>
+            ${montosisatxt}</td>                        
         </tr>
     </table>
     <br><br>
