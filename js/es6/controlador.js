@@ -241,6 +241,8 @@ $(function () {
   CargarUrl("_constanciapensionado", "rpt/constanciapensionado");
   CargarUrl("_constanciapensionadosobre", "rpt/constanciapensionsobr");
   CargarUrl("_rptprestamos", "cre/rptprestamo");
+
+  
   
   
   
@@ -492,6 +494,8 @@ function PrepararOtrosPagos(){
 
 
 
+
+
 /**
  * Listar Carnet's
  *
@@ -564,4 +568,18 @@ function CobRelacionPagados(id){
 function CobAmortizaciones(id){
   
   $("#ModuloTitulo").html("Amortizaciones de créditos");
+}
+
+
+
+function SISAReportesNomina(){
+  CargarUrl("_cuerpo", "SISA/nominas");
+  
+  $("#ModuloTitulo").html("Nominas Mensuales");
+}
+
+function SISACargarDeducciones(){
+  CargarUrl("_cuerpo", "SISA/subir");
+  $("#ModuloTitulo").html("Cargar deducciones SISA");
+  
 }

@@ -1,0 +1,62 @@
+<div class="col-md-12 col-lg-12" id="_consultarbox">
+  <div class="box box-primary ">
+      <div class="box-header with-border">
+          <i class="fa fa-bullhorn"></i>
+          <h3 class="box-title">Nómina generadas</h3>
+      </div>
+      <div class="box-body">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8 ">
+                      <label>&nbsp;&nbsp;&nbsp;&nbsp;Selección del mes:</label>
+                      <div class="input-group margin">
+                          <select class="js-states form-control" style="width: 70%" required="" aria-hidden="true"
+                              id="cmbSolicitud">
+                              <option value="0" selected>SELECCIONE</option>
+                              <option value="ENERO">ENERO</option>
+                              <option value="FEBRERO">FEBRERO</option>
+                              <option value="MARZO">MARZO</option>
+                              <option value="ABRIL">ABRIL</option>
+                              <option value="MAYO">MAYO</option>
+                              <option value="JUNIO">JUNIO</option>
+                              <option value="JULIO">JULIO</option>
+                              <option value="AGOSTO">AGOSTO</option>
+                              <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                              <option value="OCTUBRE">OCTUBRE</option>
+                              <option value="NOVIEMBRE">NOVIEMBRE</option>
+                              <option value="DICIEMBRE">DICIEMBRE</option>
+                          </select>
+                          <select class="js-states form-control" style="width: 30%" required="" aria-hidden="true"
+                              id="cmbLectivo">
+                              <option value="0" selected>-------------</option>
+                              <option value="2022">2022</option>
+                          </select>
+                          <span class="input-group-btn">
+                              <button type="button" class="btn btn-flat bg-purple" onclick="ListarNominasGeneralSISA()">
+                                  <i class="fa fa-puzzle-piece"></i>
+                                  &nbsp;&nbsp;Cargar nóminas</button>
+                          </span>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <br>
+                      <div id="_tblNomina" style="padding-left: 10px;padding-right:50px;"></div>
+                      <br><br>
+                  </div>
+              </div>
+          </div>
+      </div><!-- /.box-body -->
+
+      <!-- Loading (remove the following to stop the loading)-->
+      <div class="overlay" id="_cargando" style="display:none">
+          <i class="fa fa-refresh fa-spin"></i>
+      </div>
+      <!-- end loading -->
+      <div class="modal-footer">
+
+
+      </div>
+  </div><!-- /.box -->
+</div>

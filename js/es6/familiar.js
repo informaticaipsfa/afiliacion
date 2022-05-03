@@ -335,7 +335,7 @@ class WPensionadoSobrevive{
         
 		req.forEach(pago => {
             $("#mdlNetosSobre").modal("show");		
-            console.log(JSON.parse(pago.calculos));
+            //console.log(JSON.parse(pago.calculos));
             var obj = JSON.parse(pago.calculos);
             obj.porcentaje = pago.porcentaje;
             lstFamiliarNetos.push(obj);

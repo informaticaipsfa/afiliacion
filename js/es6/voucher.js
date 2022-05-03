@@ -17,9 +17,19 @@ function ImprimirNeto(){
     var totalAsignacion = 0;
     var obj = lstNeto[pos];
     
+    //console.log(obj);
+    var montosisa = obj.montosisa == undefined?0:obj.montosisa;
+    var montosisatxt = '';
 
+    if( montosisa > 0 ){
+        montosisatxt = `OTRAS DEDUCCIONES <br>
+        CONCEPTO : CAJA DE AHORRO CARAEIPSFANB <br>
+        MONTO : <b>${accounting.formatMoney(montosisa, "Bs. ", 2, ".", ",")} </b>`;
+    }
+     
+    
 	for(var i=0; i< obj.length; i++){
-        console.info(obj[i]);
+        //console.info(obj[i]);
        
         var monto = Remediacion(obj[i].mont);
         
@@ -169,7 +179,7 @@ function ImprimirNeto(){
     <h3> IPSFA EN CONTACTO
     <table style="width:800px" class="tablaneto">
         <tr>
-            <td align="center" style="width:800px;height: 80px"></td>                        
+            <td align="justify" style="width:800px;height: 80px">${montosisatxt}</td>                        
         </tr>
     </table>
     <br><br>
@@ -262,7 +272,7 @@ function ImprimirNetoSobreviviente(){
     var totalAsignacion = 0;
     var obj = lstFamiliarNetos[pos].primas;
 
-    console.log( lstFamiliarNetos[pos] )
+    //console.log( lstFamiliarNetos[pos] )
     
 	for(var i=0; i< obj.length; i++){
 		//var monto = obj[i].mont;
@@ -328,9 +338,12 @@ function ImprimirNetoSobreviviente(){
         var montostr = accounting.formatMoney(monto, "Bs. ", 2, ".", ",");
         objNeto[lbl] = numeral(parseFloat(monto,2)).format('0,0.00');
 
+        //console.log(lstFamiliarNetos[pos].asignaciones , '---> ', monto);
         if(lstFamiliarNetos[pos].asignaciones == monto){
             imprimir = true;
+            contador++;
         }
+        //console.log('contador --> ', contador);
 		if( contador < 2 &&  imprimir == true ) {            
            
             if(tipo == 1 || tipo == 97 ){ //Asignacion   
@@ -338,7 +351,7 @@ function ImprimirNetoSobreviviente(){
                 if( des == "PENSION SOBREVIVIENTE" ){
                     sueldomensual = `PENSION SOBREVIVIENTE ( ${ lstFamiliarNetos[pos].porcentaje } % )`;                    
                 } 
-                contador++;
+                
                 fila += `
                     <tr>
                         <td align="left">&nbsp;&nbsp;${sueldomensual}</td>
