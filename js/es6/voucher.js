@@ -22,7 +22,7 @@ function ImprimirNeto(){
     var montosisatxt = '';
 
     if( montosisa > 0 ){
-        montosisatxt = `OTRAS DEDUCCIONES <br>
+        montosisatxt = `<br>
         CAJA DE AHORRO CARAEIPSFANB ( 8% ) : <b>${accounting.formatMoney(montosisa, "Bs. ", 2, ".", ",")} </b> <br>`;
     }
      
