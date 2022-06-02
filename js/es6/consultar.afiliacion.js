@@ -69,43 +69,43 @@ function activarActualizar() {
     cambiarGrado();
     FrmDatosBasicosPension(true);
     var prv = JSON.parse(atob(sessionStorage.getItem("ipsfaToken").split(".")[1]));
-    prv.Usuario.Perfil.Privilegios.forEach( v => {
-      if ( v.nombre == "pension.ingresar" ){
-        FrmDatosBasicosPension(false);
-        FrmDatosBasicosPensionCombo(true);
-      }
+    prv.Usuario.Perfil.Privilegios.forEach(v => {
+        if (v.nombre == "pension.ingresar") {
+            FrmDatosBasicosPension(false);
+            FrmDatosBasicosPensionCombo(true);
+        }
     });
 
 
 }
 
 function Salvar() {
-  if (Util.ValidarFormulario("_bxDatoBasico") == false) {
-      Util.ModalValidar("Favor completar todos los campos");
-      Util.MensajeFormulario("_bxDatoBasico","msjVeriActualizar");
-  } else {
-      var militar = new Militar();
-      militar.Salvar();
-      $("#_btnModificar").show();
-      $("#_btnActualizar").hide();
-      ActivarFormulario(true);
-  }
+    if (Util.ValidarFormulario("_bxDatoBasico") == false) {
+        Util.ModalValidar("Favor completar todos los campos");
+        Util.MensajeFormulario("_bxDatoBasico", "msjVeriActualizar");
+    } else {
+        var militar = new Militar();
+        militar.Salvar();
+        $("#_btnModificar").show();
+        $("#_btnActualizar").hide();
+        ActivarFormulario(true);
+    }
 }
 
 function Actualizar() {
     if (Util.ValidarFormulario("_bxDatoBasico") == false) {
         Util.ModalValidar("Favor completar todos los campos");
-        Util.MensajeFormulario("_bxDatoBasico","msjVeriActualizar");
+        Util.MensajeFormulario("_bxDatoBasico", "msjVeriActualizar");
     } else {
         var cant = document.getElementById("archivo").files.length;
         var militar = new Militar();
-        if (cant > 0){
-          
-          EnviarArchivosIMG();
-          militar.Persona.foto = "foto.jpg";
+        if (cant > 0) {
+
+            EnviarArchivosIMG();
+            militar.Persona.foto = "foto.jpg";
         }
-        if(ObjMilitar.Persona.foto != undefined){
-          militar.Persona.foto = "foto.jpg";
+        if (ObjMilitar.Persona.foto != undefined) {
+            militar.Persona.foto = "foto.jpg";
         }
         militar.Actualizar();
         $("#_btnModificar").show();
@@ -244,7 +244,7 @@ function MedidaJudicialHTML() {
     </table>`;
     return html;
 }
-function TipoMedidaJudicial(id){
+function TipoMedidaJudicial(id) {
     var texto = '';
     switch (id) {
         case 1:
@@ -262,8 +262,8 @@ function TipoMedidaJudicial(id){
         case 5:
             texto = 'RETENCION AGUINALDOS';
             break;
-        default:        
-            texto = 'PENSION ALIMENTARIA';        
+        default:
+            texto = 'PENSION ALIMENTARIA';
             break;
     }
     return texto;
@@ -315,7 +315,7 @@ function ConvertirFechaActual() {
         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     var f = new Date();
 
-    return f.getDate() + " días " +" del mes de " + meses[f.getMonth()] + " de " + f.getFullYear();
+    return f.getDate() + " días " + " del mes de " + meses[f.getMonth()] + " de " + f.getFullYear();
 }
 
 function IncluirFamiliar() {
@@ -330,7 +330,7 @@ function ValidarCorreo() {
     var caracter = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
 
     if (!caracter.test(email)) {
-        $.notify($('#txtmcorreo'), "Formato de correo invalido", {position: "top"});
+        $.notify($('#txtmcorreo'), "Formato de correo invalido", { position: "top" });
         return false;
     } else {
         return true;
@@ -456,7 +456,7 @@ function LimpiarFrmFamiliar() {
 
 
 function ActivarBuscar() {
-    $(location).attr("href","starter.html");
+    $(location).attr("href", "starter.html");
 }
 
 function VisualizarCarnet() {
@@ -486,10 +486,10 @@ function VisualizarCarnet() {
             $("#divsiglas").html(militar.Componente.abreviatura);
             url = "images/firma.png";
             $("#imgfirmaCarnet").attr("src", url);
-            if (militar.clase == "TPROF"){
-              $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO EN COMISIÓN DE SERVICIO, EN ACTOS DEL SERVICIO O EN OCASIÓN DE ESTE');
-            } else{
-              $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO ASIGNADAS POR LA FANB');
+            if (militar.clase == "TPROF") {
+                $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO EN COMISIÓN DE SERVICIO, EN ACTOS DEL SERVICIO O EN OCASIÓN DE ESTE');
+            } else {
+                $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO ASIGNADAS POR LA FANB');
             }
             $("#lblcodigo").html(militar.codigocomponente);
             $("#lblhistoria").html(militar.numerohistoria);
@@ -507,13 +507,13 @@ function VisualizarCarnetFamiliar() {
     var cedula = $("#_bfcedula").attr("attced");
     var hasta = ObjMilitar.Familiar.length;
     var pos = "";
-    for(var i=0;i<= hasta;i++){
-        if(ObjMilitar.Familiar[i].Persona.DatoBasico.cedula == cedula ){
+    for (var i = 0; i <= hasta; i++) {
+        if (ObjMilitar.Familiar[i].Persona.DatoBasico.cedula == cedula) {
             pos = i;
             break;
         }
     }
-  
+
     url = Conn.URLIMG + cedula + ".jpg";
     $("#imgfotoCarnetf").attr("src", url);
     url = Conn.URLIMG + ObjMilitar.Familiar[pos].Persona.DatoBasico.cedula + ".jpg";
@@ -522,8 +522,8 @@ function VisualizarCarnetFamiliar() {
     $("#lblnombref").html(ObjMilitar.Familiar[pos].Persona.DatoBasico.nombreprimero);
     $("#lblapellidof").html(ObjMilitar.Familiar[pos].Persona.DatoBasico.apellidoprimero);
     $("#lblcedulaf").html(cedula);
-    $("#lblparentescof").html(Util.ConvertirParentesco(ObjMilitar.Familiar[pos].parentesco,ObjMilitar.Familiar[pos].Persona.DatoBasico.sexo));
-    $("#lblafiliadof").html(OqMilitar.Persona.DatoBasico.apellidoprimero+" "+OqMilitar.Persona.DatoBasico.nombreprimero+" CI:"+OqMilitar.Persona.DatoBasico.cedula);
+    $("#lblparentescof").html(Util.ConvertirParentesco(ObjMilitar.Familiar[pos].parentesco, ObjMilitar.Familiar[pos].Persona.DatoBasico.sexo));
+    $("#lblafiliadof").html(OqMilitar.Persona.DatoBasico.apellidoprimero + " " + OqMilitar.Persona.DatoBasico.nombreprimero + " CI:" + OqMilitar.Persona.DatoBasico.cedula);
     url = "temp/" + cedula + "/huella.bmp";
     $("#imghuellaCarnetf").attr("src", url);
 
@@ -538,7 +538,7 @@ function ContinuarTIM() {
     if (recibo.Verificar() === true) {
         recibo.Salvar();
         $('#modCarnetValidar').modal('hide');
-    } 
+    }
 }
 
 function ContinuarTIF() {
@@ -547,7 +547,7 @@ function ContinuarTIF() {
     if (recibo.VerificarF() === true) {
         recibo.SalvarF();
         $('#modCarnetValidarf').modal('hide');
-    } 
+    }
 }
 
 function enviarCarnetFamiliar() {
@@ -634,8 +634,8 @@ function ActivarCalendariosFamiliar() {
 function incluirAfiliado(ced) {
 
     ActivarCalendarios();
-    if ( ObjMilitar.id != "" ){
-       $('#txtcedula').val("");
+    if (ObjMilitar.id != "") {
+        $('#txtcedula').val("");
     }
     $('#txtcedula').keyup(function () {
         this.value = (this.value + '').replace(/[^0-9]/g, '');
@@ -666,8 +666,8 @@ function incluirAfiliado(ced) {
     LimpiarFrmTarjeta();
 
     Estados.ObtenerEstados();
-    if ( cedula != "" ){
-       $('#txtcedula').val(cedula);
+    if (cedula != "") {
+        $('#txtcedula').val(cedula);
     }
 
 }
@@ -721,7 +721,7 @@ function FrmDatosBasicos(valor) {
         $("#cargarfirma").hide();
         $("#cargarhuella").hide();
         $("#_reconocidos").hide();
-        if ( parseInt($("#txtareconocido").val()) > 0) $("#_reconocidos").show();
+        if (parseInt($("#txtareconocido").val()) > 0) $("#_reconocidos").show();
     }
 }
 
@@ -774,12 +774,12 @@ function NacionalidadFamiliar(nac) {
 }
 
 function NacionalidadFamiliar2(nac) {
-    if(nac == "M"){
+    if (nac == "M") {
         var posiF = ObjMilitar.Familiar.length;
-        $("#txtcedulam").val("10"+$("#txtcedula").val()+posiF);
-        $("#txtcedulam").attr("disabled",true);
-    }else{
-        $("#txtcedulam").attr("disabled",false);
+        $("#txtcedulam").val("10" + $("#txtcedula").val() + posiF);
+        $("#txtcedulam").attr("disabled", true);
+    } else {
+        $("#txtcedulam").attr("disabled", false);
     }
     $("#btnnacionalidadm").html(nac);
     NacionalidadFamiliar(nac);
@@ -806,8 +806,8 @@ function FrmCuentaBancariaF(valor) {
     $("#txtmnrocuentaf").attr('disabled', valor);
     $("#txtautorizadof").attr('disabled', valor);
     $("#txttitularf").attr('disabled', valor);
-    
-    
+
+
 }
 
 function LimpiarFrmCuentaBancaria(valor) {
@@ -908,7 +908,7 @@ function LimpiarFrmRedSocial(valor) {
     $("#txtmlinkedin").val("");
 }
 
-function FrmMedidaJudicial(valor){
+function FrmMedidaJudicial(valor) {
     $("#txtfnxm").attr('disabled', valor);
     $("#txtoficio").attr('disabled', valor);
     $("#txtexpediente").attr('disabled', valor);
@@ -1063,35 +1063,32 @@ function ValidarGenerarCarnet() {
     $("#txtnresueltoC").val($("#txtnresuelto").val());
     $("#txtmfecharesueltoC").val($("#txtmfecharesuelto").val());
     $("#txtposicionC").val($("#txtposicion").val());
+
+    $("#_cingreso").hide();
+    $("#_cvencimiento").hide();
+    $("#_cdeterioro").hide();
+
     switch (cr) {
         case "V":
             $("#_cingreso").show();
-            $("#_cvencimiento").hide();
-            $("#_cdeterioro").hide();
             break;
         case "I":
             $("#_cingreso").show();
-            $("#_cvencimiento").hide();
-            $("#_cdeterioro").hide();
             break;
         case "C":
             $("#_cingreso").show();
-            $("#_cvencimiento").hide();
-            $("#_cdeterioro").hide();
             break;
         case "D":
-            $("#_cingreso").hide();
-            $("#_cvencimiento").hide();
             $("#_cdeterioro").show();
             break;
         case "E":
-            $("#_cingreso").hide();
-            $("#_cvencimiento").hide();
             $("#_cdeterioro").show();
             break;
+        case "EX":
+            
+            break;
+
         case "CA":
-            $("#_cingreso").hide();
-            $("#_cvencimiento").hide();
             $("#_cdeterioro").show();
             break;
         default:
@@ -1106,36 +1103,29 @@ function ValidarGenerarCarnetF() {
         language: 'es'
     });
     $("#_reciboCf").show();
-
+    $("#_cingresoF").hide();
+    $("#_cvencimientoF").hide();
+    $("#_cdeterioroF").hide();
     switch (cr) {
         case "V":
             $("#_cingresoF").show();
-            $("#_cvencimientoF").hide();
-            $("#_cdeterioroF").hide();
             break;
         case "I":
             $("#_cingresoF").show();
-            $("#_cvencimientoF").hide();
-            $("#_cdeterioroF").hide();
             break;
         case "C":
             $("#_cingresoF").show();
-            $("#_cvencimientoF").hide();
-            $("#_cdeterioroF").hide();
             break;
         case "D":
-            $("#_cingresoF").hide();
-            $("#_cvencimientoF").hide();
             $("#_cdeterioroF").show();
             break;
         case "E":
-            $("#_cingresoF").hide();
-            $("#_cvencimientoF").hide();
             $("#_cdeterioroF").show();
             break;
+        case "EX":
+            //Exonerados por Junta 1517
+            break;
         case "CA":
-            $("#_cingresoF").hide();
-            $("#_cvencimientoF").hide();
             $("#_cdeterioroF").show();
             break;
         default:
@@ -1149,16 +1139,16 @@ function SeleccionarCuenta() {
 
 function SeleccionarCuentaf() {
     var inst = $("#cmbminstfinancieraf option:selected").val();
-    if(inst == "0000"){
+    if (inst == "0000") {
         $("#txtmnrocuentaf").val("N/A");
-    }else{
+    } else {
         $("#txtmnrocuentaf").val(inst);
     }
 }
 
 
 function ModificarFamiliarPos(pos) {
-    if($("#cmbsituacion option:selected").val() == "FCP")Estados.ObtenerEstados();
+    if ($("#cmbsituacion option:selected").val() == "FCP") Estados.ObtenerEstados();
     if (Util.ValidarFormulario("_frmDatoBasico") == false && $("#cmbsituacion option:selected").val() != "FCP") {
         Util.ModalValidar("Favor actualizar afiliado");
     } else {
@@ -1239,8 +1229,8 @@ function ModificarFamiliarPos(pos) {
         $("#txtmnrocuentaf").val('');
         $("#txtautorizadof").val('');
         $("#txttitularf").val('');
-        
-        if(df[0] != undefined){
+
+        if (df[0] != undefined) {
             $("#cmbmtipofinancieraf").val(df[0].tipo);
             $("#cmbminstfinancieraf").val(df[0].institucion);
             $("#txtmnrocuentaf").val(df[0].cuenta);
@@ -1262,10 +1252,10 @@ function ModificarFamiliarPos(pos) {
         $("#cmbparentescof").val(Familiar.parentesco);
         var rutaimg = Conn.URLIMG;
         var urlf = Conn.URLIMG + DB.cedula + ".jpg";
-				if (ObjMilitar.Persona.foto  != undefined){
-					rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
-          urlf = rutaimg + "/foto" + DB.cedula + ".jpg";
-				}
+        if (ObjMilitar.Persona.foto != undefined) {
+            rutaimg = Conn.URLTEMP + "/" + ObjMilitar.id;
+            urlf = rutaimg + "/foto" + DB.cedula + ".jpg";
+        }
         $("#_imgIngFam").attr("src", urlf);
         urlf = rutaimg + "/firma" + DB.cedula + ".jpg";
         $("#_imgfirmaF").attr("src", urlf);
@@ -1295,7 +1285,7 @@ function ModificarFamiliar() {
 }
 
 
-function verCarnet(serial, cedula, vence, estatus,idf) {
+function verCarnet(serial, cedula, vence, estatus, idf) {
 
     CargarUrl("_objectPDF", "rpt/carnet");
     var ObjMilitar = new Militar();
@@ -1306,58 +1296,58 @@ function verCarnet(serial, cedula, vence, estatus,idf) {
     xhttp.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('ipsfaToken'));
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          OqMilitar.Cargar(JSON.parse(xhttp.responseText));
-          var militar = OqMilitar;
-          url = "images/grados/" + militar.Grado.abreviatura + ".png";
-          url = url.toLowerCase();
-          rutaimg = Conn.URLTEMP;
-          $("#imggradoCarnet").attr("src", url);
-          url = rutaimg + cedula + "/huella.bmp";
-          $("#imghuellaCarnet").attr("src", url);
-          url = rutaimg + cedula + "/foto.jpg";
-          $("#imgfotoCarnet").attr("src", url);
-          var conGrado = militar.Grado.descripcion;
-          if ( militar.condicion != undefined) {
-              if ( militar.condicion == 2 ) conGrado = "CIUDADANO";
-          }
-          
-          $("#lblgrado").html(conGrado);
-          
-          $("#lblnombre").html(militar.Persona.DatoBasico.nombreprimero);
-          $("#lblapellido").html(militar.Persona.DatoBasico.apellidoprimero);
-          $("#lblcedula").html("C.I. " + militar.Persona.DatoBasico.cedula);
-          $("#divserial").html(serial);
-          var ISODate = new Date(vence).toISOString();
-          var fe = ISODate.substr(0, 10);
-          var fa = fe.split("-");
-          $("#divvencimiento").html("VENCE 05/07/" + fa[0]);
+            OqMilitar.Cargar(JSON.parse(xhttp.responseText));
+            var militar = OqMilitar;
+            url = "images/grados/" + militar.Grado.abreviatura + ".png";
+            url = url.toLowerCase();
+            rutaimg = Conn.URLTEMP;
+            $("#imggradoCarnet").attr("src", url);
+            url = rutaimg + cedula + "/huella.bmp";
+            $("#imghuellaCarnet").attr("src", url);
+            url = rutaimg + cedula + "/foto.jpg";
+            $("#imgfotoCarnet").attr("src", url);
+            var conGrado = militar.Grado.descripcion;
+            if (militar.condicion != undefined) {
+                if (militar.condicion == 2) conGrado = "CIUDADANO";
+            }
 
-          $("#divcategoria").html(militar.ObtenerCategoria());
-          var comp = militar.Componente.abreviatura;
-          if(militar.Componente.abreviatura == "AV"){
-              comp = "AM"
-          }
-          $("#divsiglas").html(comp+"B");
-          url = "images/firma.png";
-          $("#imgfirmaCarnet").attr("src", url);
+            $("#lblgrado").html(conGrado);
 
-          if (militar.clase == "TPROF"){
-            $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO EN COMISIÓN DE SERVICIO, EN ACTOS DEL SERVICIO O EN OCASIÓN DE ESTE');
-          } else{
-            $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO ASIGNADAS POR LA FANB');
-          }
+            $("#lblnombre").html(militar.Persona.DatoBasico.nombreprimero);
+            $("#lblapellido").html(militar.Persona.DatoBasico.apellidoprimero);
+            $("#lblcedula").html("C.I. " + militar.Persona.DatoBasico.cedula);
+            $("#divserial").html(serial);
+            var ISODate = new Date(vence).toISOString();
+            var fe = ISODate.substr(0, 10);
+            var fa = fe.split("-");
+            $("#divvencimiento").html("VENCE 05/07/" + fa[0]);
 
-          $("#lblcodigo").html(militar.codigocomponente);
-          $("#lblhistoria").html(militar.numerohistoria);
-          $("#lblcabello").html(militar.Persona.DatoFisionomico.ObtenerCabello());
-          $("#lblgrupo").html(militar.Persona.DatoFisionomico.gruposanguineo);
-          $("#lblestatura").html(militar.Persona.DatoFisionomico.estatura);
-          $("#lblojos").html(militar.Persona.DatoFisionomico.ObtenerOjo());
-          $("#lblcolor").html(militar.Persona.DatoFisionomico.ObtenerPiel());
-          $("#divserial").html(serial);
-          //$("#divvencimiento").html("VENCE " + Util.ConvertirFechaHumana(vence));
-          ImprimirCarnet("_objectPDF");
-      }
+            $("#divcategoria").html(militar.ObtenerCategoria());
+            var comp = militar.Componente.abreviatura;
+            if (militar.Componente.abreviatura == "AV") {
+                comp = "AM"
+            }
+            $("#divsiglas").html(comp + "B");
+            url = "images/firma.png";
+            $("#imgfirmaCarnet").attr("src", url);
+
+            if (militar.clase == "TPROF") {
+                $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO EN COMISIÓN DE SERVICIO, EN ACTOS DEL SERVICIO O EN OCASIÓN DE ESTE');
+            } else {
+                $("#notapie").html('AUTORIZADO PARA PORTAR ARMAS DE FUEGO ASIGNADAS POR LA FANB');
+            }
+
+            $("#lblcodigo").html(militar.codigocomponente);
+            $("#lblhistoria").html(militar.numerohistoria);
+            $("#lblcabello").html(militar.Persona.DatoFisionomico.ObtenerCabello());
+            $("#lblgrupo").html(militar.Persona.DatoFisionomico.gruposanguineo);
+            $("#lblestatura").html(militar.Persona.DatoFisionomico.estatura);
+            $("#lblojos").html(militar.Persona.DatoFisionomico.ObtenerOjo());
+            $("#lblcolor").html(militar.Persona.DatoFisionomico.ObtenerPiel());
+            $("#divserial").html(serial);
+            //$("#divvencimiento").html("VENCE " + Util.ConvertirFechaHumana(vence));
+            ImprimirCarnet("_objectPDF");
+        }
 
     }
     xhttp.onerror = function () {
@@ -1381,18 +1371,18 @@ function aprobarCarnet(serial, estatus) {
         buzon = "tblPendientesBuzonImp";
     }
     var table = $('#' + buzon).DataTable();
-    $("#"+buzon+" tbody").on( 'click', 'button.desaparece', function () {
+    $("#" + buzon + " tbody").on('click', 'button.desaparece', function () {
         table
-            .row( $(this).parents('tr') )
+            .row($(this).parents('tr'))
             .remove()
             .draw();
-    } );
+    });
 }
 
 
 
 
-function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
+function verCarnetFamiliar(serial, cedula, vence, estatus, idf) {
 
     CargarUrl("_objectPDF2", "rpt/carnetfamiliar");
     var ObjMilitar = new Militar();
@@ -1406,8 +1396,8 @@ function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
             var militar = JSON.parse(xhttp.responseText);
             var hasta = militar.Familiar.length;
             var pos = "";
-            for(var i=0;i< hasta;i++){
-                if(militar.Familiar[i].Persona.DatoBasico.cedula == idf ){
+            for (var i = 0; i < hasta; i++) {
+                if (militar.Familiar[i].Persona.DatoBasico.cedula == idf) {
                     pos = i;
                     break;
                 }
@@ -1415,48 +1405,48 @@ function verCarnetFamiliar(serial, cedula, vence, estatus,idf) {
             var rutaimgfamiliar = Conn.URLTEMP;
             var url = rutaimgfamiliar + cedula + "/foto" + idf + ".jpg";
             $("#imgfotoCarnetf").attr("src", url);
-            url = rutaimgfamiliar + cedula + "/firma" + idf+ ".jpg";
+            url = rutaimgfamiliar + cedula + "/firma" + idf + ".jpg";
 
             $("#imgfirmaCarnetf").attr("src", url);
-            $("#divfechavencimiento").html("VENCE "+Util.ConvertirFechaHumana(vence));
+            $("#divfechavencimiento").html("VENCE " + Util.ConvertirFechaHumana(vence));
             var nombre = militar.Familiar[pos].Persona.DatoBasico.nombreprimero;
             $("#lblnombref").html(nombre.toUpperCase());
             var apellido = militar.Familiar[pos].Persona.DatoBasico.apellidoprimero;
             $("#lblapellidof").html(apellido.toUpperCase());
             $("#lblcedulaf").html(idf);
-            if (militar.situacion != "FCP"){
-              $("#lblparentescof").html(Util.ConvertirParentesco(militar.Familiar[pos].parentesco,militar.Familiar[pos].Persona.DatoBasico.sexo));
-            }else{
-              if(militar.Familiar[pos].parentesco == "EA"){
-                $("#lblparentescof").html(Util.ConvertirParentesco("VI",militar.Familiar[pos].Persona.DatoBasico.sexo));
-              }else{
-                $("#lblparentescof").html(Util.ConvertirParentesco(militar.Familiar[pos].parentesco,militar.Familiar[pos].Persona.DatoBasico.sexo));
-              }
+            if (militar.situacion != "FCP") {
+                $("#lblparentescof").html(Util.ConvertirParentesco(militar.Familiar[pos].parentesco, militar.Familiar[pos].Persona.DatoBasico.sexo));
+            } else {
+                if (militar.Familiar[pos].parentesco == "EA") {
+                    $("#lblparentescof").html(Util.ConvertirParentesco("VI", militar.Familiar[pos].Persona.DatoBasico.sexo));
+                } else {
+                    $("#lblparentescof").html(Util.ConvertirParentesco(militar.Familiar[pos].parentesco, militar.Familiar[pos].Persona.DatoBasico.sexo));
+                }
             }
             var amilitar = militar.Persona.DatoBasico.apellidoprimero.split(" ");
             var nmilitar = militar.Persona.DatoBasico.nombreprimero.split(" ");
-				    var desGrado = militar.Grado.abreviatura; 
-            if ( desGrado == "AN") desGrado = "TC";
-				    $("#lblafiliadof").html(desGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
+            var desGrado = militar.Grado.abreviatura;
+            if (desGrado == "AN") desGrado = "TC";
+            $("#lblafiliadof").html(desGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:" + cedula);
 
             var conGrado = desGrado;
-            if ( militar.condicion != undefined) {
-                if ( militar.condicion == 2 ) conGrado = "CIUDADANO";
+            if (militar.condicion != undefined) {
+                if (militar.condicion == 2) conGrado = "CIUDADANO";
             }
-            
-            $("#lblafiliadof").html(conGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:"+cedula);
+
+            $("#lblafiliadof").html(conGrado + " - " + amilitar[0] + " " + nmilitar[0] + " CI:" + cedula);
 
             url = rutaimgfamiliar + cedula + "/huella" + idf + ".bmp";
             $("#imghuellaCarnetf").attr("src", url);
             var historia = militar.Familiar[pos].historiamedica;
-            if (militar.Familiar[pos].historiamedica == ""){
-              historia = "0";
+            if (militar.Familiar[pos].historiamedica == "") {
+                historia = "0";
             }
             $("#lblhistoriaf").html(historia);
             $("#lblgsanguineof").html(militar.Familiar[pos].Persona.DatoFisionomico.gruposanguineo);
             $("#lbldonantef").html(militar.Familiar[pos].donante);
             $("#lblfechanacf").html(Util.ConvertirFechaHumana(militar.Familiar[pos].Persona.DatoBasico.fechanacimiento));
-            $("#lblserialf").html( serial);
+            $("#lblserialf").html(serial);
             ImprimirCarnetFamiliar("_objectPDF2");
         }
 
@@ -1486,7 +1476,7 @@ function ConstanciaPensionSobr() {
     var clascat = 'OFICIAL / ASIMILADO'
     var nombrePI = 'ERIKA COROMOTO VIRGÜEZ OVIEDO';
     $('#modConsSobr').modal('show');
-    
+
 
 }
 
@@ -1584,10 +1574,10 @@ function CalcularEdadFamiliar(id, vl) {
     $('#' + id).val(Util.CalcularEdad($('#' + vl).val()));
 }
 
-function verificarCedulamenor(){
+function verificarCedulamenor() {
     var edad = $("#txtedadmm").val();
     var nac = $("#btnnacionalidadm").html();
-    if(edad >=9 &&  nac == 'M' ){
+    if (edad >= 9 && nac == 'M') {
         $("#modMsjfamiliar").modal('hide');
         NacionalidadFamiliar2("V");
         $("#txtcedulam").val("");
@@ -1725,12 +1715,12 @@ function ValidarMilitar(valor) {
 function SalvarFamiliar() {
     var familiar = new Familiar();
     if (Util.ValidarFormulario("_frmDatoFamiliar") == false) {
-        Util.MensajeFormulario("_frmDatoFamiliar","msj_modal_familiar");
-    }else{
+        Util.MensajeFormulario("_frmDatoFamiliar", "msj_modal_familiar");
+    } else {
         var tpo = $("#tipoModFam").val();
-        if(tpo == 0){
+        if (tpo == 0) {
             familiar.Salvar();
-        }else{
+        } else {
             familiar.Actualizar();
         }
         $("#modFamiliar").modal("hide");
@@ -1748,12 +1738,12 @@ function pendienteCarnet(serial, estatus) {
     }
     var table = $('#' + buzon).DataTable();
 
-    $("#"+buzon+" tbody").on( 'click', 'button.desaparece', function () {
+    $("#" + buzon + " tbody").on('click', 'button.desaparece', function () {
         table
-            .row( $(this).parents('tr') )
+            .row($(this).parents('tr'))
             .remove()
             .draw();
-    } );
+    });
 }
 
 function cerrarCarnet(serial) {
@@ -1766,12 +1756,12 @@ function cerrarCarnet(serial) {
     }
     var table = $('#' + buzon).DataTable();
 
-    $("#"+buzon+" tbody").on( 'click', 'button.desaparece', function () {
+    $("#" + buzon + " tbody").on('click', 'button.desaparece', function () {
         table
-            .row( $(this).parents('tr') )
+            .row($(this).parents('tr'))
             .remove()
             .draw();
-    } );
+    });
 }
 
 
@@ -1793,15 +1783,15 @@ function GenerarCarnet() {
     }
 }
 
-function VerCambiarClave(){
+function VerCambiarClave() {
     $("#modCambiarClaveUsuario").modal("show");
 }
 
-function cambiarClave(){
+function cambiarClave() {
     var clave = new Clave();
     if (Util.ValidarFormulario("formcusuario") == false) {
-        Util.MensajeFormulario("formcusuario","msjcambio");
-    }else{
+        Util.MensajeFormulario("formcusuario", "msjcambio");
+    } else {
         clave.Salvar();
     }
 }
@@ -2025,14 +2015,14 @@ function ImprimirCarnetFamiliar(nombre) {
 }
 
 
-function Validar(){
-  
+function Validar() {
+
 }
 
-function traeDireccion(){
+function traeDireccion() {
     $("#cmbestadof").val($("#cmbmestado").val());
     CiudadMunicipio(1);
-    $("#cmbciudad").attr("disabled",false)
+    $("#cmbciudad").attr("disabled", false)
     $("#cmbciudadf").val($("#cmbmciudad option:selected").val());
     $("#cmbmunicipiof").val($("#cmbmmunicipio").val());
     SeleccionarParroquia(1);
@@ -2045,7 +2035,7 @@ function traeDireccion(){
     $("#txtcorreof").val($("#txtmcorreo").val());
 }
 
-function ActivarPension(){
+function ActivarPension() {
     $("#_divpension").hide();
     $("#_bxMedidaJudicial").hide();
     $("#_bxDescuentos").hide();
@@ -2053,20 +2043,20 @@ function ActivarPension(){
     $("#liEstatusPension").hide();
     $("#lblFechaResolucion").html("Fecha de Resolución");
     $("#divPensionSobreviviente").html('');
-    
-    
+
+
 
     var situacion = $("#cmbsituacion option:selected").val();
-    if (situacion != "ACT" && situacion != "S" ){
+    if (situacion != "ACT" && situacion != "S") {
         $("#lblFechaResolucion").html("F. Resolución de Retiro");
         $("#_divpension").show();
     }
     var ti = parseInt(ObjMilitar.tiemposervicio.split("A")[0]);
     var ingreso = parseInt(ObjMilitar.fingreso.split("-")[0]);
     $("#txtporcentaje").val(Util.AsignarPorcentajePension(ingreso, ti));
-    
+
     $("#_btnPensionesAsignadas").show();
-    
+
     switch (situacion) {
         case "ACT":
             $("#_btnPensionesAsignadas").hide();
@@ -2078,22 +2068,22 @@ function ActivarPension(){
         case "RCP":
             $("#_bxMedidaJudicial").show();
             $("#_bxDescuentos").show();
-            $("#liEstatusPension").show();                     
+            $("#liEstatusPension").show();
             break;
         case "I":
             $("#_bxMedidaJudicial").show();
             $("#_bxDescuentos").show();
-            $("#liEstatusPension").show();                     
+            $("#liEstatusPension").show();
             break;
         case "PG":
             $("#_bxMedidaJudicial").show();
             $("#_bxDescuentos").show();
-            $("#liEstatusPension").show();                     
+            $("#liEstatusPension").show();
             break;
         case "FCP":
             var t = $('#tblFamiliares').DataTable();
             t.column(16).visible(false);
-            if ( Util.VerificarDerechoACrecer(ObjMilitar.Familiar) != true ){
+            if (Util.VerificarDerechoACrecer(ObjMilitar.Familiar) != true) {
                 Util.ValidarDerechoACrecer(ObjMilitar.Familiar);
             }
             $("#_bxDescuentos").show();
@@ -2104,17 +2094,17 @@ function ActivarPension(){
             $("#_btnPensionesAsignadas").hide();
             break;
         case "RSP":
-            
-                
+
+
             break;
         case "PG":
             $("#liEstatusPension").show();
             break;
         case "I":
             $("#liEstatusPension").show();
-            break;    
+            break;
         default:
-            
+
             break;
     }
 
@@ -2125,12 +2115,12 @@ function ActivarPension(){
 *
 */
 
-function ValidarPorcentaje(){
-  $("#_contenido").html("¿Está seguro que el porcentaje es correcto?");
-  var botones = '<button type="button" class="btn btn-success" data-dismiss="modal">Si</button>\
+function ValidarPorcentaje() {
+    $("#_contenido").html("¿Está seguro que el porcentaje es correcto?");
+    var botones = '<button type="button" class="btn btn-success" data-dismiss="modal">Si</button>\
   <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>';
-  $("#_botonesmsj").html(botones);
-  $('#modMsj').modal('show');
+    $("#_botonesmsj").html(botones);
+    $('#modMsj').modal('show');
 }
 
 
@@ -2147,16 +2137,16 @@ function FrmDatosBasicosPension(valor) {
 
 }
 //Habilitar los estatus dependiendo del usarui
-function FrmDatosBasicosPensionCombo(valor){
-  $("#cmbsituacion option").each(function( index ) {
-    if ( valor == false){ //Pension
-      this.disabled = false;
-      if (index > 1) this.disabled = true;      
-    }else{
-      this.disabled = false;
-      //if (index == 1) this.disabled = true;
-    }
-  });
+function FrmDatosBasicosPensionCombo(valor) {
+    $("#cmbsituacion option").each(function (index) {
+        if (valor == false) { //Pension
+            this.disabled = false;
+            if (index > 1) this.disabled = true;
+        } else {
+            this.disabled = false;
+            //if (index == 1) this.disabled = true;
+        }
+    });
 }
 
 function FrmFamiliarPension(valor) {
@@ -2165,26 +2155,26 @@ function FrmFamiliarPension(valor) {
 
 
 
-function GArchivoFamiliar(){
-  var ObjEsta = new ArchivoFamiliar();
-  var url = Conn.URL + "familiar/csvfamiliar";
-  $("#_cargando").show();
-  var comp = $("#cmbcomponente").val();
-  var sit = $("#cmbsituacion").val();
-  var valores = {"tipo":"F","situacion":sit, "componente":comp};
-  CargarAPI(url, "POST", valores , ObjEsta);
+function GArchivoFamiliar() {
+    var ObjEsta = new ArchivoFamiliar();
+    var url = Conn.URL + "familiar/csvfamiliar";
+    $("#_cargando").show();
+    var comp = $("#cmbcomponente").val();
+    var sit = $("#cmbsituacion").val();
+    var valores = { "tipo": "F", "situacion": sit, "componente": comp };
+    CargarAPI(url, "POST", valores, ObjEsta);
 }
 
-class ArchivoFamiliar{
-  Crear(Obj){
-    var valor = Obj.msj.split(";")[0];
+class ArchivoFamiliar {
+    Crear(Obj) {
+        var valor = Obj.msj.split(";")[0];
 
-    $("#_contenido").html(`<a href="tmp/${valor}">Descargar archivo</a>`);
-    var botones = '<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>';
-    $("#_botonesmsj").html(botones);
-    $('#modMsj').modal('show');
-    $("#_cargando").hide();
-  }
+        $("#_contenido").html(`<a href="tmp/${valor}">Descargar archivo</a>`);
+        var botones = '<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>';
+        $("#_botonesmsj").html(botones);
+        $('#modMsj').modal('show');
+        $("#_cargando").hide();
+    }
 }
 
 
@@ -2201,7 +2191,7 @@ function EnviarArchivosIMG() {
     var formData = new FormData(document.forms.namedItem("forma"));
 
 
-    var strUrl = Conn.URLSEC +  "/ipsfa/api/militar/jwtsubirarchivos";
+    var strUrl = Conn.URLSEC + "/ipsfa/api/militar/jwtsubirarchivos";
 
     $.ajax({
         url: strUrl,
@@ -2213,54 +2203,54 @@ function EnviarArchivosIMG() {
         contentType: false,
         processData: false,
         beforeSend: function (xhr) {
-          xhr.setRequestHeader("Authorization", 'Bearer '+ sessionStorage.getItem('ipsfaToken'));
+            xhr.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('ipsfaToken'));
         }
     })
-    .done(function (res) {
-        $("#archivo").val("");
-        $.notify("Envio de archivos exitosos...");
-        document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;Seleccionar Archivos.";
-        CargarIMGFOTOS();
+        .done(function (res) {
+            $("#archivo").val("");
+            $.notify("Envio de archivos exitosos...");
+            document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;Seleccionar Archivos.";
+            CargarIMGFOTOS();
 
 
-    }).fail(function (jqXHR, textStatus) {
-        $("#archivo").val("");
-        if (textStatus === 'timeout') {
-            $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
-        }
+        }).fail(function (jqXHR, textStatus) {
+            $("#archivo").val("");
+            if (textStatus === 'timeout') {
+                $.notify("Los archivos exceden el limite en tiempo de conexion intente con menos...");
+            }
 
-    });
-
-}
-
-function CambioEstadoInputFile(){
-  var cant = document.getElementById("archivo").files.length;
-  document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;(" + cant + ") Archivos Selecionados.";
+        });
 
 }
 
-function CargarIMGFOTOS(){
-  var rutaimg = Conn.URLTEMP;
-  url = rutaimg + $("#txtcedula").val() + "/foto.jpg";
+function CambioEstadoInputFile() {
+    var cant = document.getElementById("archivo").files.length;
+    document.getElementById("archivoSeleccionar").innerHTML = "<i class=\"fa fa-download\"></i>&nbsp;&nbsp;(" + cant + ") Archivos Selecionados.";
 
-  $("#minifoto").attr("href", url);
-  $("#_img").attr("src", url);
+}
 
-  url = rutaimg + $("#txtcedula").val() + "/huella.bmp";
-  $("#minihuella").attr("href", url);
-  $("#_imghuellam").attr("src", url);
-  url = rutaimg + $("#txtcedula").val() + "/firma.jpg";
-  $("#minifirma").attr("href", url);
-  $("#_imgfirmam").attr("src", url);
-  url = rutaimg + $("#txtcedula").val() + "/carnet.jpg";
-  $("#_imgcarnet").attr("src", url);
+function CargarIMGFOTOS() {
+    var rutaimg = Conn.URLTEMP;
+    url = rutaimg + $("#txtcedula").val() + "/foto.jpg";
 
-  url = rutaimg + $("#txtcedula").val() + "/cedula.jpg";
-  $("#miniced").attr("href", url);
-  $("#_imgcopiacedula").attr("src", url);
-  url = rutaimg + $("#txtcedula").val() + "/partidanac.jpg";
-  $("#mininac").attr("href", url);
-  $("#_imgpartida").attr("src", url);
+    $("#minifoto").attr("href", url);
+    $("#_img").attr("src", url);
+
+    url = rutaimg + $("#txtcedula").val() + "/huella.bmp";
+    $("#minihuella").attr("href", url);
+    $("#_imghuellam").attr("src", url);
+    url = rutaimg + $("#txtcedula").val() + "/firma.jpg";
+    $("#minifirma").attr("href", url);
+    $("#_imgfirmam").attr("src", url);
+    url = rutaimg + $("#txtcedula").val() + "/carnet.jpg";
+    $("#_imgcarnet").attr("src", url);
+
+    url = rutaimg + $("#txtcedula").val() + "/cedula.jpg";
+    $("#miniced").attr("href", url);
+    $("#_imgcopiacedula").attr("src", url);
+    url = rutaimg + $("#txtcedula").val() + "/partidanac.jpg";
+    $("#mininac").attr("href", url);
+    $("#_imgpartida").attr("src", url);
 }
 
 function ViewImprimirCarnet() {
@@ -2276,7 +2266,7 @@ function ViewImprimirCarnet() {
 }
 
 
-function alertNotifyAfiliacion(msj, color){
+function alertNotifyAfiliacion(msj, color) {
     $.notify(
         {
             title: '<strong>Datos Básicos!</strong>',
@@ -2284,39 +2274,39 @@ function alertNotifyAfiliacion(msj, color){
         },
         {
             type: color
-        } 
+        }
     );
 }
 
-function validarFechaIngreso(){
+function validarFechaIngreso() {
     var Util = new Utilidad();
     var finc = $("#txtfechagraduacion").val();
     var ffin = $("#txtmfecharesuelto").val();
     Util.CompararFechasMayorQue(finc, ffin);
 }
 
-function validarMes(){
-    if ( parseInt( $("#txtmreconocido").val() ) > 11 ) {
+function validarMes() {
+    if (parseInt($("#txtmreconocido").val()) > 11) {
         alertNotifyAfiliacion("Error de mes mayores a 11", "warning");
         $("#txtmreconocido").val('');
         $("#txtmreconocido").focus();
-        
+
     }
 }
 
-function validarDia(){
-    if ( parseInt( $("#txtdreconocido").val() ) > 30 ) {
+function validarDia() {
+    if (parseInt($("#txtdreconocido").val()) > 30) {
         alertNotifyAfiliacion("Error de dias mayores a 30", "warning");
         $("#txtdreconocido").val('');
         $("#txtdreconocido").focus();
     }
 }
 
-function validarCheque(e){    
-    if( $("#cmbmtipofinancieraf").val() == "CH" ) {
+function validarCheque(e) {
+    if ($("#cmbmtipofinancieraf").val() == "CH") {
         $("#txtautorizadof").val('');
-        $("#txtautorizadof").attr("disabled", true );
-    }else{
+        $("#txtautorizadof").attr("disabled", true);
+    } else {
         $("#txtautorizadof").attr("disabled", false);
     }
 }
