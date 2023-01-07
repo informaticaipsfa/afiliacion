@@ -92,7 +92,7 @@ function CConstanciaARC(pos, parentesco){
     var Calc = new WARC();
     Calc.cedula = ObjMilitar.id;
     Calc.cedulafamiliar = cedulafamiliar;
-    Calc.anio = "2021";
+    Calc.anio = "2022";
     
     var ruta = Conn.URL + "pensionado/impimirarc";
     CargarAPI(ruta, "POST", Calc, Calc);
