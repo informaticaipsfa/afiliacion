@@ -198,7 +198,7 @@ function HTMLArc(fila, neto, familiar){
                 <img style="width: 250px;height: 120px;"  
                 src="images/firmatesorero.png" onerror="this.src='images/ndisponible.jpg'" id="lblimgFirmaPIT"/><br>
                 <label id="lblnombrePI"> MATHEUS LOPEZ FERNANDO </label><BR>
-                <label id="lblgradoPIF"> TENIENTE CORONEL </label><br>
+                <label id="lblgradoPIF"> CORONEL </label><br>
                 TESORERO I.P.S.F.A.
                 </h3><i>               
             </td>
