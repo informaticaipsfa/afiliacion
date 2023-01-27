@@ -40,6 +40,7 @@ Number.prototype.zeroPadding = function(){
   return ret.length == 1 ? "0" + ret : ret;
 };
 function verificarPrivilegioUsuario(){
+  console.log(Usuario)
     $.each(Usuario.Perfil.Privilegios,function (privilegio) {
         switch (this.nombre){
             case "afiliacion.salvar":
@@ -56,8 +57,11 @@ function verificarPrivilegioUsuario(){
                   $(".prvreporte").removeClass('hide');
                   break;
             case "afiliacion.carnet":
-                $(".prvcarnet").attr("disabled",false);
-                $(".prvcarnet").removeClass('hide');
+                if (Usuario.usuario.indexOf("css") == 0 || Usuario.usuario == 'administrador') {
+                  $(".prvcarnet").attr("disabled",false);
+                  $(".prvcarnet").removeClass('hide');
+                }
+
                 break;
             case "afiliacion.constancia":
                 $(".prvcontancia").attr("disabled",false);
