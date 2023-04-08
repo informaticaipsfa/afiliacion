@@ -296,7 +296,7 @@ function CargarPrestamo( str ){
 	
 	$("#cmbConceptoPr").val( str );
 	$("#txtAportePr").attr("disabled", true);
-	if( str == "6" && str == "4") {
+	if( str == "6" || str == "4") {
 		$("#txtAportePr").attr("disabled", false);
 	}
 	StepperPrestamo.next();
