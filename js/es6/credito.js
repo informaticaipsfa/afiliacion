@@ -566,7 +566,7 @@ function TablaAmortizacion(){
 	t.clear().draw();
 	var monto = ( parseFloat( $("#txtMontoPr").val() ) * 1)  ;
 	var cuota = CalcularPrestamo();
-	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
+	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1; // cambiando la tabla por meses y no ano  * 12;
 	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
 	var totalInteres = 0;
 	wPrestamo.cuota = parseFloat(parseFloat( cuota ).toFixed(2));
