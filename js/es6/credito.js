@@ -1467,7 +1467,7 @@ function ListarNominasCredito(){
 	wListarPP.desde = fech[0].trim();
 	wListarPP.hasta = fech[1].trim();
 	wListarPP.estatus =  parseInt($("#cmbEstatus").val());
-	//console.log( wListarPP.Obtener() );
+	console.log( wListarPP.Obtener() );
 
 
 	CargarAPI(Conn.URL + "credito/listar" , "POST", wListarPP.Obtener(), wListarPP);
