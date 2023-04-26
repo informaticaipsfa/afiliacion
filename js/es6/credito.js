@@ -1470,7 +1470,7 @@ function ListarNominasCredito(){
 	console.log( wListarPP.Obtener() );
 
 
-	CargarAPI(Conn.URL + "credito/listar" , "POST", wListarPP.Obtener(), wListarPP);
+	CargarAPI(Conn.URL + "credito/listarx" , "POST", wListarPP.Obtener(), wListarPP);
 
 }
 
