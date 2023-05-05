@@ -1,15 +1,15 @@
 'use strict';
 /**
- Desarrollado por  :  Maria Elena Nuñez
- Correo            :  marielen936@gmail.com
+ Desarrollado por  :  Carlos Pena
+ Correo            :  gesaodin@gmail.com
  Modifcado    por  :
  Correo persona mod:
  Fecha Creacion    :  11-07-2017
  Fecha Modificacion:  11-07-2017
  Descripcion       :  Clases, metodos y funciones de Militares
 */
-class DatoBasico{
-	constructor(){
+class DatoBasico {
+	constructor() {
 		this.cedula = "";
 		this.nropersona = 0;
 		this.nacionalidad = "";
@@ -25,60 +25,60 @@ class DatoBasico{
 
 	}
 
-	NombreCompleto(){
+	NombreCompleto() {
 		return this.nombreprimero + " " + this.nombresegundo;
 	}
 
-	ApellidoCompleto(){
+	ApellidoCompleto() {
 		return this.apellidoprimero + " " + this.apellidosegundo;
 	}
 
-	NombreApellido(){
+	NombreApellido() {
 		return this.NombreCompleto() + " " + this.ApellidoCompleto();
 	}
 
-	Sexo(){
-		return (this.sexo == "F")?"FEMENINO":"MASCULINO";
+	Sexo() {
+		return (this.sexo == "F") ? "FEMENINO" : "MASCULINO";
 	}
 
-	Nacionalidad(){
+	Nacionalidad() {
 		let nacionalidad = "VENEZOLANA";
-		if (this.nacionalidad == "E"){
+		if (this.nacionalidad == "E") {
 			nacionalidad = "EXTRANJERA"
 		}
 		return nacionalidad;
 	}
 
-	GenerarEstadoCivil(){
-		let estadocivil= "";
-		 switch(this.estadocivil) {
-		    case "C":
-		     	estadocivil =(this.Persona.DatoBasico.sexo=="F")?"CASADA":"CASADO";
-		        break;
-		    case "D":
-		    	estadocivil = (this.Persona.DatoBasico.sexo=="F")?"DIVORCIADA":"DIVORCIADO";
-		        break;
-		    case "S":
-		    	estadocivil = (this.Persona.DatoBasico.sexo=="F")?"SOLTERA":"SOLTERO";
-		        break;
-		    case "V":
-		    	estadocivil = (this.Persona.DatoBasico.sexo=="F")?"VIUDA":"VIUDO";
-		        break;
-		    default:
-		        estadocivil = "";
-		        break;
+	GenerarEstadoCivil() {
+		let estadocivil = "";
+		switch (this.estadocivil) {
+			case "C":
+				estadocivil = (this.Persona.DatoBasico.sexo == "F") ? "CASADA" : "CASADO";
+				break;
+			case "D":
+				estadocivil = (this.Persona.DatoBasico.sexo == "F") ? "DIVORCIADA" : "DIVORCIADO";
+				break;
+			case "S":
+				estadocivil = (this.Persona.DatoBasico.sexo == "F") ? "SOLTERA" : "SOLTERO";
+				break;
+			case "V":
+				estadocivil = (this.Persona.DatoBasico.sexo == "F") ? "VIUDA" : "VIUDO";
+				break;
+			default:
+				estadocivil = "";
+				break;
 		}
 		return estadocivil;
 	}
 
 }
 
-class DocumentoCivil{
-	constructor(){
+class DocumentoCivil {
+	constructor() {
 		this.archivo = "";
 	}
 
-	ActaMatrimonio(){
+	ActaMatrimonio() {
 		this.registrocivil = "";
 		this.ano = "";
 		this.acta = "";
@@ -88,7 +88,7 @@ class DocumentoCivil{
 		return this;
 	}
 
-	ActaDivorcio(){
+	ActaDivorcio() {
 		this.tribunal = "";
 		this.numerosentencia = "";
 		this.fechasentencia = "";
@@ -96,21 +96,21 @@ class DocumentoCivil{
 		return this;
 	}
 
-	CartaSolteria(){
+	CartaSolteria() {
 		this.registrocivil = "";
 		this.fecha = "";
 		this.archivo = "";
 		return this;
 	}
 
-	ConstanciaViudez(){
+	ConstanciaViudez() {
 		this.registrocivil = "";
 		this.fecha = "";
 		this.archivo = "";
 		return this;
 	}
 
-	ActaDefuncion(){
+	ActaDefuncion() {
 		this.registrocivil = "";
 		this.fecha = "";
 		this.archivo = "";
@@ -119,15 +119,15 @@ class DocumentoCivil{
 
 }
 
-class  DatoFisico{
-	constructor(){
+class DatoFisico {
+	constructor() {
 		this.peso = 0.0;
 		this.talla = 0.0;
 	}
 }
 
-class DatoFisionomico{
-	constructor(){
+class DatoFisionomico {
+	constructor() {
 		this.colorpiel = "";
 		this.colorojos = "";
 		this.colorcabello = "";
@@ -136,60 +136,60 @@ class DatoFisionomico{
 		this.gruposanguineo = "";
 	}
 
-    ObtenerCabello(){
-        var cad = "";
-        switch (this.colorcabello){
-		case "NE":cad = "NEGRO";break;
-            	case "BA":cad = "BLANCO";break;
-            	case "CA":cad = "CASTAÑO";break;
-		case "MA":cad = "MARRON";break;
-		case "AM":cad = "AMARILLO";break;
-		case "AZ":cad = "AZUL";break;
-		case "VI":cad = "VIOLETA";break;
-		case "CV":cad = "CALVO";break;
-		case "GR":cad = "GRIS";break;
-		default: cad = "********";break;
-        }
-        return cad;
-    }
+	ObtenerCabello() {
+		var cad = "";
+		switch (this.colorcabello) {
+			case "NE": cad = "NEGRO"; break;
+			case "BA": cad = "BLANCO"; break;
+			case "CA": cad = "CASTAÑO"; break;
+			case "MA": cad = "MARRON"; break;
+			case "AM": cad = "AMARILLO"; break;
+			case "AZ": cad = "AZUL"; break;
+			case "VI": cad = "VIOLETA"; break;
+			case "CV": cad = "CALVO"; break;
+			case "GR": cad = "GRIS"; break;
+			default: cad = "********"; break;
+		}
+		return cad;
+	}
 
-    ObtenerPiel(){
-        var cad = "";
-        switch (this.colorpiel){
-			case "NE":cad = "NEGRA";break;
-            case "BL":cad = "BLANCA";break;
-            case "CA":cad = "CANELA";break;
-            case "MO":cad = "MORENA";break;
-						case "TR":cad = "TRIGUEÑA";break;
-						case "MO":cad = "MORENA";break;
-						case "RO":cad = "ROSADA";break;
-            default: cad = "********";break;
-        }
-        return cad;
-    }
+	ObtenerPiel() {
+		var cad = "";
+		switch (this.colorpiel) {
+			case "NE": cad = "NEGRA"; break;
+			case "BL": cad = "BLANCA"; break;
+			case "CA": cad = "CANELA"; break;
+			case "MO": cad = "MORENA"; break;
+			case "TR": cad = "TRIGUEÑA"; break;
+			case "MO": cad = "MORENA"; break;
+			case "RO": cad = "ROSADA"; break;
+			default: cad = "********"; break;
+		}
+		return cad;
+	}
 
-    ObtenerOjo(){
-        var cad = "";
-        switch (this.colorojos){
-            case "AM":cad = "ÁMBAR";break;
-            case "AV":cad = "AVELLANA";break;
-            case "CA":cad = "CASTAÑO";break;
-            case "VE":cad = "VERDE";break;
+	ObtenerOjo() {
+		var cad = "";
+		switch (this.colorojos) {
+			case "AM": cad = "ÁMBAR"; break;
+			case "AV": cad = "AVELLANA"; break;
+			case "CA": cad = "CASTAÑO"; break;
+			case "VE": cad = "VERDE"; break;
 
-            case "AZ":cad = "AZUL";break;
-            case "GR":cad = "GRIS";break;
-            case "NE":cad = "NEGRO";break;
-            case "MA":cad = "MARRON";break;
-						case "PA":cad = "PARDO";break;
+			case "AZ": cad = "AZUL"; break;
+			case "GR": cad = "GRIS"; break;
+			case "NE": cad = "NEGRO"; break;
+			case "MA": cad = "MARRON"; break;
+			case "PA": cad = "PARDO"; break;
 
-            default: cad = "********";break;
-        }
-        return cad;
-    }
+			default: cad = "********"; break;
+		}
+		return cad;
+	}
 }
 
-class Correo{
-	constructor(){
+class Correo {
+	constructor() {
 		this.principal = "";
 		this.alternativo = "";
 		this.institucional = "";
@@ -197,8 +197,8 @@ class Correo{
 }
 
 
-class RedSocial{
-	constructor(){
+class RedSocial {
+	constructor() {
 		this.twitter = "";
 		this.facebook = "";
 		this.instagram = "";
@@ -206,8 +206,8 @@ class RedSocial{
 	}
 }
 
-class Telefono{
-	constructor(){
+class Telefono {
+	constructor() {
 		this.movil = "";
 		this.domiciliario = "";
 		this.emergencia = "";
@@ -215,8 +215,8 @@ class Telefono{
 }
 
 
-class Direccion{
-	constructor(){
+class Direccion {
+	constructor() {
 		this.tipo = 0;
 		this.estado = "";
 		this.ciudad = "";
@@ -231,8 +231,8 @@ class Direccion{
 	}
 }
 
-class Carnet{
-	constructor(){
+class Carnet {
+	constructor() {
 		this.idcarnet = "";
 		this.tipo = "";
 		this.condicion = "";
@@ -247,8 +247,8 @@ class Carnet{
 }
 
 
-class Familiar{
-	constructor(){
+class Familiar {
+	constructor() {
 		this.id = "";
 		this.Persona = new Persona();
 		this.parentesco = "";
@@ -263,56 +263,56 @@ class Familiar{
 		this.serial = "";
 		this.pprestaciones = 0.00;
 	}
-	GenerarParentesco(edo){
-		var parentesco= "";
-		 switch(this.parentesco) {
-		    case "PD":
-		     	parentesco =(this.Persona.DatoBasico.sexo=="F")?"MADRE":"PADRE";
-		        break;
-		    case "HJ":
-		    	parentesco = (this.Persona.DatoBasico.sexo=="F")?"HIJA":"HIJO";
-		        break;
-		    case "EA":
-				parentesco = (this.Persona.DatoBasico.sexo=="F")?"ESPOSA":"ESPOSO";
-				if (edo != undefined){
-					if (edo == "M"){
-						parentesco = (this.Persona.DatoBasico.sexo=="F")?"VIUDA":"VIUDO";
+	GenerarParentesco(edo) {
+		var parentesco = "";
+		switch (this.parentesco) {
+			case "PD":
+				parentesco = (this.Persona.DatoBasico.sexo == "F") ? "MADRE" : "PADRE";
+				break;
+			case "HJ":
+				parentesco = (this.Persona.DatoBasico.sexo == "F") ? "HIJA" : "HIJO";
+				break;
+			case "EA":
+				parentesco = (this.Persona.DatoBasico.sexo == "F") ? "ESPOSA" : "ESPOSO";
+				if (edo != undefined) {
+					if (edo == "M") {
+						parentesco = (this.Persona.DatoBasico.sexo == "F") ? "VIUDA" : "VIUDO";
 					}
 				}
-		        break;
+				break;
 			case "HO":
-		    	parentesco = (this.Persona.DatoBasico.sexo=="F")?"HERMANA":"HERMANO";
-		        break;
-		    default:
-		        parentesco = "";
-		        break;
+				parentesco = (this.Persona.DatoBasico.sexo == "F") ? "HERMANA" : "HERMANO";
+				break;
+			default:
+				parentesco = "";
+				break;
 		}
 		return parentesco;
 	}
-	Obtener(){
+	Obtener() {
 		var fdefuncion = "0001-01-01T00:00:00.000Z";
-		if($("#txtdefuncionf").val() != ""){
+		if ($("#txtdefuncionf").val() != "") {
 			fdefuncion = new Date(Util.ConvertirFechaUnix($("#txtdefuncionf").val())).toISOString();
 		}
 		this.Persona.DatoBasico.fechadefuncion = fdefuncion;
 
 		this.id = $("#txtidf").val();
 		this.documentopadre = $("#txtcedula").val();
-		this.Persona.DatoBasico.nropersona =  parseInt($("#txtnropersonaf").val());
+		this.Persona.DatoBasico.nropersona = parseInt($("#txtnropersonaf").val());
 		this.Persona.DatoBasico.nacionalidad = $("#btnnacionalidad").html();
 		this.Persona.DatoBasico.cedula = $("#txtcedulaf").val();
-		this.Persona.DatoBasico.fechanacimiento =  new Date(Util.ConvertirFechaUnix($("#txtnacimientof").val())).toISOString();
+		this.Persona.DatoBasico.fechanacimiento = new Date(Util.ConvertirFechaUnix($("#txtnacimientof").val())).toISOString();
 		this.Persona.DatoBasico.sexo = $("#cmbsexof").val();
 		this.Persona.DatoBasico.nombreprimero = $("#txtnombref").val();
 		this.Persona.DatoBasico.apellidoprimero = $("#txtapellidof").val();
 		this.Persona.DatoBasico.estadocivil = $("#cmbedocivilf  option:selected").val();
 		this.parentesco = $("#cmbparentescof").val();
 		this.condicion = parseInt($("#cmbcondicionf").val());
-		this.beneficio = $("#cmbsituacionf").val()==0?false:true;
+		this.beneficio = $("#cmbsituacionf").val() == 0 ? false : true;
 		this.estudia = parseInt($("#cmbestudiaf").val());
 		this.historiamedica = $("#hclinicaf").val();
 		this.donante = $("#donantef").val();
-		this.esmilitar = $("#cmbmilitarf option:selected").val()==0?false:true;
+		this.esmilitar = $("#cmbmilitarf option:selected").val() == 0 ? false : true;
 
 		this.Persona.PartidaNacimiento.registro = $("#txtpregistrocivilf").val();
 		this.Persona.PartidaNacimiento.ano = $("#txtpanof").val();
@@ -345,9 +345,9 @@ class Familiar{
 		dir.casa = $("#txtcasaf").val().toUpperCase();
 		dir.apartamento = $("#txtaptof").val().toUpperCase();
 		this.Persona.Direccion[0] = dir;
-		if($("#txtfechacondicionf").val() == ''){
+		if ($("#txtfechacondicionf").val() == '') {
 			this.Persona.CondicionEspecial.fecha == '';
-		}else{
+		} else {
 			this.Persona.CondicionEspecial.fecha = new Date(Util.ConvertirFechaUnix($("#txtfechacondicionf").val())).toISOString();
 		}
 
@@ -359,7 +359,7 @@ class Familiar{
 		bnc.institucion = $("#cmbminstfinancieraf option:selected").val();
 		bnc.cuenta = $("#txtmnrocuentaf").val();
 		bnc.autorizado = $("#txtautorizadof").val();
-		bnc.titular = $("#txttitularf").val();		
+		bnc.titular = $("#txttitularf").val();
 		bnc.prioridad = "PRINCIPAL";
 		this.Persona.DatoFinanciero[0] = bnc;
 		this.pprestaciones = obtenerFamiliarPorcentaje(this.Persona.DatoBasico.cedula);
@@ -368,26 +368,26 @@ class Familiar{
 
 		return this;
 	}
-	Salvar(){
+	Salvar() {
 		var milfamiliar = new WMilitar();
-		
-		CargarAPI(Conn.URL + "familiar/crud" , "POST", this.Obtener(), milfamiliar);
+
+		CargarAPI(Conn.URL + "familiar/crud", "POST", this.Obtener(), milfamiliar);
 	}
-	Actualizar(){
+	Actualizar() {
 		var milfamiliar = new WMilitar();
-		CargarAPI(Conn.URL + "familiar/xcrud" , "POST", this.Obtener(), milfamiliar);
+		CargarAPI(Conn.URL + "familiar/xcrud", "POST", this.Obtener(), milfamiliar);
 	}
 }
 
-class WMilitar{
-	constructor(){}
-	Crear(req){
+class WMilitar {
+	constructor() { }
+	Crear(req) {
 		Buscar($("#txtcedula").val());
 	}
 }
 
-class Tim{
-	constructor(){
+class Tim {
+	constructor() {
 		this.fechacreacion = "";
 		this.fechavencimiento = "";
 		this.Componente = new Componente();
@@ -397,46 +397,46 @@ class Tim{
 	}
 }
 
-class Componente{
-	constructor(){
+class Componente {
+	constructor() {
 		this.nombre = "";
 		this.descripcion = "";
 		this.abreviatura = "";
 	}
-	Crear(componente){
+	Crear(componente) {
 		var grado = $("#cmbgrado").val();
 		$("#cmbgrado").html('<option selected="selected" value="S"></option>');
-		componente.Grado.forEach( v => {
+		componente.Grado.forEach(v => {
 			$("#cmbgrado").append('<option value="' + v.codigo + '">' + v.descripcion + '</option>')
 		});
 
 		$("#cmbgrado").val('S');
-		if (grado != "" || grado != "S"){
+		if (grado != "" || grado != "S") {
 			$("#cmbgrado").val(grado);
 		}
 	}
- GenerarComponente(){
-		let abreviatura= "";
-		 switch(this.abreviatura) {
-		    case "EJ":
-		     	descripcion ="EJÉRCITO BOLIVARIANO";
-		     	nombre ="EJÉRCITO";
-		        break;
-		    case "AV":
-		    	descripcion ="AVIACION MILITAR BOLIVARIANA";
-		    	nombre ="AVIACION";
-		        break;
-		    case "GN":
-		    	descripcion ="GUARDIA NACIONAL BOLIVARIANA";
-		    	nombre ="GUARDIA NACIONAL";
-		        break;
-		    case "AR":
-		    	descripcion ="ARMADA BOLIVARIANA";
-		    	nombre ="ARMADA";
-		        break;
-		    default:
-		        descripcion = "";
-		        break;
+	GenerarComponente() {
+		let abreviatura = "";
+		switch (this.abreviatura) {
+			case "EJ":
+				descripcion = "EJÉRCITO BOLIVARIANO";
+				nombre = "EJÉRCITO";
+				break;
+			case "AV":
+				descripcion = "AVIACION MILITAR BOLIVARIANA";
+				nombre = "AVIACION";
+				break;
+			case "GN":
+				descripcion = "GUARDIA NACIONAL BOLIVARIANA";
+				nombre = "GUARDIA NACIONAL";
+				break;
+			case "AR":
+				descripcion = "ARMADA BOLIVARIANA";
+				nombre = "ARMADA";
+				break;
+			default:
+				descripcion = "";
+				break;
 		}
 		return abreviatura;
 	}
@@ -445,20 +445,20 @@ class Componente{
 
 }
 
-class Grado{
-	constructor(){
+class Grado {
+	constructor() {
 
 		this.nombre = "";
 		this.descripcion = "";
 		this.abreviatura = "";
 	}
-	Obtener(){
+	Obtener() {
 		return this;
 	}
 }
 
-class DatoFinanciero{
-	constructor(){
+class DatoFinanciero {
+	constructor() {
 		this.tipo = "";
 		this.institucion = "";
 		this.cuenta = "";
@@ -468,8 +468,8 @@ class DatoFinanciero{
 	}
 }
 
-class Persona{
-	constructor(){
+class Persona {
+	constructor() {
 		this.DatoBasico = new DatoBasico();
 		this.CuentaBancaria = new CuentaBancaria();
 		this.DatoFisico = new DatoFisico();
@@ -490,8 +490,8 @@ class Persona{
 	}
 }
 
-class PartidaNacimiento{
-	constructor(){
+class PartidaNacimiento {
+	constructor() {
 		this.registro = "";
 		this.ano = "";
 		this.acta = "";
@@ -500,8 +500,8 @@ class PartidaNacimiento{
 	}
 }
 
-class Defuncion{
-	constructor(){
+class Defuncion {
+	constructor() {
 		this.registrocivil = "";
 		this.ano = "";
 		this.acta = "";
@@ -510,108 +510,108 @@ class Defuncion{
 	}
 }
 
-class Recibo{
-    constructor(){
-        this.id = "";
-        this.idf = "";
-        this.motivo = "";
-        this.numero = 0;
-        this.canal = "";
-        this.fecha = "";
-        this.monto = 0.0;
-    }
-
-
-	Verificar(){
-        if($("#cmbMotivoCarnet").val() == 'S'){
-            $("#cmbMotivoCarnet").notify("Indique El motivo");
-            return false;
-        }
-        if($("#txtcedula").val() == ''){
-            $("#txtcedula").notify("Ingrese Cedula");
-            return false;
-        }
-        if($("#txtnumeroC").val() == ''){
-            $("#txtnumeroC").notify("Ingrese Numero de Cuenta");
-            return false;
-        }
-        if($("#cmbminstfinancieraC").val() == 'S'){
-            $("#cmbminstfinancieraC").notify("Indique Institucion");
-            return false;
-        }
-        if($("#txtmfechaC").val() == ''){
-            $("#txtmfechaC").notify("Indique fecha");
-            return false;
-        }
-        if($("#txtmontoC").val() == ''){
-            $("#txtmontoC").notify("Indique monto");
-            return false;
-        }
-        return true;
+class Recibo {
+	constructor() {
+		this.id = "";
+		this.idf = "";
+		this.motivo = "";
+		this.numero = 0;
+		this.canal = "";
+		this.fecha = "";
+		this.monto = 0.0;
 	}
 
-    VerificarF(){
-        if($("#cmbMotivoCarnetf").val() == 'S'){
-            $("#cmbMotivoCarnetf").notify("Indique El motivo");
-            return false;
-        }
-        if($("#txtcedulaf").val() == ''){
-            $("#txtcedulaf").notify("Ingrese Cedula");
-            return false;
-        }
-        if($("#txtnumeroCf").val() == ''){
-            $("#txtnumeroCf").notify("Ingrese Numero de Cuenta");
-            return false;
-        }
-        if($("#cmbminstfinancieraCf").val() == 'S'){
-            $("#cmbminstfinancieraCf").notify("Indique Institucion");
-            return false;
-        }
-        if($("#txtmfechaCf ").val() == ''){
-            $("#txtmfechaCf").notify("Indique fecha");
-            return false;
-        }
-        if($("#txtmontoCf").val() == ''){
-            $("#txtmontoCf").notify("Indique monto");
-            return false;
-        }
-        return true;
-    }
 
-
-    Obtener(){
-    	this.id = $("#txtcedula").val();
-      	this.idf = $("#txtcedula").val();
-    	this.motivo = $("#cmbMotivoCarnet").val();
-    	this.numero = $("#txtnumeroC").val();
-    	this.canal = $("#cmbminstfinancieraC").val();
-    	this.fecha = new Date(Util.ConvertirFechaUnix($("#txtmfechaC").val())).toISOString();
-    	this.monto = parseFloat($("#txtmontoC").val());
-    	return this;
+	Verificar() {
+		if ($("#cmbMotivoCarnet").val() == 'S') {
+			$("#cmbMotivoCarnet").notify("Indique El motivo");
+			return false;
+		}
+		if ($("#txtcedula").val() == '') {
+			$("#txtcedula").notify("Ingrese Cedula");
+			return false;
+		}
+		if ($("#txtnumeroC").val() == '') {
+			$("#txtnumeroC").notify("Ingrese Numero de Cuenta");
+			return false;
+		}
+		if ($("#cmbminstfinancieraC").val() == 'S') {
+			$("#cmbminstfinancieraC").notify("Indique Institucion");
+			return false;
+		}
+		if ($("#txtmfechaC").val() == '') {
+			$("#txtmfechaC").notify("Indique fecha");
+			return false;
+		}
+		if ($("#txtmontoC").val() == '') {
+			$("#txtmontoC").notify("Indique monto");
+			return false;
+		}
+		return true;
 	}
 
-    ObtenerF(){
-        this.id = $("#txtcedula").val();
-        this.idf = $("#txtcedulaf").val();
-        this.motivo = $("#cmbMotivoCarnetf").val();
-        this.numero = $("#txtnumeroCf").val();
-        this.canal = $("#cmbminstfinancieraCf").val();
-        this.fecha = new Date(Util.ConvertirFechaUnix($("#txtmfechaCf").val())).toISOString();
-        this.monto = parseFloat($("#txtmontoCf").val());
-        return this;
-    }
-
-	Salvar(){
-    	CargarAPI(Conn.URL + "recibo/crud" , "POST", this.Obtener());
+	VerificarF() {
+		if ($("#cmbMotivoCarnetf").val() == 'S') {
+			$("#cmbMotivoCarnetf").notify("Indique El motivo");
+			return false;
+		}
+		if ($("#txtcedulaf").val() == '') {
+			$("#txtcedulaf").notify("Ingrese Cedula");
+			return false;
+		}
+		if ($("#txtnumeroCf").val() == '') {
+			$("#txtnumeroCf").notify("Ingrese Numero de Cuenta");
+			return false;
+		}
+		if ($("#cmbminstfinancieraCf").val() == 'S') {
+			$("#cmbminstfinancieraCf").notify("Indique Institucion");
+			return false;
+		}
+		if ($("#txtmfechaCf ").val() == '') {
+			$("#txtmfechaCf").notify("Indique fecha");
+			return false;
+		}
+		if ($("#txtmontoCf").val() == '') {
+			$("#txtmontoCf").notify("Indique monto");
+			return false;
+		}
+		return true;
 	}
 
-  SalvarF(){
-    CargarAPI(Conn.URL + "recibo/crud" , "POST", this.ObtenerF());
-  }
+
+	Obtener() {
+		this.id = $("#txtcedula").val();
+		this.idf = $("#txtcedula").val();
+		this.motivo = $("#cmbMotivoCarnet").val();
+		this.numero = $("#txtnumeroC").val();
+		this.canal = $("#cmbminstfinancieraC").val();
+		this.fecha = new Date(Util.ConvertirFechaUnix($("#txtmfechaC").val())).toISOString();
+		this.monto = parseFloat($("#txtmontoC").val());
+		return this;
+	}
+
+	ObtenerF() {
+		this.id = $("#txtcedula").val();
+		this.idf = $("#txtcedulaf").val();
+		this.motivo = $("#cmbMotivoCarnetf").val();
+		this.numero = $("#txtnumeroCf").val();
+		this.canal = $("#cmbminstfinancieraCf").val();
+		this.fecha = new Date(Util.ConvertirFechaUnix($("#txtmfechaCf").val())).toISOString();
+		this.monto = parseFloat($("#txtmontoCf").val());
+		return this;
+	}
+
+	Salvar() {
+		CargarAPI(Conn.URL + "recibo/crud", "POST", this.Obtener());
+	}
+
+	SalvarF() {
+		CargarAPI(Conn.URL + "recibo/crud", "POST", this.ObtenerF());
+	}
 }
 
-class Pension{
-	constructor(){
+class Pension {
+	constructor() {
 		this.tipopension = "";
 		this.pprestaciones = 0.00;
 		this.causal = "";
@@ -625,15 +625,15 @@ class Pension{
  * 
  * 
  */
-class Cuota{
-	constructor(){
+class Cuota {
+	constructor() {
 		this.ID = '';
 		this.balance = 0.00;
 		this.cuota = 0.00;
 		this.interes = 0.00;
 		this.capital = 0.00;
 		this.saldo = 0.00;
-		this.fecha = '';		
+		this.fecha = '';
 		this.estatus = 0;
 		this.tipo = 0;
 		this.dias = 0;
@@ -646,8 +646,8 @@ class Cuota{
  * 
  * 
  */
-class CPersonal{
-	constructor(){
+class CPersonal {
+	constructor() {
 		this.cedula = '';
 		this.nombre = '';
 		this.capital = 0.0;
@@ -669,10 +669,10 @@ class CPersonal{
 		this.porcentajeseguro = 0.00;
 		this.totaldepositar = 0.00;
 		this.fechacreacion = "";
-		this.fechaaprobado = "";		
+		this.fechaaprobado = "";
 	}
-	
-	Crear(){
+
+	Crear() {
 
 	}
 
@@ -683,13 +683,13 @@ class CPersonal{
  * 
  * 
  */
-class Prestamo{
-	constructor(){
+class Prestamo {
+	constructor() {
 		this.Personal = [];
 		this.Hipotecario = [];
 	}
-	
-	Crear(){
+
+	Crear() {
 
 	}
 
@@ -702,20 +702,20 @@ class Prestamo{
  * 
  * 
  */
-class Credito{
-	constructor(){
+class Credito {
+	constructor() {
 		this.Prestamo = new Prestamo();
 
 	}
-	
-	Crear(){
+
+	Crear() {
 
 	}
 
 }
 
-class Militar{
-	constructor(){
+class Militar {
+	constructor() {
 		this.id = "";
 		this.tipodato = 0;
 		this.Persona = new Persona();
@@ -755,12 +755,12 @@ class Militar{
 	}
 
 	//P123 .-
-	Crear(militar){
+	Crear(militar) {
 
 		var url = "";
 		var i = 0;
 		var j = 0;
-		
+
 
 		if (militar.tipo != undefined) {
 			$("#_cedula").val("");
@@ -798,11 +798,11 @@ class Militar{
 			url = "images/grados/" + militar.Grado.abreviatura + ".png";
 			url = url.toLowerCase();
 			$("#_imggrado").attr("src", url);
-    		$("#_Constgrado").attr("src", url); //Grado de la constancia de afiliacion
-			
+			$("#_Constgrado").attr("src", url); //Grado de la constancia de afiliacion
+
 			var rutaimg = Conn.URLIMG;
 			url = rutaimg + $("#txtcedula").val() + ".jpg";
-			if (militar.Persona.foto  != undefined){
+			if (militar.Persona.foto != undefined) {
 				rutaimg = Conn.URLTEMP;
 				url = rutaimg + $("#txtcedula").val() + "/foto.jpg";
 			}
@@ -810,7 +810,7 @@ class Militar{
 			$("#_img").attr("src", url);
 			$("#_fotoConstancia").attr("src", url); //Foto para la constancia de afiliacion
 			$("#txtdefuncion").val("");
-			if(militar.situacion == "FCP"){
+			if (militar.situacion == "FCP") {
 				$("#txtdefuncion").val(Util.ConvertirFechaHumana(DB.fechadefuncion));
 			}
 
@@ -849,14 +849,14 @@ class Militar{
 			$("#txtmfechaultimoascenso").val(Util.ConvertirFechaHumana(militar.fascenso));
 			$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fresuelto));
 			$("#pensionsobreviviente").hide();
-			if( militar.pprestaciones != undefined ) {
+			if (militar.pprestaciones != undefined) {
 				$("#pensionsobreviviente").show();
 			}
 			$("#txtposicion").val(militar.posicion);
 			$("#txtfechagraduacion").val(Util.ConvertirFechaHumana(militar.fingreso));
 			$("#_fingreso").html(Util.ConvertirFechaHumana(militar.fingreso));
 			$("#_fascenso").html(Util.ConvertirFechaHumana(militar.fascenso));
-				
+
 
 			$("#cmbcategoria").val("S");
 			$("#cmbsituacion").val(militar.situacion);
@@ -864,90 +864,90 @@ class Militar{
 			$("#_categoria").html($("#cmbcategoria option:selected").text());
 			$("#_situacion").html($("#cmbsituacion option:selected").text());
 			$("#cmbSituacionPago").val(militar.situacionpago);
-			if($("#cmbsituacion option:selected").text().length > 20){
-				$("#_situacion").attr("style","font-size:12px");
+			if ($("#cmbsituacion option:selected").text().length > 20) {
+				$("#_situacion").attr("style", "font-size:12px");
 			}
 
-			if (militar.CIS.Investigacion.FeDeVida != undefined){
+			if (militar.CIS.Investigacion.FeDeVida != undefined) {
 				var ffevida = "";
 				militar.CIS.Investigacion.FeDeVida.forEach(v => { ffevida = v.fechacreacion; });
-				if(ffevida != ""){
+				if (ffevida != "") {
 					$("#lblfevida").html(Util.ConvertirFechaHumana(ffevida));
 				}
 			}
 			$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
 			$("#_tiemposervicio").html(militar.tiemposervicio);
 			if ($("#txtmfecharesuelto").val() != "") {
-					$("#cmbcategoria").val(militar.categoria);
-					$("#cmbclase").val(militar.clase);
-					$("#_categoria").html($("#cmbcategoria option:selected").text());
-					$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
-					
+				$("#cmbcategoria").val(militar.categoria);
+				$("#cmbclase").val(militar.clase);
+				$("#_categoria").html($("#cmbcategoria option:selected").text());
+				$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
+
 			}
 			var Fideicomiso = militar.Fideicomiso;
-		
+
 			if (militar.areconocido != undefined && militar.areconocido > 0) {
-					$("#_reconocidos").show();
-					$("#txtareconocido").val(militar.areconocido);
-					$("#txtmreconocido").val(militar.mreconocido);
-					$("#txtdreconocido").val(militar.dreconocido);
+				$("#_reconocidos").show();
+				$("#txtareconocido").val(militar.areconocido);
+				$("#txtmreconocido").val(militar.mreconocido);
+				$("#txtdreconocido").val(militar.dreconocido);
 			} else {
-					$("#_reconocidos").hide();
-					$("#txtareconocido").val("");
-					$("#txtmreconocido").val("");
-					$("#txtdreconocido").val("");
+				$("#_reconocidos").hide();
+				$("#txtareconocido").val("");
+				$("#txtmreconocido").val("");
+				$("#txtdreconocido").val("");
 			}
 
 			$("#_tblBancos").html(BancariosHTML());
 			var thbanco = $('#tblBanco').DataTable(tablaBasica);
 			if (militar.Persona.DatoFinanciero != undefined) {
 
-					var DF = militar.Persona.DatoFinanciero[0];
-					if(DF != undefined ){
-						$("#txtmnrocuenta").val(DF.cuenta);
-						$("#cmbminstfinanciera").val(DF.institucion);
-						$("#cmbmtipofinanciera").val(DF.tipo);
-					} 
+				var DF = militar.Persona.DatoFinanciero[0];
+				if (DF != undefined) {
+					$("#txtmnrocuenta").val(DF.cuenta);
+					$("#cmbminstfinanciera").val(DF.institucion);
+					$("#cmbmtipofinanciera").val(DF.tipo);
+				}
 
-					thbanco.clear().draw();
-					i = 0;
-					militar.Persona.DatoFinanciero.forEach ( v => {
-							thbanco.row.add([
-									i++,
-									v.institucion,
-									v.tipo,
-									v.cuenta
-							]).draw(false);
-						}
-					);
+				thbanco.clear().draw();
+				i = 0;
+				militar.Persona.DatoFinanciero.forEach(v => {
+					thbanco.row.add([
+						i++,
+						v.institucion,
+						v.tipo,
+						v.cuenta
+					]).draw(false);
+				}
+				);
 
 
 			}
 			if (militar.Persona.Direccion != undefined) {
 
-					var DIR = militar.Persona.Direccion[0];
-					Estados.ObtenerEstados();
-					$("#cmbmestado").val(DIR.estado);
-					$("#cmbmmunicipio").html('<option selected="selected" value="' + DIR.municipio + '">' + DIR.municipio + '</option>');
-					$("#cmbmparroquia").html('<option selected="selected" value="' + DIR.parroquia + '">' + DIR.parroquia + '</option>');
-					$("#cmbmciudad").html('<option selected="selected" value="' + DIR.ciudad + '">' + DIR.ciudad + '</option>');
-					$("#txtmcalle").val(DIR.calleavenida);
-					$("#txtmcasa").val(DIR.casa);
-					$("#txtmapto").val(DIR.apartamento);
+				var DIR = militar.Persona.Direccion[0];
+				Estados.ObtenerEstados();
+				$("#cmbmestado").val(DIR.estado);
+				$("#cmbmmunicipio").html('<option selected="selected" value="' + DIR.municipio + '">' + DIR.municipio + '</option>');
+				$("#cmbmparroquia").html('<option selected="selected" value="' + DIR.parroquia + '">' + DIR.parroquia + '</option>');
+				$("#cmbmciudad").html('<option selected="selected" value="' + DIR.ciudad + '">' + DIR.ciudad + '</option>');
+				$("#txtmcalle").val(DIR.calleavenida);
+				$("#txtmcasa").val(DIR.casa);
+				$("#txtmapto").val(DIR.apartamento);
 
 			}
 			if (militar.Persona.Correo != undefined) {
-					$("#txtmtelefono").val(militar.Persona.Telefono.domiciliario);
-					$("#txtmcelular").val(militar.Persona.Telefono.movil);
-					$("#txtmcorreo").val(militar.Persona.Correo.principal);
+				$("#txtmtelefono").val(militar.Persona.Telefono.domiciliario);
+				$("#txtmcelular").val(militar.Persona.Telefono.movil);
+				$("#txtmcorreo").val(militar.Persona.Correo.principal);
 			}
 
 			if (militar.Persona.PartidaNacimiento != undefined) {
-					$("#txtpregistrocivil").val(militar.Persona.PartidaNacimiento.registro);
-					$("#txtpano").val(militar.Persona.PartidaNacimiento.ano);
-					$("#txtpacta").val(militar.Persona.PartidaNacimiento.acta);
-					$("#txtpfolio").val(militar.Persona.PartidaNacimiento.folio);
-					$("#txtplibro").val(militar.Persona.PartidaNacimiento.libro);
+				$("#txtpregistrocivil").val(militar.Persona.PartidaNacimiento.registro);
+				$("#txtpano").val(militar.Persona.PartidaNacimiento.ano);
+				$("#txtpacta").val(militar.Persona.PartidaNacimiento.acta);
+				$("#txtpfolio").val(militar.Persona.PartidaNacimiento.folio);
+				$("#txtplibro").val(militar.Persona.PartidaNacimiento.libro);
 
 			}
 
@@ -974,7 +974,7 @@ class Militar{
 			$("#lblFechaResolucion").html("Fecha de Resolución");
 			$("#_btnCCSolvencia").hide();
 			$("#_btnCARC").hide();
-			if(militar.Pension.grado != undefined && militar.Pension.grado != "" && militar.situacion != "ACT"){
+			if (militar.Pension.grado != undefined && militar.Pension.grado != "" && militar.situacion != "ACT") {
 				$("#lblFechaResolucion").html("Fecha de Retiro");
 				$("#_divpension").show();
 				$("#txtmfecharesuelto").val(Util.ConvertirFechaHumana(militar.fretiro));
@@ -985,9 +985,9 @@ class Militar{
 			}
 
 
-			
+
 			CargarFamiliaresModal(militar, t);
-			
+
 			$("#_tblHistorialMilitar").html(HistoricoMilitarHTML());
 			var th = $('#tblhistoricomilitar').DataTable(tablaBasica);
 			th.clear().draw();
@@ -1003,36 +1003,36 @@ class Militar{
 				]).draw(false);
 			});
 			var valpase = 0;
-			if(militar.pasearetiro){
+			if (militar.pasearetiro) {
 				valpase = 1;
 			}
 			$("#cmbpbaja").val(valpase);
 
-			if(valpase == 1){
+			if (valpase == 1) {
 				$("#mdlPaseretiro").modal('show')
 			}
-			
+
 			$("#cmbCondicion").val("0");
-			if(militar.condicion != undefined){
+			if (militar.condicion != undefined) {
 				$("#cmbCondicion").val(militar.condicion);
-				if (militar.condicion != 0){
-					$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
-					$("#mdlCondicion").modal('show');				
+				if (militar.condicion != 0) {
+					$("#bCondicion").html($("#cmbCondicion option:selected").text());
+					$("#mdlCondicion").modal('show');
 				}
 			}
-			if(militar.Credito.Prestamo.Personal != undefined){
-				if (militar.Credito.Prestamo.Personal.length > 0){
+			if (militar.Credito.Prestamo.Personal != undefined) {
+				if (militar.Credito.Prestamo.Personal.length > 0) {
 					militar.Credito.Prestamo.Personal.forEach(v => {
-						console.log( "Entrando en  los totales " +  v.total);
-						if( v.total === undefined ){
+						console.log("Entrando en  los totales " + v.total);
+						if (v.total === undefined) {
 							$("#cmbCondicion").val("3");
-							$("#bCondicion").html( $("#cmbCondicion option:selected").text() );
+							$("#bCondicion").html($("#cmbCondicion option:selected").text());
 							$("#mdlCondicion").modal('show');
 						}
 					});
 				}
 			}
-			
+
 
 			$("#_cedula").val("");
 			$("#_ficha").show();
@@ -1041,85 +1041,85 @@ class Militar{
 			$("#_cargando").hide();
 
 			ActivarPension();
-			if(militar.Pension.pprestaciones != undefined){ 
+			if (militar.Pension.pprestaciones != undefined) {
 				$("#txtporcentaje").val(militar.Pension.pprestaciones);
 				$("#cmbtipopension").val(militar.Pension.causal);
 			}
 			$("#_tblDescuentos").html(DescuentosHTML());
 			$("#_tblMedidaJudicial").html(MedidaJudicialHTML());
-			var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);				
+			var tMJ = $('#tblMedidaJudicial').DataTable(tablaBasica);
 			tMJ.clear().draw();
 			MostrarMedidaJudicial(militar.Pension.MedidaJudicial, tMJ);
-			
-			
-			
-			
+
+
+
+
 			var DPen = $('#tblDescuentos').DataTable(tablaBasica);
 			DPen.clear().draw();
 			MostrarDescuentos(militar.Pension.Descuentos, DPen);
 
 			$("#_tblCredito").html(ListaCreditoHTML());
-			var tCre = $('#tblCredito').DataTable(tablaBasica);				
+			var tCre = $('#tblCredito').DataTable(tablaBasica);
 			tCre.clear().draw();
 			MostrarCredito(militar.Credito, tCre);
 			verificarPrivilegioUsuario();
 		}
-			
+
 	}
 
 	//P321 .-
-  	Cargar(militar){
-        this.id = militar.id;
-        this.tipodato = militar.tipodato;
-		this.Persona.DatoBasico.nropersona =  militar.Persona.DatoBasico.nropersona;
-        this.Persona.DatoBasico = militar.Persona.DatoBasico;
-        var DFis = militar.Persona.DatoFisionomico;
+	Cargar(militar) {
+		this.id = militar.id;
+		this.tipodato = militar.tipodato;
+		this.Persona.DatoBasico.nropersona = militar.Persona.DatoBasico.nropersona;
+		this.Persona.DatoBasico = militar.Persona.DatoBasico;
+		var DFis = militar.Persona.DatoFisionomico;
 
-        this.Persona.DatoFisionomico.colorojos = DFis.colorojos;
-        this.Persona.DatoFisionomico.colorpiel = DFis.colorpiel;
-        this.Persona.DatoFisionomico.colorcabello = DFis.colorcabello;
-        this.Persona.DatoFisionomico.estatura = DFis.estatura;
-        this.Persona.DatoFisionomico.gruposanguineo = DFis.gruposanguineo;
+		this.Persona.DatoFisionomico.colorojos = DFis.colorojos;
+		this.Persona.DatoFisionomico.colorpiel = DFis.colorpiel;
+		this.Persona.DatoFisionomico.colorcabello = DFis.colorcabello;
+		this.Persona.DatoFisionomico.estatura = DFis.estatura;
+		this.Persona.DatoFisionomico.gruposanguineo = DFis.gruposanguineo;
 
-        this.categoria = militar.categoria;
-        this.situacion = militar.situacion;
-        this.clase = militar.clase;
-        this.fingreso = militar.fingreso ;
-        this.fascenso = militar.fascenso;
-        this.areconocido = militar.areconocido;
-        this.mreconocido = militar.mreconocido;
+		this.categoria = militar.categoria;
+		this.situacion = militar.situacion;
+		this.clase = militar.clase;
+		this.fingreso = militar.fingreso;
+		this.fascenso = militar.fascenso;
+		this.areconocido = militar.areconocido;
+		this.mreconocido = militar.mreconocido;
 		this.dreconocido = militar.dreconocido;
 		this.situacionpago = militar.situacionpago;
 
-        this.posicion = militar.posicion ;
-        this.fresuelto = militar.fresuelto;
-        this.nresuelto = militar.nresuelto;
-        this.descripcionhistorica = militar.descripcionhistorica;
-        this.Componente.abreviatura = militar.Componente.abreviatura;
-        this.Componente.descripcion = militar.Componente.descripcion;
-        this.Grado.abreviatura = militar.Grado.abreviatura;
-        this.Grado.descripcion = militar.Grado.descripcion;
-        this.urlsimbolo = "";
-        this.urlfirmaministro = "";
-        this.urlpresidenteipsfa = "";
-        this.urlfoto = "";
-        this.urlhuella = "";
-        this.urlfirma = "";
-        this.urlcedula = "";
-        this.codigocomponente = militar.codigocomponente;
-        this.numerohistoria = militar.numerohistoria;
+		this.posicion = militar.posicion;
+		this.fresuelto = militar.fresuelto;
+		this.nresuelto = militar.nresuelto;
+		this.descripcionhistorica = militar.descripcionhistorica;
+		this.Componente.abreviatura = militar.Componente.abreviatura;
+		this.Componente.descripcion = militar.Componente.descripcion;
+		this.Grado.abreviatura = militar.Grado.abreviatura;
+		this.Grado.descripcion = militar.Grado.descripcion;
+		this.urlsimbolo = "";
+		this.urlfirmaministro = "";
+		this.urlpresidenteipsfa = "";
+		this.urlfoto = "";
+		this.urlhuella = "";
+		this.urlfirma = "";
+		this.urlcedula = "";
+		this.codigocomponente = militar.codigocomponente;
+		this.numerohistoria = militar.numerohistoria;
 		this.pasearetiro = militar.pasearetiro;
 		this.pprestaciones = militar.pprestaciones;
-		
-    }
-	
-	Obtener(){
+
+	}
+
+	Obtener() {
 		var fingreso = new Date(Util.ConvertirFechaUnix($("#txtfechagraduacion").val())).toISOString();
 		var fnacimiento = new Date(Util.ConvertirFechaUnix($("#txtnacimiento").val())).toISOString();
 		var fresuelto = new Date(Util.ConvertirFechaUnix($("#txtmfecharesuelto").val())).toISOString();
 		var fascenso = new Date(Util.ConvertirFechaUnix($("#txtmfechaultimoascenso").val())).toISOString();
 		var fdefuncion = "0001-01-01T00:00:00.000Z";
-		if($("#txtmfechaultimoascenso").val() != ""){
+		if ($("#txtmfechaultimoascenso").val() != "") {
 			fdefuncion = new Date(Util.ConvertirFechaUnix($("#txtdefuncion").val())).toISOString();
 		}
 
@@ -1127,7 +1127,7 @@ class Militar{
 		this.Persona.DatoBasico.nacionalidad = "V";
 
 		this.Persona.DatoBasico.cedula = $("#txtcedula").val();
-		this.Persona.DatoBasico.nropersona =  parseInt($("#txtnropersona").val());
+		this.Persona.DatoBasico.nropersona = parseInt($("#txtnropersona").val());
 		this.Persona.DatoBasico.nombreprimero = $("#txtnombre").val().toUpperCase().trim();
 		this.Persona.DatoBasico.apellidoprimero = $("#txtapellido").val().toUpperCase().trim();
 		this.Persona.DatoBasico.fechanacimiento = fnacimiento;
@@ -1141,14 +1141,14 @@ class Militar{
 		this.situacionpago = $("#cmbSituacionPago").val();
 
 		this.areconocido = parseInt($("#txtareconocido").val());
-        this.mreconocido = parseInt($("#txtmreconocido").val());
+		this.mreconocido = parseInt($("#txtmreconocido").val());
 		this.dreconocido = parseInt($("#txtdreconocido").val());
-		
+
 		this.pxnoascenso = parseInt($("#txtpnoascenso").val());
 		this.pprof = parseInt($("#cmbprofecionalizacion option:selected").val());
 		this.pespecial = parseInt($("#cmbprimapermacnel option:selected").val());
 
-		this.nresuelto = $("#txtnresuelto").val().toUpperCase()	;
+		this.nresuelto = $("#txtnresuelto").val().toUpperCase();
 		this.posicion = parseInt($("#txtposicion").val());
 		this.situacion = $("#cmbsituacion option:selected").val();
 		this.categoria = $("#cmbcategoria option:selected").val();
@@ -1181,7 +1181,7 @@ class Militar{
 		this.Persona.Correo.principal = $("#txtmcorreo").val().toUpperCase();
 		this.Persona.Telefono.domiciliario = $("#txtmtelefono").val();
 		this.Persona.Telefono.movil = $("#txtmcelular").val();
-		this.Persona.PartidaNacimiento.registro= $("#txtpregistrocivil").val();
+		this.Persona.PartidaNacimiento.registro = $("#txtpregistrocivil").val();
 		this.Persona.PartidaNacimiento.ano = $("#txtpano").val();
 		this.Persona.PartidaNacimiento.acta = $("#txtpacta").val();
 		this.Persona.PartidaNacimiento.folio = $("#txtpfolio").val();
@@ -1199,162 +1199,162 @@ class Militar{
 		this.Persona.RedSocial.instagram = $("#txtminstagran").val().toUpperCase();
 
 		this.codigocomponente = $("#txtcodigocomponente").val();
-		this.numerohistoria =   $("#txtnumhistoriaclinica").val();
-		this.Pension.pprestaciones =  parseFloat($("#txtporcentaje").val());
+		this.numerohistoria = $("#txtnumhistoriaclinica").val();
+		this.Pension.pprestaciones = parseFloat($("#txtporcentaje").val());
 		this.Pension.causal = $("#cmbtipopension").val();
-		
-		
+
+
 
 		var valpase = false;
-		if($("#cmbpbaja option:selected").val() == 1){
+		if ($("#cmbpbaja option:selected").val() == 1) {
 			valpase = true;
 		}
-		this.pasearetiro =valpase;
+		this.pasearetiro = valpase;
 
-		
+
 		//console.info(this.areconocido, "Activando modulo de actualización");
 		return this;
 
 	}
 
 	//P0 -- 
-  	ObtenerCategoria(){
-        var cad = "";
-        switch (this.categoria){
-            case "EFE":cad = "EFECTIVO";break;
-            case "ASI":cad = "ASIMILADO";break;
-            default: cad = "********";break;
-        }
+	ObtenerCategoria() {
+		var cad = "";
+		switch (this.categoria) {
+			case "EFE": cad = "EFECTIVO"; break;
+			case "ASI": cad = "ASIMILADO"; break;
+			default: cad = "********"; break;
+		}
 
-        if(this.situacion != "ACT"){
-        	cad = "RESERVA ACTIVA";
-				}
-				if(this.situacion == "I"){
-					cad = "PENSION DE INVALIDEZ";
-				}
+		if (this.situacion != "ACT") {
+			cad = "RESERVA ACTIVA";
+		}
+		if (this.situacion == "I") {
+			cad = "PENSION DE INVALIDEZ";
+		}
 
-        return cad;
-    }
-
-	//P0 -- 
-	Salvar(){
-		$("#_bxFamiliar").show();
-		$("#_bxFamiliarTarjeta").show();
-		$("#_btnConstancia").show();
-		$("#_btnTIM").show();
-		$("#_btnModificar").show();
-		$("#_btnSavlvar").hide();
-		CargarAPI(Conn.URL + "militar/crud" , "POST", this.Obtener(), this);
+		return cad;
 	}
 
 	//P0 -- 
-	Actualizar(){
+	Salvar() {
 		$("#_bxFamiliar").show();
 		$("#_bxFamiliarTarjeta").show();
 		$("#_btnConstancia").show();
 		$("#_btnTIM").show();
 		$("#_btnModificar").show();
 		$("#_btnSavlvar").hide();
-		
-		CargarAPI(Conn.URL + "militar/xcrud" , "POST", this.Obtener());
+		CargarAPI(Conn.URL + "militar/crud", "POST", this.Obtener(), this);
+	}
+
+	//P0 -- 
+	Actualizar() {
+		$("#_bxFamiliar").show();
+		$("#_bxFamiliarTarjeta").show();
+		$("#_btnConstancia").show();
+		$("#_btnTIM").show();
+		$("#_btnModificar").show();
+		$("#_btnSavlvar").hide();
+
+		CargarAPI(Conn.URL + "militar/xcrud", "POST", this.Obtener());
 	}
 }
 
 //P0 -- 
-class CuentaBancaria{
-	constructor(){
+class CuentaBancaria {
+	constructor() {
 		this.banco = "";
 		this.tipocuenta = "";
 		this.numerocuenta = "";
 	}
 }
 
-class CondicionEspecial{
-    constructor(){
-        this.fecha = "";
-        this.tipodiscapacidad = 0;
-        this.diagnostico = "";
-        this.nombrehospitalmilitar="";
-    }
+class CondicionEspecial {
+	constructor() {
+		this.fecha = "";
+		this.tipodiscapacidad = 0;
+		this.diagnostico = "";
+		this.nombrehospitalmilitar = "";
+	}
 }
 class Clave {
-	constructor(){
-			this.login = "";
-			this.clave = "";
-			this.nueva = "";
-			this.repetir = "";
+	constructor() {
+		this.login = "";
+		this.clave = "";
+		this.nueva = "";
+		this.repetir = "";
 	}
 
-    Obtener(){
-        this.login = Usuario.usuario;
-        this.clave = $("#claveA").val();
-        this.nueva = $("#claveN").val();
-        this.repetir = $("#claveN2").val();
-        return this;
-    }
+	Obtener() {
+		this.login = Usuario.usuario;
+		this.clave = $("#claveA").val();
+		this.nueva = $("#claveN").val();
+		this.repetir = $("#claveN2").val();
+		return this;
+	}
 
-    Salvar(){
-        CargarAPI(Conn.URL + "wusuario" , "PUT", this.Obtener());
-    }
+	Salvar() {
+		CargarAPI(Conn.URL + "wusuario", "PUT", this.Obtener());
+	}
 
 }
-$(function (){
-  if (sessionStorage.getItem('ipsfaToken') == undefined ){
-		$(location).attr("href","../index.html");
-	}else{
+$(function () {
+	if (sessionStorage.getItem('ipsfaToken') == undefined) {
+		$(location).attr("href", "../index.html");
+	} else {
 		$("#_body").show();
 	}
 });
 
-function CerrarSession(){
+function CerrarSession() {
 	sessionStorage.removeItem('ipsfaToken');
-	$(location).attr("href","../index.html");
+	$(location).attr("href", "../index.html");
 }
 
 
 class LstCarnet {
-    constructor() {
-			// console.log("Cargando la clase de Aprobacion...");
-    }
-    Crear(Json) {
-        if (Json == null) {
-            return false
-        }
+	constructor() {
+		// console.log("Cargando la clase de Aprobacion...");
+	}
+	Crear(Json) {
+		if (Json == null) {
+			return false
+		}
 
-        var tabla = "_tblPendiente";
-        var buzon = "tblPendientesBuzon";
-        if (Estatus != 0) {
-            tabla = "_tblPendienteImp";
-            buzon = "tblPendientesBuzonImp";
-        }
-        var t = $('#' + buzon).DataTable({
-            'paging': false,
-            'lengthChange': false,
-            'searching': false,
-            'ordering': false,
-            'info': false,
-            'autoWidth': false,
+		var tabla = "_tblPendiente";
+		var buzon = "tblPendientesBuzon";
+		if (Estatus != 0) {
+			tabla = "_tblPendienteImp";
+			buzon = "tblPendientesBuzonImp";
+		}
+		var t = $('#' + buzon).DataTable({
+			'paging': false,
+			'lengthChange': false,
+			'searching': false,
+			'ordering': false,
+			'info': false,
+			'autoWidth': false,
 
-        });
-        t.clear().draw();
-        var j = 0;
+		});
+		t.clear().draw();
+		var j = 0;
 
-        Json.forEach(v => {
-						var paseR = "";
-						if(v.condicion){
-							paseR = "<p style='color:red'>(En proceso de retiro)</p>"
-						}
+		Json.forEach(v => {
+			var paseR = "";
+			if (v.condicion) {
+				paseR = "<p style='color:red'>(En proceso retiro)</p>"
+			}
 
-            var tipocarnet = "verCarnet";
-            var idf = "";
-            if(v.idf != ""){
-                if(v.idf != v.id){
-                    tipocarnet = "verCarnetFamiliar";
-                    idf= v.idf;
-                }
-            }
-		        if (Estatus == 0) {
-		            var boton = `<div class="btn-group">
+			var tipocarnet = "verCarnet";
+			var idf = "";
+			if (v.idf != "") {
+				if (v.idf != v.id) {
+					tipocarnet = "verCarnetFamiliar";
+					idf = v.idf;
+				}
+			}
+			if (Estatus == 0) {
+				var boton = `<div class="btn-group">
 				        <button type="button" class="btn btn-sm btn-info" onclick="${tipocarnet}('${v.serial}','${v.id}','${v.fechavencimiento}',1,'${v.idf}')">
 				        <i class="fa fa-search"></i></button>
 				        <button type="button"  class="btn btn-sm btn-success desaparece" onclick="aprobarCarnet('${v.serial}',1)">
@@ -1362,68 +1362,68 @@ class LstCarnet {
 				        <button type="button" class="btn btn-sm btn-danger desaparece" onclick="pendienteCarnet('${v.serial}',2)">
 				        Eliminar</button>
 				        </div>`;
-		        } else {
-		            var boton = `<div class="btn-group">
+			} else {
+				var boton = `<div class="btn-group">
 				        <button type="button" class="btn btn-sm btn-primary" onclick="${tipocarnet}('${v.serial}','${v.id}','${v.fechavencimiento}',0,'${v.idf}')">
 				        <i class="fa fa-print"></i></button>
 				        <button type="button" class="btn btn-sm btn-success desaparece" onclick="cerrarCarnet('${v.serial}')">
 				        <i class="fa fa-check"></i></button>
 				        </div>`;
-		        }
-				var nombre = v.nombre + " " + v.apellido;
+			}
+			var nombre = v.nombre + " " + v.apellido;
 
-        t.row.add([
-            j++, //0
-            v.id, //1
-            v.Grado.descripcion+paseR, //2
-            nombre.toUpperCase(), //3
-            this.ObtenerMotivo(v.motivo), //v.motivo, //
-            boton //5
-        ]).draw(false);
-    	});
-    }
+			t.row.add([
+				j++, //0
+				v.id, //1
+				v.Grado.descripcion + paseR, //2
+				nombre.toUpperCase(), //3
+				this.ObtenerMotivo(v.motivo), //v.motivo, //
+				boton //5
+			]).draw(false);
+		});
+	}
 
-    ObtenerMotivo(motivo) {
-        var cadena = "";
-        switch (motivo) {
-            case "I" :
-                cadena = "INGRESO";
-                break;
-            case "C" :
-                cadena = "ASCENSO";
-                break;
-            case "CS" :
-                cadena = "CAMBIO SITUACION";
-                break;
-            case "V" :
-                cadena = "VENCIMIENTO";
-                break;
-            case "D" :
-                cadena = "DETERIORO";
-                break;
-            case "E" :
-                cadena = "EXTRAVIO";
-                break;
-            default:
-                cadena = "********";
-                break;
-        }
-        return cadena;
-    }
+	ObtenerMotivo(motivo) {
+		var cadena = "";
+		switch (motivo) {
+			case "I":
+				cadena = "INGRESO";
+				break;
+			case "C":
+				cadena = "ASCENSO";
+				break;
+			case "CS":
+				cadena = "CAMBIO SITUACION";
+				break;
+			case "V":
+				cadena = "VENCIMIENTO";
+				break;
+			case "D":
+				cadena = "DETERIORO";
+				break;
+			case "E":
+				cadena = "EXTRAVIO";
+				break;
+			default:
+				cadena = "********";
+				break;
+		}
+		return cadena;
+	}
 }
 
 
 class PACE {
-    constructor() {
-			// console.log("Cargando la clase de Aprobacion...");
-    }
-    Crear(Json) {
-		
+	constructor() {
+		// console.log("Cargando la clase de Aprobacion...");
+	}
+	Crear(Json) {
+
 		$("#sueldo_base").val(Json.sueldo_base_aux);
 		$("#sueldo_global").val(Json.sueldo_global_aux);
 		$("#sueldo_integral").val(Json.sueldo_integral_aux);
 		$("#fano").val(Json.aguinaldos_aux);
-      	$("#vacaciones").val(Json.vacaciones_aux);
+		$("#vacaciones").val(Json.vacaciones_aux);
 		$("#P_TRANSPORTE").val(Json.prima_transporte_aux);
 		$("#P_DESCENDECIA").val(Json.prima_descendencia_aux);
 		$("#P_ESPECIAL").val(Json.prima_especial_aux);
@@ -1437,12 +1437,12 @@ class PACE {
 
 let lstNeto = [];
 
-class WPensiones{
-	constructor(){
+class WPensiones {
+	constructor() {
 
 	}
-	
-	Crear(req){
+
+	Crear(req) {
 		var i = 0;
 		$("#cmbNetoPago").html('<option value="X">SELECCIONAR UN PAGO</option>');
 		$("#_netosConceptos").html(ConceptosNetosHTML());
@@ -1450,41 +1450,41 @@ class WPensiones{
 		// console.log(req);
 
 		req.forEach(pago => {
-			$("#mdlNetos").modal("show");			
+			$("#mdlNetos").modal("show");
 			var obj = JSON.parse(pago.calculos).conceptos;
-			obj.montosisa = pago.montosisa==undefined?0:pago.montosisa;
+			obj.montosisa = pago.montosisa == undefined ? 0 : pago.montosisa;
 			lstNeto.push(obj);
 			var neto = Intl.NumberFormat("de-DE").format(Number(parseFloat(pago.neto).toFixed(2)))
-			$("#cmbNetoPago").append(`<option value="${i}">${pago.nomina} - ${pago.mes} DEL ${pago.hasta.substr(0,4) } | ( ${pago.hasta} | ${neto} )</option> `)
+			$("#cmbNetoPago").append(`<option value="${i}">${pago.nomina} - ${pago.mes} DEL ${pago.hasta.substr(0, 4)} | ( ${pago.hasta} | ${neto} )</option> `)
 			i++;
-		});		
+		});
 
 	}
 }
-function PensionesAsignadas(){
+function PensionesAsignadas() {
 	var wpensiones = new WPensiones();
-	var ruta =  Conn.URL + "pensionado/consultarneto/" + $("#txtcedula").val() ;
-    CargarAPI(ruta, "GET", wpensiones, wpensiones);
+	var ruta = Conn.URL + "pensionado/consultarneto/" + $("#txtcedula").val();
+	CargarAPI(ruta, "GET", wpensiones, wpensiones);
 }
 
-function consultarNetoPago(){
+function consultarNetoPago() {
 	var pos = $("#cmbNetoPago option:selected").val();
 	$("#_netosConceptos").html(ConceptosNetosHTML());
 	var tblC = $('#tblNetosConceptos').DataTable(tablaBasica);
 	$("#_netosPrimas").html('');
-	
+
 	var obj = lstNeto[pos];
-	for(var i=0; i< obj.length; i++){
+	for (var i = 0; i < obj.length; i++) {
 		var monto = obj[i].mont;
 		var tipo = obj[i].tipo;
 		var des = obj[i].desc.replace("_", " ").toUpperCase();
-		if(tipo == 97){
-			$("#_netosPrimas").append(`<div class="col-md-4">${des}<br>${monto}</div>`);	
-		}else{
-			if(tipo == 1){ //Asignacion
-				tblC.row.add([des, monto,'']).draw(false);
-			}else{ //Deduccion
-				tblC.row.add([des,'', monto]).draw(false);
+		if (tipo == 97) {
+			$("#_netosPrimas").append(`<div class="col-md-4">${des}<br>${monto}</div>`);
+		} else {
+			if (tipo == 1) { //Asignacion
+				tblC.row.add([des, monto, '']).draw(false);
+			} else { //Deduccion
+				tblC.row.add([des, '', monto]).draw(false);
 			}
 		}
 	}
@@ -1492,39 +1492,39 @@ function consultarNetoPago(){
 
 
 
-class WCalculos{
-	constructor(){}
-	Crear(req){
-		
+class WCalculos {
+	constructor() { }
+	Crear(req) {
+
 		var botones = `<button type="button" class="btn btn-primary" data-dismiss="modal">ACEPTAR</button>`;
 		$("#_botonesmsjcal").html(botones);
-		
+
 		var html = `<ul class="list-group list-group-unbordered">`;
-		
+
 		var asig = 0;
 		var dedu = 0;
-		$.each(req, function(c, v){ 
-			if ( v.TIPO < 90 && v.mt > 0 ){
+		$.each(req, function (c, v) {
+			if (v.TIPO < 90 && v.mt > 0) {
 				var mt = parseFloat(v.mt);
-				if(v.TIPO == 0){
+				if (v.TIPO == 0) {
 					html += `<li class="list-group-item">
 					<b>${v.ABV}</b> <a class="pull-right">- ${mt.toFixed(2)}</a>
 					</li>`;
 					dedu += mt;
-				}else{
+				} else {
 
 					html += `<li class="list-group-item">
 						<b>${v.ABV}</b><a class="pull-right">${mt.toFixed(2)}</a>
 					</li>`;
 					asig += mt;
 				}
-				
-				
+
+
 			}
-			
+
 		});
-		var monto = asig - dedu; 
-	
+		var monto = asig - dedu;
+
 		html += `<li class="list-group-item">
 			<b>NETO TOTAL A COBRAR</b><a class="pull-right">${parseFloat(monto).toFixed(2)}</a>
 		</li></ul>`
@@ -1533,10 +1533,10 @@ class WCalculos{
 	}
 }
 
-function mostarCalculosConceptos(){
-	
-	
+function mostarCalculosConceptos() {
+
+
 	var wCalculos = new WCalculos();
-	var ruta =  Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
+	var ruta = Conn.URL + "pensionado/calculo/" + $("#txtcedula").val();
 	CargarAPI(ruta, "GET", "", wCalculos);
 }
