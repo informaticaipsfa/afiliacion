@@ -57,7 +57,7 @@ function verificarPrivilegioUsuario(){
                   $(".prvreporte").removeClass('hide');
                   break;
             case "afiliacion.carnet":
-                if (Usuario.usuario.indexOf("ccs") == 0 || Usuario.usuario == 'administrador' || Usuario.usuario.indexOf("val") == 0) {
+                if (Usuario.usuario.indexOf("ccs") == 0 || Usuario.usuario == 'administrador' || Usuario.usuario.indexOf("val") == 0) || Usuario.usuario.indexOf("sju") == 0) {
                   $(".prvcarnet").attr("disabled",false);
                   $(".prvcarnet").removeClass('hide');
                 }
