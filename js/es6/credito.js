@@ -311,7 +311,7 @@ function asignarMontoSol(){
 
 function CalcularPrestamo(){
 	var monto = parseFloat( $("#txtMontoPr").val())  * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
-	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 1);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
 	var periodo = parseFloat( $("#cmbCuotasPr").val() ) * 1 ; // Cambiamos el ano por meses * 12;// multiplicamos por 12 para devolver valor mensual
 	
 	var potencia = 1 + interes;
@@ -342,8 +342,8 @@ function CalcularCuotasPr(){
 
 	var monto = parseFloat( $("#txtMontoPr").val() ) * 1;
 	var cuota = CalcularPrestamo();
-	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 12;
-	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
+	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1 * 1;
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 1);
 	wPrestamo.cuota = parseFloat( cuota ).toFixed(2);
 	wPrestamo.periodo = "MENSUAL"
 
@@ -352,8 +352,8 @@ function CalcularCuotasPr(){
 
 function CalcularInteresCuotaGiro(){
 	var monto = parseFloat( $("#txtMontoGiro").val())  * 1; //  solicitamos la cantidad prestada, el plazo y el tipo de interes
-	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
-	var periodo = parseFloat( $("#cmbCuotasPr").val() ) * 1 * 12;// multiplicamos por 12 para devolver valor mensual
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 1);//  multiplicamos por 100, para disolver el %, y por 12, para tener valor mensual
+	var periodo = parseFloat( $("#cmbCuotasPr").val() ) * 1 * 1;// multiplicamos por 12 para devolver valor mensual
 	
 	var potencia = 1 + interes;
 	var xxx = Math.pow(potencia, -periodo);//  funcion matematica donde la base es la potencia y el exponente el tiempo
@@ -567,7 +567,7 @@ function TablaAmortizacion(){
 	var monto = ( parseFloat( $("#txtMontoPr").val() ) * 1)  ;
 	var cuota = CalcularPrestamo();
 	var periodo = parseInt( $("#cmbCuotasPr").val() ) * 1; // cambiando la tabla por meses y no ano  * 12;
-	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 12);
+	var interes = parseFloat( $("#txtInteresPr").val() ) / (100 * 1);
 	var totalInteres = 0;
 	wPrestamo.cuota = parseFloat(parseFloat( cuota ).toFixed(2));
 	wPrestamo.capital =  parseFloat(parseFloat( monto ).toFixed(2));
