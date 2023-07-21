@@ -576,9 +576,9 @@ function TablaAmortizacion(){
 	//$("#txtCuotaMensual").val(prestamo.cuota);
 	var fecha = new Date();
 	var ano = fecha.getFullYear();
-	var mes = fecha.getMonth() + 3;
+	var mes = fecha.getMonth() + 1;
 	
-	if(fecha.getDate() > 14 )mes += 1;
+	if(fecha.getDate() > 25 )mes += 1;
 	
 	if(mes > 12){
 		mes = mes - 11;
