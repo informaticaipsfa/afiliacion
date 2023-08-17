@@ -5,6 +5,44 @@ let ObjPACE = new PACE();
 let myStepper;
 let StepperPrestamo;
 let StepperCredito;
+let msjWindows = 0;
+
+
+let timerId = setTimeout(function () {
+    MsjAlertSesion();
+}, 6000);
+
+var base_url = 'fake_url';
+
+
+document.onclick = function() {
+    if (msjWindows == 1 ) {
+        CerrarSession();
+    }
+}
+
+document.onmousemove = function(){ 
+  clearTimeout(timerId);
+  contadorSesion();
+} 
+
+function contadorSesion() {
+    timerId = setTimeout(function () {
+        MsjAlertSesion();
+    }, 6000);
+
+    
+}
+
+function MsjAlertSesion(){
+    msjWindows = 1;
+    var botones = '<button class="btn btn-danger" data-dismiss="modal" onClick="CerrarSession()">OK</button>';
+    $("#_botonesmsjXS").html(botones);
+    sessionStorage.removeItem('ipsfaToken');
+    $("#modMsjXS").modal("show");
+} 
+
+
 
 
 function Buscar(id) {
