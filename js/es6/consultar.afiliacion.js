@@ -10,7 +10,7 @@ let msjWindows = 0;
 
 let timerId = setTimeout(function () {
     MsjAlertSesion();
-}, 6000);
+}, 300000);
 
 var base_url = 'fake_url';
 
@@ -29,7 +29,7 @@ document.onmousemove = function(){
 function contadorSesion() {
     timerId = setTimeout(function () {
         MsjAlertSesion();
-    }, 6000);
+    }, 300000);
 
     
 }
