@@ -968,6 +968,7 @@ class Militar {
 			$("#_codigocomponente").html(militar.codigocomponente);
 
 			$("#_lblfechacarnet").html(Util.ConvertirFechaHumana(militar.Tim.fechavencimiento));
+			$("#_lblcreacioncarnet").html(Util.ConvertirFechaHumana(militar.Tim.fechacreacion));
 
 			$("#txtnumhistoriaclinica").val(militar.numerohistoria);
 			$("#_divpension").hide();
