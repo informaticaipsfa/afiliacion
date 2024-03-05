@@ -872,8 +872,9 @@ class Militar {
 				var ffevida = "";
 				militar.CIS.Investigacion.FeDeVida.forEach(v => { ffevida = v.fechacreacion; });
 				if (ffevida != "") {
-					$("#lblfevida").html(Util.ConvertirFechaHumana(ffevida));
+					$("#_lblfevida").html(Util.ConvertirFechaHumana(ffevida));
 				}
+
 			}
 			$("#_clasificacion").html('<font style="size:8px">' + $("#cmbclase option:selected").text() + "</font>");
 			$("#_tiemposervicio").html(militar.tiemposervicio);
