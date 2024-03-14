@@ -513,8 +513,9 @@ class WPatria{
 function pagarPatria(){
     $("#_cargandop").show()
     patria = new WPatria();
-    var url = Conn.URL + "nomina/patria/" + $("#cmbAno").val();
-    CargarAPI(url, "GET", "", patria);
+    var url = Conn.URL + "nomina/patria/" + $("#cmbAno option:selected").val();
+    console.log(url);
+    //CargarAPI(url, "GET", "", patria);
 }
 
 
