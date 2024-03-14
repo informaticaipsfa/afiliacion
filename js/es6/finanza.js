@@ -519,7 +519,7 @@ function pagarPatria(){
 
 
 function downloadPatria(){
-    var firma = $("#cmbAno").val();
+    var firma = $("#cmbSolicitud option:selected").val();
     const url = 'sssifanb/pensiones/temp/banco/' + firma + '/patria.txt'
     window.open(url, 'Download');
 }
