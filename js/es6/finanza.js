@@ -496,3 +496,9 @@ function ImprimirCuadreDosP() {
     ventana.print();
     ventana.close();
 }
+
+function downloadPatria(){
+    var firma = $("#cmbAno").val();
+    const url = 'https://app.ipsfa.gob.ve/sssifanb/pensiones/temp/banco/' + firma + '.txt'
+    window.open(url, 'Download');
+}
