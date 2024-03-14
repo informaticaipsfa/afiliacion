@@ -29,7 +29,7 @@ function cargarComboPagos(){
     var combo = '';
     _LSTNOMINAS.forEach(e => {            
         if( e.fech.substr(0,4) == $("#cmbAno").val() ) {
-            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.mes} </option>`;
+            combo += `<option value="${e.firma}">( ${ e.cantidad } ) ${e.obse} - ${e.mes} | ${e.firma} </option>`;
             //console.log(e.fech);
             i++;
         }
