@@ -497,8 +497,29 @@ function ImprimirCuadreDosP() {
     ventana.close();
 }
 
+
+
+
+
+class WPatria{
+    constructor(){
+        this.llave = '';
+    }
+    Crear(req){
+        $("#_cargandop").hide();
+    }
+}
+
+function pagarPatria(){
+    $("#_cargandop").show()
+    patria = new WPatria();
+    var url = Conn.URL + "nomina/patria/" + $("#cmbAno").val();
+    CargarAPI(url, "GET", "", patria);
+}
+
+
 function downloadPatria(){
     var firma = $("#cmbAno").val();
-    const url = 'https://app.ipsfa.gob.ve/sssifanb/pensiones/temp/banco/' + firma + '.txt'
+    const url = 'sssifanb/pensiones/temp/banco/' + firma + '/patria.txt'
     window.open(url, 'Download');
 }

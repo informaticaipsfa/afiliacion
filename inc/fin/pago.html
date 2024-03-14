@@ -20,9 +20,9 @@
                                 <option value='2024'>2024</option>
                             </select>
                             <span id="btnCuadre" class="input-group-btn" style="display:none">
-                                <button type="button" class="btn btn-flat bg-purple" onclick="generarPagoPatria()">
+                                <button type="button" class="btn btn-flat bg-purple" onclick="pagarPatria()">
                                     <i class="fa fa-puzzle-piece"></i>
-                                    &nbsp;&nbsp;Generar Pago a patria</button>
+                                    &nbsp;&nbsp;Generar pago a patria</button>
                             </span>
                         </div>
                     </div>
@@ -42,21 +42,14 @@
             </div>
             <!-- end loading -->
             <div class="modal-footer">    
-                <button type="button" id="btnRechazar" class="btn btn-md btn-danger pull-left"  onclick="reMetodo()">
-                    <i class="fa fa-random"></i>
-                    &nbsp;&nbsp;Rechazar nóminas</button>        
+                 
                 <button type="button" id="btnImprimir" 
                     class="btn btn-md btn-primary" 
                     style="display:none"
-                     onclick="ImprimirCuadreDosP()">
+                     onclick="downloadPatria()">
                     <i class="fa fa-print"></i>
-                    &nbsp;&nbsp;Imprimir Metodo Banco</button>
-                <button type="button" id="btnPreparar" 
-                class="btn btn-md btn-success"  
-                style="display:none"
-                onclick="GenerarTxt()">
-                    <i class="fa fa-credit-card"></i>
-                    &nbsp;&nbsp;Generar Metodo Banco</button>
+                    &nbsp;&nbsp;Descargar archivo de partia</button>
+              
                     
             </div>
         </div><!-- /.box -->
