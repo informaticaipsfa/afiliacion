@@ -514,8 +514,7 @@ function pagarPatria(){
     $("#_cargandop").show()
     patria = new WPatria();
     var url = Conn.URL + "nomina/patria/" + $("#cmbSolicitud option:selected").val();
-    console.log(url);
-    //CargarAPI(url, "GET", "", patria);
+    CargarAPI(url, "GET", "", patria);
 }
 
 
