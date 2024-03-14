@@ -520,6 +520,6 @@ function pagarPatria(){
 
 function downloadPatria(){
     var firma = $("#cmbSolicitud option:selected").val();
-    const url = 'sssifanb/pensiones/temp/banco/' + firma + '/patria.txt'
+    const url = '/sssifanb/pensiones/temp/banco/' + firma + '/patria.txt'
     window.open(url, 'Download');
 }
