@@ -1267,7 +1267,7 @@ function ModificarFamiliarPos(pos) {
         $("#txttitularf").val('');
 
         if (df[0] != undefined ) {
-            if ( Familiar.Persona.DatoBasico.estadocivil == "V" || Familiar.Persona.DatoBasico.estadocivil == "M" ){
+            if ( Familiar.Persona.DatoBasico.estadocivil == "V" ){
                 $("#cmbmtipofinancieraf").val(df[0].tipo);
                 $("#cmbminstfinancieraf").val(df[0].institucion);
                 $("#txtmnrocuentaf").val(df[0].cuenta);
