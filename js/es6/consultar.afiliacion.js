@@ -1267,6 +1267,8 @@ function ModificarFamiliarPos(pos) {
         $("#txttitularf").val('');
         
         console.log(df);
+        console.log( Familiar.Persona);
+        console.log( Familiar.Persona.DatoBasico);
         if (df[0] != undefined ) {
             if ( Familiar.Persona.DatoBasico.estadocivil == "V" ){
                 $("#cmbmtipofinancieraf").val(df[0].tipo);
