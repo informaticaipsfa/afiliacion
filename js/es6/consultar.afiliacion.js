@@ -1265,12 +1265,9 @@ function ModificarFamiliarPos(pos) {
         $("#txtmnrocuentaf").val('');
         $("#txtautorizadof").val('');
         $("#txttitularf").val('');
-        
-        console.log(df);
-        console.log( Familiar.Persona);
-        console.log( Familiar.Persona.DatoBasico);
+
         if (df[0] != undefined ) {
-            if ( Familiar.Persona.DatoBasico.estadocivil == "V" ){
+            if ( Familiar.Persona.DatoBasico.nacionalidad == "V" || Familiar.Persona.DatoBasico.nacionalidad == "M"   || Familiar.Persona.DatoBasico.nacionalidad == "E"  ){
                 $("#cmbmtipofinancieraf").val(df[0].tipo);
                 $("#cmbminstfinancieraf").val(df[0].institucion);
                 $("#txtmnrocuentaf").val(df[0].cuenta);
