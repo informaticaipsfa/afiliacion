@@ -629,7 +629,7 @@ function EnviarArchivos() {
     
 
     var f = $("#fechainicio").val();
-    $("#txtFileID").val(MD5codigo + "|" + f + "|" + Militar.componente.abreviatura);
+    $("#txtFileID").val(MD5codigo + "|" + f);
 
     var formData = new FormData(document.forms.namedItem("forma"));
 
