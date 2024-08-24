@@ -2229,7 +2229,7 @@ function EnviarArchivosIMG() {
     var formData = new FormData(document.forms.namedItem("forma"));
 
 
-    var strUrl = Conn.URLSEC + "/ipsfa/api/militar/jwtsubirarchivos/" + Militar.componente.abreviatura;
+    var strUrl = Conn.URLSEC + "/ipsfa/api/militar/jwtsubirarchivosx/" + Militar.componente.abreviatura;
 
     $.ajax({
         url: strUrl,
