@@ -419,7 +419,6 @@ function FrmFamiliar(valor) {
     $("#txtiniciof").attr('disabled', valor);
     $("#txtfinf").attr('disabled', valor);
     $("#txtuniversidadf").attr('disabled', valor);
-    $("#txtuniversidadf").attr('disabled', valor);
     //
     $("#txtfechacondicionf").attr('disabled', valor);
     $("#cmbDiscapacidadf").attr('disabled', valor);
@@ -480,7 +479,6 @@ function LimpiarFrmFamiliar() {
     $("#txtsemestref").val("");
     $("#txtiniciof").val("");
     $("#txtfinf").val("");
-    $("#txtuniversidadf").val("");
     $("#txtuniversidadf").val("");
     //
     $("#txtfechacondicionf").val("");
@@ -1268,12 +1266,14 @@ function ModificarFamiliarPos(pos) {
         $("#txtautorizadof").val('');
         $("#txttitularf").val('');
 
-        if (df[0] != undefined) {
-            $("#cmbmtipofinancieraf").val(df[0].tipo);
-            $("#cmbminstfinancieraf").val(df[0].institucion);
-            $("#txtmnrocuentaf").val(df[0].cuenta);
-            $("#txtautorizadof").val(df[0].autorizado);
-            $("#txttitularf").val(df[0].titular);
+        if (df[0] != undefined ) {
+            if ( Familiar.Persona.DatoBasico.nacionalidad == "V" || Familiar.Persona.DatoBasico.nacionalidad == "M"   || Familiar.Persona.DatoBasico.nacionalidad == "E"  ){
+                $("#cmbmtipofinancieraf").val(df[0].tipo);
+                $("#cmbminstfinancieraf").val(df[0].institucion);
+                $("#txtmnrocuentaf").val(df[0].cuenta);
+                $("#txtautorizadof").val(df[0].autorizado);
+                $("#txttitularf").val(df[0].titular);
+            }
         }
 
         if (Familiar.parentesco == "EA") {

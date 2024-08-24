@@ -40,7 +40,7 @@ Number.prototype.zeroPadding = function(){
   return ret.length == 1 ? "0" + ret : ret;
 };
 function verificarPrivilegioUsuario(){
-  console.log(Usuario)
+  //console.log(Usuario)
     $.each(Usuario.Perfil.Privilegios,function (privilegio) {
         switch (this.nombre){
             case "afiliacion.salvar":
