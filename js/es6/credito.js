@@ -1944,7 +1944,7 @@ function PrintPagarCredito(credito, concepto){
     var cedula = $("#txtcedula").val();
     var localtime = new Date().toLocaleString();
 	var fechaActual = ConvertirFechaActual();
-	var nombrePI = 'ENRIQUE JOSÉ AROCHA RIVAS';
+	var nombrePI = 'CÉSAR AUGUSTO FEBRES CABELLO';
 	var gradoPI = 'GENERAL DE DIVISIÓN';
 
 	var ventana = window.open("", "_blank");
