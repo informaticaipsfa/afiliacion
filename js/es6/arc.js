@@ -92,7 +92,7 @@ function CConstanciaARC(pos, parentesco){
     var Calc = new WARC();
     Calc.cedula = ObjMilitar.id;
     Calc.cedulafamiliar = cedulafamiliar;
-    Calc.anio = "2023";
+    Calc.anio = "2024";
     
     var ruta = Conn.URL + "pensionado/impimirarc";
     CargarAPI(ruta, "POST", Calc, Calc);
@@ -152,7 +152,7 @@ function HTMLArc(fila, neto, familiar){
         </tr>
     </table >
         <h3>CONSTANCIA AR-C DE PENSIÓN<br>
-            AÑO <b>2023</b>
+            AÑO <b>2024</b>
         </h3>
         <br>
     <table style="width:800px" >
