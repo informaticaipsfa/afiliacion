@@ -1025,7 +1025,7 @@ class Militar {
 			if (militar.Credito.Prestamo.Personal != undefined) {
 				if (militar.Credito.Prestamo.Personal.length > 0) {
 					militar.Credito.Prestamo.Personal.forEach(v => {
-						console.log("Entrando en  los totales " + v.total);
+						// console.log("Entrando en  los totales " + v.total);
 						if (v.total === undefined) {
 							$("#cmbCondicion").val("3");
 							$("#bCondicion").html($("#cmbCondicion option:selected").text());
@@ -1034,6 +1034,12 @@ class Militar {
 					});
 				}
 			}
+			
+
+			if( $("#cmbCondicion").val() != "4" ){
+				$("#bCondicion").html($("#cmbCondicion option:selected").text());
+				$("#mdlCondicion").modal('show');
+  		}
 
 
 			$("#_cedula").val("");
