@@ -1040,7 +1040,7 @@ class Militar {
 			}
 			
 
-			if( $("#cmbCondicion").val() != "4" ){
+			if( $("#cmbCondicion").val() == "4" ){
 				$("#bCondicion").html($("#cmbCondicion option:selected").text());
 				$("#mdlCondicion").modal('show');
   		}
