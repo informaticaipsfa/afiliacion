@@ -1022,14 +1022,18 @@ class Militar {
 					$("#mdlCondicion").modal('show');
 				}
 			}
+
+
 			if (militar.Credito.Prestamo.Personal != undefined) {
 				if (militar.Credito.Prestamo.Personal.length > 0) {
 					militar.Credito.Prestamo.Personal.forEach(v => {
-						// console.log("Entrando en  los totales " + v.total);
-						if (v.total === undefined) {
-							$("#cmbCondicion").val("3");
-							$("#bCondicion").html($("#cmbCondicion option:selected").text());
-							$("#mdlCondicion").modal('show');
+						console.log("Entrando en  los totales " + v);
+						if (v.pagado === undefined) {
+							if (v.total === undefined) {
+								$("#cmbCondicion").val("3");
+								$("#bCondicion").html($("#cmbCondicion option:selected").text());
+								$("#mdlCondicion").modal('show');
+							}
 						}
 					});
 				}
