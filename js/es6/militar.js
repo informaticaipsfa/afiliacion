@@ -1027,7 +1027,9 @@ class Militar {
 			if (militar.Credito.Prestamo.Personal != undefined) {
 				if (militar.Credito.Prestamo.Personal.length > 0) {
 					militar.Credito.Prestamo.Personal.forEach(v => {
+						console.log('Entrando en los datos del credito personal ')
 						console.log(v)
+						console.log(v.pagado)
 						if (v.pagado === undefined) {
 							if (v.total === undefined) {
 								$("#cmbCondicion").val("3");
