@@ -1016,8 +1016,9 @@ class Militar {
 
 			$("#cmbCondicion").val("0");
 			if (militar.condicion != undefined) {
-				$("#cmbCondicion").val(militar.condicion);
-				if (militar.condicion != 0 || militar.codigo != 3) {
+				$("#cmbCondicion").val(militar.condicion)
+				console.log("Actualizar datops ", militar.condicion)
+				if (militar.condicion == 1 || militar.condicion == 2 ) {
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
 					$("#mdlCondicion").modal('show');
 				}
