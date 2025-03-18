@@ -1017,6 +1017,7 @@ class Militar {
 			$("#cmbCondicion").val("0");
 			if (militar.condicion != undefined) {
 				$("#cmbCondicion").val(militar.condicion);
+				console.log(ipagado, militar.codigo, $("#cmbCondicion").val("3"))
 				if (militar.condicion != 0 && militar.codigo != 3) {
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
 					$("#mdlCondicion").modal('show');
