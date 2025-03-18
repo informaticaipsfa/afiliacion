@@ -1035,6 +1035,7 @@ class Militar {
 				}
 			}
 			
+			console.log(ipagado, credito)
 			if (ipagado == 0 && credito == true){
 					$("#cmbCondicion").val("3");
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
