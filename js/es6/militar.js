@@ -1017,10 +1017,8 @@ class Militar {
 			$("#cmbCondicion").val("0");
 			if (militar.condicion != undefined) {
 				$("#cmbCondicion").val(militar.condicion);
-				
-				if (militar.condicion != 0 && militar.codigo != 3) {
+				if (militar.condicion != 0 || militar.codigo != 3) {
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
-					console.log(militar.codigo, "Iniciando.... 1 ")
 					$("#mdlCondicion").modal('show');
 				}
 			}
@@ -1041,13 +1039,11 @@ class Militar {
 			if (ipagado == 0 && credito == true){
 					$("#cmbCondicion").val("3");
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
-					console.log(militar.codigo, "Dos....  ")
 					$("#mdlCondicion").modal('show');
 			}
 
 			if( $("#cmbCondicion").val() == "4" ){
 				$("#bCondicion").html($("#cmbCondicion option:selected").text());
-				console.log(militar.codigo, "Tres....  ")
 				$("#mdlCondicion").modal('show');
   		}
 
