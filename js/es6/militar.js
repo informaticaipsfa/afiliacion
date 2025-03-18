@@ -1017,7 +1017,7 @@ class Militar {
 			$("#cmbCondicion").val("0");
 			if (militar.condicion != undefined) {
 				$("#cmbCondicion").val(militar.condicion);
-				if (militar.condicion != 0) {
+				if (militar.condicion != 0 && militar.codigo != 3) {
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
 					$("#mdlCondicion").modal('show');
 				}
@@ -1035,7 +1035,7 @@ class Militar {
 				}
 			}
 			
-			console.log(ipagado, credito)
+			console.log(ipagado, credito, $("#cmbCondicion").val("3"))
 			if (ipagado == 0 && credito == true){
 					$("#cmbCondicion").val("3");
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
