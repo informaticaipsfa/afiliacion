@@ -1017,7 +1017,7 @@ class Militar {
 			$("#cmbCondicion").val("0");
 			if (militar.condicion != undefined) {
 				$("#cmbCondicion").val(militar.condicion)
-				console.log("Actualizar datops ", militar.condicion)
+				// console.log("Actualizar datops ", militar.condicion)
 				if (militar.condicion == 1 || militar.condicion == 2 ) {
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
 					$("#mdlCondicion").modal('show');
@@ -1036,14 +1036,14 @@ class Militar {
 				}
 			}
 			
-			console.log(ipagado, credito, $("#cmbCondicion").val("3"))
+			//console.log(ipagado, credito, $("#cmbCondicion").val("3"))
 			if (ipagado == 0 && credito == true){
 					$("#cmbCondicion").val("3");
 					$("#bCondicion").html($("#cmbCondicion option:selected").text());
 					$("#mdlCondicion").modal('show');
 			}
 
-			if(militar.condicion ==4 ){
+			if(militar.condicion == 4 ){
 				$("#bCondicion").html($("#cmbCondicion option:selected").text());
 				$("#mdlCondicion").modal('show');
   		}
