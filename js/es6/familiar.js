@@ -95,15 +95,22 @@ function CargarFamiliaresModal(militar, t){
             if(militar.situacion == "FCP"){
                 strEdo = "M";
             }
-            $("#_contenidoFamiliares").append(`<tr><td>${nombreCompleto}</td>
-                <td class="alinear_tddatos">${cedula}</td>
-                <td class="alinear_tddatos">${familiar.GenerarParentesco(strEdo)}</td>
-                <td class="alinear_tddatos">${fnac}</td>                
-                <td class="alinear_tddatos">${situacion}</td>
-            </tr>`);
-            //<td class="alinear_tddatos">${edocivil}</td>
-            
+            // $("#_contenidoFamiliares").append(`<tr><td>${nombreCompleto}</td>
+            //     <td class="alinear_tddatos">${cedula}</td>
+            //     <td class="alinear_tddatos">${familiar.GenerarParentesco(strEdo)}</td>
+            //     <td class="alinear_tddatos">${fnac}</td>                
+            //     <td class="alinear_tddatos">${situacion}</td>
+            // </tr>`);
+            // //<td class="alinear_tddatos">${edocivil}</td>
 
+            if (situacion === "ACTIVO") {
+                $("#_contenidoFamiliares").append(`<tr><td>${nombreCompleto}</td>
+                    <td class="alinear_tddatos">${cedula}</td>
+                    <td class="alinear_tddatos">${familiar.GenerarParentesco(strEdo)}</td>
+                    <td class="alinear_tddatos">${fnac}</td>                
+                    <td class="alinear_tddatos">${situacion}</td>
+                </tr>`);
+            }
         }
         
         //var txtporc = `${porcentaje} %<input id="prc-${cedula}" type="hidden" value="${porcentaje}"></input>`;
