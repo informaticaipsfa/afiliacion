@@ -57,7 +57,7 @@ function verificarPrivilegioUsuario(){
                   $(".prvreporte").removeClass('hide');
                   break;
             case "afiliacion.carnet":
-                if (Usuario.usuario.indexOf("ccs") == 0 || Usuario.usuario == 'administrador' || Usuario.usuario.indexOf("val") == 0 || Usuario.usuario.indexOf("sju") == 0 || Usuario.usuario.indexOf("bol") == 0) {
+                if (Usuario.usuario.indexOf("ccs") == 0 || Usuario.usuario == 'administrador' || Usuario.usuario.indexOf("val") == 0 || Usuario.usuario.indexOf("sju") == 0 || Usuario.usuario.indexOf("bol") == 0 || Usuario.usuario.indexOf("san") == 0 || Usuario.usuario.indexOf("bar") == 0 || Usuario.usuario.indexOf("mar") == 0 || Usuario.usuario.indexOf("bac") == 0) {
                   $(".prvcarnet").attr("disabled",false);
                   $(".prvcarnet").removeClass('hide');
                 }
