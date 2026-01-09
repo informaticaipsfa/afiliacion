@@ -92,7 +92,7 @@ function CConstanciaARC(pos, parentesco){
     var Calc = new WARC();
     Calc.cedula = ObjMilitar.id;
     Calc.cedulafamiliar = cedulafamiliar;
-    Calc.anio = "2024";
+    Calc.anio = "2025";
     
     var ruta = Conn.URL + "pensionado/impimirarc";
     CargarAPI(ruta, "POST", Calc, Calc);
@@ -152,7 +152,7 @@ function HTMLArc(fila, neto, familiar){
         </tr>
     </table >
         <h3>CONSTANCIA AR-C DE PENSIÓN<br>
-            AÑO <b>2024</b>
+            AÑO <b>2025</b>
         </h3>
         <br>
     <table style="width:800px" >
@@ -189,21 +189,47 @@ function HTMLArc(fila, neto, familiar){
     </table>
     <br>
     <table border="0">
-        <tr>
-            <td width="15%" valign="top">
-                <img src="images/selloafiliacion.png" valing="left" width="240px" style="margin-left: -50px;margin-right: -100px">
-            </td>
-            <td width="70%" valign="top">
-                <center><h3>
-                <img style="width: 250px;height: 120px;"  
-                src="images/firmatesorero.png" onerror="this.src='images/ndisponible.jpg'" id="lblimgFirmaPIT"/><br>
-                <label id="lblnombrePI"> MATHEUS LOPEZ FERNANDO </label><BR>
-                <label id="lblgradoPIF"> CORONEL </label><br>
-                TESORERO I.P.S.F.A.
-                </h3><i>               
-            </td>
-            <td width="15%" valign="top"></td>
-          </tr>
+
+          
+
+
+
+
+
+           <tr>
+                <td width="40%" valign="top">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.8rem; width:100%;">
+                        <div class="columna" style="text-align: center; font-size: 12px; flex:1;">
+                            <h3 style="margin:0; line-height: 14px;">
+                                <img style="width: 240px;height: 110px;" src="images/firmatesorero.png" onerror="this.src='images/ndisponible.jpg'" id="lblimgFirmaPIT" /><br>
+                                <label id="lblnombrePI"> JOSUE ISAI SEQUERA OROZCO </label><BR>
+                                <label id="lblgradoPIF"> MAYOR </label><br>
+                                TESORERO I.P.S.F.A.N.B
+                            </h3>
+                        </div>
+                    </div>
+                </td>
+
+                <td width="20%" valign="top">
+                    <img src="images/selloafiliacion.png" valign="center" width="240px" style="margin-left: -100px;margin-right: -100px">
+                </td>
+
+                <td width="40%" valign="top">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.8rem; width:100%;">
+                        <div class="columna" style="text-align: center; font-size: 12px; flex:1;">
+                            <h3 style="margin:0; line-height: 14px;">
+                                <img style="width: 230px;height: 113px;" src="images/firma_digital.png" onerror="this.src='images/ndisponible.jpg'" id="lblimgFirmaPIT" /><br>
+                                <label>CÉSAR AUGUSTO FEBRES CABELLO</label><br>
+                                <label id="lblgradoPIF">GENERAL DE DIVISIÓN</label><br>
+                                PRESIDENTE DE LA JUNTA ADMINISTRADORA I.P.S.F.A.N.B
+                            </h3>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
     </table>
     <br><br>
     </div>
